@@ -1,0 +1,6 @@
+vim/bundle/
+vim/memo/
+*~
+*\.swp
+*\.\#*
+*\#

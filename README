@@ -1,0 +1,7 @@
+mkdir ./vim/memo
+mkdir -p ./vim/bundle/neobundle.vim/
+
+cd ./vim/bundle/neobundle.vim/
+git clone https://github.com/Shougo/neobundle.vim.git
+
+vim -c 'NeoBundleInstall'

@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/hiroshi_ikegami/Dropbox/VIM/vim/bundle/neobundle.vim'
+let g:netrw_dirhist_2='/Users/hiroshi_ikegami/Dropbox/VIM/vim/bundle'
+let g:netrw_dirhist_3='/Users/hiroshi_ikegami/Dropbox/VIM/vim'
+let g:netrw_dirhist_4='/Users/hiroshi_ikegami/Dropbox/VIM/vim/vimrc.d'
+let g:netrw_dirhist_5='/home/ikegami/etc/vimrc/vim/vimrc.d'
+let g:netrw_dirhist_6='/usr/local/apache/dav'
+let g:netrw_dirhist_7='/home/ikegami/etc/vimrc/vim/vimrc.d'
