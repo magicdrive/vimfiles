@@ -1,7 +1,9 @@
 mkdir ./vim/memo
-mkdir -p ./vim/bundle/neobundle.vim/
+mkdir ./vim/bundle/
 
-cd ./vim/bundle/neobundle.vim/
-git clone https://github.com/Shougo/neobundle.vim.git
+git clone https://github.com/Shougo/neobundle.vim.git ./vim/bundle/neobundle.vim
 
 vim -c 'NeoBundleInstall'
+
+cd ./vim/bundle/vimproc/
+make -f hoge
