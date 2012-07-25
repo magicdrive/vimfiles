@@ -448,8 +448,8 @@ nnoremap <Plug>(mykeylite)v :<ESC>:vnew<CR>
 nnoremap <C-w><C-w> <C-w>_
 nnoremap <C-w>w <C-w>_
 
-"# Window大きさ均等化
-nnoremap <C-\> <C-w>=
+"# Window横最大化
+nnoremap <C-\> <C-w>|
 
 "# 縦最大化しつつWindowを移動
 nnoremap <C-j> <C-w>j<C-w>_
@@ -499,10 +499,6 @@ iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
 "}}}1
 
 
-
-
-
-
 "#----------------------------------------------------------#
 "#                                                          #
 "#  yannktmp.vim                                            #
@@ -514,13 +510,5 @@ map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR>
 
 
-
-
-
-
-
-
-
-
-
 "__END__
+
