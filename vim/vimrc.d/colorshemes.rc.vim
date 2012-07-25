@@ -12,30 +12,32 @@ set t_Co=256
 syntax enable
 
 ""set background=light
-colorscheme solarized
-colorscheme default
 
 if has('gui_running')
+    nmap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
+    colorscheme solarized
     set background=dark
 else
+    colorscheme default
     set background=dark
 endif
 
-nmap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
-
+let g:dark=1
 function! ChangeBackground()
-    if &background == 'dark'
+    if g:dark == '1'
         set background=light
+        let g:dark=0
+        colorscheme solarized
         echo 'change backgrount=light'
     else
         set background=dark
+        let g:dark=1
+        colorscheme solarized
         echo 'change backgrount=dark'
     endif
 endfunction
 
-
 let g:solarized_termcolors=256
-
 
 "# ポップアップのカラースキーム変更
 highlight Pmenu ctermfg=Black
