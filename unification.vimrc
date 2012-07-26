@@ -632,7 +632,7 @@ highlight Search ctermbg=DarkGray
 set foldmethod=marker
 set foldtext=FoldCCtext()
 
-nmap <Plug>(mykey)a za
+nmap <Plug>(mykey)o zo
 nmap <Plug>(mykey)c zc
 nmap <Space><Space> za
 
