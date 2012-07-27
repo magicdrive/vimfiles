@@ -1,9 +1,11 @@
+"==========================
+" VIMRC for Vim7.3
+"==========================
+
+"[ ####----------- Vim Basic Settings ------------#### ] {{{1
 
 
-"[ ####----------- Vim Basic Settings -----------#### ]
-
-
-"### Vim基本設定 "{{{1
+"### Vim基本設定 "{{{2
 "mapkeyprefix
 map <Space> <Plug>(mykey)
 map , <Plug>(mykeylite)
@@ -60,27 +62,6 @@ noremap <silent> <C-l> <ESC>
 noremap! <silent> <C-l> <ESC>
 cnoremap <silent> <C-l> <C-c>
 
-"# ステータスライン(vim_powerlineがoffの場合に表示) "{{{2
-set statusline=%F%m%r%h%w\ 
-            \[FORMAT=%{'['.(&fenc!=''?&fenc:'?').'::'.&ff.']'}]\ 
-            \[TYPE=%Y]\ 
-            \[ASCII=\%03.3b]\ 
-            \[HEX=\%02.2B]\ 
-            \[POS=%04l,%04v][%p%%]\ 
-            \[LEN=%L]
-
-"# ステータスラインの色
-hi StatusLine ctermfg=Black ctermbg=DarkGreen cterm=none
-autocmd InsertEnter * :hi StatusLine ctermfg=White ctermbg=Blue
-autocmd InsertLeave * :hi StatusLine ctermfg=Black ctermbg=DarkGreen
-
-"# ESCの遅延防止
-if has('unix') && !has('gui_running')
-    inoremap <silent> <ESC> <ESC>
-    inoremap <silent> <C-[> <ESC>
-endif
-
-"}}}2
 
 "# ヘルプファイル
 helptags $HOME/.vim/doc
@@ -133,8 +114,8 @@ set history=16
 
 "# Explore
 nnoremap <Plug>(mykey)e :edit ./<CR>
-"}}}1
-"### VimL "{{{1
+"}}}2
+"### VimL "{{{2
 
 command! -nargs=0 SA :call VimLRun()
 command! -nargs=0 SU :call VimrcReload()
@@ -160,7 +141,7 @@ endif
 nmap <Plug>(mykey)v :VimrcEdit<CR>
 
 "}}}i1
-"### NeoBundle.vimプラグイン管理{{{1
+"### NeoBundle.vimプラグイン管理{{{2
 
 filetype off
 
@@ -322,8 +303,101 @@ filetype indent on
 
 
 
-"}}}1
-"### Line表示の設定 "{{{1
+"}}}2
+"### エンコーディングの設定 "{{{2
+
+
+"Encoding 
+set enc=utf-8 
+set fenc=utf-8 
+set fencs=utf-8,iso-2022-jp,cp932,euc-jp,sjis
+
+if isdirectory($HOME . '/.vim')
+    let s:CFGHOME=$HOME.'/.vim'
+elseif isdirectory($HOME . '/vimfiles')
+    let s:CFGHOME=$HOME.'/vimfiles'
+elseif isdirectory($VIM . '/vimfiles')
+    let s:CFGHOME=$VIM.'/vimfiles'
+endif
+      
+if &encoding !=# 'utf-8'
+  set encoding=japan
+  set fileencoding=japan
+endif
+if has('iconv')
+  let s:enc_euc = 'euc-jp'
+  let s:enc_jis = 'iso-2022-jp'
+  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'eucjp-ms'
+    let s:enc_jis = 'iso-2022-jp-3'
+  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+    let s:enc_euc = 'euc-jisx0213'
+    let s:enc_jis = 'iso-2022-jp-3'
+  endif
+  if &encoding ==# 'utf-8'
+    let s:fileencodings_default = &fileencodings
+    if has('mac')
+      let &fileencodings = s:enc_jis .','. s:enc_euc
+      let &fileencodings = &fileencodings .','. s:fileencodings_default
+    else
+      let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+      let &fileencodings = &fileencodings .','. s:fileencodings_default
+    endif
+    unlet s:fileencodings_default
+  else
+    let &fileencodings = &fileencodings .','. s:enc_jis
+    set fileencodings+=utf-8,ucs-2le,ucs-2
+    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+      set fileencodings+=cp932
+      set fileencodings-=euc-jp
+      set fileencodings-=euc-jisx0213
+      set fileencodings-=eucjp-ms
+      let &encoding = s:enc_euc
+      let &fileencoding = s:enc_euc
+    else
+      let &fileencodings = &fileencodings .','. s:enc_euc
+    endif
+  endif
+  unlet s:enc_euc
+  unlet s:enc_jis
+endif
+
+
+"utf-8優先にする
+if &encoding == 'utf-8'
+  if filereadable(s:CFGHOME . '/utf-8')
+    let &fileencodings = substitute(&fileencodings, 'utf-8', '_utf-8', 'g')
+    let &fileencodings = substitute(&fileencodings, 'cp932', 'utf-8', 'g')
+    let &fileencodings = substitute(&fileencodings, '_utf-8', 'cp932', 'g')
+  endif
+endif
+
+unlet s:CFGHOME
+let vimrc_set_encoding = 1
+
+" 改行コードの自動認識
+"set fileformats=dos,unix,mac
+
+if exists("loaded_ReCheckFENC")
+  finish
+endif
+let loaded_ReCheckFENC = 1
+
+" 日本語を含まない場合は fileencoding に encoding を使うようにする
+if has('autocmd')
+  function! AU_ReCheck_FENC()
+    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+      let &fileencoding=&encoding
+      if s:MSWindows
+        let &fileencoding='cp932'
+      endif
+    endif
+  endfunction
+  autocmd BufReadPost * call AU_ReCheck_FENC()
+endif
+
+"}}}2
+"### LineNumber表示の設定 "{{{2
 
 "# LineNumberのトグル
 nnoremap <silent> <Plug>(mykeylite)n :<C-u>call ToggleNumber()<CR>
@@ -337,8 +411,8 @@ function! ToggleNumber()
     setlocal number!
 endfunction
 
-"}}}1
-"### mouse modeの設定 "{{{1
+"}}}2
+"### mouse modeの設定 "{{{2
 
 "# マウスモードの有効
 "set mouse=a
@@ -359,8 +433,8 @@ function! ToggleMouseMode()
     endif
 endfunction
 
-"}}}1
-"### backup,swapfileの設定 "{{{1
+"}}}2
+"### backup,swapfileの設定 "{{{2
 
 "# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
 let g:backupfile_save_dir="$HOME/.vim-backup"
@@ -376,8 +450,8 @@ else
     set noswapfile
 endif
 
-"}}}1
-"### vim7以降:tabの設定 "{{{1
+"}}}2
+"### Tab機能の設定 "{{{2
 
 nnoremap <Leader>t <C-t>
 
@@ -388,8 +462,8 @@ nnoremap <Plug>(mykey)t :tabf .<CR>
 nnoremap TN gT
 nnoremap TP gt
 
-"}}}1
-"### 検索設定 "{{{1
+"}}}2
+"### 検索設定 "{{{2
 
 "# 検索に大文字を含んでいたら大小区別
 set ignorecase
@@ -411,8 +485,8 @@ if has('migemo')
     set migemo
 endif
 
-"}}}1
-"### Emacs風keybindの設定 "{{{1
+"}}}2
+"### Emacs風keybindの設定 "{{{2
 
 "# カーソルキーで行末／行頭の移動可能に設定
 set whichwrap=b,s,[,],<,>
@@ -436,8 +510,8 @@ inoremap <C-k> <ESC>2<LEFT>D:!start<CR>
 inoremap <C-a> <ESC>^<Insert>
 inoremap <C-e> <ESC>$<Insert>
 
-"}}}1
-"### インデント関連の設定 "{{{1
+"}}}2
+"### インデント関連の設定 "{{{2
 
 "# インデント
 set autoindent
@@ -456,16 +530,8 @@ set shiftwidth=4
 "# {}をインデントして入力
 inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 
-"}}}1
-"### エンコーディングの設定 "{{{1
-
-"Encoding 
-set enc=utf-8 
-set fenc=utf-8 
-set fencs=utf-8,iso-2022-jp,cp932,euc-jp,sjis
-
-"}}}1
-"### 言語別アシスタンス設定 "{{{1
+"}}}2
+"### 言語別アシスタンス設定 "{{{2
 "辞書ファイルを使用する設定に変更
 set complete+=k
 
@@ -483,8 +549,8 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 
 "CF用コメントハイライト有効
 :let html_wrong_comments=1
-"}}}1
-"### Perlコーディング補助設定 "{{{1
+"}}}2
+"### Perlコーディング補助設定 "{{{2
 "# コンパイラをperlに設定
 autocmd FileType perl :compiler perl
 
@@ -500,15 +566,15 @@ autocmd FileType perl nnoremap <F5> :!perl %<CR>
 
 "# perl モジュールの補完設定
 autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
-"}}}1
-"### ファイルタイプ判定 "{{{1
+"}}}2
+"### ファイルタイプ判定 "{{{2
 autocmd BufNewFile,BufRead *.as set filetype=actionscript
 autocmd BufNewFile,BufRead *.mxml set filetype=mxml
 autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
-"}}}1
-"### コメントアウト用mapの設定 "{{{1
+"}}}2
+"### コメントアウト用mapの設定 "{{{2
 "lhs comments
 map ,# :s/^/#/<CR>
 map ,/ :s/^/\/\//<CR>
@@ -525,12 +591,14 @@ map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>
 map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>
 map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>
 map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR> 
-"}}}1
-"### Window関連の設定 "{{{1
+"}}}2
+"### Window関連の設定 "{{{2
+
+
 "# Window横分割
-nnoremap <Plug>(mykeylite)w :<ESC>:new<CR>
+nnoremap <Plug>(mykeylite)w :<ESC>:split<CR>
 "# Window縦分割
-nnoremap <Plug>(mykeylite)v :<ESC>:vnew<CR>
+nnoremap <Plug>(mykeylite)v :<ESC>:vsplit<CR>
 
 "# カレントWindow縦最大化
 nnoremap <C-w><C-w> <C-w>_
@@ -552,8 +620,12 @@ nnoremap <C-w>n <C-w>j
 nnoremap <C-w>p <C-w>k
 nnoremap <C-w>b <C-w>h
 nnoremap <C-w>f <C-w>l
-"}}}1
-"### AutoBufferの設定 "{{{1
+
+
+"}}}2
+"### AutoBufferの設定 "{{{2
+
+
 iab YDT <C-R>=strftime("%Y-%m-%d %T")<CR>
 iab PSIMPLE <ESC>:r ~/.vim/tmpl/perl_simple.pl<CR>
 iab PMODULE <ESC>:r ~/.vim/tmpl/perl_module.pl<CR>
@@ -577,8 +649,11 @@ iab javasc javascript
 iab concate concatenate
 iab Pdumper use Data::Dumper; warn Dumper 
 iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
-"}}}1
-"### colorschemeの設定 "{{{1
+
+
+"}}}2
+"### colorschemeの設定 "{{{2
+
 
 "# xterm-256color
 set t_Co=256
@@ -628,8 +703,10 @@ function! MyColor()
 endfunction
 call MyColor()
 
-"}}}1
-"### foldingの設定 {{{1
+
+"}}}2
+"### foldingの設定 {{{2
+
 
 "# difine foldmethod
 set foldmethod=marker
@@ -639,12 +716,39 @@ nmap <Plug>(mykey)o zo
 nmap <Plug>(mykey)c zc
 nmap <Space><Space> za
 
-"}}}1
 
-"[ ####----------- Vim Plugin Settings -----------#### ]
+"}}}2
+"### StatusLine (vim_powerlineがoffの場合に表示) "{{{2
 
 
-"### unite.vim {{{1
+set statusline=%F%m%r%h%w\ 
+            \[FORMAT=%{'['.(&fenc!=''?&fenc:'?').'::'.&ff.']'}]\ 
+            \[TYPE=%Y]\ 
+            \[ASCII=\%03.3b]\ 
+            \[HEX=\%02.2B]\ 
+            \[POS=%04l,%04v][%p%%]\ 
+            \[LEN=%L]
+
+"# ステータスラインの色
+hi StatusLine ctermfg=Black ctermbg=DarkGreen cterm=none
+autocmd InsertEnter * :hi StatusLine ctermfg=White ctermbg=Blue
+autocmd InsertLeave * :hi StatusLine ctermfg=Black ctermbg=DarkGreen
+
+"# ESCの遅延防止
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
+
+"}}}2
+
+
+"[ ####----------- END of Vim Basic Settings ------------#### ] }}}1
+"[ ####----------- Vim Plugin Settings -----------#### ] {{{1
+
+
+"### unite.vim {{{2
+
 
 "# File and Buffer
 " 分割しないでuniteのbufferを表示する
@@ -668,8 +772,10 @@ nnoremap <silent> <Plug>(mykey)ns  :<C-u>Unite -no-split neobundle/search<CR>
 nnoremap <silent> <Plug>(mykey)rp :<C-u> Unite ref/perldoc<CR>
 nnoremap <silent> <Plug>(mykey)rm :<C-u> Unite ref/man<CR>
 
-"}}}1
-"### vimshell {{{1
+
+"}}}2
+"### vimshell {{{2
+
 
 "# VimShellを新規Windowで立ち上げる
 command! Shell call Shell()
@@ -687,16 +793,20 @@ function! ShellSplit()
     call Shell()
 endfunction
 
-"}}}1
-"### vimfiler {{{1
+
+"}}}2
+"### vimfiler {{{2
+
 
 nnoremap <Plug>(mykey)f :VimFilerCurrent<CR>
 
 "# vimfilerをデフォルトのexplorerと置き換えるか
 let g:vimfiler_as_default_explorer=1
 
-"}}}1
-"### memolist.vim {{{1
+
+"}}}2
+"### memolist.vim {{{2
+
 
 let g:memolist_memo_suffix="txt"
 let g:memolist_memo_date="%Y-%m-%d %H:%M"
@@ -714,20 +824,27 @@ nnoremap mn  :MemoNew<CR>
 nnoremap ml  :MemoList<CR>
 nnoremap mg  :MemoGrep<CR>
 
-"}}}1
-"### yannktmp.vim "{{{1
+
+"}}}2
+"### yannktmp.vim "{{{2
+
 
 map <silent> sy :call YanktmpYank()<CR>
 map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR>
 
-"}}}1
-"### Align.vim {{{1
+
+"}}}2
+"### Align.vim {{{2
+
 
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
-"}}}1
-"### neocomplcache {{{1
+
+
+"}}}2
+"### neocomplcache {{{2
+
 
 "# Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -757,41 +874,73 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 
 "# NeoCompleCacheToggle
-"nnoremap ,t :NeoComplCacheToggle<CR>
-"}}}1
-"### errormarker.vim {{{1
+nmap <Plug>(mykey)t :NeoComplCacheToggle<CR>
+
+
+"}}}2
+"### errormarker.vim {{{2
+
 
 let g:errormarker_errortext='!!'
 let g:errormarker_errorgroup='Error'
 let g:errormarker_warningtext='??'
 let g:errormarker_warninggroup='Warning'
 
-"}}}1
-"### Ref.vim {{{1
+
+"}}}2
+"### Ref.vim {{{2
+
+
 let g:ref_open="vsplit"
 
-" ref-perldoc
-command! -nargs=1 -complete=customlist,ref-complete Perldoc call ref#open('perldoc', '<args>')
+" ref-manpage
+command! -nargs=1  Manpage call ref#open('man', '<args>')
+command! -nargs=0  Manpage call ManpageRef()
 
-"}}}1
-"### Vim-Powerline {{{1
+function! ManpageRef()
+    vsplit 
+    Unite ref/man
+endfunction
+
+" ref-perldoc
+command! -nargs=1  Perldoc call ref#open('perldoc', '<args>')
+command! -nargs=0  Perldoc call PerldocRef()
+
+function! PerldocRef()
+    vsplit 
+    Unite ref/perldoc
+endfunction
+
+
+"}}}2
+"### Vim-Powerline {{{2
+
 
 let g:Powerline_symbols = 'fancy'
 "let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
-"}}}1
 
 
-"[ ####-------------- GVim Settings --------------#### ]
+"}}}2
 
 
-"### gvimの設定 {{{1
+"
+"[ ####----------- END of Vim Plugin Settings -----------#### ] }}}1
+"[ ####-------------- GVim Settings --------------#### ] {{{1
+
+
+"### gvimの設定 {{{2
+
 
 autocmd GUIEnter * call MyGUISetting()
 
+
 if has("gui_running") && has('vim_starting')
+
+
     "# インサートモード以外でIMEをオフ
     set iminsert
+
 
     function MyGUISetting ()
         "カラースキーマの設定
@@ -803,7 +952,6 @@ if has("gui_running") && has('vim_starting')
             highlight Cursor guifg=NONE guibg=Green
             highlight CursorIM guifg=NONE guibg=Purple
         endif
-
 
         "# 列番号表示をDefault
         set number
@@ -843,9 +991,13 @@ if has("gui_running") && has('vim_starting')
             endfunction
         augroup END
     endfunction
+
 endif
 
-"}}}1
 
+"}}}2
+
+
+"[ ####-------------- END of GVim Settings --------------#### ] }}}1
 
 "__END__
