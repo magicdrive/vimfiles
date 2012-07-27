@@ -143,6 +143,7 @@ nmap <Plug>(mykey)v :VimrcEdit<CR>
 "}}}i1
 "### NeoBundle.vimプラグイン管理{{{2
 
+
 filetype off
 
 if has('vim_starting')
@@ -184,6 +185,9 @@ NeoBundle 'Shougo/neocomplcache'
 
 "# cocoa.vim
 NeoBundle 'cocoa.vim'
+
+"# scrach.vim
+NeoBundle 'scratch.vim'
 
 "# javacomplete.vim
 NeoBundle 'javacomplete'
@@ -297,10 +301,6 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 filetype plugin on
 filetype indent on
-
-
-
-
 
 
 "}}}2
