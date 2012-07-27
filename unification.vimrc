@@ -6,7 +6,9 @@
 
 
 "### Vim基本設定 "{{{2
-"mapkeyprefix
+
+
+"# mapkeyprefix
 map <Space> <Plug>(mykey)
 map , <Plug>(mykeylite)
 
@@ -114,6 +116,8 @@ set history=16
 
 "# Explore
 nnoremap <Plug>(mykey)e :edit ./<CR>
+
+
 "}}}2
 "### VimL "{{{2
 
@@ -186,14 +190,14 @@ NeoBundle 'Shougo/neocomplcache'
 "# cocoa.vim
 NeoBundle 'cocoa.vim'
 
-"# scrach.vim
-NeoBundle 'scratch.vim'
-
 "# javacomplete.vim
 NeoBundle 'javacomplete'
 
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
+
+"# scratch.vim
+NeoBundle 'scratch.vim'
 
 "# snipmate
 NeoBundle 'msanders/snipmate.vim'
@@ -324,6 +328,7 @@ if &encoding !=# 'utf-8'
   set encoding=japan
   set fileencoding=japan
 endif
+
 if has('iconv')
   let s:enc_euc = 'euc-jp'
   let s:enc_jis = 'iso-2022-jp'
@@ -388,7 +393,7 @@ if has('autocmd')
   function! AU_ReCheck_FENC()
     if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
       let &fileencoding=&encoding
-      if s:MSWindows
+      if has('win16') || has('win32') || has('win64') || has('win32unix') || has('win95')
         let &fileencoding='cp932'
       endif
     endif
