@@ -1,6 +1,6 @@
 
 
-"####-----------Vim Basic Settings-----------####
+"[ ####----------- Vim Basic Settings -----------#### ]
 
 
 "### Vim基本設定 "{{{1
@@ -614,16 +614,19 @@ endfunction
 
 let g:solarized_termcolors=256
 
-"# ポップアップのカラースキーム変更
-highlight Pmenu ctermfg=Black
-highlight PmenuSel ctermbg=DarkMagenta
-highlight PmenuSel ctermfg=White
+function! MyColor()
+    "# ポップアップのカラースキーム変更
+    highlight Pmenu ctermfg=Black
+    highlight PmenuSel ctermbg=DarkMagenta
+    highlight PmenuSel ctermfg=White
 
-highlight Folded gui=bold term=standout ctermbg=DarkYellow ctermfg=LightGray guibg=Grey30 guifg=Grey80
-highlight FoldColumn gui=bold term=standout ctermbg=DarkYellow ctermfg=LightGray guibg=Grey guifg=DarkBlue
+    highlight Folded gui=bold term=standout ctermbg=DarkYellow ctermfg=LightGray guibg=Grey30 guifg=Grey80
+    highlight FoldColumn gui=bold term=standout ctermbg=DarkYellow ctermfg=LightGray guibg=Grey guifg=DarkBlue
 
-"# 検索結果のカラースキーム変更
-highlight Search ctermbg=DarkGray
+    "# 検索結果のカラースキーム変更
+    highlight Search ctermbg=DarkGray
+endfunction
+call MyColor()
 
 "}}}1
 "### foldingの設定 {{{1
@@ -638,8 +641,7 @@ nmap <Space><Space> za
 
 "}}}1
 
-
-"####-----------Vim Plugin Settings-----------####
+"[ ####----------- Vim Plugin Settings -----------#### ]
 
 
 "### unite.vim {{{1
@@ -772,22 +774,22 @@ let g:ref_open="vsplit"
 command! -nargs=1 -complete=customlist,ref-complete Perldoc call ref#open('perldoc', '<args>')
 
 "}}}1
-"### Vim-Poerline {{{1
+"### Vim-Powerline {{{1
 
 let g:Powerline_symbols = 'fancy'
 "let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
-
 "}}}1
 
 
-"####-----------GVim Settings-----------####
+"[ ####-------------- GVim Settings --------------#### ]
 
 
 "### gvimの設定 {{{1
 
 autocmd GUIEnter * call MyGUISetting()
-if has("gui_running")
+
+if has("gui_running") && has('vim_starting')
     "# インサートモード以外でIMEをオフ
     set iminsert
 
@@ -795,6 +797,7 @@ if has("gui_running")
         "カラースキーマの設定
         colorscheme solarized
         set background=dark
+        call MyColor()
 
         if has('multi_byte_ime')
             highlight Cursor guifg=NONE guibg=Green
