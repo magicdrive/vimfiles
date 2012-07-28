@@ -556,6 +556,8 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 :let html_wrong_comments=1
 "}}}2
 "### Perlコーディング補助設定 "{{{2
+
+
 "# コンパイラをperlに設定
 autocmd FileType perl :compiler perl
 
@@ -571,6 +573,8 @@ autocmd FileType perl nnoremap <F5> :!perl %<CR>
 
 "# perl モジュールの補完設定
 autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
+
+
 "}}}2
 "### ファイルタイプ判定 "{{{2
 autocmd BufNewFile,BufRead *.as set filetype=actionscript
@@ -666,8 +670,6 @@ set t_Co=256
 "# カラースキーマ
 syntax enable
 
-""set background=light
-
 if has('gui_running')
     nmap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
     colorscheme solarized
@@ -706,6 +708,7 @@ function! MyColor()
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=DarkGray
 endfunction
+
 call MyColor()
 
 
@@ -899,21 +902,15 @@ let g:errormarker_warninggroup='Warning'
 let g:ref_open="vsplit"
 
 " ref-manpage
-command! -nargs=1  Manpage call ref#open('man', '<args>')
-command! -nargs=0  Manpage call ManpageRef()
-
-function! ManpageRef()
-    vsplit 
-    Unite ref/man
+command! -nargs=0  Manpage call ManpageRef('<args>')
+function! ManpageRef(man_str)
+        call ref#open('man', a:man_str)
 endfunction
 
 " ref-perldoc
-command! -nargs=1  Perldoc call ref#open('perldoc', '<args>')
-command! -nargs=0  Perldoc call PerldocRef()
-
-function! PerldocRef()
-    vsplit 
-    Unite ref/perldoc
+command! -nargs=?  Perldoc call PerldocRef('<args>')
+function! PerldocRef(module_str)
+        call ref#open('perldoc', a:module_str)
 endfunction
 
 
@@ -929,7 +926,7 @@ let g:Powerline_symbols = 'fancy'
 "}}}2
 
 
-"
+
 "[ ####----------- END of Vim Plugin Settings -----------#### ] }}}1
 "[ ####-------------- GVim Settings --------------#### ] {{{1
 
