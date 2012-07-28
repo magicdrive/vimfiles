@@ -171,6 +171,9 @@ NeoBundle 'Shougo/neobundle.vim'
 "# Unite.vim
 NeoBundle 'Shougo/unite.vim'
 
+"# Unite.vim
+NeoBundle 'Shougo/unite-ssh'
+
 "# vimfiler
 NeoBundle 'Shougo/vimfiler'
 
