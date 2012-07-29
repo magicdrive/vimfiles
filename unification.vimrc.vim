@@ -725,7 +725,7 @@ set foldtext=FoldCCtext()
 
 nmap <Plug>(mykey)o zo
 nmap <Plug>(mykey)c zc
-nmap <Space><Space> za
+nmap <Plug>(mykey)a za 
 
 
 "}}}2
@@ -754,7 +754,7 @@ endif
 "}}}2
 
 
-"[ ####----------- END of Vim Basic Settings ------------#### ] }}}1
+" }}}1
 "[ ####----------- Vim Plugin Settings -----------#### ] {{{1
 
 
@@ -885,7 +885,7 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 
 "# NeoCompleCacheToggle
-nmap <Plug>(mykey)t :NeoComplCacheToggle<CR>
+nmap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 
 
 "}}}2
@@ -905,16 +905,10 @@ let g:errormarker_warninggroup='Warning'
 let g:ref_open="vsplit"
 
 " ref-manpage
-command! -nargs=0  Manpage call ManpageRef('<args>')
-function! ManpageRef(man_str)
-        call ref#open('man', a:man_str)
-endfunction
+command! -nargs=?  Manpage call ref#open('man', '<args>')
 
 " ref-perldoc
-command! -nargs=?  Perldoc call PerldocRef('<args>')
-function! PerldocRef(module_str)
-        call ref#open('perldoc', a:module_str)
-endfunction
+command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
 
 
 "}}}2
@@ -927,10 +921,23 @@ let g:Powerline_symbols = 'fancy'
 
 
 "}}}2
+"### EasyMotion {{{2
 
 
+let g:EasyMotion_leader_key = "<Shift><Shift>"
 
-"[ ####----------- END of Vim Plugin Settings -----------#### ] }}}1
+
+"}}}2
+"### W3m.vim {{{2
+
+
+command! -nargs=1 Alc W3m alc '<args>'
+
+
+"}}}2
+
+
+" }}}1
 "[ ####-------------- GVim Settings --------------#### ] {{{1
 
 
@@ -986,6 +993,7 @@ if has("gui_running") && has('vim_starting')
         augroup SaveWindow
             autocmd!
             autocmd VimLeavePre * call s:save_window()
+            autocmd BufLeave * call s:save_window()
             function! s:save_window()
                 let options = [
                             \ 'set columns=' . &columns,
@@ -1000,9 +1008,14 @@ if has("gui_running") && has('vim_starting')
 endif
 
 
+if has('gui_running')
+    "# GUISettingのLoad
+    call MyGUISetting()
+endif
+
 "}}}2
 
 
-"[ ####-------------- END of GVim Settings --------------#### ] }}}1
+" }}}1
 
 "__END__
