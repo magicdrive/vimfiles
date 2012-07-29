@@ -199,6 +199,9 @@ NeoBundle 'javacomplete'
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
+"# zencoding
+NeoBundle 'mattn/zencoding-vim'
+
 "# scratch.vim
 NeoBundle 'scratch.vim'
 
@@ -216,9 +219,6 @@ NeoBundle 'basyura/TweetVim'
 
 "# nerdcommenter
 NeoBundle 'scrooloose/nerdcommenter.git'
-
-"# vim-flymake
-NeoBundle 'kana/vim-flymake'
 
 "# errormarker.vim
 NeoBundle 'errormarker.vim'
@@ -725,7 +725,7 @@ set foldtext=FoldCCtext()
 
 nmap <Plug>(mykey)o zo
 nmap <Plug>(mykey)c zc
-nmap <Plug>(mykey)a za 
+nmap <Space><Space> za 
 
 
 "}}}2
@@ -924,14 +924,17 @@ let g:Powerline_symbols = 'fancy'
 "### EasyMotion {{{2
 
 
-let g:EasyMotion_leader_key = "<Shift><Shift>"
+noremap <C-f> <Nop>
+let g:EasyMotion_leader_key = "<C-f>"
 
 
 "}}}2
 "### W3m.vim {{{2
 
 
-command! -nargs=1 Alc W3m alc '<args>'
+command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, 'alc', '<args>')
+command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, 'alc', '<args>')
+    
 
 
 "}}}2
