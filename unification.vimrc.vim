@@ -464,7 +464,7 @@ endif
 nnoremap <Leader>t <C-t>
 
 "# create new tab
-nnoremap <Plug>(mykey)t :tabf .<CR>
+nnoremap <Plug>(mykeylite)t :tabf .<CR>
 
 "# move preview/next tab
 nnoremap TN gT
@@ -758,7 +758,7 @@ endif
 "[ ####----------- Vim Plugin Settings -----------#### ] {{{1
 
 
-"### unite.vim {{{2
+"### Unite.vim {{{2
 
 
 "# File and Buffer
@@ -776,12 +776,17 @@ nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
 " ファイル一覧
 nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -buffer-name=files file<CR>
 
+"# neobundle+unite
 nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
 nnoremap <silent> <Plug>(mykey)nn  :<C-u>Unite -no-split neobundle<CR>
 nnoremap <silent> <Plug>(mykey)ns  :<C-u>Unite -no-split neobundle/search<CR>
 
-nnoremap <silent> <Plug>(mykey)rp :<C-u> Unite ref/perldoc<CR>
-nnoremap <silent> <Plug>(mykey)rm :<C-u> Unite ref/man<CR>
+"# ref+unite
+nnoremap <silent> <Plug>(mykey)Rp :<C-u> Unite ref/perldoc<CR>
+nnoremap <silent> <Plug>(mykey)Rm :<C-u> Unite ref/man<CR>
+
+"# tweetvim+unite
+nnoremap <silent> <Plug>(mykey)t :<C-u> Unite tweetvim<CR>
 
 
 "}}}2
@@ -885,7 +890,7 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 
 "# NeoCompleCacheToggle
-nmap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
+"nmap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 
 
 "}}}2
