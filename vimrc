@@ -5,7 +5,7 @@
 "[ ####----------- Vim Basic Settings ------------#### ] {{{1
 
 
-"### Vim基本設定 "{{{2
+"### Vim option "{{{2
 
 
 "# mapkeyprefix
@@ -49,12 +49,12 @@ set ttyfast
 filetype plugin indent on
 filetype plugin on
 
-
 "# command modeへの切り替え
 noremap ; :
 
-vnoremap <Plug>(mykey)s :s///<LEFT><LEFT>
-nnoremap <Plug>(mykey)s :%s///<LEFT><LEFT>
+"# substitution
+vnoremap <C-s> :s///<LEFT><LEFT>
+nnoremap <C-s> :%s///<LEFT><LEFT>
 
 "# <ESC>のマッピング
 noremap <silent> <C-@> <ESC>
@@ -67,6 +67,7 @@ cnoremap <silent> <C-l> <C-c>
 
 "# ヘルプファイル
 helptags $HOME/.vim/doc
+
 "# 日本語のHelpFileを開く
 set helplang=ja
 nmap <C-h> :<C-u>help<Space>
@@ -121,10 +122,11 @@ nnoremap <Plug>(mykey)e :edit ./<CR>
 "}}}2
 "### VimL "{{{2
 
-command! -nargs=0 SA :call VimLRun()
+command! -nargs=0 SL :call VimLRun()
 command! -nargs=0 SU :call VimrcReload()
-command! -nargs=0 VimrcEdit edit $MYVIMRC
-command! -nargs=0 VE VimrcEdit 
+command! -nargs=0 VimrcEdit :edit $MYVIMRC
+command! -nargs=0 VE :VimrcEdit 
+command! -nargs=0 E :edit!
 
 if has('vim_starting')
 
@@ -924,6 +926,11 @@ let g:Powerline_symbols = 'fancy'
 "let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
 
+"# ESCの遅延防止
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
 
 "}}}2
 "### EasyMotion {{{2
@@ -937,8 +944,12 @@ let g:EasyMotion_leader_key = "<C-f>"
 "### W3m.vim {{{2
 
 
+let g:w3m_alc='alc'
 command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, 'alc', '<args>')
 command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, 'alc', '<args>')
+let g:w3m_wikipedia='wikipedia'
+command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
+command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
     
 
 
