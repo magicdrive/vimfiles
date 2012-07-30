@@ -483,9 +483,9 @@ set smartcase
 set hlsearch
 
 "# 検索ハイライト消去
-nnoremap <ESC><ESC> :nohl<CR>
-nnoremap <C-l><C-l> :nohl<CR>
-nnoremap <C-c><C-c> :nohl<CR>
+nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <C-l><C-l> :nohlsearch<CR>
+nnoremap <C-c><C-c> :nohlsearch<CR>
 
 "# 検索時にインクリメンタルサーチを行う
 set incsearch
@@ -906,19 +906,6 @@ let g:errormarker_warninggroup='Warning'
 
 
 "}}}2
-"### Ref.vim {{{2
-
-
-let g:ref_open="vsplit"
-
-" ref-manpage
-command! -nargs=?  Manpage call ref#open('man', '<args>')
-
-" ref-perldoc
-command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
-
-
-"}}}2
 "### Vim-Powerline {{{2
 
 
@@ -945,13 +932,43 @@ let g:EasyMotion_leader_key = "<C-f>"
 
 
 let g:w3m_alc='alc'
-command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, 'alc', '<args>')
-command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, 'alc', '<args>')
+command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
+command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
 let g:w3m_wikipedia='wikipedia'
 command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
 command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
     
 
+"}}}2
+"### Ref.vim {{{2
+
+
+let g:ref_open="vsplit"
+
+" ref-manpage
+command! -nargs=?  Manpage call ref#open('man', '<args>')
+
+" ref-perldoc
+command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
+
+
+"}}}2
+"### MultipulSearch.vim {{{2
+
+
+"# 検索の置き換え
+nnoremap ? :Search<Space>
+vnoremap ? :Search<Space>
+
+
+"# 検索ハイライト消去
+nnoremap <silent> mm :<C-u>call SearchHighlightOff()<CR> 
+
+function! SearchHighlightOff ()
+    if exists(":SearchReset")
+        SearchReset
+    endif
+endfunction
 
 "}}}2
 
