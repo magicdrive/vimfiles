@@ -5,7 +5,7 @@
 "[ ####----------- Vim Basic Settings ------------#### ] {{{1
 
 
-"### Vim option "{{{2
+"### Vim Option "{{{2
 
 
 "# mapkeyprefix
@@ -117,172 +117,6 @@ set history=16
 
 "# Explore
 nnoremap <Plug>(mykey)e :edit ./<CR>
-
-
-"}}}2
-"### NeoBundle.vimプラグイン管理{{{2
-
-
-filetype off
-
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-    call neobundle#rc(expand('~/.vim/bundle'))
-endif
-
-"#------------------------------------#
-"#                                    #
-"#     NeoBundleで管理するPlug-in     #
-"#                                    #
-"#------------------------------------#
-
-"#---------------------------#
-"# Vim utility extended      #
-"#---------------------------#
-
-"# neobundle 本体
-NeoBundle 'Shougo/neobundle.vim'
-
-"# Unite.vim
-NeoBundle 'Shougo/unite.vim'
-
-"# Unite.vim
-NeoBundle 'Shougo/unite-ssh'
-
-"# vimfiler
-NeoBundle 'Shougo/vimfiler'
-
-"# vimproc
-NeoBundle 'Shougo/vimproc'
-
-"# vimshell
-NeoBundle 'Shougo/vimshell'
-
-"#---------------------------#
-"# programing suport plug-in #
-"#---------------------------#
-
-"# neocomplcache
-NeoBundle 'Shougo/neocomplcache'
-
-"# cocoa.vim
-NeoBundle 'cocoa.vim'
-
-"# javacomplete.vim
-NeoBundle 'javacomplete'
-
-"# javascript
-NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
-
-"# zencoding
-NeoBundle 'mattn/zencoding-vim'
-
-"# scratch.vim
-NeoBundle 'scratch.vim'
-
-"# snipmate
-NeoBundle 'msanders/snipmate.vim'
-
-"# open-browser.vim
-NeoBundle 'tyru/open-browser.vim'
-
-"# twibill.vim
-NeoBundle 'basyura/twibill.vim'
-
-"# tweetvim
-NeoBundle 'basyura/TweetVim'
-
-"# nerdcommenter
-NeoBundle 'scrooloose/nerdcommenter.git'
-
-"# errormarker.vim
-NeoBundle 'errormarker.vim'
-
-"# vimpager
-NeoBundle 'vimpager'
-
-"# Align
-NeoBundle 'Align'
-
-"# surround.vim
-NeoBundle 'surround.vim'
-
-"# visualstar.vim
-NeoBundle 'thinca/vim-visualstar'
-
-"# vim-easymotion
-NeoBundle 'Lokaltog/vim-easymotion'
-
-"# vim-abolish
-NeoBundle 'tpope/vim-abolish'
-
-"# foldCC
-NeoBundle 'LeafCage/foldCC'
-
-"#-----------------------#
-"# vim-tools             #
-"#-----------------------#
-
-"# vinarise
-NeoBundle 'Shougo/vinarise'
-
-"# vdbi-vim
-NeoBundle 'mattn/vdbi-vim'
-
-"# vim-ref
-NeoBundle 'thinca/vim-ref'
-
-"# MultipleSearch
-NeoBundle 'MultipleSearch'
-
-"# quickrun
-NeoBundle 'thinca/vim-quickrun'
-
-"# memolist.vim
-NeoBundle 'glidenote/memolist.vim'
-
-"# sudo.vim
-NeoBundle 'sudo.vim'
-
-"# webapi-vim
-NeoBundle 'mattn/webapi-vim'
-
-"# git.vim
-NeoBundle 'motemen/git-vim'
-
-"# gist.vim
-NeoBundle 'mattn/gist-vim'
-
-"# localrc.vim
-NeoBundle 'thinca/vim-localrc'
-
-"# calender.vim
-NeoBundle 'mattn/calendar-vim'
-
-"# w3m.vim
-NeoBundle 'yuratomo/w3m.vim'
-
-"# Chalice.vim
-NeoBundle 'koron/chalice'
-
-"# yamktmp.vim
-NeoBundle 'yanktmp.vim'
-
-"#-------------------#
-"# 256color plug-in  #
-"#-------------------#
-
-"# vim-powerline (256color statusline only xterm-256color)
-NeoBundle 'Lokaltog/vim-powerline.git'
-
-"# vim-guicolorscheme(enable 256colorscheme)
-NeoBundle 'thinca/vim-guicolorscheme'
-
-"# colorscheme/solarized
-NeoBundle 'altercation/vim-colors-solarized'
-
-filetype plugin on
-filetype indent on
 
 
 "}}}2
@@ -582,11 +416,15 @@ autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
 
 "}}}2
 "### ファイルタイプ判定 "{{{2
+
+
 autocmd BufNewFile,BufRead *.as set filetype=actionscript
 autocmd BufNewFile,BufRead *.mxml set filetype=mxml
 autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
+
+
 "}}}2
 "### コメントアウト用mapの設定 "{{{2
 "lhs comments
@@ -760,6 +598,172 @@ endif
 "[ ####----------- Vim Plugin Settings -----------#### ] {{{1
 
 
+"### neobundle.vim{{{2
+
+
+filetype off
+
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    call neobundle#rc( expand('~/.vim/bundle/') )
+endif
+
+"#------------------------------------#
+"#                                    #
+"#     NeoBundleで管理するPlug-in     #
+"#                                    #
+"#------------------------------------#
+
+"#---------------------------#
+"# Vim utility extended      #
+"#---------------------------#
+
+"# neobundle
+NeoBundle 'Shougo/neobundle.vim'
+
+"# Unite.vim
+NeoBundle 'Shougo/unite.vim'
+
+"# Unite.vim
+NeoBundle 'Shougo/unite-ssh'
+
+"# vimfiler
+NeoBundle 'Shougo/vimfiler'
+
+"# vimproc
+NeoBundle 'Shougo/vimproc'
+
+"# vimshell
+NeoBundle 'Shougo/vimshell'
+
+"#---------------------------#
+"# programing suport plug-in #
+"#---------------------------#
+
+"# neocomplcache
+NeoBundle 'Shougo/neocomplcache'
+
+"# cocoa.vim
+NeoBundle 'cocoa.vim'
+
+"# javacomplete.vim
+NeoBundle 'javacomplete'
+
+"# javascript
+NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
+
+"# zencoding
+NeoBundle 'mattn/zencoding-vim'
+
+"# scratch.vim
+NeoBundle 'scratch.vim'
+
+"# snipmate
+NeoBundle 'msanders/snipmate.vim'
+
+"# open-browser.vim
+NeoBundle 'tyru/open-browser.vim'
+
+"# twibill.vim
+NeoBundle 'basyura/twibill.vim'
+
+"# tweetvim
+NeoBundle 'basyura/TweetVim'
+
+"# nerdcommenter
+NeoBundle 'scrooloose/nerdcommenter.git'
+
+"# errormarker.vim
+NeoBundle 'errormarker.vim'
+
+"# vimpager
+NeoBundle 'vimpager'
+
+"# Align
+NeoBundle 'Align'
+
+"# surround.vim
+NeoBundle 'surround.vim'
+
+"# visualstar.vim
+NeoBundle 'thinca/vim-visualstar'
+
+"# vim-easymotion
+NeoBundle 'Lokaltog/vim-easymotion'
+
+"# vim-abolish
+NeoBundle 'tpope/vim-abolish'
+
+"# foldCC
+NeoBundle 'LeafCage/foldCC'
+
+"#-----------------------#
+"# vim-tools             #
+"#-----------------------#
+
+"# vinarise
+NeoBundle 'Shougo/vinarise'
+
+"# vdbi-vim
+NeoBundle 'mattn/vdbi-vim'
+
+"# vim-ref
+NeoBundle 'thinca/vim-ref'
+
+"# MultipleSearch
+NeoBundle 'MultipleSearch'
+
+"# quickrun
+NeoBundle 'thinca/vim-quickrun'
+
+"# memolist.vim
+NeoBundle 'glidenote/memolist.vim'
+
+"# sudo.vim
+NeoBundle 'sudo.vim'
+
+"# webapi-vim
+NeoBundle 'mattn/webapi-vim'
+
+"# git.vim
+NeoBundle 'motemen/git-vim'
+
+"# gist.vim
+NeoBundle 'mattn/gist-vim'
+
+"# localrc.vim
+NeoBundle 'thinca/vim-localrc'
+
+"# calender.vim
+NeoBundle 'mattn/calendar-vim'
+
+"# w3m.vim
+NeoBundle 'yuratomo/w3m.vim'
+
+"# Chalice.vim
+NeoBundle 'koron/chalice'
+
+"# yamktmp.vim
+NeoBundle 'yanktmp.vim'
+
+"#-------------------#
+"# 256color plug-in  #
+"#-------------------#
+
+"# vim-powerline (256color statusline only xterm-256color)
+NeoBundle 'Lokaltog/vim-powerline.git'
+
+"# vim-guicolorscheme(enable 256colorscheme)
+NeoBundle 'thinca/vim-guicolorscheme'
+
+"# colorscheme/solarized
+NeoBundle 'altercation/vim-colors-solarized'
+
+filetype plugin on
+filetype indent on
+
+
+"}}}2
 "### Unite.vim {{{2
 
 
@@ -782,6 +786,7 @@ nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -buffer-name=files file<
 nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
 nnoremap <silent> <Plug>(mykey)nn  :<C-u>Unite -no-split neobundle<CR>
 nnoremap <silent> <Plug>(mykey)ns  :<C-u>Unite -no-split neobundle/search<CR>
+nnoremap <silent> <Plug>(mykey)nu  :<C-u>Unite neobundle/install:!<CR>
 
 "# ref+unite
 nnoremap <silent> <Plug>(mykey)Rp :<C-u> Unite ref/perldoc<CR>
@@ -931,9 +936,12 @@ let g:EasyMotion_leader_key = "<C-f>"
 "### W3m.vim {{{2
 
 
+"# alc
 let g:w3m_alc='alc'
 command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
 command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
+
+"# dict
 let g:w3m_wikipedia='wikipedia'
 command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
 command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
@@ -1033,8 +1041,8 @@ if has("gui_running") && has('vim_starting')
 
         augroup SaveWindow
             autocmd!
-            autocmd VimLeavePre * call s:save_window()
-            autocmd BufLeave * call s:save_window()
+            "autocmd VimLeavePre * call s:save_window()
+            autocmd BufRead * call s:save_window()
             function! s:save_window()
                 let options = [
                             \ 'set columns=' . &columns,
