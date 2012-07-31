@@ -950,8 +950,12 @@ command! -nargs=?  Manpage call ref#open('man', '<args>')
 
 " ref-perldoc
 command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
-command! -nargs=?  Perlfunc call ref#open('perldoc', '-f', '<args>')
+command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
 
+function! OpenPerlfunc(func_text)
+    execute "Ref perldoc -f " . a:func_text
+endfunction
+    
 
 "}}}2
 "### MultipulSearch.vim {{{2
