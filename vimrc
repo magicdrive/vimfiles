@@ -120,33 +120,6 @@ nnoremap <Plug>(mykey)e :edit ./<CR>
 
 
 "}}}2
-"### VimL "{{{2
-
-command! -nargs=0 SL :call VimLRun()
-command! -nargs=0 SU :call VimrcReload()
-command! -nargs=0 VimrcEdit :edit $MYVIMRC
-command! -nargs=0 VE :VimrcEdit 
-command! -nargs=0 E :edit!
-
-if has('vim_starting')
-
-    function! VimLRun()
-        source %
-        edit!
-    endfunction
-
-    function! VimrcReload()
-        source $MYVIMRC
-        edit!
-        echo 'reloaded!'
-    endfunction
-    
-endif
-
-"# vimrcの編集
-nmap <Plug>(mykey)v :VimrcEdit<CR>
-
-"}}}i1
 "### NeoBundle.vimプラグイン管理{{{2
 
 
@@ -313,6 +286,33 @@ filetype indent on
 
 
 "}}}2
+"### VimL "{{{2
+
+command! -nargs=0 SL :call VimLRun()
+command! -nargs=0 SU :call VimrcReload()
+command! -nargs=0 VimrcEdit :edit $MYVIMRC
+command! -nargs=0 VE :VimrcEdit 
+command! -nargs=0 E :edit!
+
+if has('vim_starting')
+
+    function! VimLRun()
+        source %
+        edit!
+    endfunction
+
+    function! VimrcReload()
+        source $MYVIMRC
+        edit!
+        echo 'reloaded!'
+    endfunction
+    
+endif
+
+"# vimrcの編集
+nmap <Plug>(mykey)v :VimrcEdit<CR>
+
+"}}}i1
 "### エンコーディングの設定 "{{{2
 
 
@@ -950,6 +950,7 @@ command! -nargs=?  Manpage call ref#open('man', '<args>')
 
 " ref-perldoc
 command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
+command! -nargs=?  Perlfunc call ref#open('perldoc', '-f', '<args>')
 
 
 "}}}2
