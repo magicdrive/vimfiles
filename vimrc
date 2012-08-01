@@ -147,7 +147,7 @@ endif
 nmap <Plug>(mykey)v :VimrcEdit<CR>
 
 "}}}i1
-"### エンコーディングの設定 "{{{2
+"### encoding & fileencodingの設定 "{{{2
 
 
 "Encoding 
@@ -247,7 +247,7 @@ endif
 nnoremap <silent> <Plug>(mykeylite)n :<C-u>call ToggleNumber()<CR>
 
 function! ToggleNumber()
-    if &number == '1'
+    if &number ==# '1'
         echo "disable line number"
     else
         echo "enable line number "
@@ -268,7 +268,7 @@ set ttymouse=xterm2
 nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
 
 function! ToggleMouseMode()
-    if &mouse == 'a'
+    if &mouse ==# 'a'
         set mouse=
         echo "MouseMode disabled"
     else
@@ -285,7 +285,7 @@ let g:backupfile_save_dir="$HOME/.vim-backup"
 if filewritable(expand(g:backupfile_save_dir))
     set backup
     set swapfile
-    set backupdir=$HOME/.vim-backup
+    execute 'set backupdir=' . g:backupfile_save_dir
     set backupext=.back
 else
     echo '!!! no backup mode !!!'
@@ -303,11 +303,11 @@ nnoremap <Leader>t <C-t>
 nnoremap <Plug>(mykeylite)t :tabf .<CR>
 
 "# move preview/next tab
-nnoremap TN gT
-nnoremap TP gt
+"nnoremap TN gT
+"nnoremap TP gt
 
 "}}}2
-"### 検索設定 "{{{2
+"### search設定 "{{{2
 
 "# 検索に大文字を含んでいたら大小区別
 set ignorecase
@@ -355,7 +355,7 @@ inoremap <C-a> <ESC>^<Insert>
 inoremap <C-e> <ESC>$<Insert>
 
 "}}}2
-"### インデント関連の設定 "{{{2
+"### Indentの設定 "{{{2
 
 "# インデント
 set autoindent
@@ -415,7 +415,7 @@ autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
 
 
 "}}}2
-"### ファイルタイプ判定 "{{{2
+"### FileType判定 "{{{2
 
 
 autocmd BufNewFile,BufRead *.as set filetype=actionscript
@@ -504,59 +504,7 @@ iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
 
 
 "}}}2
-"### colorschemeの設定 "{{{2
-
-
-"# xterm-256color
-set t_Co=256
-
-"# カラースキーマ
-syntax enable
-
-if has('gui_running')
-    nmap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
-    colorscheme solarized
-    set background=dark
-else
-    colorscheme default
-    set background=dark
-endif
-
-let g:dark=1
-function! ChangeBackground()
-    if g:dark == '1'
-        set background=light
-        let g:dark=0
-        colorscheme solarized
-        echo 'change backgrount=light'
-    else
-        set background=dark
-        let g:dark=1
-        colorscheme solarized
-        echo 'change backgrount=dark'
-    endif
-endfunction
-
-let g:solarized_termcolors=256
-
-function! MyColor()
-    "# ポップアップのカラースキーム変更
-    highlight Pmenu ctermfg=Black
-    highlight PmenuSel ctermbg=DarkMagenta
-    highlight PmenuSel ctermfg=White
-
-    highlight Folded gui=bold term=standout ctermbg=DarkYellow ctermfg=LightGray guibg=Grey30 guifg=Grey80
-    highlight FoldColumn gui=bold term=standout ctermbg=DarkYellow ctermfg=LightGray guibg=Grey guifg=DarkBlue
-
-    "# 検索結果のカラースキーム変更
-    highlight Search ctermbg=DarkGray
-endfunction
-
-call MyColor()
-
-
-"}}}2
-"### foldingの設定 {{{2
+"### Foldingの設定 {{{2
 
 
 "# difine foldmethod
@@ -581,9 +529,17 @@ set statusline=%F%m%r%h%w\
             \[LEN=%L]
 
 "# ステータスラインの色
-hi StatusLine ctermfg=Black ctermbg=DarkGreen cterm=none
-autocmd InsertEnter * :hi StatusLine ctermfg=White ctermbg=Blue
-autocmd InsertLeave * :hi StatusLine ctermfg=Black ctermbg=DarkGreen
+highlight StatusLine 
+            \ ctermfg=Black
+            \ ctermbg=DarkGreen
+            \ cterm=none
+
+autocmd InsertEnter * :highlight StatusLine
+            \ ctermfg=White
+            \ ctermbg=Blue
+autocmd InsertLeave * :highlight StatusLine
+            \ ctermfg=Black
+            \ ctermbg=DarkGreen
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -929,7 +885,10 @@ endif
 
 
 noremap <C-f> <Nop>
-let g:EasyMotion_leader_key = "<C-f>"
+
+let g:EasyMotion_leader_key = "<C-e>"
+
+let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm'
 
 
 "}}}2
@@ -987,9 +946,90 @@ endfunction
 
 
 " }}}1
-"[ ####-------------- GVim Settings --------------#### ] {{{1
+"[ ####----------- Vim Visual Settings -----------#### ] {{{1
 
 
+"### colorschemeの設定 "{{{2
+
+
+"# xterm-256color
+set t_Co=256
+
+"# カラースキーマ
+syntax enable
+let g:solarized_termcolors=256
+
+let g:gui_colorscheme_dark='solarized'
+let g:gui_colorscheme_light='solarized'
+
+let g:cui_colorscheme_dark='darkblue'
+let g:cui_colorscheme_light='desert'
+
+execute 'colorscheme ' . 
+            \ (has('gui_running') ? g:gui_colorscheme_light : g:cui_colorscheme_light)
+set background=light
+
+nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
+
+"# change colorscheme & background
+function! ChangeBackground()
+
+    if &background ==# 'dark'
+
+        let g:is_darkbackground=0
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ? 
+                    \ g:gui_colorscheme_light : g:cui_colorscheme_light)
+        set background=light
+        echo 'change backgrount=light'
+    else
+
+        let g:is_darkbackground=1
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ? 
+                    \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
+        set background=dark
+        echo 'change backgrount=dark'
+
+    endif
+
+    syntax on
+    call MyColor()
+
+endfunction
+
+
+function! MyColor()
+
+    "# ポップアップのカラースキーム変更
+    highlight Pmenu ctermfg=Black
+    highlight PmenuSel ctermbg=DarkMagenta
+    highlight PmenuSel ctermfg=White
+
+    highlight Folded
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=DarkYellow
+                \ ctermfg=LightGray
+                \ guibg=Grey30
+                \ guifg=Grey80
+
+    highlight FoldColumn
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=DarkYellow
+                \ ctermfg=LightGray
+                \ guibg=Grey
+                \ guifg=DarkBlue
+
+    "# 検索結果のカラースキーム変更
+    highlight Search ctermbg=DarkGray
+endfunction
+
+call MyColor()
+
+
+"}}}2
 "### gvimの設定 {{{2
 
 
@@ -1024,42 +1064,49 @@ if has("gui_running") && has('vim_starting')
 
         "MacVim用
         if has('gui_macvim')
-            "set transparency=5
+
+            set transparency=5
             set imdisable 
             set antialias
             set guifont=Ricty:h16
             set nobackup
+
         endif
 
         set fuoptions=maxvert,maxhorz
 
-        let g:save_window_file = expand('$HOME/.vimwinpos')
+        let g:save_window_file = '$HOME/.vimwinpos'
 
-        if filereadable(expand('$HOME/.vimwinpos'))
-            source $HOME/.vimwinpos
+        if filereadable( expand(g:save_window_file) )
+            execute 'source ' . g:save_window_file
         endif
 
         augroup SaveWindow
+
             autocmd!
             "autocmd VimLeavePre * call s:save_window()
             autocmd BufRead * call s:save_window()
+            autocmd VimResized * call s:save_window()
+
             function! s:save_window()
                 let options = [
                             \ 'set columns=' . &columns,
                             \ 'set lines=' . &lines,
                             \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
                             \ ]
-                call writefile(options, g:save_window_file)
+                call writefile(options, expand(g:save_window_file) )
             endfunction
+
         augroup END
     endfunction
 
 endif
 
-
 if has('gui_running')
+
     "# GUISettingのLoad
     call MyGUISetting()
+
 endif
 
 "}}}2
