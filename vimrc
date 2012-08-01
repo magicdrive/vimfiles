@@ -64,6 +64,11 @@ noremap <silent> <C-l> <ESC>
 noremap! <silent> <C-l> <ESC>
 cnoremap <silent> <C-l> <C-c>
 
+"# currnet buffer indent
+nnoremap <C-\> gg=G
+
+"# recording off
+nnoremap q qq
 
 "# ヘルプファイル
 helptags $HOME/.vim/doc
@@ -83,8 +88,17 @@ set laststatus=2
 "# バッファを開いた時に、カレントディレクトリを自動で移動
 au BufEnter * execute ":lcd " . expand("%:p:h")
 
-"# kaoriyadicwin off
-let plugin_dicwin_disable=1
+if has('macvim')
+
+    "# kaoriyadicwin off
+    let plugin_dicwin_disable=1
+
+    if exists('+macmeta')
+        " enable meta key
+        set macmeta
+    endif
+endif
+
 
 "# 行番号を表示しない
 set nonumber
@@ -456,9 +470,6 @@ nnoremap <Plug>(mykeylite)v :<ESC>:vsplit<CR>
 nnoremap <C-w><C-w> <C-w>_
 nnoremap <C-w>w <C-w>_
 
-"# Window横最大化
-nnoremap <C-\> <C-w>|
-
 "# 縦最大化しつつWindowを移動
 nnoremap <C-j> <C-w>j<C-w>_
 nnoremap <C-k> <C-w>k<C-w>_
@@ -580,7 +591,7 @@ NeoBundle 'Shougo/neobundle.vim'
 "# Unite.vim
 NeoBundle 'Shougo/unite.vim'
 
-"# Unite.vim
+"# unite-ssh
 NeoBundle 'Shougo/unite-ssh'
 
 "# vimfiler
@@ -663,6 +674,9 @@ NeoBundle 'Shougo/vinarise'
 "# vdbi-vim
 NeoBundle 'mattn/vdbi-vim'
 
+"# emacscommandline
+NeoBundle 'houtsnip/vim-emacscommandline'
+
 "# vim-ref
 NeoBundle 'thinca/vim-ref'
 
@@ -712,8 +726,11 @@ NeoBundle 'Lokaltog/vim-powerline.git'
 "# vim-guicolorscheme(enable 256colorscheme)
 NeoBundle 'thinca/vim-guicolorscheme'
 
-"# colorscheme/solarized
+"# colorscheme-solarized
 NeoBundle 'altercation/vim-colors-solarized'
+
+"# colorscheme-sand
+NeoBundle 'sand'
 
 filetype plugin on
 filetype indent on
@@ -723,50 +740,72 @@ filetype indent on
 "### Unite.vim {{{2
 
 
-"# File and Buffer
-" 分割しないでuniteのbufferを表示する
-nnoremap <Plug>(mykey)u  :<C-u>Unite -no-split<Plug>my(mykey)
+"#---------------------------#
+"# buffers+unite             #
+"#---------------------------#
 
-" バッファ一覧
+" buffer
 nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
-" 最近使用したファイル一覧
+" filehistory
 nnoremap <silent> <Plug>(mykey)m  :<C-u>Unite -no-split file_mru<CR>
-" バッファーと最近使用したファイルの一覧 
+" filehistory and buffer
 nnoremap <silent> <Plug>(mykey)u  :<C-u>Unite -no-split buffer file_mru<CR>
-" 現在のバッファのカレントディレクトリからファイル一覧
+" Directry
 nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
-" ファイル一覧
+" files
 nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -buffer-name=files file<CR>
 
-"# neobundle+unite
-nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
-nnoremap <silent> <Plug>(mykey)nn  :<C-u>Unite -no-split neobundle<CR>
-nnoremap <silent> <Plug>(mykey)ns  :<C-u>Unite -no-split neobundle/search<CR>
-nnoremap <silent> <Plug>(mykey)nu  :<C-u>Unite neobundle/install:!<CR>
+"#---------------------------#
+"# neobundle+unite           #
+"#---------------------------#
 
-"# ref+unite
+" neobundle-
+nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
+nnoremap <silent> <Plug>(mykey)nn :<C-u>Unite -no-split neobundle<CR>
+" neobundle search
+nnoremap <silent> <Plug>(mykey)ns :<C-u>Unite -no-split neobundle/search<CR>
+" neobundle update
+nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite neobundle/install:!<CR>
+" neobundle install
+nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite neobundle/install:<CR>
+
+"#---------------------------#
+"# ref+unite                 #
+"#---------------------------#
+
+" perldoc
 nnoremap <silent> <Plug>(mykey)Rp :<C-u> Unite ref/perldoc<CR>
+" manpage
 nnoremap <silent> <Plug>(mykey)Rm :<C-u> Unite ref/man<CR>
 
-"# tweetvim+unite
-nnoremap <silent> <Plug>(mykey)t :<C-u> Unite tweetvim<CR>
+"#---------------------------#
+"# tweetvim+unite            #
+"#---------------------------#
+
+" tweetvim menu
+nnoremap <silent> <Plug>(mykey)t  :<C-u> Unite tweetvim<CR>
 
 
 "}}}2
 "### vimshell {{{2
 
+let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
+let g:vimshell_user_prompt='getcwd()'
+
+"# shell buffer clear
+autocmd FileType vimshell nnoremap <silent> <C-l> <Insert>clear<CR>
 
 "# VimShellを新規Windowで立ち上げる
 command! Shell call Shell()
 
-nmap <silent> <Space>s :<C-u> call Shell()<CR>
+nmap <silent> <Plug>(mykey)s :<C-u> call Shell()<CR>
 function! Shell()
     echo 'vimshell start'
     VimShell
     setlocal number
 endfunction
 
-nmap <silent> <Space>S :<C-u> call ShellSplit()<CR>
+nmap <silent> <Plug>(mykey)S :<C-u> call ShellSplit()<CR>
 function! ShellSplit()
     split
     call Shell()
@@ -778,6 +817,9 @@ endfunction
 
 
 nnoremap <Plug>(mykey)f :VimFilerCurrent<CR>
+
+autocmd FileType vimfiler nnoremap m <Plug>(vimfiler_toggle_mark_current_line)
+autocmd FileType vimfiler nnoremap M <Plug>(vimfiler_toggle_mark_current_line_up)
 
 "# vimfilerをデフォルトのexplorerと置き換えるか
 let g:vimfiler_as_default_explorer=1
@@ -881,10 +923,20 @@ if has('unix') && !has('gui_running')
 endif
 
 "}}}2
+"### Solarized {{{2
+
+
+let g:solarized_termcolors=256
+let g:solarized_bold=0
+let g:solarized_underline=1
+let g:solarized_italic=0
+
+
+"}}}2
 "### EasyMotion {{{2
 
 
-noremap <C-f> <Nop>
+noremap <C-e> <Nop>
 
 let g:EasyMotion_leader_key = "<C-e>"
 
@@ -943,6 +995,19 @@ function! SearchHighlightOff ()
 endfunction
 
 "}}}2
+"### TweetVim {{{2
+
+autocmd FileType tweetvim
+            \ highlight tweetvim_separator
+            \ ctermfg=Black
+
+nnoremap <silent> <Plug>(mykey)ts  :<C-u>TweetVimSay<CR>
+
+let g:tweetvim_tweet_per_page=100
+let g:tweetvim_open_buffer_cmd='split'
+
+
+"}}}2
 
 
 " }}}1
@@ -957,17 +1022,24 @@ set t_Co=256
 
 "# カラースキーマ
 syntax enable
-let g:solarized_termcolors=256
+let g:default_background_color='dark'
 
 let g:gui_colorscheme_dark='solarized'
 let g:gui_colorscheme_light='solarized'
 
-let g:cui_colorscheme_dark='darkblue'
-let g:cui_colorscheme_light='desert'
+let g:cui_colorscheme_dark='sand'
+let g:cui_colorscheme_light='morning'
 
-execute 'colorscheme ' . 
-            \ (has('gui_running') ? g:gui_colorscheme_light : g:cui_colorscheme_light)
-set background=light
+
+if g:default_background_color ==# 'dark'
+    execute 'colorscheme ' . 
+                \ (has('gui_running') ? g:gui_colorscheme_dark : g:cui_colorscheme_dark)
+    set background=dark
+else
+    execute 'colorscheme ' . 
+                \ (has('gui_running') ? g:gui_colorscheme_light : g:cui_colorscheme_light)
+    set background=light
+endif
 
 nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
@@ -999,10 +1071,11 @@ endfunction
 
 function! MyColor()
 
-    "# ポップアップのカラースキーム変更
+    "# ポップアップメニューの色変更
     highlight Pmenu ctermfg=Black
-    highlight PmenuSel ctermbg=DarkMagenta
-    highlight PmenuSel ctermfg=White
+    highlight PmenuSel
+                \ ctermbg=DarkMagenta
+                \ ctermfg=White
 
     highlight Folded
                 \ gui=bold
