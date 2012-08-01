@@ -976,7 +976,6 @@ function! ChangeBackground()
 
     if &background ==# 'dark'
 
-        let g:is_darkbackground=0
         execute 'colorscheme ' .
                     \ (has('gui_running') ? 
                     \ g:gui_colorscheme_light : g:cui_colorscheme_light)
@@ -984,7 +983,6 @@ function! ChangeBackground()
         echo 'change backgrount=light'
     else
 
-        let g:is_darkbackground=1
         execute 'colorscheme ' .
                     \ (has('gui_running') ? 
                     \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
