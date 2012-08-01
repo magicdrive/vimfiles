@@ -19,9 +19,8 @@ set nocompatible
 noremap ZZ <Nop>
 noremap ZQ <Nop>
 
-"# シンタックスハイライト
+"# syntax highlight
 syntax on
-
 
 "# 保存なしで他のファイルを開ける
 set hidden
@@ -39,8 +38,8 @@ set listchars=eol:$,tab:>\
 inoremap <C-j> <C-n>
 
 "# backspaceキーの動作
-noremap  ^? <C-h>
-noremap! ^? <C-h>
+noremap  <C-?> <C-h>
+noremap! <C-?> <C-h>
 
 "# 高速ターミナル接続
 set ttyfast
@@ -53,30 +52,28 @@ filetype plugin on
 noremap ; :
 
 "# substitution
-vnoremap <C-s> :s///<LEFT><LEFT>
-nnoremap <C-s> :%s///<LEFT><LEFT>
+vnoremap <Plug>(mykeylite)s :<C-u>s///<LEFT><LEFT>
+nnoremap <Plug>(mykeylite)s :<C-u>%s///<LEFT><LEFT>
 
 "# <ESC>のマッピング
-noremap <silent> <C-@> <ESC>
+noremap  <silent> <C-@> <ESC>
 noremap! <silent> <C-@> <ESC>
 cnoremap <silent> <C-@> <C-c>
-noremap <silent> <C-l> <ESC>
+noremap  <silent> <C-l> <ESC>
 noremap! <silent> <C-l> <ESC>
 cnoremap <silent> <C-l> <C-c>
 
-"# currnet buffer indent
-nnoremap <C-\> gg=G
-
 "# recording off
-nnoremap q qq
+nnoremap q <Nop>
 
 "# ヘルプファイル
 helptags $HOME/.vim/doc
 
 "# 日本語のHelpFileを開く
 set helplang=ja
-nmap <C-h> :<C-u>help<Space>
 
+"# helpを素早く引く
+nnoremap <C-h> :<C-u>help<Space>
 
 "# modeを表示する
 set showmode
@@ -88,23 +85,12 @@ set laststatus=2
 "# バッファを開いた時に、カレントディレクトリを自動で移動
 au BufEnter * execute ":lcd " . expand("%:p:h")
 
-if has('macvim')
-
-    "# kaoriyadicwin off
-    let plugin_dicwin_disable=1
-
-    if exists('+macmeta')
-        " enable meta key
-        set macmeta
-    endif
-endif
-
-
 "# 行番号を表示しない
 set nonumber
 
 "# 括弧入力時に対応する括弧を表示
 set showmatch
+
 "# コマンドをステータス行に表示
 set showcmd
 
@@ -125,9 +111,10 @@ set ambiwidth=double
 
 "# コマンドライン補完するときに強化されたものを使う
 set wildmenu
+set wildmode=longest,full
 
 "# コマンドラインの履歴の保存数
-set history=16
+set history=256
 
 "# Explore
 nnoremap <Plug>(mykey)e :edit ./<CR>
@@ -154,7 +141,7 @@ if has('vim_starting')
         edit!
         echo 'reloaded!'
     endfunction
-    
+
 endif
 
 "# vimrcの編集
@@ -176,58 +163,58 @@ elseif isdirectory($HOME . '/vimfiles')
 elseif isdirectory($VIM . '/vimfiles')
     let s:CFGHOME=$VIM.'/vimfiles'
 endif
-      
+
 if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
+    set encoding=japan
+    set fileencoding=japan
 endif
 
 if has('iconv')
-  let s:enc_euc = 'euc-jp'
-  let s:enc_jis = 'iso-2022-jp'
-  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'eucjp-ms'
-    let s:enc_jis = 'iso-2022-jp-3'
-  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'euc-jisx0213'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
-  if &encoding ==# 'utf-8'
-    let s:fileencodings_default = &fileencodings
-    if has('mac')
-      let &fileencodings = s:enc_jis .','. s:enc_euc
-      let &fileencodings = &fileencodings .','. s:fileencodings_default
-    else
-      let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-      let &fileencodings = &fileencodings .','. s:fileencodings_default
+    let s:enc_euc = 'euc-jp'
+    let s:enc_jis = 'iso-2022-jp'
+    if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+        let s:enc_euc = 'eucjp-ms'
+        let s:enc_jis = 'iso-2022-jp-3'
+    elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+        let s:enc_euc = 'euc-jisx0213'
+        let s:enc_jis = 'iso-2022-jp-3'
     endif
-    unlet s:fileencodings_default
-  else
-    let &fileencodings = &fileencodings .','. s:enc_jis
-    set fileencodings+=utf-8,ucs-2le,ucs-2
-    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-      set fileencodings+=cp932
-      set fileencodings-=euc-jp
-      set fileencodings-=euc-jisx0213
-      set fileencodings-=eucjp-ms
-      let &encoding = s:enc_euc
-      let &fileencoding = s:enc_euc
+    if &encoding ==# 'utf-8'
+        let s:fileencodings_default = &fileencodings
+        if has('mac')
+            let &fileencodings = s:enc_jis .','. s:enc_euc
+            let &fileencodings = &fileencodings .','. s:fileencodings_default
+        else
+            let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+            let &fileencodings = &fileencodings .','. s:fileencodings_default
+        endif
+        unlet s:fileencodings_default
     else
-      let &fileencodings = &fileencodings .','. s:enc_euc
+        let &fileencodings = &fileencodings .','. s:enc_jis
+        set fileencodings+=utf-8,ucs-2le,ucs-2
+        if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+            set fileencodings+=cp932
+            set fileencodings-=euc-jp
+            set fileencodings-=euc-jisx0213
+            set fileencodings-=eucjp-ms
+            let &encoding = s:enc_euc
+            let &fileencoding = s:enc_euc
+        else
+            let &fileencodings = &fileencodings .','. s:enc_euc
+        endif
     endif
-  endif
-  unlet s:enc_euc
-  unlet s:enc_jis
+    unlet s:enc_euc
+    unlet s:enc_jis
 endif
 
 
 "utf-8優先にする
 if &encoding == 'utf-8'
-  if filereadable(s:CFGHOME . '/utf-8')
-    let &fileencodings = substitute(&fileencodings, 'utf-8', '_utf-8', 'g')
-    let &fileencodings = substitute(&fileencodings, 'cp932', 'utf-8', 'g')
-    let &fileencodings = substitute(&fileencodings, '_utf-8', 'cp932', 'g')
-  endif
+    if filereadable(s:CFGHOME . '/utf-8')
+        let &fileencodings = substitute(&fileencodings, 'utf-8', '_utf-8', 'g')
+        let &fileencodings = substitute(&fileencodings, 'cp932', 'utf-8', 'g')
+        let &fileencodings = substitute(&fileencodings, '_utf-8', 'cp932', 'g')
+    endif
 endif
 
 unlet s:CFGHOME
@@ -237,21 +224,21 @@ let vimrc_set_encoding = 1
 "set fileformats=dos,unix,mac
 
 if exists("loaded_ReCheckFENC")
-  finish
+    finish
 endif
 let loaded_ReCheckFENC = 1
 
 " 日本語を含まない場合は fileencoding に encoding を使うようにする
 if has('autocmd')
-  function! AU_ReCheck_FENC()
-    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-      let &fileencoding=&encoding
-      if has('win16') || has('win32') || has('win64') || has('win32unix') || has('win95')
-        let &fileencoding='cp932'
-      endif
-    endif
-  endfunction
-  autocmd BufReadPost * call AU_ReCheck_FENC()
+    function! AU_ReCheck_FENC()
+        if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+            let &fileencoding=&encoding
+            if has('win16') || has('win32') || has('win64') || has('win32unix') || has('win95')
+                let &fileencoding='cp932'
+            endif
+        endif
+    endfunction
+    autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 
 "}}}2
@@ -371,6 +358,10 @@ inoremap <C-e> <ESC>$<Insert>
 "}}}2
 "### Indentの設定 "{{{2
 
+"# currnet buffer indent
+nnoremap <C-\> gg=G
+vnoremap <C-\> =
+
 "# インデント
 set autoindent
 set smartindent
@@ -415,8 +406,8 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType perl :compiler perl
 
 "perltidy 
-autocmd Filetype perl nmap <F2>  <ESC>:%! perltidy<CR>
-autocmd Filetype perl vmap <F2>  :! perltidy<CR>
+autocmd Filetype perl nmap <C-\>  <ESC>:%! perltidy<CR>
+autocmd Filetype perl vmap <C-\>  :! perltidy<CR>
 
 "# :w + !perl command
 autocmd FileType perl nnoremap <F4> :w !perl<CR>
@@ -559,7 +550,23 @@ if has('unix') && !has('gui_running')
 endif
 
 "}}}2
+"### Macvim用の設定 {{{2
 
+
+if has('macvim')
+
+    " kaoriyadicwin off
+    let plugin_dicwin_disable=1
+
+    if exists('+macmeta')
+        " enable meta key
+        set macmeta
+    endif
+
+endif
+
+
+"}}}2
 
 " }}}1
 "[ ####----------- Vim Plugin Settings -----------#### ] {{{1
@@ -732,6 +739,9 @@ NeoBundle 'altercation/vim-colors-solarized'
 "# colorscheme-sand
 NeoBundle 'sand'
 
+"# colorscheme-zenburn
+NeoBundle 'Zenburn'
+
 filetype plugin on
 filetype indent on
 
@@ -747,7 +757,7 @@ filetype indent on
 " buffer
 nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
 " filehistory
-nnoremap <silent> <Plug>(mykey)m  :<C-u>Unite -no-split file_mru<CR>
+nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split file_mru<CR>
 " filehistory and buffer
 nnoremap <silent> <Plug>(mykey)u  :<C-u>Unite -no-split buffer file_mru<CR>
 " Directry
@@ -759,11 +769,11 @@ nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -buffer-name=files file<
 "# neobundle+unite           #
 "#---------------------------#
 
-" neobundle-
+" neobundle-menu
 nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
 nnoremap <silent> <Plug>(mykey)nn :<C-u>Unite -no-split neobundle<CR>
 " neobundle search
-nnoremap <silent> <Plug>(mykey)ns :<C-u>Unite -no-split neobundle/search<CR>
+nnoremap <silent> <Plug>(mykey)ns :<C-u>Unite neobundle/search<CR>
 " neobundle update
 nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite neobundle/install:!<CR>
 " neobundle install
@@ -816,7 +826,7 @@ endfunction
 "### vimfiler {{{2
 
 
-nnoremap <Plug>(mykey)f :VimFilerCurrent<CR>
+nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 
 autocmd FileType vimfiler nnoremap m <Plug>(vimfiler_toggle_mark_current_line)
 autocmd FileType vimfiler nnoremap M <Plug>(vimfiler_toggle_mark_current_line_up)
@@ -826,7 +836,7 @@ let g:vimfiler_as_default_explorer=1
 
 
 "}}}2
-"### memolist.vim {{{2
+"### MemoList.vim {{{2
 
 
 let g:memolist_memo_suffix="txt"
@@ -956,7 +966,7 @@ command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
 let g:w3m_wikipedia='wikipedia'
 command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
 command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
-    
+
 
 "}}}2
 "### Ref.vim {{{2
@@ -971,10 +981,10 @@ command! -nargs=?  Manpage call ref#open('man', '<args>')
 command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
 command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
 
-function! OpenPerlfunc(func_text)
-    execute "Ref perldoc -f " . a:func_text
+function! OpenPerlfunc(func_str)
+    execute "Ref perldoc -f " . a:func_str
 endfunction
-    
+
 
 "}}}2
 "### MultipulSearch.vim {{{2
@@ -996,6 +1006,7 @@ endfunction
 
 "}}}2
 "### TweetVim {{{2
+
 
 autocmd FileType tweetvim
             \ highlight tweetvim_separator
@@ -1030,18 +1041,22 @@ let g:gui_colorscheme_light='solarized'
 let g:cui_colorscheme_dark='sand'
 let g:cui_colorscheme_light='morning'
 
+" setup color by background
+function SetupColorScheme ()
 
-if g:default_background_color ==# 'dark'
-    execute 'colorscheme ' . 
-                \ (has('gui_running') ? g:gui_colorscheme_dark : g:cui_colorscheme_dark)
-    set background=dark
-else
-    execute 'colorscheme ' . 
-                \ (has('gui_running') ? g:gui_colorscheme_light : g:cui_colorscheme_light)
-    set background=light
-endif
+    if g:default_background_color ==# 'dark'
+        execute 'colorscheme ' . 
+                    \ (has('gui_running') ? g:gui_colorscheme_dark : g:cui_colorscheme_dark)
+        set background=dark
+    else
+        execute 'colorscheme ' . 
+                    \ (has('gui_running') ? g:gui_colorscheme_light : g:cui_colorscheme_light)
+        set background=light
+    endif
 
-nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
+    call MyColor()
+endfunction
+
 
 "# change colorscheme & background
 function! ChangeBackground()
@@ -1073,10 +1088,12 @@ function! MyColor()
 
     "# ポップアップメニューの色変更
     highlight Pmenu ctermfg=Black
+
     highlight PmenuSel
                 \ ctermbg=DarkMagenta
                 \ ctermfg=White
 
+    "# Foldingの色変更
     highlight Folded
                 \ gui=bold
                 \ term=standout
@@ -1097,91 +1114,104 @@ function! MyColor()
     highlight Search ctermbg=DarkGray
 endfunction
 
-call MyColor()
+"# initialize colorcheme
+call SetupColorScheme()
+
+"# switching colrschme & background
+nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
+
+
+"}}}2
+"### gui_MacVim用の設定 {{{2
+
+
+function MyGUIMacVimSetting()
+    set transparency=5
+    set imdisable 
+    set antialias
+    set guifont=Ricty:h16
+    set nobackup
+endfunction
 
 
 "}}}2
 "### gvimの設定 {{{2
 
 
-autocmd GUIEnter * call MyGUISetting()
-
-
 if has("gui_running") && has('vim_starting')
-
 
     "# インサートモード以外でIMEをオフ
     set iminsert
-
-
-    function MyGUISetting ()
-        "カラースキーマの設定
-        colorscheme solarized
-        set background=dark
-        call MyColor()
-
-        if has('multi_byte_ime')
-            highlight Cursor guifg=NONE guibg=Green
-            highlight CursorIM guifg=NONE guibg=Purple
-        endif
-
-        "# 列番号表示をDefault
-        set number
-
-        "# yankとclipboardを同期する
-        set clipboard+=unnamed
-
-        set guioptions-=t
-
-        "MacVim用
-        if has('gui_macvim')
-
-            set transparency=5
-            set imdisable 
-            set antialias
-            set guifont=Ricty:h16
-            set nobackup
-
-        endif
-
-        set fuoptions=maxvert,maxhorz
-
-        let g:save_window_file = '$HOME/.vimwinpos'
-
-        if filereadable( expand(g:save_window_file) )
-            execute 'source ' . g:save_window_file
-        endif
-
-        augroup SaveWindow
-
-            autocmd!
-            "autocmd VimLeavePre * call s:save_window()
-            autocmd BufRead * call s:save_window()
-            autocmd VimResized * call s:save_window()
-
-            function! s:save_window()
-                let options = [
-                            \ 'set columns=' . &columns,
-                            \ 'set lines=' . &lines,
-                            \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
-                            \ ]
-                call writefile(options, expand(g:save_window_file) )
-            endfunction
-
-        augroup END
-    endfunction
-
-endif
-
-if has('gui_running')
-
-    "# GUISettingのLoad
+    "# gvim設定のロード
     call MyGUISetting()
 
 endif
 
-"}}}2
+"# windowの大きさ監視
+function WindowSupervise()
 
+    let g:save_window_file = '$HOME/.vimwinpos'
+
+    if filereadable( expand(g:save_window_file) )
+        execute 'source ' . g:save_window_file
+    endif
+
+    augroup SaveWindow
+
+        autocmd!
+        autocmd BufRead * call s:save_window()
+        autocmd VimResized * call s:save_window()
+
+        function! s:save_window()
+            let options = [
+                        \ 'set columns=' . &columns,
+                        \ 'set lines=' . &lines,
+                        \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
+                        \ ]
+            call writefile(options, expand(g:save_window_file) )
+        endfunction
+
+    augroup END
+endfunction
+
+
+"# gvimの設定関数
+function MyGUISetting ()
+
+    call SetupColorScheme()
+
+    if has('multi_byte_ime')
+        highlight Cursor guifg=NONE guibg=Green
+        highlight CursorIM guifg=NONE guibg=Purple
+    endif
+
+    "# LineNumber
+    set number
+
+    "# yankとclipboardを同期する
+    set clipboard+=unnamed
+
+    "# menu項目
+    set guioptions-=t
+
+    "# fullscreen option
+    set fuoptions=maxvert,maxhorz
+
+    call WindowSupervise()
+
+    if has('gui_macvim')
+        call MyGUIMacVimSetting()
+    endif
+
+endfunction
+
+if has('gui_running')
+    call MyGUISetting ()
+endif
+
+autocmd GUIEnter * call MyGUISetting()
+
+"}}}2
 
 " }}}1
 
