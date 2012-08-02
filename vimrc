@@ -1139,15 +1139,6 @@ endfunction
 "### gvimの設定 {{{2
 
 
-if has("gui_running") && has('vim_starting')
-
-    "# インサートモード以外でIMEをオフ
-    set iminsert
-    "# gvim設定のロード
-    call MyGUISetting()
-
-endif
-
 "# windowの大きさ監視
 function WindowSupervise()
 
@@ -1179,11 +1170,9 @@ endfunction
 "# gvimの設定関数
 function MyGUISetting ()
 
-    call SetupColorScheme()
-
-    if has('multi_byte_ime')
-        highlight Cursor guifg=NONE guibg=Green
-        highlight CursorIM guifg=NONE guibg=Purple
+    if has('vim_starting')
+        "# インサートモード以外でIMEをオフ
+        set iminsert
     endif
 
     "# LineNumber
@@ -1198,6 +1187,22 @@ function MyGUISetting ()
     "# fullscreen option
     set fuoptions=maxvert,maxhorz
 
+endfunction
+
+function MyGUISettingLazy()
+
+    call SetupColorScheme()
+
+    if has('multi_byte_ime')
+
+        highlight Cursor
+                    \ guifg=NONE
+                    \ guibg=Green
+        highlight CursorIM
+                    \ guifg=NONE
+                    \ guibg=Purple
+    endif
+
     call WindowSupervise()
 
     if has('gui_macvim')
@@ -1210,9 +1215,10 @@ if has('gui_running')
     call MyGUISetting ()
 endif
 
-autocmd GUIEnter * call MyGUISetting()
+autocmd GUIEnter * call MyGUISettingLazy()
 
 "}}}2
+
 
 " }}}1
 
