@@ -688,6 +688,9 @@ NeoBundle 'houtsnip/vim-emacscommandline'
 "# vim-ref
 NeoBundle 'thinca/vim-ref'
 
+"# altercmd
+NeoBundle 'tyru/vim-altercmd'
+
 "# MultipleSearch
 NeoBundle 'MultipleSearch'
 
@@ -963,11 +966,18 @@ let g:w3m_alc='alc'
 command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
 command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
 
+
 "# dict
 let g:w3m_wikipedia='wikipedia'
 command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
 command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
 
+function AlterW3m()
+    AlterCommand dict Dict
+    AlterCommand alc Alc
+endfunction
+
+autocmd VimEnter * call AlterW3m()
 
 "}}}2
 "### Ref.vim {{{2
@@ -985,6 +995,14 @@ command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
 function! OpenPerlfunc(func_str)
     execute "Ref perldoc -f " . a:func_str
 endfunction
+
+function AlterRef()
+    AlterCommand  perldoc Perldoc
+    AlterCommand  perlfunc Perlfunc
+    AlterCommand  manpage Manpage
+endfunction
+
+autocmd VimEnter * call AlterRef()
 
 
 "}}}2
