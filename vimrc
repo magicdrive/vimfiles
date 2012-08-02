@@ -117,8 +117,10 @@ set wildmode=longest,full
 set history=256
 
 "# Explore
-nnoremap <Plug>(mykey)e :edit ./<CR>
+nnoremap <Plug>(mykey)e :Explore<CR>
 
+"# tagjump stack preview
+nnoremap <Leader>t <C-t>
 
 "}}}2
 "### VimL "{{{2
@@ -298,14 +300,13 @@ endif
 "}}}2
 "### Tab機能の設定 "{{{2
 
-nnoremap <Leader>t <C-t>
 
 "# create new tab
 nnoremap <Plug>(mykeylite)t :tabf .<CR>
 
-"# move preview/next tab
-"nnoremap TN gT
-"nnoremap TP gt
+"# close current tab
+nnoremap <Plug>(mykeylite)tk :tabclose<CR>
+
 
 "}}}2
 "### search設定 "{{{2
@@ -358,7 +359,7 @@ inoremap <C-e> <ESC>$<Insert>
 "}}}2
 "### Indentの設定 "{{{2
 
-"# currnet buffer indent
+"# current buffer indent
 nnoremap <C-\> gg=G
 vnoremap <C-\> =
 
@@ -569,7 +570,7 @@ endif
 "}}}2
 
 " }}}1
-"[ ####----------- Vim Plugin Settings -----------#### ] {{{1
+"[ ####---------- Vim Plugins Settings -----------#### ] {{{1
 
 
 "### neobundle.vim{{{2
@@ -1022,7 +1023,7 @@ let g:tweetvim_open_buffer_cmd='split'
 
 
 " }}}1
-"[ ####----------- Vim Visual Settings -----------#### ] {{{1
+"[ ####--------- Vim Visualize Settings ----------#### ] {{{1
 
 
 "### colorschemeの設定 "{{{2
