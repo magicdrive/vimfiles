@@ -1065,11 +1065,13 @@ function SetupColorScheme ()
 
     if g:default_background_color ==# 'dark'
         execute 'colorscheme ' . 
-                    \ (has('gui_running') ? g:gui_colorscheme_dark : g:cui_colorscheme_dark)
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
         set background=dark
     else
         execute 'colorscheme ' . 
-                    \ (has('gui_running') ? g:gui_colorscheme_light : g:cui_colorscheme_light)
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_light : g:cui_colorscheme_light)
         set background=light
     endif
 
@@ -1083,14 +1085,14 @@ function! ChangeBackground()
     if &background ==# 'dark'
 
         execute 'colorscheme ' .
-                    \ (has('gui_running') ? 
+                    \ (has('gui_running') ?
                     \ g:gui_colorscheme_light : g:cui_colorscheme_light)
         set background=light
         echo 'change backgrount=light'
     else
 
         execute 'colorscheme ' .
-                    \ (has('gui_running') ? 
+                    \ (has('gui_running') ?
                     \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
         set background=dark
         echo 'change backgrount=dark'
