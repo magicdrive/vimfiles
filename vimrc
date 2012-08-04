@@ -120,10 +120,15 @@ set wildmode=longest,full
 set history=256
 
 "# Explore
-nnoremap <Plug>(mykey)e :Explore<CR>
+nnoremap <Plug>(mykey)e :Explore ./<CR>
 
 "# tagjump stack preview
 nnoremap <Leader>t <C-t>
+
+"# buffer next/preview
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
+
 
 "}}}2
 "### VimL "{{{2
@@ -305,7 +310,7 @@ endif
 
 
 "# create new tab
-nnoremap <Plug>(mykeylite)t :tabf .<CR>
+nnoremap <Plug>(mykeylite)tc :tabf .<CR>
 
 "# close current tab
 nnoremap <Plug>(mykeylite)tk :tabclose<CR>
@@ -313,6 +318,7 @@ nnoremap <Plug>(mykeylite)tk :tabclose<CR>
 
 "}}}2
 "### search設定 "{{{2
+
 
 "# 検索に大文字を含んでいたら大小区別
 set ignorecase
@@ -334,22 +340,24 @@ if has('migemo')
     set migemo
 endif
 
+
 "}}}2
-"### Emacs風keybindの設定 "{{{2
+"### Emacs like keybindの設定 "{{{2
+
 
 "# カーソルキーで行末／行頭の移動可能に設定
 set whichwrap=b,s,[,],<,>
 
 "# Emacs 風カーソル移動のため<Nop>に設定
-map! <C-n> <Nop>
-map! <C-p> <Nop>
-map! <C-b> <Nop>
-map! <C-f> <Nop>
+noremap! <C-n> <Nop>
+noremap! <C-p> <Nop>
+noremap! <C-b> <Nop>
+noremap! <C-f> <Nop>
 "# Emacs 風カーソル移動
-map! <C-n> <DOWN>
-map! <C-p> <UP>
-map! <C-b> <LEFT>
-map! <C-f> <RIGHT>
+noremap! <C-n> <DOWN>
+noremap! <C-p> <UP>
+noremap! <C-b> <LEFT>
+noremap! <C-f> <RIGHT>
 
 "# killing
 inoremap <C-k> <Nop>
@@ -358,6 +366,7 @@ inoremap <C-k> <ESC>2<LEFT>D:!start<CR>
 "# Emacs風 行頭行末移動
 inoremap <C-a> <ESC>^<Insert>
 inoremap <C-e> <ESC>$<Insert>
+
 
 "}}}2
 "### Indentの設定 "{{{2
@@ -1060,7 +1069,7 @@ let g:default_background_color='dark'
 let g:gui_colorscheme_dark='solarized'
 let g:gui_colorscheme_light='solarized'
 
-let g:cui_colorscheme_dark='sand'
+let g:cui_colorscheme_dark='darkdefault'
 let g:cui_colorscheme_light='morning'
 
 " setup color by background
