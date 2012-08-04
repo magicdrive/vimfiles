@@ -44,6 +44,9 @@ noremap! <C-?> <C-h>
 "# 高速ターミナル接続
 set ttyfast
 
+"# yank
+nnoremap Y y$
+
 "# Plug-in有効設定
 filetype plugin indent on
 filetype plugin on
