@@ -423,13 +423,13 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType perl :compiler perl
 
 "perltidy 
-autocmd Filetype perl nmap <C-\>  <ESC>:%! perltidy<CR>
-autocmd Filetype perl vmap <C-\>  :! perltidy<CR>
+autocmd Filetype perl nnoremap <buffer> <C-\>  <ESC>:%! perltidy<CR>
+autocmd Filetype perl vnoremap <buffer> <C-\>  :! perltidy<CR>
 
 "# :w + !perl command
-autocmd FileType perl nnoremap <F4> :w !perl<CR>
+autocmd FileType perl nnoremap <buffer> <F4> :w !perl<CR>
 "# !perl command
-autocmd FileType perl nnoremap <F5> :!perl %<CR>
+autocmd FileType perl nnoremap <buffer> <F5> :!perl %<CR>
 
 
 "# perl モジュールの補完設定
@@ -530,9 +530,9 @@ iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
 set foldmethod=marker
 set foldtext=FoldCCtext()
 
-nmap <Plug>(mykey)o zo
-nmap <Plug>(mykey)c zc
-nmap <Space><Space> za 
+nnoremap <Plug>(mykey)o zo
+nnoremap <Plug>(mykey)c zc
+nnoremap <Space><Space> za 
 
 
 "}}}2
@@ -829,14 +829,14 @@ autocmd FileType vimshell nnoremap <silent> <C-l> <Insert>clear<CR>
 "# VimShellを新規Windowで立ち上げる
 command! Shell call Shell()
 
-nmap <silent> <Plug>(mykey)s :<C-u> call Shell()<CR>
+nnoremap <silent> <Plug>(mykey)s :<C-u> call Shell()<CR>
 function! Shell()
     echo 'vimshell start'
     VimShell
     setlocal number
 endfunction
 
-nmap <silent> <Plug>(mykey)S :<C-u> call ShellSplit()<CR>
+nnoremap <silent> <Plug>(mykey)S :<C-u> call ShellSplit()<CR>
 function! ShellSplit()
     split
     call Shell()
@@ -926,7 +926,7 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 
 "# NeoCompleCacheToggle
-"nmap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
+"nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 
 
 "}}}2
