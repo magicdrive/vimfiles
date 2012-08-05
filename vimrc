@@ -126,8 +126,8 @@ nnoremap <Plug>(mykey)e :Explore ./<CR>
 nnoremap <Leader>t <C-t>
 
 "# buffer next/preview
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
+nnoremap <silent> <C-f> :bn<CR>
+nnoremap <silent> <C-b> :bp<CR>
 
 
 "}}}2
@@ -310,10 +310,14 @@ endif
 
 
 "# create new tab
-nnoremap <Plug>(mykeylite)tc :tabf .<CR>
+nnoremap <Plug>(mykeylite)t :tabf .<CR>
 
 "# close current tab
 nnoremap <Plug>(mykeylite)tk :tabclose<CR>
+
+"# tab next/preview
+nnoremap <silent> <C-n> gt
+nnoremap <silent> <C-p> gT
 
 
 "}}}2
@@ -580,6 +584,7 @@ endif
 
 
 "}}}2
+
 
 " }}}1
 "[ ####---------- Vim Plugins Settings -----------#### ] {{{1
