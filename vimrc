@@ -2,7 +2,7 @@
 " VIMRC for Vim7.3
 "==========================
 
-"[ ####----------- Vim Basic Settings ------------#### ] {{{1
+"[ ####--------- Vim Basic Settings --------------#### ] {{{1
 
 
 "### Vim Option "{{{2
@@ -126,12 +126,13 @@ nnoremap <Plug>(mykey)e :Explore ./<CR>
 nnoremap <Leader>t <C-t>
 
 "# buffer next/preview
-nnoremap <silent> <C-f> :bn<CR>
-nnoremap <silent> <C-b> :bp<CR>
+"nnoremap <silent> <C-f> :bn<CR>
+"nnoremap <silent> <C-b> :bp<CR>
 
 
 "}}}2
 "### VimL "{{{2
+
 
 command! -nargs=0 SL :call VimLRun()
 command! -nargs=0 SU :call VimrcReload()
@@ -156,6 +157,7 @@ endif
 
 "# vimrcの編集
 nmap <Plug>(mykey)v :VimrcEdit<CR>
+
 
 "}}}i1
 "### encoding & fileencodingの設定 "{{{2
@@ -251,8 +253,10 @@ if has('autocmd')
     autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 
+
 "}}}2
 "### LineNumber表示の設定 "{{{2
+
 
 "# LineNumberのトグル
 nnoremap <silent> <Plug>(mykeylite)n :<C-u>call ToggleNumber()<CR>
@@ -266,8 +270,10 @@ function! ToggleNumber()
     setlocal number!
 endfunction
 
+
 "}}}2
 "### mouse modeの設定 "{{{2
+
 
 "# マウスモードの有効
 "set mouse=a
@@ -288,8 +294,10 @@ function! ToggleMouseMode()
     endif
 endfunction
 
+
 "}}}2
 "### backup,swapfileの設定 "{{{2
+
 
 "# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
 let g:backupfile_save_dir="$HOME/.vim-backup"
@@ -299,18 +307,20 @@ if filewritable(expand(g:backupfile_save_dir))
     execute 'set backupdir=' . g:backupfile_save_dir
     set backupext=.back
 else
-    echo '!!! no backup mode !!!'
+    echohl Error | echo '!!! no backup mode !!!' | echohl None
     echo '### mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup'
     set nobackup
     set noswapfile
 endif
+
 
 "}}}2
 "### Tab機能の設定 "{{{2
 
 
 "# create new tab
-nnoremap <Plug>(mykeylite)t :tabf .<CR>
+nnoremap <Plug>(mykeylite)tt :tabf .<CR>
+nnoremap <Plug>(mykeylite)T :tabf .<CR>
 
 "# close current tab
 nnoremap <Plug>(mykeylite)tk :tabclose<CR>
@@ -375,6 +385,7 @@ inoremap <C-e> <ESC>$<Insert>
 "}}}2
 "### Indentの設定 "{{{2
 
+
 "# current buffer indent
 nnoremap <C-\> gg=G
 vnoremap <C-\> =
@@ -396,45 +407,6 @@ set shiftwidth=4
 "# {}をインデントして入力
 inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 
-"}}}2
-"### 言語別アシスタンス設定 "{{{2
-"辞書ファイルを使用する設定に変更
-set complete+=k
-
-"ファイルタイプ別辞書ファイル
-autocmd FileType c,cpp,perl set cindent
-autocmd FileType ruby :set dictionary=~/.vim/plugin/ruby.vim
-autocmd FileType perl :set dictionary+=~/.vim/dict/perl_function.dict
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-"CF用コメントハイライト有効
-:let html_wrong_comments=1
-"}}}2
-"### Perlコーディング補助設定 "{{{2
-
-
-"# コンパイラをperlに設定
-autocmd FileType perl :compiler perl
-
-"perltidy 
-autocmd Filetype perl nnoremap <buffer> <C-\>  <ESC>:%! perltidy<CR>
-autocmd Filetype perl vnoremap <buffer> <C-\>  :! perltidy<CR>
-
-"# :w + !perl command
-autocmd FileType perl nnoremap <buffer> <F4> :w !perl<CR>
-"# !perl command
-autocmd FileType perl nnoremap <buffer> <F5> :!perl %<CR>
-
-
-"# perl モジュールの補完設定
-autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
-
 
 "}}}2
 "### FileType判定 "{{{2
@@ -448,23 +420,27 @@ autocmd BufNewFile,BufRead *.psgi set filetype=perl
 
 
 "}}}2
-"### コメントアウト用mapの設定 "{{{2
+"### comment用mapの設定 "{{{2
+
+
 "lhs comments
-map ,# :s/^/#/<CR>
-map ,/ :s/^/\/\//<CR>
-map ,> :s/^/> /<CR>
-map ," :s/^/\"/<CR>
-map ,% :s/^/%/<CR>
-map ,! :s/^/!/<CR>
-map ,; :s/^/;/<CR>
-map ,- :s/^/--/<CR>
-map ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>
+noremap <Plug>(mykeylite)# :s/^/#/<CR>
+noremap <Plug>(mykeylite,/ :s/^/\/\//<CR>
+noremap <Plug>(mykeylite,> :s/^/> /<CR>
+noremap <Plug>(mykeylite," :s/^/\"/<CR>
+noremap <Plug>(mykeylite,% :s/^/%/<CR>
+noremap <Plug>(mykeylite,! :s/^/!/<CR>
+noremap <Plug>(mykeylite,; :s/^/;/<CR>
+noremap <Plug>(mykeylite,- :s/^/--/<CR>
+"noremap ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>
 
 "wrapping comments
-map ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>
-map ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>
-map ,< :s/^\(.*\)$/<!-- \1 -->/<CR>
-map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR> 
+noremap <Plug>(mykeylite)* :s/^\(.*\)$/\/\* \1 \*\//<CR>
+noremap <Plug>(mykeylite)( :s/^\(.*\)$/\(\* \1 \*\)/<CR>
+noremap <Plug>(mykeylite)< :s/^\(.*\)$/<!-- \1 -->/<CR>
+"noremap ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR> 
+
+
 "}}}2
 "### Window関連の設定 "{{{2
 
@@ -587,7 +563,7 @@ endif
 
 
 " }}}1
-"[ ####---------- Vim Plugins Settings -----------#### ] {{{1
+"[ ####--------- Vim Plugins Settings ------------#### ] {{{1
 
 
 "### neobundle.vim{{{2
@@ -1015,8 +991,8 @@ endfunction
 
 function AlterRef()
     AlterCommand  perldoc Perldoc
-    AlterCommand  perlfunc Perlfunc
-    AlterCommand  manpage Manpage
+    AlterCommand  perlfu[nc] Perlfunc
+    AlterCommand  man[page] Manpage
 endfunction
 
 autocmd VimEnter * call AlterRef()
@@ -1058,7 +1034,76 @@ let g:tweetvim_open_buffer_cmd='split'
 
 
 " }}}1
-"[ ####--------- Vim Visualize Settings ----------#### ] {{{1
+"[ ####--------- Programing Support Settings -----#### ] {{{1
+
+
+"### Perl progroming support補助設定 "{{{2
+
+
+"# コンパイラをperlに設定
+autocmd FileType perl :compiler perl
+
+"perltidy 
+autocmd Filetype perl nnoremap <buffer> <C-\>  <ESC>:%! perltidy<CR>
+autocmd Filetype perl vnoremap <buffer> <C-\>  :! perltidy<CR>
+
+"# :w + !perl command
+autocmd FileType perl nnoremap <buffer> <F4> :w :!perl<CR>
+"# !perl command
+autocmd FileType perl nnoremap <buffer> <F5> :!perl %<CR>
+
+
+"# perl moduleの補完設定
+autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
+
+"# perldoc:  module source code open
+command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
+function! OpenPerlModuleCode(module_name)
+
+    let l:module_path = system('perldoc -l ' . a:module_name)
+
+    if  l:module_path !~ 'No documentation found'
+        execute 'edit ' . l:modulepath
+    else
+        echohl Error | echo 'No documentation found'  | echohl None
+    endif
+
+endfunction
+
+function AlterFileTypePerl()
+    AlterCommand  perlre[ad] Perlread
+endfunction
+
+autocmd VimEnter * call AlterFileTypePerl()
+
+
+"}}}2
+"### 言語別アシスタンス設定 "{{{2
+
+
+"辞書ファイルを使用する設定に変更
+set complete+=k
+
+"ファイルタイプ別辞書ファイル
+autocmd FileType c,cpp,perl set cindent
+autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
+autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+"CF用コメントハイライト有効
+let html_wrong_comments=1
+
+
+"}}}2
+
+" }}}1
+"[ ####--------- GVim Visualize Settings ---------#### ] {{{1
 
 
 "### colorschemeの設定 "{{{2
@@ -1069,6 +1114,7 @@ set t_Co=256
 
 "# カラースキーマ
 syntax enable
+
 let g:default_background_color='dark'
 
 let g:gui_colorscheme_dark='solarized'
@@ -1100,25 +1146,21 @@ endfunction
 function! ChangeBackground()
 
     if &background ==# 'dark'
-
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_light : g:cui_colorscheme_light)
         set background=light
         echo 'change backgrount=light'
     else
-
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
         set background=dark
         echo 'change backgrount=dark'
-
     endif
 
     syntax on
     call MyColor()
-
 endfunction
 
 
@@ -1164,11 +1206,13 @@ nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
 
 function MyGUIMacVimSetting()
+
     set transparency=5
     set imdisable 
     set antialias
-    set guifont=Ricty:h16
+    set guifont=Ricty:h18
     set nobackup
+
 endfunction
 
 
