@@ -1060,10 +1060,10 @@ autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module_name)
 
-    let l:module_path = system('perldoc -l ' . a:module_name)
+    let l:module_path=system('perldoc -l ' . a:module_name)
 
-    if  l:module_path !~ 'No documentation found'
-        execute 'edit ' . l:modulepath
+    if l:module_path !~ 'No documentation found'
+        execute 'edit ' . l:module_path
     else
         echohl Error | echo 'No documentation found'  | echohl None
     endif
