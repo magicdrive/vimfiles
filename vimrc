@@ -629,14 +629,11 @@ NeoBundle 'scratch.vim'
 "# snipmate
 NeoBundle 'msanders/snipmate.vim'
 
-"# open-browser.vim
-NeoBundle 'tyru/open-browser.vim'
+"# TagHighlight
+NeoBundle 'TagHighlight'
 
-"# twibill.vim
-NeoBundle 'basyura/twibill.vim'
-
-"# tweetvim
-NeoBundle 'basyura/TweetVim'
+"# TagHighlight
+NeoBundle 'taglist.vim'
 
 "# nerdcommenter
 NeoBundle 'scrooloose/nerdcommenter.git'
@@ -719,6 +716,15 @@ NeoBundle 'koron/chalice'
 
 "# yamktmp.vim
 NeoBundle 'yanktmp.vim'
+
+"# open-browser.vim
+NeoBundle 'tyru/open-browser.vim'
+
+"# twibill.vim
+NeoBundle 'basyura/twibill.vim'
+
+"# tweetvim
+NeoBundle 'basyura/TweetVim'
 
 "#-------------------#
 "# 256color plug-in  #
