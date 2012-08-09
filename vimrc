@@ -446,9 +446,9 @@ noremap <Plug>(mykeylite)< :s/^\(.*\)$/<!-- \1 -->/<CR>
 
 
 "# Window横分割
-nnoremap <Plug>(mykeylite)w :<ESC>:split<CR>
+nnoremap <Plug>(mykeylite)w :<ESC>:new<CR>
 "# Window縦分割
-nnoremap <Plug>(mykeylite)v :<ESC>:vsplit<CR>
+nnoremap <Plug>(mykeylite)v :<ESC>:vnew<CR>
 
 "# カレントWindow縦最大化
 nnoremap <C-w><C-w> <C-w>_
@@ -541,6 +541,7 @@ if has('unix') && !has('gui_running')
     inoremap <silent> <ESC> <ESC>
     inoremap <silent> <C-[> <ESC>
 endif
+
 
 "}}}2
 "### Macvim用の設定 {{{2
@@ -959,24 +960,27 @@ let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm'
 "}}}2
 "### W3m.vim {{{2
 
+if !has('gui_running')
 
-"# alc
-let g:w3m_alc='alc'
-command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
-command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
+    "# alc
+    let g:w3m_alc='alc'
+    command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
+    command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
 
 
-"# dict
-let g:w3m_wikipedia='wikipedia'
-command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
-command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
+    "# dict
+    let g:w3m_wikipedia='wikipedia'
+    command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
+    command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
 
-function AlterW3m()
-    AlterCommand dict Dict
-    AlterCommand alc Alc
-endfunction
+    function AlterW3m()
+        AlterCommand dict Dict
+        AlterCommand alc Alc
+    endfunction
 
-autocmd VimEnter * call AlterW3m()
+    autocmd VimEnter * call AlterW3m()
+
+endif
 
 "}}}2
 "### Ref.vim {{{2
