@@ -779,9 +779,9 @@ nnoremap <silent> <Plug>(mykey)nn :<C-u>Unite -no-split neobundle<CR>
 " neobundle search
 nnoremap <silent> <Plug>(mykey)ns :<C-u>Unite neobundle/search<CR>
 " neobundle update
-nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite neobundle/install:!
+nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite neobundle/install:!<CR>
 " neobundle install
-nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite neobundle/install:
+nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite neobundle/install:<CR>
 
 "#---------------------------#
 "# ref+unite                 #
