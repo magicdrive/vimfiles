@@ -933,8 +933,8 @@ let g:errormarker_warninggroup='Warning'
 "### Vim-Powerline {{{2
 
 
-let g:Powerline_symbols = 'fancy'
-"let g:Powerline_symbols = 'compatible'
+"let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
 
 "# ESCの遅延防止
