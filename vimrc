@@ -927,14 +927,24 @@ let g:errormarker_warninggroup='Warning'
 
 
 "let g:Powerline_symbols = 'fancy'
-let g:Powerline_symbols = 'compatible'
+"let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
+let g:Powerline_symbols_override = {
+    \ 'BRANCH': [0x2213],
+    \ 'LINE': 'L',
+    \ }
+let g:Powerline_dividers_override = ['>>>>', '>>', '<<<<', '<<']
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
     inoremap <silent> <ESC> <ESC>
     inoremap <silent> <C-[> <ESC>
 endif
+
+if exists(':PowerlineReloadColorscheme') 
+   PowerlineReloadColorscheme
+endif
+
 
 "}}}2
 "### Solarized {{{2
