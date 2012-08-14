@@ -275,24 +275,30 @@ endfunction
 "### mouse modeの設定 "{{{2
 
 
-"# マウスモードの有効
-"set mouse=a
-set mouse=
+if has('mouse')
+    augroup MouseSetting
 
-"# terminalmutiprexa内でもマウスモード設定を反映 
-set ttymouse=xterm2
-"# マウスモードのトグル
-nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
-
-function! ToggleMouseMode()
-    if &mouse ==# 'a'
+        "# マウスモードの有効
+        "set mouse=a
         set mouse=
-        echo "MouseMode disabled"
-    else
-        set mouse=a
-        echo "MouseMode enabled"
-    endif
-endfunction
+
+        "# terminalmutiprexa内でもマウスモード設定を反映 
+        set ttymouse=xterm2
+        "# マウスモードのトグル
+        nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
+
+        function! ToggleMouseMode()
+            if &mouse ==# 'a'
+                set mouse=
+                echo "MouseMode disabled"
+            else
+                set mouse=a
+                echo "MouseMode enabled"
+            endif
+        endfunction
+    augroup END
+
+endif
 
 
 "}}}2
@@ -767,7 +773,7 @@ nnoremap <silent> <Plug>(mykey)u  :<C-u>Unite -no-split buffer file_mru<CR>
 " Directry
 nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
 " files
-nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -buffer-name=files file<CR>
+nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<CR>
 
 "#---------------------------#
 "# neobundle+unite           #
@@ -798,6 +804,7 @@ nnoremap <silent> <Plug>(mykey)Rm :<C-u> Unite ref/man<CR>
 
 " tweetvim menu
 nnoremap <silent> <Plug>(mykey)t  :<C-u> Unite tweetvim<CR>
+nnoremap <silent> <Plug>(mykey)T  :<C-u> Unite tweetvim<CR>
 
 
 "}}}2
@@ -1038,6 +1045,24 @@ nnoremap <silent> <Plug>(mykey)ts  :<C-u>TweetVimSay<CR>
 
 let g:tweetvim_tweet_per_page=100
 let g:tweetvim_open_buffer_cmd='split'
+
+
+"}}}2
+"### QuickRun {{{2
+
+
+nnoremap <silent> <Plug>(mykeylite)r <Plug>(quickrun)
+vnoremap <silent> <Plug>(mykeylite)r <Plug>(quickrun)
+
+for [key, com] in items({
+            \   '<Leader>x' : '>message',
+            \   '<Leader>p' : '-runner shell',
+            \   '<Leader>w' : '>buffer',
+            \   '<Leader>q' : '>>buffer',
+            \ })
+    execute 'vnoremap <silent>' . key . ':QuickRun' com '-mode v<CR>'
+    execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
+endfor
 
 
 "}}}2
