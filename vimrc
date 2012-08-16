@@ -573,7 +573,7 @@ endif
 "[ ####--------- Vim Plugins Settings ------------#### ] {{{1
 
 
-"### neobundle.vim{{{2
+"### Neobundle.vim{{{2
 
 
 filetype off
@@ -803,7 +803,7 @@ nnoremap <silent> <Plug>(mykey)Rm :<C-u> Unite ref/man<CR>
 "#---------------------------#
 
 " tweetvim menu
-nnoremap <silent> <Plug>(mykey)t  :<C-u> Unite tweetvim<CR>
+nnoremap <silent> <Plug>(mykey)tt  :<C-u> Unite tweetvim<CR>
 nnoremap <silent> <Plug>(mykey)T  :<C-u> Unite tweetvim<CR>
 
 
@@ -940,7 +940,7 @@ let g:Powerline_symbols_override = {
     \ 'BRANCH': [0x2213],
     \ 'LINE': 'L',
     \ }
-let g:Powerline_dividers_override = ['-=>', '> >', '<=-', '< <']
+let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -948,8 +948,8 @@ if has('unix') && !has('gui_running')
     inoremap <silent> <C-[> <ESC>
 endif
 
-if exists(':PowerlineReloadColorscheme') 
-   PowerlineReloadColorscheme
+if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
+   PowerlineClearCache | PowerlineReloadColorscheme
 endif
 
 
@@ -986,13 +986,19 @@ if !has('gui_running')
 
 
     "# dict
-    let g:w3m_wikipedia='wikipedia'
-    command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wikipedia, '<args>')
-    command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wikipedia, '<args>')
+    let g:w3m_dict='yahoodict'
+    command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_dict, '<args>')
+    command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_dict, '<args>')
+
+    "# dict
+    let g:w3m_wiki='wikipedia'
+    command! -nargs=1 Wikipedia :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wiki, '<args>')
+    command! -nargs=1 WikipediaSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wiki, '<args>')
 
     function AlterW3m()
         AlterCommand dict Dict
         AlterCommand alc Alc
+        AlterCommand wikip[edia] Wikipedia
     endfunction
 
     autocmd VimEnter * call AlterW3m()
@@ -1056,6 +1062,10 @@ nnoremap <silent> <Plug>(mykey)ts  :<C-u>TweetVimSay<CR>
 let g:tweetvim_tweet_per_page=100
 let g:tweetvim_open_buffer_cmd='split'
 
+function AlterTweet()
+    AlterCommand  ts TweetVimSay
+endfunction
+
 
 "}}}2
 "### QuickRun {{{2
@@ -1110,7 +1120,7 @@ function! OpenPerlModuleCode(module_name)
     if l:module_path !~ 'No documentation found'
         execute 'edit ' . l:module_path
     else
-        echohl Error | echo 'No documentation found'  | echohl None
+        echohl Error | echo l:module_path  | echohl None
     endif
 
 endfunction
@@ -1347,5 +1357,12 @@ autocmd GUIEnter * call MyGUISettingLazy()
 
 
 " }}}1
+
+
+"# local設定の読み込み
+if filereadable(expand('$HOME/.vimrc.local'))
+      source $HOME/.vimrc.local
+endif
+
 
 "__END__
