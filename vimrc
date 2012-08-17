@@ -1157,6 +1157,7 @@ let html_wrong_comments=1
 
 "}}}2
 
+
 " }}}1
 "[ ####--------- GVim Visualize Settings ---------#### ] {{{1
 
@@ -1262,7 +1263,7 @@ nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
 function MyGUIMacVimSetting()
 
-    set transparency=5
+    set transparency=10
     set imdisable 
     set antialias
     set guifont=Ricty:h18
@@ -1360,8 +1361,9 @@ autocmd GUIEnter * call MyGUISettingLazy()
 
 
 "# local設定の読み込み
-if filereadable(expand('$HOME/.vimrc.local'))
-      source $HOME/.vimrc.local
+let g:local_vimrc = '$HOME/.vimrc.local'
+if filereadable(expand(g:local_vimrc))
+      execute 'source ' . g:local_vimrc
 endif
 
 
