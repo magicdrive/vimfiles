@@ -577,7 +577,7 @@ endif
 "[ ####--------- Vim Plugins Settings ------------#### ] {{{1
 
 
-"### Neobundle.vim{{{2
+"### neobundle.vim{{{2
 
 
 filetype off
@@ -589,7 +589,7 @@ endif
 
 "#------------------------------------#
 "#                                    #
-"#     NeoBundleで管理するPlug-in     #
+"#     neobundleで管理するPlug-in     #
 "#                                    #
 "#------------------------------------#
 
@@ -816,12 +816,14 @@ nnoremap <silent> <Plug>(mykey)T  :<C-u> Unite tweetvim<CR>
 
 let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
 let g:vimshell_user_prompt='getcwd()'
+let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 
 "# shell buffer clear
 autocmd FileType vimshell nnoremap <silent> <C-l> <Insert>clear<CR>
 
 "# VimShellを新規Windowで立ち上げる
 command! Shell call Shell()
+
 
 nnoremap <silent> <Plug>(mykey)S :<C-u> call Shell()<CR>
 function! Shell()
