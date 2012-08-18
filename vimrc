@@ -16,8 +16,12 @@ map , <Plug>(mykeylite)
 set nocompatible
 
 "# 強制終了の無効化
-noremap ZZ <Nop>
-noremap ZQ <Nop>
+"noremap ZZ <Nop>
+"noremap ZQ <Nop>
+
+command! -nargs=0 ZZ :x
+command! -nargs=0 ZQ :q
+
 
 "# syntax highlight
 syntax on
@@ -166,7 +170,7 @@ nmap <Plug>(mykey)v :VimrcEdit<CR>
 "Encoding 
 set enc=utf-8 
 set fenc=utf-8 
-set fencs=utf-8,iso-2022-jp,cp932,euc-jp,sjis
+set fencs=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 
 if isdirectory($HOME . '/.vim')
     let s:CFGHOME=$HOME.'/.vim'
@@ -325,8 +329,8 @@ endif
 
 
 "# create new tab
-nnoremap <Plug>(mykeylite)tt :tabf .<CR>
-nnoremap <Plug>(mykeylite)T :tabf .<CR>
+nnoremap <Plug>(mykeylite)tt :tabnew<CR>
+nnoremap <Plug>(mykeylite)T :tabnew<CR>
 
 "# close current tab
 nnoremap <Plug>(mykeylite)tk :tabclose<CR>
@@ -819,14 +823,14 @@ autocmd FileType vimshell nnoremap <silent> <C-l> <Insert>clear<CR>
 "# VimShellを新規Windowで立ち上げる
 command! Shell call Shell()
 
-nnoremap <silent> <Plug>(mykey)s :<C-u> call Shell()<CR>
+nnoremap <silent> <Plug>(mykey)S :<C-u> call Shell()<CR>
 function! Shell()
     echo 'vimshell start'
     VimShell
     setlocal number
 endfunction
 
-nnoremap <silent> <Plug>(mykey)S :<C-u> call ShellSplit()<CR>
+nnoremap <silent> <Plug>(mykey)s :<C-u> call ShellSplit()<CR>
 function! ShellSplit()
     split
     call Shell()
@@ -1117,7 +1121,7 @@ function! OpenPerlModuleCode(module_name)
 
     let l:module_path=system('perldoc -l ' . a:module_name)
 
-    if l:module_path !~ 'No documentation found'
+    if l:module_path !~# 'No documentation found'
         execute 'edit ' . l:module_path
     else
         echohl Error | echo l:module_path  | echohl None
@@ -1133,7 +1137,26 @@ autocmd VimEnter * call AlterFileTypePerl()
 
 
 "}}}2
-"### 言語別アシスタンス設定 "{{{2
+"### Ruby progroming support補助設定 "{{{2
+
+
+"# コンパイラをperlに設定
+autocmd FileType ruby :compiler ruby
+
+"# :w + !ruby command
+autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
+"# !ruby command
+autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
+
+function AlterFileTypeRuby()
+    AlterCommand  perlre[ad] Perlread
+endfunction
+
+autocmd VimEnter * call AlterFileTypeRuby()
+
+
+"}}}2
+"### FyleType(Language)別アシスタンス設定 "{{{2
 
 
 "辞書ファイルを使用する設定に変更
@@ -1171,12 +1194,12 @@ set t_Co=256
 "# カラースキーマ
 syntax enable
 
-let g:default_background_color='dark'
+let g:default_background_color=has('unix') ? 'dark' : 'light'
 
 let g:gui_colorscheme_dark='solarized'
 let g:gui_colorscheme_light='solarized'
 
-let g:cui_colorscheme_dark='darkdefault'
+let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_light='morning'
 
 " setup color by background
