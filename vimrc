@@ -484,19 +484,30 @@ nnoremap <C-w>f <C-w>l
 
 
 iab YDT <C-R>=strftime("%Y-%m-%d %T")<CR>
-iab PSIMPLE <ESC>:r ~/.vim/tmpl/perl_simple.pl<CR>
-iab PMODULE <ESC>:r ~/.vim/tmpl/perl_module.pl<CR>
-iab PSUB    <ESC>:r ~/.vim/tmpl/perl_sub.pl<CR>
+iab PSIMPLE <ESC>:r ~/.vim/misc/tmpl/perl_simple.pl<CR>
+iab PMODULE <ESC>:r ~/.vim/misc/tmpl/perl_module.pl<CR>
+iab PSUB    <ESC>:r ~/.vim/ermpl/perl_sub.pl<CR>
 iab PHREF   $hash_name->{namae}
 iab PFOREACH    foreach my $element (@nanigasi){
 iab PFOR        for ( my $i=1; $i <= 100; $i++ ){
 iab PRINT       print $i, "\n";
-iab HSIMPLE <ESC>:r ~/.vim/tmpl/xhtml_simple.html<CR>
-iab XSIMPLE <ESC>:r ~/.vim/tmpl/xml_simple.xml<CR>
-iab LSIMPLE <ESC>:r ~/.vim/tmpl/lisp_simple.lisp<CR>
+iab Pdumper use Data::Dumper; warn Dumper 
+iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
+
+
+iab HSIMPLE <ESC>:r ~/.vim/misc/tmpl/xhtml_simple.html<CR>
+iab XSIMPLE <ESC>:r ~/.vim/misc/tmpl/xml_simple.xml<CR>
+iab LSIMPLE <ESC>:r ~/.vim/misc/tmpl/lisp_simple.lisp<CR>
+
 iab UA_IE Mozilla/5.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)
 iab UA_FX Mozilla/5.0 (X11; U; Linux i686; ja; rv:1.8.0.4) Gecko/20060508 Firefox/1.5.0.4
 iab UA_CH Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19
+
+iab UA_IPHONE Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A334 Safari/7534.48.3
+iab UA_IPHONE2 Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405 Safari/7534.48.3
+iab UA_IPOD Mozilla/5.0 (iPod; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
+iab UA_IPAD Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
+
 iab MIME_POST application/x-www-form-urlencoded
 iab MIME_JSON application/json
 iab authe authentication
@@ -504,8 +515,7 @@ iab autho authorization
 iab passw password
 iab javasc javascript
 iab concate concatenate
-iab Pdumper use Data::Dumper; warn Dumper 
-iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
+
 
 
 "}}}2
@@ -1390,6 +1400,5 @@ let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
       execute 'source ' . g:local_vimrc
 endif
-
 
 "__END__
