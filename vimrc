@@ -779,6 +779,8 @@ filetype indent on
 "}}}2
 "### Unite.vim {{{2
 
+"# filehistory 上限
+let g:unite_source_file_mru_limit=1000
 
 "#---------------------------#
 "# buffers+unite             #
