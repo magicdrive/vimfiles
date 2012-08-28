@@ -1211,16 +1211,19 @@ let html_wrong_comments=1
 "# xterm-256color
 set t_Co=256
 
-"# カラースキーマ
+"# Colorscheme
 syntax enable
 
 let g:default_background_color=has('unix') ? 'dark' : 'light'
 
-let g:gui_colorscheme_dark='solarized'
-let g:gui_colorscheme_light='solarized'
+let g:gui_colorscheme_dark='distinguished'
+let g:gui_colorscheme_light='github'
 
-let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_light='morning'
+"let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
+let g:cui_colorscheme_dark='distinguished'
+let g:cui_colorscheme_light='zenburn'
+
+let g:current_bg_color=g:default_background_color
 
 " setup color by background
 function SetupColorScheme ()
@@ -1229,12 +1232,10 @@ function SetupColorScheme ()
         execute 'colorscheme ' . 
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
-        set background=dark
     else
         execute 'colorscheme ' . 
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_light : g:cui_colorscheme_light)
-        set background=light
     endif
 
     call MyColor()
@@ -1244,17 +1245,17 @@ endfunction
 "# change colorscheme & background
 function! ChangeBackground()
 
-    if &background ==# 'dark'
+    if g:current_bg_color ==# 'dark'
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_light : g:cui_colorscheme_light)
-        set background=light
+        let g:current_bg_color='lilght'
         echo 'change backgrount=light'
     else
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
-        set background=dark
+        let g:current_bg_color='dark'
         echo 'change backgrount=dark'
     endif
 
@@ -1410,3 +1411,4 @@ if filereadable(expand(g:local_vimrc))
 endif
 
 "__END__
+

@@ -34,6 +34,7 @@
 	endfunction
 " }}}
 
+"	\ , 'CursorLine'                  : [     16,    231,               '',            '',  '3a3a3a',               '']
 "	   | Highlight group                |  CTFG |  CTBG |    CTAttributes | || |   GUIFG |    GUIBG |   GUIAttributes |
 "	   |--------------------------------|-------|-------|-----------------| || |---------|----------|-----------------|
 call s:ColorDictParser({
@@ -43,7 +44,6 @@ call s:ColorDictParser({
 	\ , 'Cursor'                      : [     '',     '',               '',      'ffffff',  'dd4010',               '']
 	\ , 'lCursor'                     : [     '',     '',               '',      'ffffff',  '89b6e2',               '']
 	\
-	\ , 'CursorLine'                  : [     16,    231,               '',            '',  '3a3a3a',               '']
 	\ , 'CursorColumn'                : [    231,    237,               '',      'ffffff',  '3a3a3a',               '']
 	\
 	\ , 'Folded'                      : [    249,    234,               '',      'b2b2b2',  '1c1c1c',               '']
