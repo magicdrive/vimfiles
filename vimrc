@@ -1216,9 +1216,11 @@ syntax enable
 
 let g:default_background_color=has('unix') ? 'dark' : 'light'
 
-let g:gui_colorscheme_dark='distinguished'
-let g:gui_colorscheme_light='github'
+"# GUI
+let g:gui_colorscheme_dark='railscasts'
+let g:gui_colorscheme_light='sand'
 
+"# CUI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_dark='distinguished'
 let g:cui_colorscheme_light='zenburn'
