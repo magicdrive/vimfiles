@@ -593,7 +593,7 @@ endif
 "[ ####--------- Vim Plugins Settings ------------#### ] {{{1
 
 
-"### neobundle.vim{{{2
+"### NeoBundle.vim{{{2
 
 
 filetype off
@@ -647,6 +647,9 @@ NeoBundle 'javacomplete'
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
+"# ruby-doc
+NeoBundle 'lucapette/vim-ruby-doc'
+
 "# zencoding
 NeoBundle 'mattn/zencoding-vim'
 
@@ -659,7 +662,7 @@ NeoBundle 'msanders/snipmate.vim'
 "# TagHighlight
 NeoBundle 'TagHighlight'
 
-"# TagHighlight
+"# taglist
 NeoBundle 'taglist.vim'
 
 "# nerdcommenter
@@ -991,11 +994,11 @@ let g:solarized_italic=0
 "### EasyMotion {{{2
 
 
-noremap <C-e> <Nop>
+noremap e <Nop>
 
-let g:EasyMotion_leader_key = "<C-e>"
+let g:EasyMotion_leader_key = "e"
 
-let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm'
+let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
 
 
 "}}}2
@@ -1169,7 +1172,7 @@ autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
 autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
 
 function AlterFileTypeRuby()
-    AlterCommand  perlre[ad] Perlread
+    AlterCommand  rubydoc RubyDoc
 endfunction
 
 autocmd VimEnter * call AlterFileTypeRuby()
@@ -1214,30 +1217,44 @@ set t_Co=256
 "# Colorscheme
 syntax enable
 
-let g:default_background_color=has('unix') ? 'dark' : 'light'
+let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_dark='railscasts'
-let g:gui_colorscheme_light='sand'
+let g:gui_colorscheme_a='solarized'
+let g:gui_background_a='dark'
+let g:gui_colorscheme_b='solarized'
+let g:gui_background_b='light'
 
 "# CUI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_dark='distinguished'
-let g:cui_colorscheme_light='zenburn'
+let g:cui_colorscheme_a='distinguished'
+let g:cui_background_a='light'
+let g:cui_colorscheme_b='darkdefault'
+let g:cui_background_b='dark'
 
-let g:current_bg_color=g:default_background_color
+let g:current_color_mode=g:default_color_mode
 
 " setup color by background
 function SetupColorScheme ()
 
-    if g:default_background_color ==# 'dark'
+    if g:default_color_mode ==# 'A'
         execute 'colorscheme ' . 
                     \ (has('gui_running') ?
-                    \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
     else
         execute 'colorscheme ' . 
                     \ (has('gui_running') ?
-                    \ g:gui_colorscheme_light : g:cui_colorscheme_light)
+                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
+    endif
+
+    if has('gui_running')
+        execute 'set background=' . 
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:gui_background_a : g:gui_background_b)
+    else
+        execute 'set background=' . 
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:cui_background_a : g:cui_background_b)
     endif
 
     call MyColor()
@@ -1247,18 +1264,28 @@ endfunction
 "# change colorscheme & background
 function! ChangeBackground()
 
-    if g:current_bg_color ==# 'dark'
+    if g:current_color_mode ==# 'A'
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
-                    \ g:gui_colorscheme_light : g:cui_colorscheme_light)
-        let g:current_bg_color='lilght'
+                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
+        let g:current_color_mode='B'
         echo 'change backgrount=light'
     else
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
-                    \ g:gui_colorscheme_dark : g:cui_colorscheme_dark)
-        let g:current_bg_color='dark'
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+        let g:current_color_mode='A'
         echo 'change backgrount=dark'
+    endif
+
+    if has('gui_running')
+        execute 'set background=' . 
+                    \ ( g:current_color_mode ==# 'A' ?
+                    \ g:gui_background_a : g:gui_background_b)
+    else
+        execute 'set background=' . 
+                    \ ( (g:current_color_mode ==# 'A') ?
+                    \ g:cui_background_a : g:cui_background_b)
     endif
 
     syntax on
@@ -1269,7 +1296,9 @@ endfunction
 function! MyColor()
 
     "# ポップアップメニューの色変更
-    highlight Pmenu ctermfg=Black
+    highlight Pmenu 
+                \ ctermbg=Magenta
+                \ ctermfg=Black 
 
     highlight PmenuSel
                 \ ctermbg=DarkMagenta
