@@ -9,8 +9,8 @@
 
 
 "# mapkeyprefix
-map <Space> <Plug>(mykey)
-map , <Plug>(mykeylite)
+map <silent> <Space> <Plug>(mykey)
+map <silent> , <Plug>(mykeylite)
 
 "# vi互換のoff
 set nocompatible
