@@ -651,6 +651,9 @@ NeoBundle 'sgur/unite-qf'
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
+"# smartinput
+NeoBundle 'kana/vim-smartinput'
+
 "# cocoa.vim
 NeoBundle 'cocoa.vim'
 
@@ -886,7 +889,7 @@ endfunction
 
 nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 
-autocmd FileType vimfiler nnoremap <buffer> <Space> <Nop>
+autocmd FileType vimfiler nunmap <buffer> <Space>
 autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
 autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
 
@@ -1015,9 +1018,7 @@ let g:solarized_italic=0
 "### EasyMotion {{{2
 
 
-noremap r <Nop>
-
-let g:EasyMotion_leader_key = "r"
+let g:EasyMotion_leader_key = "m"
 
 let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
 
