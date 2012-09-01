@@ -840,7 +840,7 @@ let g:vimshell_user_prompt='getcwd()'
 let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 
 "# shell buffer clear
-autocmd FileType vimshell nnoremap <silent> <C-l> <Insert>clear<CR>
+autocmd FileType vimshell nnoremap <silent><buffer> <C-l> <Insert>clear<CR>
 
 "# VimShellを新規Windowで立ち上げる
 command! Shell call Shell()
