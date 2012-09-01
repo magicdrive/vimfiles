@@ -65,9 +65,9 @@ nnoremap <Plug>(mykeylite)s :<C-u>%s///<LEFT><LEFT>
 noremap  <silent> <C-@> <ESC>
 noremap! <silent> <C-@> <ESC>
 cnoremap <silent> <C-@> <C-c>
-noremap  <silent> <C-l> <ESC>
-noremap! <silent> <C-l> <ESC>
-cnoremap <silent> <C-l> <C-c>
+noremap  <silent> <Nul> <ESC>
+noremap! <silent> <Nul> <ESC>
+cnoremap <silent> <Nul> <C-c>
 
 "# recording off
 nnoremap q <Nop>
@@ -125,7 +125,7 @@ set wildmode=longest,full
 set history=256
 
 "# Explore
-nnoremap <Plug>(mykey)e :Explore ./<CR>
+"nnoremap <Plug>(mykey)e :Explore ./<CR>
 
 "# tagjump stack preview
 nnoremap <Leader>t <C-t>
@@ -354,7 +354,7 @@ set hlsearch
 
 "# 検索ハイライト消去
 nnoremap <ESC><ESC> :nohlsearch<CR>
-nnoremap <C-l><C-l> :nohlsearch<CR>
+nnoremap <Nul><Nul> :nohlsearch<CR>
 nnoremap <C-c><C-c> :nohlsearch<CR>
 
 "# 検索時にインクリメンタルサーチを行う
@@ -616,12 +616,6 @@ endif
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim'
 
-"# Unite.vim
-NeoBundle 'Shougo/unite.vim'
-
-"# unite-ssh
-NeoBundle 'Shougo/unite-ssh'
-
 "# vimfiler
 NeoBundle 'Shougo/vimfiler'
 
@@ -630,6 +624,25 @@ NeoBundle 'Shougo/vimproc'
 
 "# vimshell
 NeoBundle 'Shougo/vimshell'
+
+"#----------------------------------#
+"# unite.vim & unite source plug-in #
+"#----------------------------------#
+
+"# Unite.vim
+NeoBundle 'Shougo/unite.vim'
+
+"# unite-ssh
+NeoBundle 'Shougo/unite-ssh'
+
+"# unite-ack
+NeoBundle 't9md/vim-unite-ack'
+
+"# unite-help
+NeoBundle 'tsukkee/unite-help'
+
+"# unite-qflist
+NeoBundle 'sgur/unite-qf'
 
 "#---------------------------#
 "# programing suport plug-in #
@@ -783,7 +796,7 @@ filetype indent on
 "### Unite.vim {{{2
 
 "# filehistory 上限
-let g:unite_source_file_mru_limit=1000
+let g:unite_source_file_mru_limit=256
 
 "#---------------------------#
 "# buffers+unite             #
@@ -831,6 +844,13 @@ nnoremap <silent> <Plug>(mykey)Rm :<C-u> Unite ref/man<CR>
 nnoremap <silent> <Plug>(mykey)tt  :<C-u> Unite tweetvim<CR>
 nnoremap <silent> <Plug>(mykey)T  :<C-u> Unite tweetvim<CR>
 
+"#---------------------------#
+"# unitesource:unite-help    #
+"#---------------------------#
+
+" Execute help.
+nnoremap <silent> g<C-h>  :<C-u>Unite -start-insert help<CR>
+
 
 "}}}2
 "### vimshell {{{2
@@ -866,8 +886,9 @@ endfunction
 
 nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 
-autocmd FileType vimfiler nnoremap m <Plug>(vimfiler_toggle_mark_current_line)
-autocmd FileType vimfiler nnoremap M <Plug>(vimfiler_toggle_mark_current_line_up)
+autocmd FileType vimfiler nnoremap <buffer> <Space> <Nop>
+autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
+autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
 
 "# vimfilerをデフォルトのexplorerと置き換えるか
 let g:vimfiler_as_default_explorer=1
@@ -994,9 +1015,9 @@ let g:solarized_italic=0
 "### EasyMotion {{{2
 
 
-noremap e <Nop>
+noremap r <Nop>
 
-let g:EasyMotion_leader_key = "e"
+let g:EasyMotion_leader_key = "r"
 
 let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
 
@@ -1051,7 +1072,7 @@ endfunction
 
 function AlterRef()
     AlterCommand  perldoc Perldoc
-    AlterCommand  perlfu[nc] Perlfunc
+    AlterCommand  perlf[unc] Perlfunc
     AlterCommand  man[page] Manpage
 endfunction
 
@@ -1090,7 +1111,7 @@ let g:tweetvim_tweet_per_page=100
 let g:tweetvim_open_buffer_cmd='split'
 
 function AlterTweet()
-    AlterCommand  ts TweetVimSay
+    AlterCommand  tws TweetVimSay
 endfunction
 
 
@@ -1131,26 +1152,39 @@ autocmd Filetype perl vnoremap <buffer> <C-\>  :! perltidy<CR>
 
 "# :w + !perl command
 autocmd FileType perl nnoremap <buffer> <F4> :w :!perl<CR>
-"# !perl command
-autocmd FileType perl nnoremap <buffer> <F5> :!perl %<CR>
+"# !perl 
+autocmd FileType perl nnoremap <buffer> <F5> :!perl -c %<CR>
 
 
 "# perl moduleの補完設定
-autocmd FileType perl setlocal iskeyword+=a-z,A-Z,48-57,_,:
+autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:
 
 "# perldoc:  module source code open
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
-function! OpenPerlModuleCode(module_name)
+function! OpenPerlModuleCode(module) range
 
-    let l:module_path=system('perldoc -l ' . a:module_name)
+    let l:module_path=system('perldoc -l ' . 
+                \ (a:module ==# '<cword>' ? 
+                    \ expand('<cword>') : a:module) )
 
     if l:module_path !~# 'No documentation found'
         execute 'edit ' . l:module_path
     else
-        echohl Error | echo l:module_path  | echohl None
+        echohl Error | echo l:module_path | echohl None
     endif
 
 endfunction
+
+if exists('*ref#open') 
+    "# required vim-ref !!!!
+    autocmd Filetype perl 
+                \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
+    autocmd Filetype perl 
+                \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
+endif
+
+autocmd Filetype perl,ref-perldoc
+            \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
 
 function AlterFileTypePerl()
     AlterCommand  perlre[ad] Perlread
