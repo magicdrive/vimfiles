@@ -971,7 +971,7 @@ endif
 
 
 "}}}2
-"### errormarker.vim {{{2
+"### ErrorMarker.vim {{{2
 
 
 let g:errormarker_errortext='!!'
@@ -1163,10 +1163,8 @@ autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:
 "# perldoc:  module source code open
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module) range
-
-    let l:module_path=system('perldoc -l ' . 
-                \ (a:module ==# '<cword>' expand('<cword>') : a:module) 
-        \ )
+    let l:module_name=a:module ==# '<cword>' ? expand('<cword>') : a:module
+    let l:module_path=system( 'perldoc -l ' . l:module_name )
 
     if l:module_path !~# 'No documentation found'
         execute 'edit ' . l:module_path
