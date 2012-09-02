@@ -145,6 +145,15 @@ command! -nargs=0 VimrcEdit :edit $MYVIMRC
 command! -nargs=0 VE :VimrcEdit 
 command! -nargs=0 E :edit!
 
+"# extract visual selected string
+function! s:get_visual_selected()
+    let tmp = @@
+    silent normal gvy
+    let selected = @@
+    let @@ = tmp
+    return selected
+endfunction
+
 if has('vim_starting')
 
     function! VimLRun()
@@ -1156,14 +1165,20 @@ autocmd FileType perl nnoremap <buffer> <F4> :w :!perl<CR>
 "# !perl 
 autocmd FileType perl nnoremap <buffer> <F5> :!perl -c %<CR>
 
-
 "# perl moduleの補完設定
 autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:
 
 "# perldoc:  module source code open
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module) range
-    let l:module_name=a:module ==# '<cword>' ? expand('<cword>') : a:module
+    let l:module_name=''
+
+    if  a:module ==# '<visualmode>'
+        let l:module_name=s:get_visual_selected()
+    else
+        let l:module_name=a:module ==# '<cword>' ? expand('<cword>') : a:module
+    endif
+
     let l:module_path=system( 'perldoc -l ' . l:module_name )
 
     if l:module_path !~# 'No documentation found'
@@ -1174,6 +1189,7 @@ function! OpenPerlModuleCode(module) range
 
 endfunction
 
+"# perldoc
 if exists('*ref#open') 
     "# required vim-ref !!!!
     autocmd Filetype perl 
@@ -1182,8 +1198,12 @@ if exists('*ref#open')
                 \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
 endif
 
+"# read module source 
 autocmd Filetype perl,ref-perldoc
             \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
+autocmd Filetype perl,ref-perldoc
+            \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visualmode>' )<CR>
+        
 
 function AlterFileTypePerl()
     AlterCommand  perlre[ad] Perlread
