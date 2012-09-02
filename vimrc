@@ -1165,8 +1165,8 @@ command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module) range
 
     let l:module_path=system('perldoc -l ' . 
-                \ (a:module ==# '<cword>' ? 
-                    \ expand('<cword>') : a:module) )
+                \ (a:module ==# '<cword>' expand('<cword>') : a:module) 
+        \ )
 
     if l:module_path !~# 'No documentation found'
         execute 'edit ' . l:module_path
