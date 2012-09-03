@@ -1173,18 +1173,20 @@ command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module) range
     let l:module_name=''
 
-    if  a:module ==# '<visualmode>'
+    if  a:module ==# '<visual>'
         let l:module_name=s:get_visual_selected()
     else
         let l:module_name=a:module ==# '<cword>' ? expand('<cword>') : a:module
     endif
 
-    let l:module_path=system( 'perldoc -l ' . l:module_name )
+    let l:module_path = 
+                \ system('perl -MClass::Inspector -e ' 
+                \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"') 
 
-    if l:module_path !~# 'No documentation found'
+    if l:module_path !=# ''
         execute 'edit ' . l:module_path
     else
-        echohl Error | echo l:module_path | echohl None
+        echohl Error | echo 'No modulefile found.' | echohl None
     endif
 
 endfunction
@@ -1202,7 +1204,7 @@ endif
 autocmd Filetype perl,ref-perldoc
             \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
 autocmd Filetype perl,ref-perldoc
-            \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visualmode>' )<CR>
+            \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
         
 
 function AlterFileTypePerl()
