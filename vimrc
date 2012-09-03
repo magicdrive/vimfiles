@@ -887,7 +887,7 @@ endfunction
 
 nnoremap <silent> <Plug>(mykey)s :<C-u> call ShellSplit()<CR>
 function! ShellSplit()
-    split
+    vsplit
     call Shell()
 endfunction
 
