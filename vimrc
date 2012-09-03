@@ -131,8 +131,9 @@ set history=256
 nnoremap <Leader>t <C-t>
 
 "# buffer next/preview
-"nnoremap <silent> <C-f> :bn<CR>
-"nnoremap <silent> <C-b> :bp<CR>
+nnoremap <silent> <C-b> <C-b>
+nnoremap <silent> <C-b><C-n> :bn<CR>
+nnoremap <silent> <C-b><C-p> :bp<CR>
 
 
 "}}}2
