@@ -1154,84 +1154,88 @@ endfor
 "### Perl progroming support補助設定 "{{{2
 
 
-"# コンパイラをperlに設定
-autocmd FileType perl :compiler perl
+augroup PerlFTPlugin
+    "# コンパイラをperlに設定
+    autocmd FileType perl :compiler perl
 
-"perltidy 
-autocmd Filetype perl nnoremap <buffer> <C-\>  <ESC>:%! perltidy<CR>
-autocmd Filetype perl vnoremap <buffer> <C-\>  :! perltidy<CR>
+    "perltidy 
+    autocmd Filetype perl nnoremap <buffer> <C-\>  <ESC>:%! perltidy<CR>
+    autocmd Filetype perl vnoremap <buffer> <C-\>  :! perltidy<CR>
 
-"# :w + !perl command
-autocmd FileType perl nnoremap <buffer> <F4> :w :!perl<CR>
-"# !perl 
-autocmd FileType perl nnoremap <buffer> <F5> :!perl -c %<CR>
+    "# :w + !perl command
+    autocmd FileType perl nnoremap <buffer> <F4> :w :!perl<CR>
+    "# !perl 
+    autocmd FileType perl nnoremap <buffer> <F5> :!perl -c %<CR>
 
-"# perl moduleの補完設定
-autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:
+    "# perl moduleの補完設定
+    autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:
 
-"# perldoc:  module source code open
-command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
-function! OpenPerlModuleCode(module) range
-    let l:module_name=''
+    "# perldoc:  module source code open
+    command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
+    function! OpenPerlModuleCode(module) range
+        let l:module_name=''
 
-    if  a:module ==# '<visual>'
-        let l:module_name=s:get_visual_selected()
-    else
-        let l:module_name=a:module ==# '<cword>' ? expand('<cword>') : a:module
+        if  a:module ==# '<visual>'
+            let l:module_name=s:get_visual_selected()
+        else
+            let l:module_name=a:module ==# '<cword>' ? expand('<cword>') : a:module
+        endif
+
+        let l:module_path = 
+                    \ system('perl -MClass::Inspector -e ' 
+                    \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"') 
+
+        if l:module_path !=# ''
+            execute 'edit ' . l:module_path
+        else
+            echohl Error | echo 'No modulefile found.' | echohl None
+        endif
+
+    endfunction
+
+    "# perldoc
+    if exists('*ref#open') 
+        "# required vim-ref !!!!
+        autocmd Filetype perl 
+                    \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
+        autocmd Filetype perl 
+                    \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
     endif
 
-    let l:module_path = 
-                \ system('perl -MClass::Inspector -e ' 
-                \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"') 
+    "# read module source 
+    autocmd Filetype perl,ref-perldoc
+                \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
+    autocmd Filetype perl,ref-perldoc
+                \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
 
-    if l:module_path !=# ''
-        execute 'edit ' . l:module_path
-    else
-        echohl Error | echo 'No modulefile found.' | echohl None
-    endif
 
-endfunction
+    function AlterFileTypePerl()
+        AlterCommand  perlre[ad] Perlread
+    endfunction
 
-"# perldoc
-if exists('*ref#open') 
-    "# required vim-ref !!!!
-    autocmd Filetype perl 
-                \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
-    autocmd Filetype perl 
-                \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
-endif
-
-"# read module source 
-autocmd Filetype perl,ref-perldoc
-            \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
-autocmd Filetype perl,ref-perldoc
-            \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
-        
-
-function AlterFileTypePerl()
-    AlterCommand  perlre[ad] Perlread
-endfunction
-
-autocmd VimEnter * call AlterFileTypePerl()
+    autocmd VimEnter * call AlterFileTypePerl()
+augroup END
 
 
 "}}}2
 "### Ruby progroming support補助設定 "{{{2
 
 
-"# コンパイラをperlに設定
-autocmd FileType ruby :compiler ruby
+augroup RubyFTPlugin
+    "# コンパイラをrybyに設定
+    autocmd FileType ruby :compiler ruby
 
-"# :w + !ruby command
-autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
-"# !ruby command
-autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
+    "# :w + !ruby command
+    autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
+    "# !ruby command
+    autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
 
-function AlterFileTypeRuby()
-    AlterCommand  rubydoc RubyDoc
-endfunction
+    function AlterFileTypeRuby()
+        AlterCommand  rubydoc RubyDoc
+    endfunction
 
-autocmd VimEnter * call AlterFileTypeRuby()
+    autocmd VimEnter * call AlterFileTypeRuby()
+augroup END
 
 
 "}}}2
