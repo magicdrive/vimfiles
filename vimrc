@@ -468,9 +468,9 @@ noremap <Plug>(mykeylite)< :s/^\(.*\)$/<!-- \1 -->/<CR>
 
 
 "# Window横分割
-nnoremap <Plug>(mykeylite)w :<ESC>:new<CR>
+nnoremap <Plug>(mykeylite)w :<ESC>:sprit<CR>
 "# Window縦分割
-nnoremap <Plug>(mykeylite)v :<ESC>:vnew<CR>
+nnoremap <Plug>(mykeylite)v :<ESC>:vsprit<CR>
 
 "# カレントWindow縦最大化
 nnoremap <C-w><C-w> <C-w>_
