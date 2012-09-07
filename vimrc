@@ -869,7 +869,7 @@ nnoremap <silent> g<C-h>  :<C-u>Unite -start-insert help<CR>
 "#---------------------------#
 
 " Execute help.
-nnoremap <silent> <Plug>(mykey)g  :<C-u>Unite -vertical help<CR>
+nnoremap <silent> <Plug>(mykey)g  :<C-u>Unite -vertical grep<CR>
 
 
 "}}}2
