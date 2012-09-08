@@ -1185,7 +1185,9 @@ augroup PerlFTPlugin
         if  a:module ==# '<visual>'
             let l:module_name=s:get_visual_selected()
         else
-            let l:module_name=a:module ==# '<cword>' ? expand('<cword>') : a:module
+            let l:module_name=a:module ==# '<cword>' 
+                        \ ? expand('<cword>') 
+                        \ : a:module
         endif
 
         let l:module_path = 
@@ -1269,7 +1271,12 @@ let html_wrong_comments=1
 
 
 "}}}2
+"### Template{{{2
 
+autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.pl
+autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl.pm
+
+" }}}2
 
 " }}}1
 "[ ####--------- GVim Visualize Settings ---------#### ] {{{1

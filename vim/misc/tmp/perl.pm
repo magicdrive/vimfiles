@@ -1,4 +1,4 @@
-#! /usr/bin/env perl
+package Foo::Bar;
 
 use strict;
 use warnings;
