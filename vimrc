@@ -1271,10 +1271,10 @@ let html_wrong_comments=1
 
 
 "}}}2
-"### Template{{{2
+"### Template FileSetting{{{2
 
-autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.pl
-autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl.pm
+autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.pl | 1 | delete
+autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl.pm | 1 | delete
 
 " }}}2
 
