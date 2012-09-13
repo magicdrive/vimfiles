@@ -692,7 +692,7 @@ NeoBundle 'TagHighlight'
 NeoBundle 'taglist.vim'
 
 "# nerdcommenter
-NeoBundle 'scrooloose/nerdcommenter.git'
+"NeoBundle 'scrooloose/nerdcommenter.git'
 
 "# errormarker.vim
 NeoBundle 'errormarker.vim'
