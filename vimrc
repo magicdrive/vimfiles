@@ -743,6 +743,9 @@ NeoBundle 'MultipleSearch'
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
 
+"# activefix
+NeoBundle 'chikatoike/activefix.vim'
+
 "# memolist.vim
 NeoBundle 'glidenote/memolist.vim'
 
@@ -1152,6 +1155,12 @@ endfor
 
 
 "}}}2
+"### ActiveFix {{{2
+
+set updatetime=1000
+
+"}}}2
+
 
 
 " }}}1
@@ -1166,13 +1175,13 @@ augroup PerlFTPlugin
     autocmd FileType perl :compiler perl
 
     "perltidy 
-    autocmd Filetype perl nnoremap <buffer> <C-\>  <ESC>:%! perltidy<CR>
-    autocmd Filetype perl vnoremap <buffer> <C-\>  :! perltidy<CR>
+    autocmd FileType perl nnoremap <buffer> <C-\> <ESC>:%! perltidy<CR>
+    autocmd FileType perl vnoremap <buffer> <C-\> :! perltidy<CR>
 
     "# :w + !perl command
-    autocmd FileType perl nnoremap <buffer> <F4> :w :!perl<CR>
+    autocmd FileType perl nnoremap <buffer> <F4> :w !perl<CR>
     "# !perl 
-    autocmd FileType perl nnoremap <buffer> <F5> :!perl -c %<CR>
+    autocmd FileType perl nnoremap <buffer> <Plug>(mykeylite), :w !perl -c<CR>
 
     "# perl moduleの補完設定
     autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:
@@ -1205,16 +1214,16 @@ augroup PerlFTPlugin
     "# perldoc
     if exists('*ref#open') 
         "# required vim-ref !!!!
-        autocmd Filetype perl 
+        autocmd FileType perl 
                     \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
-        autocmd Filetype perl 
+        autocmd FileType perl 
                     \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
     endif
 
     "# read module source 
-    autocmd Filetype perl,ref-perldoc
+    autocmd FileType perl,ref-perldoc
                 \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
-    autocmd Filetype perl,ref-perldoc
+    autocmd FileType perl,ref-perldoc
                 \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
 
 
