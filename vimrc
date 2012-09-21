@@ -300,7 +300,7 @@ augroup MouseSetting
 
         "# terminalmutiprexa内でもマウスモード設定を反映 
         set ttymouse=xterm2
-        "# マウスモードのトグル
+        "# toggle mouse mode
         nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
 
         function! ToggleMouseMode()
@@ -1282,10 +1282,12 @@ let html_wrong_comments=1
 "}}}2
 "### Template FileSetting{{{2
 
-autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.pl | 1 | delete
-autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl.pm | 1 | delete
+autocmd BufNewFile,BufNew,BufCreate *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
+autocmd BufNewFile,BufNew,BufCreate *.pm :r $HOME/.vim/misc/tmp/prel_module.template.pm | 1 | delete
+autocmd BufNewFile,BufNew,BufCreate *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
 
 " }}}2
+
 
 " }}}1
 "[ ####--------- GVim Visualize Settings ---------#### ] {{{1
