@@ -1038,9 +1038,9 @@ let g:solarized_italic=0
 "### EasyMotion {{{2
 
 
-let g:EasyMotion_leader_key = "r"
+let g:EasyMotion_leader_key = "m"
 
-let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
+"let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
 
 
 "}}}2
