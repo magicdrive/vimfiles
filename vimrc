@@ -673,6 +673,9 @@ NeoBundle 'javacomplete'
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
+"# scala-vim
+NeoBundle 'derekwyatt/vim-scala'
+
 "# ruby-doc
 NeoBundle 'lucapette/vim-ruby-doc'
 
