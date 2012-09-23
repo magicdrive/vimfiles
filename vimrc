@@ -1282,9 +1282,9 @@ let html_wrong_comments=1
 "}}}2
 "### Template FileSetting{{{2
 
-autocmd BufNewFile,BufNew,BufCreate *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
-autocmd BufNewFile,BufNew,BufCreate *.pm :r $HOME/.vim/misc/tmp/prel_module.template.pm | 1 | delete
-autocmd BufNewFile,BufNew,BufCreate *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
+autocmd BufNewFile,BufNew *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
+autocmd BufNewFile,BufNew *.pm :r $HOME/.vim/misc/tmp/prel_module.template.pm | 1 | delete
+autocmd BufNewFile,BufNew *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
 
 " }}}2
 
