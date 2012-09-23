@@ -658,6 +658,9 @@ NeoBundle 'sgur/unite-qf'
 "# programing suport plug-in #
 "#---------------------------#
 
+"# syntastic
+NeoBundle 'scrooloose/syntastic'
+
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
@@ -669,6 +672,9 @@ NeoBundle 'cocoa.vim'
 
 "# javacomplete.vim
 NeoBundle 'javacomplete'
+
+"# vim-jde
+NeoBundle 'vim-scripts/Vim-JDE'
 
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
@@ -1163,6 +1169,15 @@ endfor
 set updatetime=1000
 
 "}}}2
+"### Syntastic {{{2
+
+
+let g:syntastic_mode_map = { 'mode': 'passive',
+                           \ 'active_filetypes': ['ruby', 'javascript', 'perl'],
+                           \ 'passive_filetypes': [] }
+
+
+"}}}2
 
 
 
@@ -1170,7 +1185,7 @@ set updatetime=1000
 "[ ####--------- Programing Support Settings -----#### ] {{{1
 
 
-"### Perl progroming support補助設定 "{{{2
+"### Perl progroming support "{{{2
 
 
 augroup PerlFTPlugin
@@ -1239,7 +1254,7 @@ augroup END
 
 
 "}}}2
-"### Ruby progroming support補助設定 "{{{2
+"### Ruby progroming support "{{{2
 
 
 augroup RubyFTPlugin
@@ -1260,7 +1275,43 @@ augroup END
 
 
 "}}}2
+"### Java Programing support{{{2
+
+
+augroup JavaFTPlugin
+
+    "# highlight
+    let java_highlight_all=1
+    let java_highlight_functions="style"
+
+    "# complete add
+    autocmd BufRead *.java setlocal complete+=.,w,b,u,t,i
+    "# load ant.sh
+    autocmd BufRead *.java setlocal makeprg=vim_ant.sh
+    "# errorformat
+    autocmd BufRead *.java 
+                \ setlocal errorformat=
+                    \ \ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
+
+augroup END
+
+
+"}}}2
+"### JavaScript programing support {{{2
+
+
+augroup JavaScriptFTPlugin
+    
+    autocmd BufRead *.js nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
+    autocmd BufRead *.js vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
+
+augroup END
+
+
+"}}}2
 "### FyleType(Language)別アシスタンス設定 "{{{2
+
+
 
 
 "辞書ファイルを使用する設定に変更
@@ -1323,7 +1374,7 @@ let g:cui_background_b='dark'
 let g:current_color_mode=g:default_color_mode
 
 " setup color by background
-function SetupColorScheme ()
+function! SetupColorScheme ()
 
     if g:default_color_mode ==# 'A'
         execute 'colorscheme ' . 
@@ -1521,7 +1572,6 @@ autocmd GUIEnter * call MyGUISettingLazy()
 
 
 " }}}1
-
 
 "# local設定の読み込み
 let g:local_vimrc = '$HOME/.vimrc.local'
