@@ -674,7 +674,7 @@ NeoBundle 'cocoa.vim'
 NeoBundle 'javacomplete'
 
 "# vim-jde
-NeoBundle 'vim-scripts/Vim-JDE'
+"NeoBundle 'vim-scripts/Vim-JDE'
 
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
@@ -753,7 +753,7 @@ NeoBundle 'MultipleSearch'
 NeoBundle 'thinca/vim-quickrun'
 
 "# activefix
-NeoBundle 'chikatoike/activefix.vim'
+"NeoBundle 'chikatoike/activefix.vim'
 
 "# memolist.vim
 NeoBundle 'glidenote/memolist.vim'
@@ -1164,11 +1164,6 @@ endfor
 
 
 "}}}2
-"### ActiveFix {{{2
-
-set updatetime=1000
-
-"}}}2
 "### Syntastic {{{2
 
 
@@ -1178,7 +1173,6 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 
 
 "}}}2
-
 
 
 " }}}1
@@ -1287,11 +1281,11 @@ augroup JavaFTPlugin
     "# complete add
     autocmd BufRead *.java setlocal complete+=.,w,b,u,t,i
     "# load ant.sh
-    autocmd BufRead *.java setlocal makeprg=vim_ant.sh
+    autocmd BufRead *.java setlocal makeprg=$HOME/.vim/misc/bin/vim_ant.sh
     "# errorformat
-    autocmd BufRead *.java 
-                \ setlocal errorformat=
-                    \ \ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
+  "  autocmd BufRead *.java 
+  "              \ setlocal errorformat=
+  "                  \ \ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
 
 augroup END
 
