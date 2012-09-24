@@ -673,14 +673,14 @@ NeoBundle 'cocoa.vim'
 "# javacomplete.vim
 NeoBundle 'javacomplete'
 
-"# vim-jde
-"NeoBundle 'vim-scripts/Vim-JDE'
-
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
 "# scala-vim
 NeoBundle 'derekwyatt/vim-scala'
+
+"# vim-perl-use-insertaion
+NeoBundle 'vim-perl-use-insertion', {'type' : 'nosync', 'base' : '$HOME/.vim/bundle/manual_plugins/vim-perl_use_insertion'}
 
 "# ruby-doc
 NeoBundle 'lucapette/vim-ruby-doc'
