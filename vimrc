@@ -9,8 +9,8 @@
 
 
 "# mapkeyprefix
-map <silent> <Space> <Plug>(mykey)
-map <silent> , <Plug>(mykeylite)
+map  <Space> <Plug>(mykey)
+map  , <Plug>(mykeylite)
 
 "# vi互換のoff
 set nocompatible
@@ -171,7 +171,7 @@ if has('vim_starting')
 endif
 
 "# vimrcの編集
-nmap <Plug>(mykey)v :VimrcEdit<CR>
+nmap <Plug>(mykey). :VimrcEdit<CR>
 
 
 "}}}i1
@@ -542,8 +542,8 @@ iab concate concatenate
 set foldmethod=marker
 set foldtext=FoldCCtext()
 
-nnoremap <Plug>(mykey)o zo
-nnoremap <Plug>(mykey)c zc
+"nnoremap <Plug>(mykey)zo zo
+"nnoremap <Plug>(mykey)zc zc
 nnoremap <Space><Space> za 
 
 
@@ -752,8 +752,8 @@ NeoBundle 'MultipleSearch'
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
 
-"# activefix
-"NeoBundle 'chikatoike/activefix.vim'
+"# shabadou.vim
+NeoBundle 'osyo-manga/shabadou.vim'
 
 "# memolist.vim
 NeoBundle 'glidenote/memolist.vim'
@@ -794,6 +794,9 @@ NeoBundle 'basyura/twibill.vim'
 "# tweetvim
 NeoBundle 'basyura/TweetVim'
 
+"# itunes-vim
+NeoBundle 'ryutorion/vim-itunes'
+
 "#-------------------#
 "# 256color plug-in  #
 "#-------------------#
@@ -820,8 +823,11 @@ filetype indent on
 "}}}2
 "### Unite.vim {{{2
 
-"# filehistory 上限
+nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
+
+"# filehistory limit
 let g:unite_source_file_mru_limit=256
+
 
 "#---------------------------#
 "# buffers+unite             #
@@ -866,8 +872,7 @@ nnoremap <silent> <Plug>(mykey)Rm :<C-u> Unite ref/man<CR>
 "#---------------------------#
 
 " tweetvim menu
-nnoremap <silent> <Plug>(mykey)tt  :<C-u> Unite tweetvim<CR>
-nnoremap <silent> <Plug>(mykey)T  :<C-u> Unite tweetvim<CR>
+nnoremap <silent> <Plug>(mykey)tw  :<C-u> Unite tweetvim<CR>
 
 "#---------------------------#
 "# unitesource:unite-help    #
@@ -880,9 +885,17 @@ nnoremap <silent> g<C-h>  :<C-u>Unite -start-insert help<CR>
 "# unitesource:unite-grep    #
 "#---------------------------#
 
-" Execute help.
+" Execute grep.
 nnoremap <silent> <Plug>(mykey)g  :<C-u>Unite -vertical grep<CR>
 
+"#---------------------------#
+"# unitesource:it_track      #
+"#---------------------------#
+
+"# itunes track
+if has('mac')
+    nnoremap <silent> <Plug>(mykey)ti  :<C-u>Unite -vertical it_track<CR>
+endif
 
 "}}}2
 "### vimshell {{{2
@@ -1144,6 +1157,41 @@ function AlterTweet()
     AlterCommand  tws TweetVimSay
 endfunction
 
+
+"}}}2
+"### iTunes{{{2
+
+augroup iTunes 
+    if has('mac') 
+        nnoremap <Plug>(mykey)0 :ITunes<Space>
+        command! -nargs=1 
+                    \ -complete=customlist,CompletionITunes 
+                    \ ITunes :call ITunes('<args>')
+
+        function ITunes(action)
+            execute 'call itunes#' . a:action . '()'
+        endfunction
+
+        function! CompletionITunes(ArgLead, CmdLine, CusorPos)
+            let l:cmd = split(a:CmdLine)
+            let l:len_cmd = len(l:cmd)
+            if l:len_cmd <= 2
+                let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
+                return filter(
+                            \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop'], 
+                            \ l:filter_cmd
+                            \ )
+            endif
+        endfunction
+
+        function AlterITunes()
+            AlterCommand  iTunes ITunes 
+            AlterCommand  itunes ITunes 
+        endfunction
+
+        autocmd VimEnter * call AlterITunes()
+    endif
+augroup END 
 
 "}}}2
 "### QuickRun {{{2
