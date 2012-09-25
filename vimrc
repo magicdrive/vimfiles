@@ -676,6 +676,9 @@ NeoBundle 'javacomplete'
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
+"# vim-maven-plugin
+NeoBundle 'mikelue/vim-maven-plugin'
+
 "# scala-vim
 NeoBundle 'derekwyatt/vim-scala'
 
@@ -1161,6 +1164,7 @@ endfunction
 "}}}2
 "### iTunes{{{2
 
+
 augroup iTunes 
     if has('mac') 
         nnoremap <Plug>(mykey)0 :ITunes<Space>
@@ -1192,6 +1196,7 @@ augroup iTunes
         autocmd VimEnter * call AlterITunes()
     endif
 augroup END 
+
 
 "}}}2
 "### QuickRun {{{2
