@@ -1196,7 +1196,7 @@ augroup PerlFTPlugin
     autocmd FileType perl nnoremap <buffer> <Plug>(mykeylite), :w !perl -c<CR>
 
     "# perl moduleの補完設定
-    autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$
+    autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
 
     "# perldoc:  module source code open
     command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
