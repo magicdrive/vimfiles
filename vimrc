@@ -744,7 +744,7 @@ NeoBundle 'mattn/vdbi-vim'
 NeoBundle 'houtsnip/vim-emacscommandline'
 
 "# vim-ref
-NeoBundle 'thinca/vim-ref'
+NeoBundle 'magicdrive/vim-ref'
 
 "# altercmd
 NeoBundle 'tyru/vim-altercmd'
@@ -1173,7 +1173,11 @@ augroup iTunes
                     \ ITunes :call ITunes('<args>')
 
         function ITunes(action)
-            execute 'call itunes#' . a:action . '()'
+            if a:action ==# 'list' 
+                Unite -vertical it_track
+            else 
+                execute 'call itunes#' . a:action . '()'
+            endif
         endfunction
 
         function! CompletionITunes(ArgLead, CmdLine, CusorPos)
@@ -1182,7 +1186,7 @@ augroup iTunes
             if l:len_cmd <= 2
                 let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
                 return filter(
-                            \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop'], 
+                            \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'], 
                             \ l:filter_cmd
                             \ )
             endif
