@@ -609,8 +609,8 @@ endif
 filetype off
 
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-    call neobundle#rc( expand('~/.vim/bundle/') )
+    set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
+    call neobundle#rc( expand('~/.vim/bundle/automatic') )
 endif
 
 "#------------------------------------#
@@ -683,7 +683,7 @@ NeoBundle 'mikelue/vim-maven-plugin'
 NeoBundle 'derekwyatt/vim-scala'
 
 "# vim-perl-use-insertaion
-NeoBundle 'vim-perl-use-insertion', {'type' : 'nosync', 'base' : '$HOME/.vim/bundle/manual_plugins/vim-perl_use_insertion'}
+NeoBundle 'vim-perl-use-insertion', {'type' : 'nosync', 'base' : '$HOME/.vim/bundle/manual/vim-perl_use_insertion'}
 
 "# ruby-doc
 NeoBundle 'lucapette/vim-ruby-doc'
@@ -704,10 +704,7 @@ NeoBundle 'TagHighlight'
 NeoBundle 'taglist.vim'
 
 "# nerdcommenter
-"NeoBundle 'scrooloose/nerdcommenter.git'
-
-"# errormarker.vim
-NeoBundle 'errormarker.vim'
+NeoBundle 'scrooloose/nerdcommenter.git'
 
 "# vimpager
 NeoBundle 'vimpager'
@@ -1013,16 +1010,6 @@ endif
 
 "# NeoCompleCacheToggle
 "nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
-
-
-"}}}2
-"### ErrorMarker.vim {{{2
-
-
-let g:errormarker_errortext='!!'
-let g:errormarker_errorgroup='Error'
-let g:errormarker_warningtext='??'
-let g:errormarker_warninggroup='Warning'
 
 
 "}}}2
