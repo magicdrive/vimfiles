@@ -93,8 +93,8 @@ set laststatus=2
 "# バッファを開いた時に、カレントディレクトリを自動で移動
 au BufEnter * execute ":lcd " . expand("%:p:h")
 
-"# 行番号を表示しない
-set nonumber
+"# line number
+set number
 
 "# 括弧入力時に対応する括弧を表示
 set showmatch
@@ -1212,7 +1212,13 @@ endfor
 
 
 let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': ['ruby', 'javascript', 'perl'],
+                           \ 'active_filetypes': [
+                                \ 'scala', 
+                                \ 'java', 
+                                \ 'ruby', 
+                                \ 'javascript', 
+                                \ 'perl'
+                             \],
                            \ 'passive_filetypes': [] }
 
 
