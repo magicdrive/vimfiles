@@ -664,8 +664,14 @@ NeoBundle 'scrooloose/syntastic'
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
+"# neocomplcache-snippets-complete
+NeoBundle 'Shougo/neocomplcache-snippets-complete'
+
 "# smartinput
 NeoBundle 'kana/vim-smartinput'
+
+"# vim-niceblock
+NeoBundle 'kana/vim-niceblock'
 
 "# cocoa.vim
 NeoBundle 'cocoa.vim'
@@ -741,6 +747,7 @@ NeoBundle 'mattn/vdbi-vim'
 NeoBundle 'houtsnip/vim-emacscommandline'
 
 "# vim-ref
+"NeoBundle 'thinca/vim-ref'
 NeoBundle 'magicdrive/vim-ref'
 
 "# altercmd
@@ -1099,6 +1106,8 @@ command! -nargs=?  Manpage call ref#open('man', '<args>')
 command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
 command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
 
+let g:ref_perldoc_auto_append_f=1
+
 function! OpenPerlfunc(func_str)
     execute "Ref perldoc -f " . a:func_str
 endfunction
@@ -1213,12 +1222,12 @@ endfor
 
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': [
-                                \ 'scala', 
-                                \ 'java', 
-                                \ 'ruby', 
-                                \ 'javascript', 
-                                \ 'perl'
-                             \],
+                               \ 'scala', 
+                               \ 'java', 
+                               \ 'ruby', 
+                               \ 'javascript', 
+                               \ 'perl'
+                           \ ],
                            \ 'passive_filetypes': [] }
 
 
