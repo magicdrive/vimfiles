@@ -691,9 +691,6 @@ NeoBundle 'derekwyatt/vim-scala'
 "# vim-perl-use-insertaion
 NeoBundle 'vim-perl-use-insertion', {'type' : 'nosync', 'base' : '$HOME/.vim/bundle/manual/vim-perl_use_insertion'}
 
-"# ruby-doc
-NeoBundle 'lucapette/vim-ruby-doc'
-
 "# zencoding
 NeoBundle 'mattn/zencoding-vim'
 
