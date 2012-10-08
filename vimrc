@@ -658,8 +658,11 @@ NeoBundle 'sgur/unite-qf'
 "# programing suport plug-in #
 "#---------------------------#
 
-"# syntastic
-NeoBundle 'scrooloose/syntastic'
+"# watchdogs
+NeoBundle 'osyo-manga/vim-watchdogs'
+
+"# vim-hier
+NeoBundle "jceb/vim-hier"
 
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
@@ -1214,18 +1217,24 @@ endfor
 
 
 "}}}2
-"### Syntastic {{{2
+"### Watchdogs {{{2
 
 
-let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': [
-                               \ 'scala', 
-                               \ 'java', 
-                               \ 'ruby', 
-                               \ 'javascript', 
-                               \ 'perl'
-                           \ ],
-                           \ 'passive_filetypes': [] }
+let g:watchdogs_check_BufWritePost_enable = 1
+let g:watchdogs_check_CursorHold_enables = {
+    \	"perl"   : 1,
+    \	"ruby"   : 1,
+    \   "clang"  : 1,
+    \   "jshint" : 1,
+    \ }
+
+let g:quickrun_config = {
+            \   "watchdogs_checker/_" : {
+            \       "hook/close_quickfix/enable_exit" : 1,
+            \		"runner/vimproc/updatetime" : 30,
+            \   }, 
+            \ }
+call watchdogs#setup(g:quickrun_config)
 
 
 "}}}2
