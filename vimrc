@@ -861,25 +861,25 @@ nnoremap <silent> <Plug>(mykey)nn :<C-u>Unite -no-split neobundle<CR>
 " neobundle search
 nnoremap <silent> <Plug>(mykey)ns :<C-u>Unite neobundle/search<CR>
 " neobundle update
-nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite neobundle/update<CR>
+nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite -vertical neobundle/update<CR>
 " neobundle install
-nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite neobundle/install:<CR>
+nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite -vertical neobundle/install:<CR>
 
 "#---------------------------#
 "# ref+unite                 #
 "#---------------------------#
 
 " perldoc
-nnoremap <silent> <Plug>(mykey)Rp :<C-u> Unite ref/perldoc<CR>
+nnoremap <silent> <Plug>(mykey)Rp :<C-u>Unite ref/perldoc<CR>
 " manpage
-nnoremap <silent> <Plug>(mykey)Rm :<C-u> Unite ref/man<CR>
+nnoremap <silent> <Plug>(mykey)Rm :<C-u>Unite ref/man<CR>
 
 "#---------------------------#
 "# tweetvim+unite            #
 "#---------------------------#
 
 " tweetvim menu
-nnoremap <silent> <Plug>(mykey)tw  :<C-u> Unite tweetvim<CR>
+nnoremap <silent> <Plug>(mykey)tw  :<C-u>Unite tweetvim<CR>
 
 "#---------------------------#
 "# unitesource:unite-help    #
