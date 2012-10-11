@@ -833,7 +833,7 @@ filetype indent on
 nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
 
 "# filehistory limit
-let g:unite_source_file_mru_limit=256
+let g:unite_source_file_mru_limit=10000
 
 
 "#---------------------------#
