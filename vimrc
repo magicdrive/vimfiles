@@ -1223,7 +1223,7 @@ endfor
 let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enables = {
     \	"perl"   : 1,
-    \	"scala"   : 1,
+    \	"scala"  : 1,
     \	"ruby"   : 1,
     \   "clang"  : 1,
     \   "jshint" : 1,
