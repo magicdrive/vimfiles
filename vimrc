@@ -843,9 +843,9 @@ let g:unite_source_file_mru_limit=256
 " buffer
 nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
 " filehistory
-nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split file_mru<CR>
+nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
 " filehistory and buffer
-nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split buffer file_mru<CR>
+nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
 " Directry
 nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
 " files
