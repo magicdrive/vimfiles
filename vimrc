@@ -197,7 +197,7 @@ function! s:completion_encode(ArgLead, CmdLine, CusorPos)
                     \ )
     endif
 endfunction
-function s:edit_encode(code)
+function! s:edit_encode(code)
     if match(g:enc_jp, a:code)
         edit ++enc=euc-jp
     elseif match(g:shift_jis, a:code)
@@ -1456,7 +1456,7 @@ let g:gui_background_b='light'
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_a='distinguished'
 let g:cui_background_a='light'
-let g:cui_colorscheme_b='darkdefault'
+let g:cui_colorscheme_b='zenburn'
 let g:cui_background_b='dark'
 
 let g:current_color_mode=g:default_color_mode
@@ -1484,7 +1484,7 @@ function! SetupColorScheme ()
                     \ g:cui_background_a : g:cui_background_b)
     endif
 
-    call MyColor()
+"    call MyColor()
 endfunction
 
 
@@ -1516,7 +1516,7 @@ function! ChangeBackground()
     endif
 
     syntax on
-    call MyColor()
+"    call MyColor()
 endfunction
 
 
