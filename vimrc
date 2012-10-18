@@ -181,7 +181,35 @@ nmap <Plug>(mykey). :VimrcEdit<CR>
 "Encoding 
 set enc=utf-8 
 set fenc=utf-8 
-set fencs=utf-8,euc-jp,sjis,cp932,iso-2022-jp
+set fencs=utf-8,euc-jp,sjis
+
+let g:enc_jp = ["eucjp","euc","euc-jp" ]
+let g:shift_jis = ["sjis","shift_jis","shiftjis" ]
+let g:utf8 = ["utf8","utf-8" ]
+function! s:completion_encode(ArgLead, CmdLine, CusorPos)
+    let l:cmd = split(a:CmdLine)
+    let l:len_cmd = len(l:cmd)
+    if l:len_cmd <= 2
+        let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
+        return filter(
+                    \ ["utf8", "sjis", "eucjp"], 
+                    \ l:filter_cmd
+                    \ )
+    endif
+endfunction
+function s:edit_encode(code)
+    if match(g:enc_jp, a:code)
+        edit ++enc=euc-jp
+    elseif match(g:shift_jis, a:code)
+        edit ++enc=shift_jis
+    elseif match(g:utf8)
+        edit ++enc=utf-8
+    endif
+endfunction
+
+command! -nargs=1  
+            \ -complete=customlist,s:completion_encode 
+            \ Encode :call s:edit_encode('<args>')
 
 if isdirectory($HOME . '/.vim')
     let s:CFGHOME=$HOME.'/.vim'
