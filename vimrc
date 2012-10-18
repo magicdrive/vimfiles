@@ -340,15 +340,15 @@ endif
 
 
 "# create new tab
-nnoremap <Plug>(mykeylite)tt :tabnew<CR>
-nnoremap <Plug>(mykeylite)T :tabnew<CR>
+nnoremap <Plug>(mykey)t :tabnew<CR>
+nnoremap <Plug>(mykey)Tc :tabnew<CR>
 
 "# close current tab
-nnoremap <Plug>(mykeylite)tk :tabclose<CR>
+nnoremap <Plug>(mykey)Tk :tabclose<CR>
 
 "# tab next/preview
-nnoremap <silent> <C-n> gt
-nnoremap <silent> <C-p> gT
+nnoremap <silent> <C-f> gt
+nnoremap <silent> <C-b> gT
 
 
 "}}}2
@@ -879,7 +879,7 @@ nnoremap <silent> <Plug>(mykey)Rm :<C-u>Unite ref/man<CR>
 "#---------------------------#
 
 " tweetvim menu
-nnoremap <silent> <Plug>(mykey)tw  :<C-u>Unite tweetvim<CR>
+nnoremap <silent> <Plug>(mykeylite)tw  :<C-u>Unite tweetvim<CR>
 
 "#---------------------------#
 "# unitesource:unite-help    #
@@ -901,7 +901,7 @@ nnoremap <silent> <Plug>(mykey)g  :<C-u>Unite -vertical grep<CR>
 
 "# itunes track
 if has('mac')
-    nnoremap <silent> <Plug>(mykey)ti  :<C-u>Unite -vertical it_track<CR>
+    nnoremap <silent> <Plug>(mykeylite)ti  :<C-u>Unite -vertical it_track<CR>
 endif
 
 "}}}2
@@ -1147,7 +1147,7 @@ autocmd FileType tweetvim
             \ highlight tweetvim_separator
             \ ctermfg=Black
 
-nnoremap <silent> <Plug>(mykey)ts  :<C-u>TweetVimSay<CR>
+nnoremap <silent> <Plug>(mykeylite)ts  :<C-u>TweetVimSay<CR>
 
 let g:tweetvim_tweet_per_page=100
 let g:tweetvim_open_buffer_cmd='split'
