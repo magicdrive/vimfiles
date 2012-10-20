@@ -696,7 +696,7 @@ NeoBundle "jceb/vim-hier"
 NeoBundle 'Shougo/neocomplcache'
 
 "# neocomplcache-snippets-complete
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 'Shougo/neosnippet'
 
 "# smartinput
 NeoBundle 'kana/vim-smartinput'
@@ -812,7 +812,9 @@ NeoBundle 'thinca/vim-localrc'
 NeoBundle 'mattn/calendar-vim'
 
 "# w3m.vim
-NeoBundle 'yuratomo/w3m.vim'
+if executable('w3m')
+    NeoBundle 'yuratomo/w3m.vim'
+endif
 
 "# Chalice.vim
 NeoBundle 'koron/chalice'
@@ -1093,7 +1095,7 @@ let g:EasyMotion_leader_key = "m"
 "}}}2
 "### W3m.vim {{{2
 
-if !has('gui_running')
+if !has('gui_running') && executable('w3m')
 
     "# alc
     let g:w3m_alc='alc'
