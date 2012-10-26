@@ -1087,7 +1087,7 @@ let g:solarized_italic=0
 "### EasyMotion {{{2
 
 
-let g:EasyMotion_leader_key = "m"
+let g:EasyMotion_leader_key = "q"
 
 "let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
 
