@@ -1,5 +1,7 @@
 vim/bundle/automatic
 vim/memo
+vim/eclim/
+vim/plugin/
 vim/memo/*
 *~
 *\.swp
