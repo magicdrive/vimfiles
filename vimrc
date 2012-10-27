@@ -25,6 +25,10 @@ command! -nargs=0 ZQ :q
 "# syntax highlight
 syntax on
 
+"# beep and visualbell off
+set novisualbell
+set visualbell t_vb=
+
 "# 保存なしで他のファイルを開ける
 set hidden
 
