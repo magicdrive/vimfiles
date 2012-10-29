@@ -25,6 +25,10 @@ command! -nargs=0 ZQ :q
 "# syntax highlight
 syntax on
 
+"# beep and visualbell off
+set novisualbell
+set visualbell t_vb=
+
 "# 保存なしで他のファイルを開ける
 set hidden
 
@@ -1088,7 +1092,7 @@ let g:solarized_italic=0
 "### EasyMotion {{{2
 
 
-let g:EasyMotion_leader_key = "m"
+let g:EasyMotion_leader_key = "q"
 
 "let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
 
