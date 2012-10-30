@@ -147,7 +147,7 @@ nnoremap <silent> <C-b><C-p> :bp<CR>
 
 command! -nargs=0 SL :call VimLRun()
 command! -nargs=0 SU :call VimrcReload()
-command! -nargs=0 VimrcEdit :edit $MYVIMRC
+command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
 command! -nargs=0 VE :VimrcEdit 
 command! -nargs=0 E :edit!
 
@@ -176,7 +176,7 @@ if has('vim_starting')
 endif
 
 "# vimrcの編集
-nmap <Plug>(mykey). :VimrcEdit<CR>
+nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
 
 "}}}i1
@@ -973,7 +973,7 @@ endfunction
 
 nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 
-autocmd FileType vimfiler nunmap <buffer> <Space>
+"autocmd FileType vimfiler nunmap <buffer> <Space>
 autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
 autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
 
