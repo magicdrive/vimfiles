@@ -60,7 +60,7 @@ filetype plugin on
 
 "# command modeへの切り替え
 noremap ; :
-noremap : ; 
+noremap " ;
 
 "# substitution
 vnoremap <Plug>(mykeylite)s :<C-u>s///<LEFT><LEFT>
