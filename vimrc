@@ -1454,8 +1454,8 @@ syntax enable
 let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_a='distinguished'
-let g:gui_background_a='light'
+let g:gui_colorscheme_a='solarized'
+let g:gui_background_a='dark'
 let g:gui_colorscheme_b='solarized'
 let g:gui_background_b='light'
 
