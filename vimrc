@@ -129,6 +129,8 @@ set wildmode=longest,full
 "# コマンドラインの履歴の保存数
 set history=256
 
+
+
 "# Explore
 "nnoremap <Plug>(mykey)e :Explore ./<CR>
 
@@ -137,8 +139,8 @@ nnoremap <Leader>t <C-t>
 
 "# buffer next/preview
 nnoremap <silent> <C-b> <C-b>
-nnoremap <silent> <C-b><C-n> :bn<CR>
-nnoremap <silent> <C-b><C-p> :bp<CR>
+nnoremap <silent> <C-n> :bn<CR>
+nnoremap <silent> <C-p> :bp<CR>
 
 
 "}}}2
@@ -876,7 +878,7 @@ let g:unite_source_file_mru_limit=10000
 "#---------------------------#
 
 " buffer
-nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
+nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
 " filehistory
 nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
 " filehistory and buffer
