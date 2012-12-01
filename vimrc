@@ -694,15 +694,18 @@ NeoBundle 'sgur/unite-qf'
 "#---------------------------#
 
 "# watchdogs
-NeoBundle 'osyo-manga/vim-watchdogs'
+NeoBundle 'magicdrive/vim-watchdogs'
 
 "# vim-hier
 NeoBundle "jceb/vim-hier"
 
+"# neco-look
+NeoBundle "ujihisa/neco-look"
+
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
-"# neocomplcache-snippets-complete
+"# neosnipet
 NeoBundle 'Shougo/neosnippet'
 
 "# smartinput
@@ -720,6 +723,9 @@ NeoBundle 'javacomplete'
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
+"# javacomplete.vim
+NeoBundle 'groovy.vim'
+
 "# vim-maven-plugin
 NeoBundle 'mikelue/vim-maven-plugin'
 
@@ -727,16 +733,17 @@ NeoBundle 'mikelue/vim-maven-plugin'
 NeoBundle 'derekwyatt/vim-scala'
 
 "# vim-perl-use-insertaion
-NeoBundle 'vim-perl-use-insertion', {'type' : 'nosync', 'base' : '$HOME/.vim/bundle/manual/vim-perl_use_insertion'}
+NeoBundle 'vim-perl-use-insertion',
+            \ {
+                \ 'type' : 'nosync', 
+                \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
+            \ }
 
 "# zencoding
 NeoBundle 'mattn/zencoding-vim'
 
 "# scratch.vim
 NeoBundle 'scratch.vim'
-
-"# snipmate
-NeoBundle 'msanders/snipmate.vim'
 
 "# TagHighlight
 NeoBundle 'TagHighlight'
