@@ -1362,7 +1362,7 @@ augroup END
 
 
 augroup RubyFTPlugin
-    "# コンパイラをrybyに設定
+    "# コンパイラをrubyに設定
     autocmd FileType ruby :compiler ruby
 
     "# :w + !ruby command
@@ -1540,29 +1540,29 @@ function! MyColor()
 
     "# ポップアップメニューの色変更
     highlight Pmenu 
-                \ ctermbg=Magenta
-                \ ctermfg=Black 
-
-    highlight PmenuSel
-                \ ctermbg=DarkMagenta
+                \ ctermbg=DarkGray
                 \ ctermfg=White
 
-    "# Foldingの色変更
-    highlight Folded
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=DarkYellow
-                \ ctermfg=LightGray
-                \ guibg=Grey30
-                \ guifg=Grey80
+    highlight PmenuSel
+                \ ctermbg=White
+                \ ctermfg=Black 
 
-    highlight FoldColumn
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=DarkYellow
-                \ ctermfg=LightGray
-                \ guibg=Grey
-                \ guifg=DarkBlue
+"    "# Foldingの色変更
+"    highlight Folded
+"                \ gui=bold
+"                \ term=standout
+"                \ ctermbg=DarkYellow
+"                \ ctermfg=LightGray
+"                \ guibg=Grey30
+"                \ guifg=Grey80
+"
+"    highlight FoldColumn
+"                \ gui=bold
+"                \ term=standout
+"                \ ctermbg=DarkYellow
+"                \ ctermfg=LightGray
+"                \ guibg=Grey
+"                \ guifg=DarkBlue
 
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=DarkGray
