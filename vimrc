@@ -1500,7 +1500,7 @@ function! SetupColorScheme ()
                     \ g:cui_background_a : g:cui_background_b)
     endif
 
-"    call MyColor()
+    call MyColor()
 endfunction
 
 
@@ -1532,7 +1532,7 @@ function! ChangeBackground()
     endif
 
     syntax on
-"    call MyColor()
+    call MyColor()
 endfunction
 
 
