@@ -1067,14 +1067,14 @@ endif
 "### Vim-Powerline {{{2
 
 
-"let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'fancy'
 "let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
 let g:Powerline_symbols_override = {
     \ 'BRANCH': [0x2213],
     \ 'LINE': 'L',
     \ }
-let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
+"#let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
