@@ -1413,7 +1413,7 @@ augroup END
 
 
 "}}}2
-"### FyleType(Language)別アシスタンス設定 "{{{2
+"### FileType(Language)別アシスタンス設定 "{{{2
 
 
 
