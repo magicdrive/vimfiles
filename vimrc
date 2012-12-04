@@ -702,7 +702,10 @@ NeoBundle "jceb/vim-hier"
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
-"# neocomplcache-snippets-complete
+"# neocomplcache-clang
+NeoBundle 'Shougo/neocomplcache-clang'
+
+"# neosnippets
 NeoBundle 'Shougo/neosnippet'
 
 "# smartinput
