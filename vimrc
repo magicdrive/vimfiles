@@ -694,18 +694,19 @@ NeoBundle 'sgur/unite-qf'
 "#---------------------------#
 
 "# watchdogs
-NeoBundle 'osyo-manga/vim-watchdogs'
+NeoBundle 'magicdrive/vim-watchdogs'
 
 "# vim-hier
 NeoBundle "jceb/vim-hier"
 
+"# neco-look
+NeoBundle "ujihisa/neco-look"
+
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
-"# neocomplcache-clang
-NeoBundle 'Shougo/neocomplcache-clang'
 
-"# neosnippets
+"# neosnippet
 NeoBundle 'Shougo/neosnippet'
 
 "# smartinput
@@ -723,6 +724,9 @@ NeoBundle 'javacomplete'
 "# javascript
 NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
+"# javacomplete.vim
+NeoBundle 'groovy.vim'
+
 "# vim-maven-plugin
 NeoBundle 'mikelue/vim-maven-plugin'
 
@@ -730,16 +734,17 @@ NeoBundle 'mikelue/vim-maven-plugin'
 NeoBundle 'derekwyatt/vim-scala'
 
 "# vim-perl-use-insertaion
-NeoBundle 'vim-perl-use-insertion', {'type' : 'nosync', 'base' : '$HOME/.vim/bundle/manual/vim-perl_use_insertion'}
+NeoBundle 'vim-perl-use-insertion',
+            \ {
+                \ 'type' : 'nosync', 
+                \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
+            \ }
 
 "# zencoding
 NeoBundle 'mattn/zencoding-vim'
 
 "# scratch.vim
 NeoBundle 'scratch.vim'
-
-"# snipmate
-NeoBundle 'msanders/snipmate.vim'
 
 "# TagHighlight
 NeoBundle 'TagHighlight'
@@ -1063,14 +1068,14 @@ endif
 "### Vim-Powerline {{{2
 
 
-"let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'fancy'
 "let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
 let g:Powerline_symbols_override = {
     \ 'BRANCH': [0x2213],
     \ 'LINE': 'L',
     \ }
-let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
+"#let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1358,7 +1363,7 @@ augroup END
 
 
 augroup RubyFTPlugin
-    "# コンパイラをrybyに設定
+    "# コンパイラをrubyに設定
     autocmd FileType ruby :compiler ruby
 
     "# :w + !ruby command
@@ -1409,7 +1414,7 @@ augroup END
 
 
 "}}}2
-"### FyleType(Language)別アシスタンス設定 "{{{2
+"### FileType(Language)別アシスタンス設定 "{{{2
 
 
 
@@ -1496,7 +1501,7 @@ function! SetupColorScheme ()
                     \ g:cui_background_a : g:cui_background_b)
     endif
 
-"    call MyColor()
+    call MyColor()
 endfunction
 
 
@@ -1528,7 +1533,7 @@ function! ChangeBackground()
     endif
 
     syntax on
-"    call MyColor()
+    call MyColor()
 endfunction
 
 
@@ -1536,29 +1541,29 @@ function! MyColor()
 
     "# ポップアップメニューの色変更
     highlight Pmenu 
-                \ ctermbg=Magenta
-                \ ctermfg=Black 
-
-    highlight PmenuSel
-                \ ctermbg=DarkMagenta
+                \ ctermbg=DarkGray
                 \ ctermfg=White
 
-    "# Foldingの色変更
-    highlight Folded
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=DarkYellow
-                \ ctermfg=LightGray
-                \ guibg=Grey30
-                \ guifg=Grey80
+    highlight PmenuSel
+                \ ctermbg=White
+                \ ctermfg=Black 
 
-    highlight FoldColumn
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=DarkYellow
-                \ ctermfg=LightGray
-                \ guibg=Grey
-                \ guifg=DarkBlue
+"    "# Foldingの色変更
+"    highlight Folded
+"                \ gui=bold
+"                \ term=standout
+"                \ ctermbg=DarkYellow
+"                \ ctermfg=LightGray
+"                \ guibg=Grey30
+"                \ guifg=Grey80
+"
+"    highlight FoldColumn
+"                \ gui=bold
+"                \ term=standout
+"                \ ctermbg=DarkYellow
+"                \ ctermfg=LightGray
+"                \ guibg=Grey
+"                \ guifg=DarkBlue
 
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=DarkGray
