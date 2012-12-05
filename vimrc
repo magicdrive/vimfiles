@@ -1464,17 +1464,17 @@ syntax enable
 let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_a='solarized'
-let g:gui_background_a='dark'
-let g:gui_colorscheme_b='solarized'
+let g:gui_colorscheme_a='distinguished'
+let g:gui_background_a='light'
+let g:gui_colorscheme_b='zenburn'
 let g:gui_background_b='light'
 
 "# CUI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_a='distinguished'
 let g:cui_background_a='light'
-let g:cui_colorscheme_b='zenburn'
-let g:cui_background_b='dark'
+let g:cui_colorscheme_b='jellybeans'
+let g:cui_background_b='light'
 
 let g:current_color_mode=g:default_color_mode
 
