@@ -63,7 +63,7 @@ noremap ; :
 noremap " ;
 
 "# substitution
-vnoremap <Plug>(mykeylite)s :<C-u>s///<LEFT><LEFT>
+vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
 nnoremap <Plug>(mykeylite)s :<C-u>%s///<LEFT><LEFT>
 
 "# <ESC>のマッピング
@@ -432,7 +432,7 @@ noremap! <C-f> <RIGHT>
 
 "# killing
 inoremap <C-k> <Nop>
-inoremap <C-k> <ESC>2<LEFT>D:!start<CR>
+inoremap <expr> <C-k> col('.')==col('$')?"\<C-h>":"\<C-o>D"
 
 "# Emacs風 行頭行末移動
 inoremap <C-a> <ESC>^<Insert>
@@ -579,7 +579,7 @@ set foldtext=FoldCCtext()
 
 "nnoremap <Plug>(mykey)zo zo
 "nnoremap <Plug>(mykey)zc zc
-nnoremap <Space><Space> za 
+nnoremap <Space><Space> za
 
 
 "}}}2
@@ -967,7 +967,7 @@ nnoremap <silent> <Plug>(mykey)S :<C-u> call Shell()<CR>
 function! Shell()
     echo 'vimshell start'
     VimShell
-    setlocal number
+    "  setlocal number
 endfunction
 
 nnoremap <silent> <Plug>(mykey)s :<C-u> call ShellSplit()<CR>
@@ -1287,10 +1287,10 @@ call watchdogs#setup(g:quickrun_config)
 
 
 " }}}1
-"[ ####--------- Programing Support Settings -----#### ] {{{1
+"[ ####--------- Programming Support Settings -----#### ] {{{1
 
 
-"### Perl progroming support "{{{2
+"### Perl programming support "{{{2
 
 
 augroup PerlFTPlugin
@@ -1359,7 +1359,7 @@ augroup END
 
 
 "}}}2
-"### Ruby progroming support "{{{2
+"### Ruby programming support "{{{2
 
 
 augroup RubyFTPlugin
@@ -1380,7 +1380,7 @@ augroup END
 
 
 "}}}2
-"### Java Programing support{{{2
+"### Java Programming support{{{2
 
 
 augroup JavaFTPlugin
@@ -1390,9 +1390,9 @@ augroup JavaFTPlugin
     let java_highlight_functions="style"
 
     "# complete add
-    autocmd BufRead *.java setlocal complete+=.,w,b,u,t,i
+    autocmd FileType java setlocal complete+=.,w,b,u,t,i
     "# load ant.sh
-    autocmd BufRead *.java setlocal makeprg=$HOME/.vim/misc/bin/vim_ant.sh
+    autocmd FileType java setlocal makeprg=$HOME/.vim/misc/bin/vim_ant.sh
     "# errorformat
   "  autocmd BufRead *.java 
   "              \ setlocal errorformat=
@@ -1402,13 +1402,13 @@ augroup END
 
 
 "}}}2
-"### JavaScript programing support {{{2
+"### JavaScript programming support {{{2
 
 
 augroup JavaScriptFTPlugin
     
-    autocmd BufRead *.js nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
-    autocmd BufRead *.js vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
+    autocmd FileType javascript nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
+    autocmd FileType javascript vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
 
 augroup END
 
@@ -1423,16 +1423,16 @@ augroup END
 set complete+=k
 
 "ファイルタイプ別辞書ファイル
-autocmd FileType c,cpp,perl set cindent
+autocmd FileType c,cpp,perl setlocal cindent
 autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
 autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
 
 "CF用コメントハイライト有効
 let html_wrong_comments=1
