@@ -705,7 +705,6 @@ NeoBundle "ujihisa/neco-look"
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
-
 "# neosnippet
 NeoBundle 'Shougo/neosnippet'
 
@@ -774,7 +773,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'tpope/vim-abolish'
 
 "# foldCC
-NeoBundle 'LeafCage/foldCC'
+NeoBundle 'magicdrive/foldCC'
 
 "#-----------------------#
 "# vim-tools             #
