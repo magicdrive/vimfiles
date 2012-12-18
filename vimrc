@@ -144,7 +144,7 @@ nnoremap <silent> <C-p> :bp<CR>
 
 
 "}}}2
-"### VimL "{{{2
+"### VimScript "{{{2
 
 
 command! -nargs=0 SL :call VimLRun()
@@ -166,12 +166,10 @@ if has('vim_starting')
 
     function! VimLRun()
         source %
-        edit!
     endfunction
 
     function! VimrcReload()
         source $MYVIMRC
-        edit!
         echo 'reloaded!'
     endfunction
 
@@ -645,8 +643,8 @@ filetype off
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
-    call neobundle#rc( expand('~/.vim/bundle/automatic') )
 endif
+call neobundle#rc( expand('~/.vim/bundle/automatic') )
 
 "#------------------------------------#
 "#                                    #
@@ -752,7 +750,7 @@ NeoBundle 'TagHighlight'
 NeoBundle 'taglist.vim'
 
 "# nerdcommenter
-NeoBundle 'scrooloose/nerdcommenter.git'
+NeoBundle 'scrooloose/nerdcommenter'
 
 "# vimpager
 NeoBundle 'vimpager'
@@ -814,10 +812,16 @@ NeoBundle 'sudo.vim'
 NeoBundle 'mattn/webapi-vim'
 
 "# git.vim
-NeoBundle 'motemen/git-vim'
+"#NeoBundle 'motemen/git-vim'
 
 "# gist.vim
 NeoBundle 'mattn/gist-vim'
+
+"# vim-fugitive
+NeoBundle 'tpope/vim-fugitive'
+
+"# gitv
+NeoBundle 'gregsexton/gitv'
 
 "# localrc.vim
 NeoBundle 'thinca/vim-localrc'
