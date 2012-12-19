@@ -38,7 +38,7 @@ set wrap
 "# scroll時の最小行数値
 set scrolljump=15
 
-"# tabを表示 
+"# tabを表示
 set listchars=eol:$,tab:>\ 
 
 "# 補完キーをCtrl+jに変更
