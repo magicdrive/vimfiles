@@ -26,7 +26,6 @@ command! -nargs=0 ZQ :q
 syntax on
 
 "# beep and visualbell off
-set novisualbell
 set visualbell t_vb=
 
 "# 保存なしで他のファイルを開ける
@@ -39,7 +38,7 @@ set wrap
 set scrolljump=15
 
 "# tabを表示 
-set listchars=eol:$,tab:>\ 
+set listchars=eol:$,tab:>\
 
 "# 補完キーをCtrl+jに変更
 inoremap <C-j> <C-n>
@@ -58,9 +57,11 @@ nnoremap Y y$
 filetype plugin indent on
 filetype plugin on
 
-"# command modeへの切り替え
+"# command-line modeへの切り替え
 noremap ; :
 noremap " ;
+noremap <Plug>(mykey); :!
+noremap <Plug>(mykey)r :r!
 
 "# substitution
 vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
@@ -130,7 +131,6 @@ set wildmode=longest,full
 set history=256
 
 
-
 "# Explore
 "nnoremap <Plug>(mykey)e :Explore ./<CR>
 
@@ -144,7 +144,7 @@ nnoremap <silent> <C-p> :bp<CR>
 
 
 "}}}2
-"### VimL "{{{2
+"### VimScript "{{{2
 
 
 command! -nargs=0 SL :call VimLRun()
@@ -190,9 +190,9 @@ set enc=utf-8
 set fenc=utf-8 
 set fencs=utf-8,euc-jp,sjis
 
-let g:enc_jp = ["eucjp","euc","euc-jp" ]
-let g:shift_jis = ["sjis","shift_jis","shiftjis" ]
-let g:utf8 = ["utf8","utf-8" ]
+let s:enc_jp = ["eucjp","euc","euc-jp" ]
+let s:shift_jis = ["sjis","shift_jis","shiftjis" ]
+let s:utf8 = ["utf8","utf-8" ]
 function! s:completion_encode(ArgLead, CmdLine, CusorPos)
     let l:cmd = split(a:CmdLine)
     let l:len_cmd = len(l:cmd)
@@ -418,12 +418,6 @@ endif
 "# カーソルキーで行末／行頭の移動可能に設定
 set whichwrap=b,s,[,],<,>
 
-"# Emacs 風カーソル移動のため<Nop>に設定
-noremap! <C-n> <Nop>
-noremap! <C-p> <Nop>
-noremap! <C-b> <Nop>
-noremap! <C-f> <Nop>
-
 "# Emacs 風カーソル移動
 noremap! <C-n> <DOWN>
 noremap! <C-p> <UP>
@@ -431,12 +425,11 @@ noremap! <C-b> <LEFT>
 noremap! <C-f> <RIGHT>
 
 "# killing
-inoremap <C-k> <Nop>
-inoremap <expr> <C-k> col('.')==col('$')?"\<C-h>":"\<C-o>D"
+inoremap <expr> <C-k> col('.')==col('$')?"":"\<C-o>D"
 
 "# Emacs風 行頭行末移動
-inoremap <C-a> <ESC>^<Insert>
-inoremap <C-e> <ESC>$<Insert>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
 
 
 "}}}2
@@ -579,7 +572,7 @@ set foldtext=FoldCCtext()
 
 "nnoremap <Plug>(mykey)zo zo
 "nnoremap <Plug>(mykey)zc zc
-nnoremap <Space><Space> za
+nnoremap <Space><Space> za<Space>
 
 
 "}}}2
@@ -688,6 +681,9 @@ NeoBundle 'tsukkee/unite-help'
 
 "# unite-qflist
 NeoBundle 'sgur/unite-qf'
+
+"# unite-outline
+NeoBundle 'h1mesuke/unite-outline'
 
 "#---------------------------#
 "# programing suport plug-in #
