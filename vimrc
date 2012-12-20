@@ -166,12 +166,10 @@ if has('vim_starting')
 
     function! VimLRun()
         source %
-        edit!
     endfunction
 
     function! VimrcReload()
         source $MYVIMRC
-        edit!
         echo 'reloaded!'
     endfunction
 
@@ -638,8 +636,8 @@ filetype off
 
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
-    call neobundle#rc( expand('~/.vim/bundle/automatic') )
 endif
+call neobundle#rc( expand('~/.vim/bundle/automatic') )
 
 "#------------------------------------#
 "#                                    #
@@ -701,7 +699,6 @@ NeoBundle "ujihisa/neco-look"
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 
-
 "# neosnippet
 NeoBundle 'Shougo/neosnippet'
 
@@ -749,7 +746,7 @@ NeoBundle 'TagHighlight'
 NeoBundle 'taglist.vim'
 
 "# nerdcommenter
-NeoBundle 'scrooloose/nerdcommenter.git'
+NeoBundle 'scrooloose/nerdcommenter'
 
 "# vimpager
 NeoBundle 'vimpager'
@@ -770,7 +767,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'tpope/vim-abolish'
 
 "# foldCC
-NeoBundle 'LeafCage/foldCC'
+NeoBundle 'magicdrive/foldCC'
 
 "#-----------------------#
 "# vim-tools             #
@@ -811,10 +808,16 @@ NeoBundle 'sudo.vim'
 NeoBundle 'mattn/webapi-vim'
 
 "# git.vim
-NeoBundle 'motemen/git-vim'
+"#NeoBundle 'motemen/git-vim'
 
 "# gist.vim
 NeoBundle 'mattn/gist-vim'
+
+"# vim-fugitive
+NeoBundle 'tpope/vim-fugitive'
+
+"# gitv
+NeoBundle 'gregsexton/gitv'
 
 "# localrc.vim
 NeoBundle 'thinca/vim-localrc'
