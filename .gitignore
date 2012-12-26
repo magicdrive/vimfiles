@@ -5,6 +5,8 @@ vim/plugin/
 vim/memo/*
 *~
 *\.swp
+*\.swo
 *\.\#*
 *\#
 *.orig
+.netrwhist
