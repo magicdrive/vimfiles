@@ -4,9 +4,11 @@ execdatetime=$(date +%Y-%m-%d_%H:%M:%S)
 
 [ ! -e ${PWD}/vim/memo ] && mkdir ${PWD}/vim/memo
 
-git clone git://github.com/Shougo/neobundle.vim.git ${PWD}/vim/bundle/automatic/neobundle.vim
-git clone git://github.com/Shougo/unite.vim.git ${PWD}/vim/bundle/automatic/unite.vim
-git clone git://github.com/Shougo/vimproc.git ${PWD}/vim/bundle/automatic/vimproc
+libs=('neobundle.vim' 'unite.vim' 'vimproc');
+
+for x in ${libs[@]}; do
+    git clone git://github.com/Shougo/${x} ${PWD}/vim/bundle/automatic/${x}
+done;
 
 mkdir ${HOME}/.vim-backup && chmod 766 ${HOME}/.vim-backup
 
@@ -22,13 +24,17 @@ fi
 
 popd
 
-[ -e ${HOME}/.vim ] && mv ${HOME}/.vim ${HOME}/.vim.BAK.${execdatetime}
-[ -e ${HOME}/.vimrc ] && mv ${HOME}/.vimrc ${HOME}/.vimrc.BAK.${execdatetime}
+files=( 'vimrc' 'vim' );
 
-ln -s ${PWD}/vim ${HOME}/.vim
-ln -s ${PWD}/vimrc ${HOME}/.vimrc
+for x in ${files[@]}; do
+    [ -e ${HOME}/.${x} ] && mv ${HOME}/.${x} ${HOME}/.${x}.BAK.${execdatetime}
+    ln -s ${PWD}/${x} ${HOME}/.${x}
+done;
 
-vim -c 'Unite -vertical neobundle/install' -c 'qall'
+echo << 'EOS'
+Please run "vim" and execute this command.
+    :Unite -vertical neobundle/install
+EOS
 
 exit 0;
 
