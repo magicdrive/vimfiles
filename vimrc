@@ -2,7 +2,7 @@
 " VIMRC for Vim7.3
 "==========================
 
-"[ ####--------- Vim Basic Settings --------------#### ] {{{1
+"[ ####------- Vim Basic Settings --------------#### ] {{{1
 
 
 "### Vim Option "{{{2
@@ -626,7 +626,7 @@ endif
 
 
 " }}}1
-"[ ####--------- Vim Plugins Settings ------------#### ] {{{1
+"[ ####------- Vim Plugins Settings ------------#### ] {{{1
 
 
 "### NeoBundle.vim{{{2
@@ -1076,11 +1076,11 @@ let g:Powerline_symbols_override = {
     \ }
 "#let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
 
-"# ESCの遅延防止
-if has('unix') && !has('gui_running')
-    inoremap <silent> <ESC> <ESC>
-    inoremap <silent> <C-[> <ESC>
-endif
+"####"# ESCの遅延防止
+"####if has('unix') && !has('gui_running')
+"####    inoremap <silent> <ESC> <ESC>
+"####    inoremap <silent> <C-[> <ESC>
+"####endif
 
 if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
    PowerlineClearCache | PowerlineReloadColorscheme
@@ -1286,7 +1286,7 @@ call watchdogs#setup(g:quickrun_config)
 
 
 " }}}1
-"[ ####--------- Programming Support Settings -----#### ] {{{1
+"[ ####------- Programming Support Settings ----#### ] {{{1
 
 
 "### Perl programming support "{{{2
@@ -1448,7 +1448,7 @@ autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delet
 
 
 " }}}1
-"[ ####--------- GVim Visualize Settings ---------#### ] {{{1
+"[ ####------- GVim Visualize Settings ---------#### ] {{{1
 
 
 "### colorschemeの設定 "{{{2
