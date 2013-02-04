@@ -31,7 +31,7 @@ for x in ${files[@]}; do
     ln -s ${PWD}/${x} ${HOME}/.${x}
 done;
 
-echo << 'EOS'
+cat << 'EOS'
 Please run "vim" and execute this command.
     :Unite -vertical neobundle/install
 EOS
