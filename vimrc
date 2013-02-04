@@ -574,38 +574,6 @@ nnoremap <Space><Space> za<Space>
 
 
 "}}}2
-"### StatusLine (vim_powerlineがoffの場合に表示) "{{{2
-
-
-set statusline=%F%m%r%h%w\ 
-            \[FORMAT=%{'['.(&fenc!=''?&fenc:'?').'::'.&ff.']'}]\ 
-            \[TYPE=%Y]\ 
-            \[ASCII=\%03.3b]\ 
-            \[HEX=\%02.2B]\ 
-            \[POS=%04l,%04v][%p%%]\ 
-            \[LEN=%L]
-
-"# ステータスラインの色
-highlight StatusLine 
-            \ ctermfg=Black
-            \ ctermbg=DarkGreen
-            \ cterm=none
-
-autocmd InsertEnter * :highlight StatusLine
-            \ ctermfg=White
-            \ ctermbg=Blue
-autocmd InsertLeave * :highlight StatusLine
-            \ ctermfg=Black
-            \ ctermbg=DarkGreen
-
-"# ESCの遅延防止
-if has('unix') && !has('gui_running')
-    inoremap <silent> <ESC> <ESC>
-    inoremap <silent> <C-[> <ESC>
-endif
-
-
-"}}}2
 "### Macvim用の設定 {{{2
 
 
@@ -710,6 +678,12 @@ NeoBundle 'kana/vim-niceblock'
 
 "# cocoa.vim
 NeoBundle 'cocoa.vim'
+
+"# neocomplcache-clang
+NeoBundle 'Shougo/neocomplcache-clang'
+
+"# neocomplcache-clang_complete
+NeoBundle 'Shougo/neocomplcache-clang_complete'
 
 "# javacomplete.vim
 NeoBundle 'javacomplete'
@@ -1354,6 +1328,23 @@ augroup PerlFTPlugin
     endfunction
 
     autocmd VimEnter * call AlterFileTypePerl()
+
+
+
+    "# watchdogs
+	let g:watchdogs_check_CursorHold_enables = {
+	\	"cpp"     : 1,
+	\	"perl" : 1
+	\}
+	" runner/vimproc/updatetime に設定する
+	let g:quickrun_config = {
+	\	"watchdogs_checker/_" : {
+	\		"runner/vimproc/updatetime" : 2,
+	\	},
+	\}
+	
+	" watchdogs.vim の設定を追加
+	call watchdogs#setup(g:quickrun_config)
 augroup END
 
 
@@ -1676,12 +1667,12 @@ autocmd GUIEnter * call MyGUISettingLazy()
 
 
 " }}}1
-
-"# local設定の読み込み
+"[ ####------- Read Local Settings -------------#### ] {{{1
 let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
       execute 'source ' . g:local_vimrc
 endif
+" }}}1
 
 "__END__
 
