@@ -1434,6 +1434,7 @@ let html_wrong_comments=1
 autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
 autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl_module.template.pm | 1 | delete
 autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
+autocmd BufNewFile *.psgi :r $HOME/.vim/misc/tmp/app.psgi | 1 | delete
 
 " }}}2
 
