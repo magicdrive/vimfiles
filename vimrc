@@ -59,7 +59,7 @@ filetype plugin on
 
 "# command-line modeへの切り替え
 noremap ; :
-noremap " ;
+
 noremap <Plug>(mykey); :!
 noremap <Plug>(mykey)r :r!
 
@@ -147,8 +147,9 @@ nnoremap <silent> <C-p> :bp<CR>
 "### VimScript "{{{2
 
 
-command! -nargs=0 SL :call VimLRun()
-command! -nargs=0 SU :call VimrcReload()
+command! -nargs=0 SL :source %
+command! -nargs=0 SU :source $MYVIMRC
+ 
 command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
 command! -nargs=0 VE :VimrcEdit 
 command! -nargs=0 E :edit!
@@ -161,19 +162,6 @@ function! s:get_visual_selected()
     let @@ = tmp
     return selected
 endfunction
-
-if has('vim_starting')
-
-    function! VimLRun()
-        source %
-    endfunction
-
-    function! VimrcReload()
-        source $MYVIMRC
-        echo 'reloaded!'
-    endfunction
-
-endif
 
 "# vimrcの編集
 nnoremap <Plug>(mykey). :VimrcEdit<CR>
@@ -706,6 +694,20 @@ NeoBundle 'vim-perl-use-insertion',
                 \ 'type' : 'nosync', 
                 \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
             \ }
+
+"# jelera/vim-javascript-syntax
+NeoBundle 'jelera/vim-javascript-syntax'
+
+
+
+NeoBundle 'teramako/jscomplete-vim'
+NeoBundle 'myhere/vim-nodejs-complete'
+
+
+
+
+
+
 
 "# zencoding
 NeoBundle 'mattn/zencoding-vim'
@@ -1399,6 +1401,12 @@ augroup JavaScriptFTPlugin
     
     autocmd FileType javascript nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
+    autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
+    if !exists('g:neocomplcache_omni_functions')
+        let g:neocomplcache_omni_functions = {}
+    endif
+    let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+    let g:node_usejscomplete = 1
 
 augroup END
 
@@ -1417,12 +1425,12 @@ autocmd FileType c,cpp,perl setlocal cindent
 autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
 autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 "CF用コメントハイライト有効
 let html_wrong_comments=1
