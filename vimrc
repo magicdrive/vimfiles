@@ -59,6 +59,7 @@ filetype plugin on
 
 "# command-line modeへの切り替え
 noremap ; :
+noremap " : 
 
 noremap <Plug>(mykey); :!
 noremap <Plug>(mykey)r :r!
