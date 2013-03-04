@@ -59,6 +59,7 @@ filetype plugin on
 
 "# command-line modeへの切り替え
 noremap ; :
+noremap " : 
 
 noremap <Plug>(mykey); :!
 noremap <Plug>(mykey)r :r!
@@ -453,6 +454,7 @@ autocmd BufNewFile,BufRead *.mxml set filetype=mxml
 autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
+autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
 
 
 "}}}2
@@ -704,10 +706,8 @@ NeoBundle 'teramako/jscomplete-vim'
 NeoBundle 'myhere/vim-nodejs-complete'
 
 
-
-
-
-
+"# nginx.vim
+NeoBundle 'nginx.vim'
 
 "# zencoding
 NeoBundle 'mattn/zencoding-vim'
