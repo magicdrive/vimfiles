@@ -801,6 +801,9 @@ NeoBundle 'thinca/vim-localrc'
 "# calender.vim
 NeoBundle 'mattn/calendar-vim'
 
+NeoBundle 'mattn/httpstatus-vim'
+
+
 "# w3m.vim
 if executable('w3m')
     NeoBundle 'yuratomo/w3m.vim'
@@ -839,6 +842,17 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 "# colorscheme-sand
 NeoBundle 'sand'
+
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'vim-scripts/twilight'
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'jpo/vim-railscasts-theme'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'vim-scripts/Wombat'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'vim-scripts/rdark'
+
 
 "# colorscheme-zenburn
 NeoBundle 'Zenburn'
