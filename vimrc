@@ -19,8 +19,8 @@ set nocompatible
 noremap ZZ <Nop>
 noremap ZQ <Nop>
 
-command! -nargs=0 ZZ :x
-command! -nargs=0 ZQ :q
+command! -nargs=0 ZZ :wqa!
+command! -nargs=0 ZQ :qa!
 
 "# syntax highlight
 syntax on
@@ -843,15 +843,29 @@ NeoBundle 'altercation/vim-colors-solarized'
 "# colorscheme-sand
 NeoBundle 'sand'
 
+"# colorscheme-jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'vim-scripts/twilight'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'jpo/vim-railscasts-theme'
-NeoBundle 'vim-scripts/Wombat'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'vim-scripts/rdark'
 
+"# colorscheme-sand
+NeoBundle 'w0ng/vim-hybrid'
+
+"# colorscheme-twilight
+NeoBundle 'vim-scripts/twilight'
+
+"# colorscheme-lucius
+NeoBundle 'jonathanfilip/vim-lucius'
+
+"# colorscheme-railscasts
+NeoBundle 'jpo/vim-railscasts-theme'
+
+"# colorscheme-wombat
+NeoBundle 'vim-scripts/Wombat'
+
+"# colorscheme-molokai
+NeoBundle 'tomasr/molokai'
+
+"# colorscheme-sand
+NeoBundle 'vim-scripts/rdark'
 
 "# colorscheme-zenburn
 NeoBundle 'Zenburn'
