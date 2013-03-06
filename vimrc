@@ -150,7 +150,7 @@ nnoremap <silent> <C-p> :bp<CR>
 
 command! -nargs=0 SL :source %
 command! -nargs=0 SU :source $MYVIMRC
- 
+
 command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
 command! -nargs=0 VE :VimrcEdit 
 command! -nargs=0 E :edit!
@@ -595,6 +595,7 @@ filetype off
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
 endif
+
 call neobundle#rc( expand('~/.vim/bundle/automatic') )
 
 "#------------------------------------#
@@ -670,16 +671,13 @@ NeoBundle 'kana/vim-niceblock'
 NeoBundle 'cocoa.vim'
 
 "# neocomplcache-clang
-NeoBundle 'Shougo/neocomplcache-clang'
+"""""""NeoBundle 'Shougo/neocomplcache-clang'
 
 "# neocomplcache-clang_complete
-NeoBundle 'Shougo/neocomplcache-clang_complete'
+"""""""NeoBundle 'Shougo/neocomplcache-clang_complete'
 
 "# javacomplete.vim
 NeoBundle 'javacomplete'
-
-"# javascript
-NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 
 "# javacomplete.vim
 NeoBundle 'groovy.vim'
@@ -691,20 +689,29 @@ NeoBundle 'mikelue/vim-maven-plugin'
 NeoBundle 'derekwyatt/vim-scala'
 
 "# vim-perl-use-insertaion
-NeoBundle 'vim-perl-use-insertion',
-            \ {
-                \ 'type' : 'nosync', 
-                \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
-            \ }
+"NeoBundle 'vim-perl-use-insertion',
+"            \ {
+"                \ 'type' : 'nosync', 
+"                \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
+"            \ }
 
 "# jelera/vim-javascript-syntax
 NeoBundle 'jelera/vim-javascript-syntax'
 
-
-
+"# jscomplete
 NeoBundle 'teramako/jscomplete-vim'
+
+"# nojs-complete
 NeoBundle 'myhere/vim-nodejs-complete'
 
+"# javascript
+NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
+
+"# coffeescript syntax
+NeoBundle 'kchmck/vim-coffee-script'
+
+"# less syntax
+NeoBundle 'groenewege/vim-less'
 
 "# nginx.vim
 NeoBundle 'nginx.vim'
@@ -783,9 +790,6 @@ NeoBundle 'sudo.vim'
 "# webapi-vim
 NeoBundle 'mattn/webapi-vim'
 
-"# git.vim
-"#NeoBundle 'motemen/git-vim'
-
 "# gist.vim
 NeoBundle 'mattn/gist-vim'
 
@@ -801,6 +805,7 @@ NeoBundle 'thinca/vim-localrc'
 "# calender.vim
 NeoBundle 'mattn/calendar-vim'
 
+"# httpstatus
 NeoBundle 'mattn/httpstatus-vim'
 
 
@@ -843,10 +848,10 @@ NeoBundle 'altercation/vim-colors-solarized'
 "# colorscheme-sand
 NeoBundle 'sand'
 
-"# colorscheme-jellybeans
+"# colorscheme-jellybeans.vim
 NeoBundle 'nanotech/jellybeans.vim'
 
-"# colorscheme-sand
+"# colorscheme-hybird
 NeoBundle 'w0ng/vim-hybrid'
 
 "# colorscheme-twilight
@@ -864,7 +869,7 @@ NeoBundle 'vim-scripts/Wombat'
 "# colorscheme-molokai
 NeoBundle 'tomasr/molokai'
 
-"# colorscheme-sand
+"# colorscheme-rdark
 NeoBundle 'vim-scripts/rdark'
 
 "# colorscheme-zenburn
@@ -1074,9 +1079,9 @@ let g:Powerline_symbols = 'fancy'
 "let g:Powerline_symbols = 'compatible'
 "let g:Powerline_symbols = 'unicode'
 let g:Powerline_symbols_override = {
-    \ 'BRANCH': [0x2213],
-    \ 'LINE': 'L',
-    \ }
+            \ 'BRANCH': [0x2213],
+            \ 'LINE': 'L',
+            \ }
 "#let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
 
 "####"# ESCの遅延防止
@@ -1086,7 +1091,7 @@ let g:Powerline_symbols_override = {
 "####endif
 
 if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
-   PowerlineClearCache | PowerlineReloadColorscheme
+    PowerlineClearCache | PowerlineReloadColorscheme
 endif
 
 
@@ -1260,7 +1265,13 @@ for [key, com] in items({
             \ })
     execute 'vnoremap <silent>' . key . ':QuickRun' com '-mode v<CR>'
     execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
+
 endfor
+let g:quickrun_config = {}
+let g:quickrun_config['coffee'] = { 
+            \       "command" : 'coffee',
+            \       'exec'    : ['%c -cbp %s']
+            \   }
 
 
 "}}}2
@@ -1269,19 +1280,17 @@ endfor
 
 let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enables = {
-    \	"perl"   : 1,
-    \	"scala"  : 1,
-    \	"ruby"   : 1,
-    \   "clang"  : 1,
-    \   "jshint" : 1,
-    \ }
+            \	"perl"   : 1,
+            \	"scala"  : 1,
+            \	"ruby"   : 1,
+            \   "clang"  : 1,
+            \   "jshint" : 1,
+            \ }
 
-let g:quickrun_config = {
-            \   "watchdogs_checker/_" : {
+let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
             \		"runner/vimproc/updatetime" : 30,
-            \   }, 
-            \ }
+            \   }
 call watchdogs#setup(g:quickrun_config)
 
 
@@ -1361,19 +1370,19 @@ augroup PerlFTPlugin
 
 
     "# watchdogs
-	let g:watchdogs_check_CursorHold_enables = {
-	\	"cpp"     : 1,
-	\	"perl" : 1
-	\}
-	" runner/vimproc/updatetime に設定する
-	let g:quickrun_config = {
-	\	"watchdogs_checker/_" : {
-	\		"runner/vimproc/updatetime" : 2,
-	\	},
-	\}
-	
-	" watchdogs.vim の設定を追加
-	call watchdogs#setup(g:quickrun_config)
+    let g:watchdogs_check_CursorHold_enables = {
+                \	"cpp"     : 1,
+                \	"perl" : 1
+                \}
+    " runner/vimproc/updatetime に設定する
+    let g:quickrun_config = {
+                \	"watchdogs_checker/_" : {
+                \		"runner/vimproc/updatetime" : 2,
+                \	},
+                \}
+
+    " watchdogs.vim の設定を追加
+    call watchdogs#setup(g:quickrun_config)
 augroup END
 
 
@@ -1413,9 +1422,9 @@ augroup JavaFTPlugin
     "# load ant.sh
     autocmd FileType java setlocal makeprg=$HOME/.vim/misc/bin/vim_ant.sh
     "# errorformat
-  "  autocmd BufRead *.java 
-  "              \ setlocal errorformat=
-  "                  \ \ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
+    "  autocmd BufRead *.java 
+    "              \ setlocal errorformat=
+    "                  \ \ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
 
 augroup END
 
@@ -1425,7 +1434,7 @@ augroup END
 
 
 augroup JavaScriptFTPlugin
-    
+
     autocmd FileType javascript nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
@@ -1574,22 +1583,22 @@ function! MyColor()
                 \ ctermbg=White
                 \ ctermfg=Black 
 
-"    "# Foldingの色変更
-"    highlight Folded
-"                \ gui=bold
-"                \ term=standout
-"                \ ctermbg=DarkYellow
-"                \ ctermfg=LightGray
-"                \ guibg=Grey30
-"                \ guifg=Grey80
-"
-"    highlight FoldColumn
-"                \ gui=bold
-"                \ term=standout
-"                \ ctermbg=DarkYellow
-"                \ ctermfg=LightGray
-"                \ guibg=Grey
-"                \ guifg=DarkBlue
+    "    "# Foldingの色変更
+    "    highlight Folded
+    "                \ gui=bold
+    "                \ term=standout
+    "                \ ctermbg=DarkYellow
+    "                \ ctermfg=LightGray
+    "                \ guibg=Grey30
+    "                \ guifg=Grey80
+    "
+    "    highlight FoldColumn
+    "                \ gui=bold
+    "                \ term=standout
+    "                \ ctermbg=DarkYellow
+    "                \ ctermfg=LightGray
+    "                \ guibg=Grey
+    "                \ guifg=DarkBlue
 
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=DarkGray
@@ -1706,7 +1715,7 @@ autocmd GUIEnter * call MyGUISettingLazy()
 "[ ####------- Read Local Settings -------------#### ] {{{1
 let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
-      execute 'source ' . g:local_vimrc
+    execute 'source ' . g:local_vimrc
 endif
 " }}}1
 
