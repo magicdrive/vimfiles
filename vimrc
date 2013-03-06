@@ -581,6 +581,21 @@ endif
 
 
 "}}}2
+"### Util系 {{{2
+
+" create directory automatically
+augroup vimrc-auto-mkdir
+    autocmd!
+    autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+    function! s:auto_mkdir(dir, force)
+        if !isdirectory(a:dir) && (a:force ||
+                    \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+            call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+        endif
+    endfunction
+augroup END
+
+"}}}2
 
 
 " }}}1
@@ -1371,7 +1386,7 @@ augroup PerlFTPlugin
 
     "# watchdogs
     let g:watchdogs_check_CursorHold_enables = {
-                \	"cpp"     : 1,
+                \	"cpp"  : 1,
                 \	"perl" : 1
                 \}
     " runner/vimproc/updatetime に設定する
@@ -1446,6 +1461,31 @@ augroup JavaScriptFTPlugin
 
 augroup END
 
+
+"}}}2
+"### Python support {{{2
+
+
+autocmd FileType python call s:PythonIndent()
+
+function s:PythonIndent()
+
+    "" PEP 8 Indent rule
+    setlocal tabstop=8
+    setlocal softtabstop=4
+    setlocal shiftwidth=4
+    setlocal smarttab
+    setlocal expandtab
+    setlocal autoindent
+    setlocal nosmartindent
+    setlocal cindent
+    setlocal textwidth=80
+    setlocal colorcolumn=80
+
+    " Folding
+    setlocal foldmethod=indent
+    setlocal foldlevel=99"
+endfunction
 
 "}}}2
 "### FileType(Language)別アシスタンス設定 "{{{2
