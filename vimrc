@@ -664,6 +664,9 @@ NeoBundle 'h1mesuke/unite-outline'
 "# watchdogs
 NeoBundle 'magicdrive/vim-watchdogs'
 
+"# nerdtree
+NeoBundle 'scrooloose/nerdtree'
+
 "# vim-hier
 NeoBundle "jceb/vim-hier"
 
