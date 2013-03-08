@@ -728,6 +728,9 @@ NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
 "# coffeescript syntax
 NeoBundle 'kchmck/vim-coffee-script'
 
+"# jedi python-complete
+NeoBundle 'davidhalter/jedi'
+
 "# less syntax
 NeoBundle 'groenewege/vim-less'
 
@@ -1470,6 +1473,11 @@ augroup END
 
 
 autocmd FileType python call s:PythonIndent()
+autocmd FileType python let b:did_ftplugin = 1
+autocmd FileType python let g:jedi#auto_initialization = 1
+autocmd FileType python let g:jedi#rename_command = "<Leader>R"
+autocmd FileType python let g:jedi#popup_on_dot = 1
+autocmd FileType python let b:did_ftplugin = 1
 
 function s:PythonIndent()
 
@@ -1522,6 +1530,7 @@ autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
 autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl_module.template.pm | 1 | delete
 autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
 autocmd BufNewFile *.psgi :r $HOME/.vim/misc/tmp/app.psgi | 1 | delete
+autocmd BufNewFile *.py :r $HOME/.vim/misc/tmp/python.template.py | 1 | delete
 
 " }}}2
 
