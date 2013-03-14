@@ -662,7 +662,7 @@ NeoBundle 'h1mesuke/unite-outline'
 "#---------------------------#
 
 "# watchdogs
-NeoBundle 'magicdrive/vim-watchdogs'
+NeoBundle 'osyo-manga/vim-watchdogs'
 
 "# nerdtree
 NeoBundle 'scrooloose/nerdtree'
@@ -707,11 +707,14 @@ NeoBundle 'mikelue/vim-maven-plugin'
 NeoBundle 'derekwyatt/vim-scala'
 
 "# vim-perl-use-insertaion
-"NeoBundle 'vim-perl-use-insertion',
-"            \ {
-"                \ 'type' : 'nosync', 
-"                \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
-"            \ }
+NeoBundle 'vim-perl-use-insertion',
+            \ {
+                \ 'type' : 'nosync', 
+                \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
+            \ }
+
+"# perl-syntax
+NeoBundle 'perl-mauke.vim'
 
 "# jelera/vim-javascript-syntax
 NeoBundle 'jelera/vim-javascript-syntax'
@@ -730,6 +733,12 @@ NeoBundle 'kchmck/vim-coffee-script'
 
 "# jedi python-complete
 NeoBundle 'davidhalter/jedi'
+
+"# python virtualenv
+NeoBundle 'jmcantrell/vim-virtualenv'
+
+"# python dict
+NeoBundle 'rkulla/pydiction'
 
 "# less syntax
 NeoBundle 'groenewege/vim-less'
@@ -1302,6 +1311,8 @@ let g:quickrun_config['coffee'] = {
 let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enables = {
             \	"perl"   : 1,
+            \	"python" : 1,
+            \	"bash"   : 1,
             \	"scala"  : 1,
             \	"ruby"   : 1,
             \   "clang"  : 1,
@@ -1310,7 +1321,7 @@ let g:watchdogs_check_CursorHold_enables = {
 
 let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
-            \		"runner/vimproc/updatetime" : 30,
+            \		"runner/vimproc/updatetime" : 3,
             \   }
 call watchdogs#setup(g:quickrun_config)
 
@@ -1477,7 +1488,9 @@ autocmd FileType python let b:did_ftplugin = 1
 autocmd FileType python let g:jedi#auto_initialization = 1
 autocmd FileType python let g:jedi#rename_command = "<Leader>R"
 autocmd FileType python let g:jedi#popup_on_dot = 1
-autocmd FileType python let b:did_ftplugin = 1
+autocmd FileType python setlocal iskeyword+=.,(
+let g:pydiction_location= 
+            \ '~/.vim/bundle/automatic/pydiction/complete-dict'
 
 function s:PythonIndent()
 
