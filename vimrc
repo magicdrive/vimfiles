@@ -1029,6 +1029,12 @@ let g:vimfiler_as_default_explorer=1
 
 
 "}}}2
+"### NERDTree {{{2
+
+let g:NERDTreeHijackNetrw=0
+
+
+"}}}2
 "### MemoList.vim {{{2
 
 
