@@ -4,9 +4,7 @@
 
 "[ ####------- Vim Basic Settings --------------#### ] {{{1
 
-
 "### Vim Option "{{{2
-
 
 "# mapkeyprefix
 map  <Space> <Plug>(mykey)
@@ -18,7 +16,6 @@ set nocompatible
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
-
 command! -nargs=0 ZZ :wqa!
 command! -nargs=0 ZQ :qa!
 
@@ -60,7 +57,6 @@ filetype plugin on
 "# command-line modeへの切り替え
 noremap ; :
 noremap " : 
-
 noremap <Plug>(mykey); :!
 noremap <Plug>(mykey)r :r!
 
@@ -131,10 +127,6 @@ set wildmode=longest,full
 "# コマンドラインの履歴の保存数
 set history=256
 
-
-"# Explore
-"nnoremap <Plug>(mykey)e :Explore ./<CR>
-
 "# tagjump stack preview
 nnoremap <Leader>t <C-t>
 
@@ -143,10 +135,8 @@ nnoremap <silent> <C-b> <C-b>
 nnoremap <silent> <C-n> :bn<CR>
 nnoremap <silent> <C-p> :bp<CR>
 
-
 "}}}2
 "### VimScript "{{{2
-
 
 command! -nargs=0 SL :source %
 command! -nargs=0 SU :source $MYVIMRC
@@ -170,7 +160,6 @@ nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
 "}}}i1
 "### encoding & fileencodingの設定 "{{{2
-
 
 "Encoding 
 set enc=utf-8 
@@ -256,7 +245,6 @@ if has('iconv')
     unlet s:enc_jis
 endif
 
-
 "utf-8優先にする
 if &encoding == 'utf-8'
     if filereadable(s:CFGHOME . '/utf-8')
@@ -290,10 +278,8 @@ if has('autocmd')
     autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 
-
 "}}}2
 "### LineNumber表示の設定 "{{{2
-
 
 "# LineNumberのトグル
 nnoremap <silent> <Plug>(mykeylite)n :<C-u>call ToggleNumber()<CR>
@@ -309,38 +295,30 @@ augroup LineNumber
     endfunction
 augroup END
 
-
 "}}}2
 "### mouse modeの設定 "{{{2
 
+if has('mouse')
+    "# マウスモードの有効
+    set mouse=
+    "# terminalmutiprexa内でもマウスモード設定を反映 
+    set ttymouse=xterm2
+    "# toggle mouse mode
+    nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
 
-augroup MouseSetting
-    if has('mouse')
-        "# マウスモードの有効
-        "set mouse=a
-        set mouse=
-
-        "# terminalmutiprexa内でもマウスモード設定を反映 
-        set ttymouse=xterm2
-        "# toggle mouse mode
-        nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
-
-        function! ToggleMouseMode()
-            if &mouse ==# 'a'
-                set mouse=
-                echo "MouseMode disabled"
-            else
-                set mouse=a
-                echo "MouseMode enabled"
-            endif
-        endfunction
-    endif
-augroup END
-
+    function! ToggleMouseMode()
+        if &mouse ==# 'a'
+            set mouse=
+            echo "MouseMode disabled"
+        else
+            set mouse=a
+            echo "MouseMode enabled"
+        endif
+    endfunction
+endif
 
 "}}}2
 "### backup,swapfileの設定 "{{{2
-
 
 "# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
 let g:backupfile_save_dir="$HOME/.vim-backup"
@@ -356,10 +334,8 @@ else
     set noswapfile
 endif
 
-
 "}}}2
 "### Tab機能の設定 "{{{2
-
 
 "# create new tab
 nnoremap <Plug>(mykey)t :tabnew<CR>
@@ -372,10 +348,8 @@ nnoremap <Plug>(mykey)Tk :tabclose<CR>
 nnoremap <silent> <C-f> gt
 nnoremap <silent> <C-b> gT
 
-
 "}}}2
 "### search設定 "{{{2
-
 
 "# 検索に大文字を含んでいたら大小区別
 set ignorecase
@@ -392,15 +366,8 @@ nnoremap <C-c><C-c> :nohlsearch<CR>
 "# 検索時にインクリメンタルサーチを行う
 set incsearch
 
-"# migemoがインストールされていればmigemoを有効にする
-if has('migemo')
-    set migemo
-endif
-
-
 "}}}2
 "### Emacs like keybindの設定 "{{{2
-
 
 "# カーソルキーで行末／行頭の移動可能に設定
 set whichwrap=b,s,[,],<,>
@@ -418,10 +385,8 @@ inoremap <expr> <C-k> col('.')==col('$')?"":"\<C-o>D"
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
-
 "}}}2
 "### Indentの設定 "{{{2
-
 
 "# current buffer indent
 nnoremap <C-\> gg=G
@@ -444,10 +409,8 @@ set shiftwidth=4
 "# {}をインデントして入力
 inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 
-
 "}}}2
 "### FileType判定 "{{{2
-
 
 autocmd BufNewFile,BufRead *.as set filetype=actionscript
 autocmd BufNewFile,BufRead *.mxml set filetype=mxml
@@ -455,11 +418,11 @@ autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
 autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
-
+autocmd BufNewFile,BufRead *.scala set filetype=nginx
+autocmd BufNewFile,BufRead *.m set filetype=objective-c
 
 "}}}2
 "### comment用mapの設定 "{{{2
-
 
 "lhs comments
 noremap <Plug>(mykeylite)# :s/^/#/<CR>
@@ -478,10 +441,8 @@ noremap <Plug>(mykeylite)( :s/^\(.*\)$/\(\* \1 \*\)/<CR>
 noremap <Plug>(mykeylite)< :s/^\(.*\)$/<!-- \1 -->/<CR>
 "noremap ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR> 
 
-
 "}}}2
 "### Window関連の設定 "{{{2
-
 
 "# Window横分割
 nnoremap <silent> <Plug>(mykey)w :<ESC>:split<CR>
@@ -506,10 +467,8 @@ nnoremap <C-w>p <C-w>k
 nnoremap <C-w>b <C-w>h
 nnoremap <C-w>f <C-w>l
 
-
 "}}}2
 "### AutoBufferの設定 "{{{2
-
 
 
 "# tmpl perl
@@ -549,10 +508,8 @@ iab passw password
 iab javasc javascript
 iab concate concatenate
 
-
 "}}}2
 "### Foldingの設定 {{{2
-
 
 "# difine foldmethod
 set foldmethod=marker
@@ -562,10 +519,8 @@ set foldtext=FoldCCtext()
 "nnoremap <Plug>(mykey)zc zc
 nnoremap <Space><Space> za<Space>
 
-
 "}}}2
 "### Macvim用の設定 {{{2
-
 
 if has('macvim')
 
@@ -578,7 +533,6 @@ if has('macvim')
     endif
 
 endif
-
 
 "}}}2
 "### Util系 {{{2
@@ -597,13 +551,10 @@ augroup END
 
 "}}}2
 
-
 " }}}1
 "[ ####------- Vim Plugins Settings ------------#### ] {{{1
 
-
 "### NeoBundle.vim{{{2
-
 
 filetype off
 
@@ -613,301 +564,254 @@ endif
 
 call neobundle#rc( expand('~/.vim/bundle/automatic') )
 
-"#------------------------------------#
-"#                                    #
-"#     neobundleで管理するPlug-in     #
-"#                                    #
-"#------------------------------------#
-
 "#---------------------------#
-"# Vim utility extended      #
+"# regular use                #
 "#---------------------------#
-
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim'
-
-"# vimfiler
-NeoBundle 'Shougo/vimfiler'
-
+"# neocomplcache
+NeoBundle 'Shougo/neocomplcache'
+"# neosnippet
+NeoBundle 'Shougo/neosnippet'
 "# vimproc
 NeoBundle 'Shougo/vimproc'
-
 "# vimshell
-NeoBundle 'Shougo/vimshell'
-
+NeoBundleLazy 'Shougo/vimshell', {
+            \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
+            \ }
+"# vimfiler
+NeoBundleLazy 'Shougo/vimfiler', {
+            \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ] }
+            \ }
+"# vim-watchdogs
+NeoBundle 'osyo-manga/vim-watchdogs'
+"# quickrun
+NeoBundle 'thinca/vim-quickrun'
+"# nerdtree
+NeoBundleLazy 'scrooloose/nerdtree', {
+            \ 'autoload' : { 'commands' : 'NERDTreeToggle'}
+            \ }
+"# neco-look
+NeoBundle "ujihisa/neco-look"
+"# smartinput
+NeoBundle 'kana/vim-smartinput'
+"# niceblock
+NeoBundle 'kana/vim-niceblock'
+"# altercmd
+NeoBundle 'tyru/vim-altercmd'
+"# surround.vim
+NeoBundle 'surround.vim'
+"# vimsualstar
+NeoBundle 'thinca/vim-visualstar'
+"# easymotion
+NeoBundle 'Lokaltog/vim-easymotion'
+"# foldCC
+NeoBundle 'magicdrive/foldCC'
+"# vim-powerline
+NeoBundle 'Lokaltog/vim-powerline.git'
+"# memolist
+NeoBundle 'glidenote/memolist.vim'
+"# sudo.vim
+NeoBundle 'sudo.vim'
+"# vim-ref
+NeoBundleLazy 'thinca/vim-ref', {
+            \ 'autoload' : {'filetype':['perl','python','sh','bash','zsh','vim']}
+            \ }
 "#----------------------------------#
 "# unite.vim & unite source plug-in #
 "#----------------------------------#
-
-"# Unite.vim
-NeoBundle 'Shougo/unite.vim'
-
+"# unite.vim
+NeoBundleLazy 'Shougo/unite.vim', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 "# unite-ssh
 NeoBundle 'Shougo/unite-ssh'
-
 "# unite-ack
 NeoBundle 't9md/vim-unite-ack'
-
 "# unite-help
 NeoBundle 'tsukkee/unite-help'
-
-"# unite-qflist
+"# unite-qf
 NeoBundle 'sgur/unite-qf'
-
 "# unite-outline
 NeoBundle 'h1mesuke/unite-outline'
-
 "#---------------------------#
 "# programing suport plug-in #
 "#---------------------------#
-
-"# watchdogs
-NeoBundle 'osyo-manga/vim-watchdogs'
-
-"# nerdtree
-NeoBundle 'scrooloose/nerdtree'
-
-"# vim-hier
-NeoBundle "jceb/vim-hier"
-
-"# neco-look
-NeoBundle "ujihisa/neco-look"
-
-"# neocomplcache
-NeoBundle 'Shougo/neocomplcache'
-
-"# neosnippet
-NeoBundle 'Shougo/neosnippet'
-
-"# smartinput
-NeoBundle 'kana/vim-smartinput'
-
-"# vim-niceblock
-NeoBundle 'kana/vim-niceblock'
-
-"# cocoa.vim
-NeoBundle 'cocoa.vim'
-
-"# neocomplcache-clang
-"""""""NeoBundle 'Shougo/neocomplcache-clang'
-
-"# neocomplcache-clang_complete
-"""""""NeoBundle 'Shougo/neocomplcache-clang_complete'
-
-"# javacomplete.vim
-NeoBundle 'javacomplete'
-
-"# javacomplete.vim
-NeoBundle 'groovy.vim'
-
-"# vim-maven-plugin
-NeoBundle 'mikelue/vim-maven-plugin'
-
-"# scala-vim
-NeoBundle 'derekwyatt/vim-scala'
-
-"# vim-perl-use-insertaion
-NeoBundle 'vim-perl-use-insertion',
-            \ {
-                \ 'type' : 'nosync', 
-                \ 'base' : $HOME . '/.vim/bundle/manual/vim-perl_use_insertion',
-            \ }
-
-"# perl-syntax
-NeoBundle 'perl-mauke.vim'
-
-"# jelera/vim-javascript-syntax
-NeoBundle 'jelera/vim-javascript-syntax'
-
-"# jscomplete
-NeoBundle 'teramako/jscomplete-vim'
-
-"# nojs-complete
-NeoBundle 'myhere/vim-nodejs-complete'
-
-"# javascript
-NeoBundle 'Javascript-OmniCompletion-with-YUI-and-j'
-
-"# coffeescript syntax
-NeoBundle 'kchmck/vim-coffee-script'
-
-"# jedi python-complete
-NeoBundle 'davidhalter/jedi'
-
-"# python virtualenv
-NeoBundle 'jmcantrell/vim-virtualenv'
-
-"# python dict
-NeoBundle 'rkulla/pydiction'
-
-"# less syntax
-NeoBundle 'groenewege/vim-less'
-
-"# nginx.vim
-NeoBundle 'nginx.vim'
-
-"# zencoding
-NeoBundle 'mattn/zencoding-vim'
-
-"# scratch.vim
-NeoBundle 'scratch.vim'
-
-"# TagHighlight
-NeoBundle 'TagHighlight'
-
 "# taglist
 NeoBundle 'taglist.vim'
-
-"# nerdcommenter
-NeoBundle 'scrooloose/nerdcommenter'
-
-"# vimpager
-NeoBundle 'vimpager'
-
-"# Align
-NeoBundle 'Align'
-
-"# surround.vim
-NeoBundle 'surround.vim'
-
-"# visualstar.vim
-NeoBundle 'thinca/vim-visualstar'
-
-"# vim-easymotion
-NeoBundle 'Lokaltog/vim-easymotion'
-
-"# vim-abolish
-NeoBundle 'tpope/vim-abolish'
-
-"# foldCC
-NeoBundle 'magicdrive/foldCC'
-
-"#-----------------------#
-"# vim-tools             #
-"#-----------------------#
-
-"# vinarise
-NeoBundle 'Shougo/vinarise'
-
-"# vdbi-vim
-NeoBundle 'mattn/vdbi-vim'
-
-"# emacscommandline
+"# scratch.vim
+NeoBundle 'scratch.vim'
+"# emacs-commandline
 NeoBundle 'houtsnip/vim-emacscommandline'
-
-"# vim-ref
-"NeoBundle 'thinca/vim-ref'
-NeoBundle 'magicdrive/vim-ref'
-
-"# altercmd
-NeoBundle 'tyru/vim-altercmd'
-
 "# MultipleSearch
 NeoBundle 'MultipleSearch'
-
-"# quickrun
-NeoBundle 'thinca/vim-quickrun'
-
-"# shabadou.vim
-NeoBundle 'osyo-manga/shabadou.vim'
-
-"# memolist.vim
-NeoBundle 'glidenote/memolist.vim'
-
-"# sudo.vim
-NeoBundle 'sudo.vim'
-
-"# webapi-vim
-NeoBundle 'mattn/webapi-vim'
-
-"# gist.vim
-NeoBundle 'mattn/gist-vim'
-
-"# vim-fugitive
-NeoBundle 'tpope/vim-fugitive'
-
-"# gitv
-NeoBundle 'gregsexton/gitv'
-
-"# localrc.vim
-NeoBundle 'thinca/vim-localrc'
-
-"# calender.vim
-NeoBundle 'mattn/calendar-vim'
-
+"# align.vim
+NeoBundle 'Align'
+"#-----------------------#
+"# llvm                  #
+"#-----------------------#
+"# cocoa.vim
+NeoBundleLazy 'cocoa.vim', {
+            \ 'autoload' : {'filetype': ['objective-c']}
+            \ }
+"# neocomplcache-clang
+NeoBundleLazy 'Shougo/neocomplcache-clang', {
+            \ 'autoload' : {'filetype': ['objective-c','cpp','c']}
+            \ }
+"# neocomplcache-clang_complete
+NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
+            \ 'autoload' : {'filetype': ['objective-c','cpp','c']}
+            \ }
+"#-----------------------#
+"# jvm                   #
+"#-----------------------#
+"# javacomplete
+NeoBundleLazy 'javacomplete', {
+            \ "autoload" : {"filetype": ['java']}
+            \ }
+"# groovy.vim
+NeoBundleLazy 'groovy.vim', {
+            \ "autoload" : {"filetype": ['groovy']}
+            \ }
+"# maven-plugin
+NeoBundleLazy 'mikelue/vim-maven-plugin', {
+            \ 'autoload' : {'filetype': ['java','groovy']}
+            \ }
+"# vim-scala
+NeoBundleLazy 'derekwyatt/vim-scala', {
+            \ 'autoload' : {'filetype': ['scala']}
+            \ }
+"#-----------------------#
+"# perl                  #
+"#-----------------------#
+"# perl-mauke
+NeoBundleLazy 'perl-mauke.vim',  {
+            \ 'autoload' : {'filetype': ['perl']}
+            \ }
+"#-----------------------#
+"# javascript            #
+"#-----------------------#
+"# javascript-syntax
+NeoBundleLazy 'jelera/vim-javascript-syntax', {
+            \ 'autoload' : {'filetype': ['javascript']}
+            \ }
+"# jscomplete
+NeoBundleLazy 'teramako/jscomplete-vim', {
+            \ 'autoload' : {'filetype': ['javascript']}
+            \ }
+"# vim-nodejs-complete
+NeoBundleLazy 'myhere/vim-nodejs-complete', {
+            \ 'autoload' : {'filetype': ['javascript']}
+            \ }
+"# yui complete
+NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
+            \ 'autoload' : {'filetype': ['javascript']}
+            \ }
+"# vim-coffee-script
+NeoBundleLazy 'kchmck/vim-coffee-script', {
+            \ 'autoload' : {'filetype': ['coffeescript']}
+            \ }
+"#-----------------------#
+"# python                #
+"#-----------------------#
+"# jedi
+NeoBundleLazy 'davidhalter/jedi', {
+            \ 'autoload' : {'filetype': ['python']}
+            \ }
+"# virtualenv
+NeoBundleLazy 'jmcantrell/vim-virtualenv', {
+            \ 'autoload' : {'filetype': ['python']}
+            \ }
+"# pydiction
+NeoBundleLazy 'rkulla/pydiction', {
+            \ 'autoload' : {'filetype': ['python']}
+            \ }
+"#-----------------------#
+"# html-coding           #
+"#-----------------------#
+"# vim-less
+NeoBundleLazy 'groenewege/vim-less', {
+            \ 'autoload' : {'filetype': ['less']}
+            \ }
+"# zencoding.vim
+NeoBundleLazy 'mattn/zencoding-vim', {
+            \ 'autoload' : {'filetype': ['html','tt','haml']}
+            \ }
+"# nginx.vim
+NeoBundleLazy 'nginx.vim', {
+            \ 'autoload' : {'filetype': ['nginx']}
+            \ }
 "# httpstatus
 NeoBundle 'mattn/httpstatus-vim'
-
-
+"#-----------------------#
+"# git-tool              #
+"#-----------------------#
+"# gist.vim
+NeoBundle 'mattn/gist-vim'
+"# fugitive
+NeoBundle 'tpope/vim-fugitive'
+"# gitv
+NeoBundle 'gregsexton/gitv'
+"#-----------------------#
+"# util-tool             #
+"#-----------------------#
+"# lcoalrc
+NeoBundle 'thinca/vim-localrc'
+"# calendar.vim
+NeoBundle 'mattn/calendar-vim'
+"# yanktmp
+NeoBundle 'yanktmp.vim'
 "# w3m.vim
 if executable('w3m')
     NeoBundle 'yuratomo/w3m.vim'
 endif
-
-"# Chalice.vim
-NeoBundle 'koron/chalice'
-
-"# yamktmp.vim
-NeoBundle 'yanktmp.vim'
-
-"# open-browser.vim
+"#-----------------------#
+"# external service      #
+"#-----------------------#
+"# chalice.vim
+NeoBundleLazy 'koron/chalice', {
+            \ 'autoload' : {'commands' : 'Chalice' }
+            \ }
+"# open-browser
 NeoBundle 'tyru/open-browser.vim'
-
-"# twibill.vim
+"# webapi
+NeoBundle 'mattn/webapi-vim'
+"# twibill
 NeoBundle 'basyura/twibill.vim'
-
-"# tweetvim
+"# TweetVim
 NeoBundle 'basyura/TweetVim'
-
-"# itunes-vim
-NeoBundle 'ryutorion/vim-itunes'
-
+"# vim-itunes
+NeoBundleLazy "ryutorion/vim-itunes", {
+            \   'autoload' : {'functions' : ["itunes#pause", "itunes#play", "itunes#stop", "itunes#prev", "itunes#next"] },
+            \ }
 "#-------------------#
-"# 256color plug-in  #
+"# Colorschemes      #
 "#-------------------#
-
-"# vim-powerline (256color statusline only xterm-256color)
-NeoBundle 'Lokaltog/vim-powerline.git'
-
-"# vim-guicolorscheme(enable 256colorscheme)
-NeoBundle 'thinca/vim-guicolorscheme'
-
-"# colorscheme-solarized
+"# solarized
 NeoBundle 'altercation/vim-colors-solarized'
-
-"# colorscheme-sand
+"# sand
 NeoBundle 'sand'
-
-"# colorscheme-jellybeans.vim
+"# jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
-
-"# colorscheme-hybird
+"# hybrid
 NeoBundle 'w0ng/vim-hybrid'
-
-"# colorscheme-twilight
+"# twilight
 NeoBundle 'vim-scripts/twilight'
-
-"# colorscheme-lucius
+"# lucius
 NeoBundle 'jonathanfilip/vim-lucius'
-
-"# colorscheme-railscasts
+"# railscasts
 NeoBundle 'jpo/vim-railscasts-theme'
-
-"# colorscheme-wombat
+"# wombat
 NeoBundle 'vim-scripts/Wombat'
-
-"# colorscheme-molokai
+"# molokai
 NeoBundle 'tomasr/molokai'
-
-"# colorscheme-rdark
+"# rdark
 NeoBundle 'vim-scripts/rdark'
-
-"# colorscheme-zenburn
+"# Zenburn
 NeoBundle 'Zenburn'
 
 filetype plugin on
 filetype indent on
-
 
 "}}}2
 "### Unite.vim {{{2
@@ -917,11 +821,9 @@ nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
 "# filehistory limit
 let g:unite_source_file_mru_limit=10000
 
-
 "#---------------------------#
 "# buffers+unite             #
 "#---------------------------#
-
 " buffer
 nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
 " filehistory
@@ -936,7 +838,6 @@ nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<
 "#---------------------------#
 "# neobundle+unite           #
 "#---------------------------#
-
 " neobundle-menu
 nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
 nnoremap <silent> <Plug>(mykey)nn :<C-u>Unite -no-split neobundle<CR>
@@ -950,7 +851,6 @@ nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite -vertical neobundle/install:<CR>
 "#---------------------------#
 "# ref+unite                 #
 "#---------------------------#
-
 " perldoc
 nnoremap <silent> <Plug>(mykey)Rp :<C-u>Unite ref/perldoc<CR>
 " manpage
@@ -959,7 +859,6 @@ nnoremap <silent> <Plug>(mykey)Rm :<C-u>Unite ref/man<CR>
 "#---------------------------#
 "# tweetvim+unite            #
 "#---------------------------#
-
 " tweetvim menu
 nnoremap <silent> <Plug>(mykeylite)tw  :<C-u>Unite tweetvim<CR>
 
@@ -973,14 +872,12 @@ nnoremap <silent> g<C-h>  :<C-u>Unite -start-insert help<CR>
 "#---------------------------#
 "# unitesource:unite-grep    #
 "#---------------------------#
-
 " Execute grep.
 nnoremap <silent> <Plug>(mykey)g  :<C-u>Unite -vertical grep<CR>
 
 "#---------------------------#
 "# unitesource:it_track      #
 "#---------------------------#
-
 "# itunes track
 if has('mac')
     nnoremap <silent> <Plug>(mykeylite)ti  :<C-u>Unite -vertical it_track<CR>
@@ -1004,7 +901,7 @@ nnoremap <silent> <Plug>(mykey)S :<C-u> call Shell()<CR>
 function! Shell()
     echo 'vimshell start'
     VimShell
-    "  setlocal number
+    setlocal number
 endfunction
 
 nnoremap <silent> <Plug>(mykey)s :<C-u> call ShellSplit()<CR>
@@ -1017,23 +914,20 @@ endfunction
 "}}}2
 "### vimfiler {{{2
 
-
 nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 
 "autocmd FileType vimfiler nunmap <buffer> <Space>
 autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
 autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
 
-"# vimfilerをデフォルトのexplorerと置き換えるか
+"# vimfilerをデフォルトのexplorerと置き換える
 let g:vimfiler_as_default_explorer=1
-
 
 "}}}2
 "### NERDTree {{{2
 
 let g:NERDTreeHijackNetrw=0
 nnoremap <silent> <Plug>(mykey)z :NERDTreeToggle<CR>
-
 
 "}}}2
 "### MemoList.vim {{{2
@@ -1121,11 +1015,11 @@ let g:Powerline_symbols_override = {
             \ }
 "#let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
 
-"####"# ESCの遅延防止
-"####if has('unix') && !has('gui_running')
-"####    inoremap <silent> <ESC> <ESC>
-"####    inoremap <silent> <C-[> <ESC>
-"####endif
+"# ESCの遅延防止
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
 
 if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
     PowerlineClearCache | PowerlineReloadColorscheme
@@ -1194,6 +1088,9 @@ command! -nargs=?  Manpage call ref#open('man', '<args>')
 " ref-perldoc
 command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
 command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
+
+" ref-pydoc
+command! -nargs=?  Perldoc call ref#open('pydoc', '<args>')
 
 let g:ref_perldoc_auto_append_f=1
 
@@ -1332,16 +1229,28 @@ let g:quickrun_config["watchdogs_checker/_"] = {
             \   }
 call watchdogs#setup(g:quickrun_config)
 
+"}}}2
+"### Scratch {{{2
+
+nnoremap <Plug>(mykey)l :TempolaryBuffer sh<CR>
+command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
+function! s:scratchbuffer_filetype(filetype)
+    split
+    Scratch 
+    execute 'set filetype=' . a:filetype
+endfunction
+function AlterScratch()
+    AlterCommand  tmp TempolaryBuffer
+endfunction
+autocmd VimEnter * call AlterScratch()
 
 "}}}2
-
 
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
 
 
-"### Perl programming support "{{{2
-
+"### Perl support "{{{2
 
 augroup PerlFTPlugin
     "# コンパイラをperlに設定
@@ -1406,27 +1315,10 @@ augroup PerlFTPlugin
 
     autocmd VimEnter * call AlterFileTypePerl()
 
-
-
-    "# watchdogs
-    let g:watchdogs_check_CursorHold_enables = {
-                \	"cpp"  : 1,
-                \	"perl" : 1
-                \}
-    " runner/vimproc/updatetime に設定する
-    let g:quickrun_config = {
-                \	"watchdogs_checker/_" : {
-                \		"runner/vimproc/updatetime" : 2,
-                \	},
-                \}
-
-    " watchdogs.vim の設定を追加
-    call watchdogs#setup(g:quickrun_config)
 augroup END
 
-
 "}}}2
-"### Ruby programming support "{{{2
+"### Ruby support "{{{2
 
 
 augroup RubyFTPlugin
@@ -1447,7 +1339,7 @@ augroup END
 
 
 "}}}2
-"### Java Programming support{{{2
+"### Java support{{{2
 
 
 augroup JavaFTPlugin
@@ -1469,8 +1361,7 @@ augroup END
 
 
 "}}}2
-"### JavaScript programming support {{{2
-
+"### JavaScript support {{{2
 
 augroup JavaScriptFTPlugin
 
@@ -1485,10 +1376,8 @@ augroup JavaScriptFTPlugin
 
 augroup END
 
-
 "}}}2
 "### Python support {{{2
-
 
 autocmd FileType python call s:PythonIndent()
 autocmd FileType python let b:did_ftplugin = 1
@@ -1521,9 +1410,6 @@ endfunction
 "}}}2
 "### FileType(Language)別アシスタンス設定 "{{{2
 
-
-
-
 "辞書ファイルを使用する設定に変更
 set complete+=k
 
@@ -1542,7 +1428,6 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 "CF用コメントハイライト有効
 let html_wrong_comments=1
 
-
 "}}}2
 "### Template FileSetting{{{2
 
@@ -1554,10 +1439,8 @@ autocmd BufNewFile *.py :r $HOME/.vim/misc/tmp/python.template.py | 1 | delete
 
 " }}}2
 
-
 " }}}1
 "[ ####------- GVim Visualize Settings ---------#### ] {{{1
-
 
 "### colorschemeの設定 "{{{2
 
@@ -1781,7 +1664,6 @@ endif
 autocmd GUIEnter * call MyGUISettingLazy()
 
 "}}}2
-
 
 " }}}1
 "[ ####------- Read Local Settings -------------#### ] {{{1
