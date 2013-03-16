@@ -1032,6 +1032,7 @@ let g:vimfiler_as_default_explorer=1
 "### NERDTree {{{2
 
 let g:NERDTreeHijackNetrw=0
+nnoremap <silent> <Plug>(mykey)z :NERDTreeToggle<CR>
 
 
 "}}}2
