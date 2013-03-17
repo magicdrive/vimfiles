@@ -781,9 +781,7 @@ NeoBundle 'basyura/twibill.vim'
 "# TweetVim
 NeoBundle 'basyura/TweetVim'
 "# vim-itunes
-NeoBundleLazy "ryutorion/vim-itunes", {
-            \   'autoload' : {'functions' : ["itunes#pause", "itunes#play", "itunes#stop", "itunes#prev", "itunes#next"] },
-            \ }
+NeoBundle "ryutorion/vim-itunes"
 "#-------------------#
 "# Colorschemes      #
 "#-------------------#
@@ -894,22 +892,26 @@ let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 autocmd FileType vimshell nnoremap <silent><buffer> <C-l> <Insert>clear<CR>
 
 "# VimShellを新規Windowで立ち上げる
-command! Shell call Shell()
+command! Vshell call s:Shell()
+function s:alter_vimshell()
+    AlterCommand  vsh[ell] Vshell
+endfunction
+autocmd VimEnter * call s:alter_vimshell()
 
-
-nnoremap <silent> <Plug>(mykey)S :<C-u> call Shell()<CR>
-function! Shell()
+nnoremap <silent> <Plug>(mykey)S :<C-u> call s:Shell()<CR>
+function! s:Shell()
     echo 'vimshell start'
     VimShell
     setlocal number
 endfunction
 
-nnoremap <silent> <Plug>(mykey)s :<C-u> call ShellSplit()<CR>
-function! ShellSplit()
+nnoremap <silent> <Plug>(mykey)s :<C-u> call s:ShellSplit()<CR>
+function! s:ShellSplit()
     vsplit
     call Shell()
 endfunction
 
+nnoremap <silent> <Plug>(mykey)z :VimShellPop<CR>
 
 "}}}2
 "### vimfiler {{{2
@@ -927,7 +929,7 @@ let g:vimfiler_as_default_explorer=1
 "### NERDTree {{{2
 
 let g:NERDTreeHijackNetrw=0
-nnoremap <silent> <Plug>(mykey)z :NERDTreeToggle<CR>
+nnoremap <silent> <Plug>(mykey)a :NERDTreeToggle<CR>
 
 "}}}2
 "### MemoList.vim {{{2
@@ -1175,8 +1177,8 @@ augroup iTunes
         endfunction
 
         function AlterITunes()
-            AlterCommand  iTunes ITunes 
-            AlterCommand  itunes ITunes 
+            AlterCommand  iT[unes] ITunes 
+            AlterCommand  it[unes] ITunes 
         endfunction
 
         autocmd VimEnter * call AlterITunes()
@@ -1239,12 +1241,21 @@ function! s:scratchbuffer_filetype(filetype)
     Scratch 
     execute 'set filetype=' . a:filetype
 endfunction
-function AlterScratch()
-    AlterCommand  tmp TempolaryBuffer
+function s:alter_scratch()
+    AlterCommand  tem[polarybuffer] TempolaryBuffer
 endfunction
-autocmd VimEnter * call AlterScratch()
+autocmd VimEnter * call s:alter_scratch()
 
 "}}}2
+"### Chalice {{{2
+
+function s:alter_chalice()
+    AlterCommand  cha[lice] Chalice
+endfunction
+autocmd VimEnter * call s:alter_chalice()
+
+"}}}2
+
 
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
