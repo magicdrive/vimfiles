@@ -16,8 +16,8 @@ set nocompatible
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
-command! -nargs=0 ZZ :wqa!
-command! -nargs=0 ZQ :qa!
+command! -nargs=0 ZZ :<C-u>wqa!
+command! -nargs=0 ZQ :<C-u>qa!
 
 "# syntax highlight
 syntax on
@@ -43,6 +43,8 @@ inoremap <C-j> <C-n>
 "# backspaceキーの動作
 noremap  <C-?> <C-h>
 noremap! <C-?> <C-h>
+inoremap <C-h> <BS>
+inoremap <C-d> <DEL>
 
 "# 高速ターミナル接続
 set ttyfast
@@ -50,15 +52,19 @@ set ttyfast
 "# yank
 nnoremap Y y$
 
+"# filetype
+nnoremap <Plug>(mykey)/ :<C-u>set filetype=
+
 "# Plug-in有効設定
 filetype plugin indent on
 filetype plugin on
 
 "# command-line modeへの切り替え
 noremap ; :
-noremap " : 
-noremap <Plug>(mykey); :!
-noremap <Plug>(mykey)r :r!
+nnoremap <Plug>(mykey); :<C-u>!
+nnoremap <Plug>(mykey)r :<C-u>r!
+vnoremap <Plug>(mykey); :!
+vnoremap <Plug>(mykey)r :r!
 
 "# substitution
 vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
@@ -116,7 +122,7 @@ set virtualedit=block
 
 "# バックスペースでインデントや改行を削除できるようにする
 set backspace=indent,eol,start
-
+ .
 "# 2バイト文字でもカーソル位置がずれないようにする
 set ambiwidth=double
 
@@ -615,7 +621,11 @@ NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'sudo.vim'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
-            \ 'autoload' : {'filetype':['perl','python','sh','bash','zsh','vim']}
+            \ 'autoload' : {
+            \       'filetype' : [ 'perl', 'python', 'sh', 'bash', 'zsh', 'vim'],
+            \       'commands' : ['Ref'],
+            \       'function' : ['ref#open']
+            \    },
             \ }
 "#----------------------------------#
 "# unite.vim & unite source plug-in #
@@ -898,20 +908,20 @@ function s:alter_vimshell()
 endfunction
 autocmd VimEnter * call s:alter_vimshell()
 
-nnoremap <silent> <Plug>(mykey)S :<C-u> call s:Shell()<CR>
-function! s:Shell()
+nnoremap <silent> <Plug>(mykey)L :<C-u> call Shell()<CR>
+function! Shell()
     echo 'vimshell start'
     VimShell
     setlocal number
 endfunction
 
-nnoremap <silent> <Plug>(mykey)s :<C-u> call s:ShellSplit()<CR>
-function! s:ShellSplit()
+nnoremap <silent> <Plug>(mykey)l :<C-u> call ShellSplit()<CR>
+function! ShellSplit()
     vsplit
     call Shell()
 endfunction
 
-nnoremap <silent> <Plug>(mykey)z :VimShellPop<CR>
+nnoremap <silent> <Plug>(mykey)y :VimShellPop<CR>
 
 "}}}2
 "### vimfiler {{{2
@@ -955,23 +965,18 @@ nnoremap mg  :MemoGrep<CR>
 "}}}2
 "### yannktmp.vim "{{{2
 
-
 map <silent> sy :call YanktmpYank()<CR>
 map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR>
 
-
 "}}}2
 "### Align.vim {{{2
-
 
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
 
-
 "}}}2
 "### neocomplcache {{{2
-
 
 "# Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -1003,10 +1008,8 @@ endif
 "# NeoCompleCacheToggle
 "nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 
-
 "}}}2
 "### Vim-Powerline {{{2
-
 
 let g:Powerline_symbols = 'fancy'
 "let g:Powerline_symbols = 'compatible'
@@ -1015,7 +1018,10 @@ let g:Powerline_symbols_override = {
             \ 'BRANCH': [0x2213],
             \ 'LINE': 'L',
             \ }
-"#let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
+
+if $USER ==# 'root'
+    let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
+endif
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1026,7 +1032,6 @@ endif
 if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
     PowerlineClearCache | PowerlineReloadColorscheme
 endif
-
 
 "}}}2
 "### Solarized {{{2
@@ -1092,7 +1097,7 @@ command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
 command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
 
 " ref-pydoc
-command! -nargs=?  Perldoc call ref#open('pydoc', '<args>')
+command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
 
 let g:ref_perldoc_auto_append_f=1
 
@@ -1148,7 +1153,6 @@ endfunction
 "}}}2
 "### iTunes{{{2
 
-
 augroup iTunes 
     if has('mac') 
         nnoremap <Plug>(mykey)0 :ITunes<Space>
@@ -1185,10 +1189,8 @@ augroup iTunes
     endif
 augroup END 
 
-
 "}}}2
 "### QuickRun {{{2
-
 
 nnoremap <silent> <Plug>(mykeylite)r <Plug>(quickrun)
 vnoremap <silent> <Plug>(mykeylite)r <Plug>(quickrun)
@@ -1208,7 +1210,6 @@ let g:quickrun_config['coffee'] = {
             \       "command" : 'coffee',
             \       'exec'    : ['%c -cbp %s']
             \   }
-
 
 "}}}2
 "### Watchdogs {{{2
@@ -1234,7 +1235,7 @@ call watchdogs#setup(g:quickrun_config)
 "}}}2
 "### Scratch {{{2
 
-nnoremap <Plug>(mykey)l :TempolaryBuffer sh<CR>
+nnoremap <Plug>(mykey)s :TempolaryBuffer sh<CR>
 command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
 function! s:scratchbuffer_filetype(filetype)
     split
