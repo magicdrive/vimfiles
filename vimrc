@@ -614,7 +614,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 "# foldCC
 NeoBundle 'magicdrive/foldCC'
 "# vim-powerline
-NeoBundle 'Lokaltog/vim-powerline.git'
+NeoBundle 'magicdrive/vim-powerline.git'
 "# memolist
 NeoBundle 'glidenote/memolist.vim'
 "# sudo.vim
@@ -1330,6 +1330,37 @@ augroup PerlFTPlugin
 augroup END
 
 "}}}2
+"### Python support {{{2
+
+autocmd FileType python call s:PythonIndent()
+autocmd FileType python let b:did_ftplugin = 1
+autocmd FileType python let g:jedi#auto_initialization = 1
+autocmd FileType python let g:jedi#rename_command = "<Leader>R"
+autocmd FileType python let g:jedi#popup_on_dot = 1
+autocmd FileType python setlocal iskeyword+=.,(
+let g:pydiction_location=
+            \ '~/.vim/bundle/automatic/pydiction/complete-dict'
+
+function s:PythonIndent()
+
+    "" PEP 8 Indent rule
+    setlocal tabstop=8
+    setlocal softtabstop=4
+    setlocal shiftwidth=4
+    setlocal smarttab
+    setlocal expandtab
+    setlocal autoindent
+    setlocal nosmartindent
+    setlocal cindent
+    setlocal textwidth=80
+    setlocal colorcolumn=80
+
+    " Folding
+    setlocal foldmethod=indent
+    setlocal foldlevel=99"
+endfunction
+
+"}}}2
 "### Ruby support "{{{2
 
 
@@ -1387,37 +1418,6 @@ augroup JavaScriptFTPlugin
     let g:node_usejscomplete = 1
 
 augroup END
-
-"}}}2
-"### Python support {{{2
-
-autocmd FileType python call s:PythonIndent()
-autocmd FileType python let b:did_ftplugin = 1
-autocmd FileType python let g:jedi#auto_initialization = 1
-autocmd FileType python let g:jedi#rename_command = "<Leader>R"
-autocmd FileType python let g:jedi#popup_on_dot = 1
-autocmd FileType python setlocal iskeyword+=.,(
-let g:pydiction_location= 
-            \ '~/.vim/bundle/automatic/pydiction/complete-dict'
-
-function s:PythonIndent()
-
-    "" PEP 8 Indent rule
-    setlocal tabstop=8
-    setlocal softtabstop=4
-    setlocal shiftwidth=4
-    setlocal smarttab
-    setlocal expandtab
-    setlocal autoindent
-    setlocal nosmartindent
-    setlocal cindent
-    setlocal textwidth=80
-    setlocal colorcolumn=80
-
-    " Folding
-    setlocal foldmethod=indent
-    setlocal foldlevel=99"
-endfunction
 
 "}}}2
 "### FileType(Language)別アシスタンス設定 "{{{2
