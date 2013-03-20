@@ -457,7 +457,7 @@ autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
 autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
-autocmd BufNewFile,BufRead *.scala set filetype=nginx
+autocmd BufNewFile,BufRead *.scala set filetype=scala
 autocmd BufNewFile,BufRead *.m set filetype=objective-c
 
 "}}}2
