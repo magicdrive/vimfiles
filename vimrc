@@ -137,9 +137,38 @@ set history=256
 nnoremap <Leader>t <C-t>
 
 "# buffer next/preview
-nnoremap <silent> <C-b> <C-b>
 nnoremap <silent> <C-n> :bn<CR>
 nnoremap <silent> <C-p> :bp<CR>
+
+"# "TODO"のgrep
+noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j 
+            \ **/*.pl
+            \ **/*.pm
+            \ **/*.tt
+            \ **/*.rb
+            \ **/*.css
+            \ **/*.haml
+            \ **/*.less
+            \ **/*.js
+            \ **/*.coffee
+            \ **/*.java
+            \ **/*.groovy
+            \ **/*.scala
+            \ **/*.py
+            \ **/*.py3
+            \ **/*.mako
+            \ **/*.tmpl
+            \ **/*.h
+            \ **/*.cpp
+            \ **/*.c
+            \ **/*.m
+            \ **/*.ml
+            \ **/*.sh
+            \ **/*.zsh
+            \ **/*.bash
+            \ **/*.php
+            \ **/*.vim
+            \ <CR>:cw<CR>
 
 "}}}2
 "### VimScript "{{{2
@@ -175,6 +204,8 @@ set fencs=utf-8,euc-jp,sjis
 let s:enc_jp = ["eucjp","euc","euc-jp" ]
 let s:shift_jis = ["sjis","shift_jis","shiftjis" ]
 let s:utf8 = ["utf8","utf-8" ]
+
+"# encode completion
 function! s:completion_encode(ArgLead, CmdLine, CusorPos)
     let l:cmd = split(a:CmdLine)
     let l:len_cmd = len(l:cmd)
@@ -186,6 +217,8 @@ function! s:completion_encode(ArgLead, CmdLine, CusorPos)
                     \ )
     endif
 endfunction
+
+"# encode
 function! s:edit_encode(code)
     if match(g:enc_jp, a:code)
         edit ++enc=euc-jp
@@ -439,13 +472,13 @@ noremap <Plug>(mykeylite)% :s/^/%/<CR>
 noremap <Plug>(mykeylite)! :s/^/!/<CR>
 noremap <Plug>(mykeylite); :s/^/;/<CR>
 noremap <Plug>(mykeylite)- :s/^/--/<CR>
-"noremap ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>
+noremap ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>
 
 "wrapping comments
 noremap <Plug>(mykeylite)* :s/^\(.*\)$/\/\* \1 \*\//<CR>
 noremap <Plug>(mykeylite)( :s/^\(.*\)$/\(\* \1 \*\)/<CR>
 noremap <Plug>(mykeylite)< :s/^\(.*\)$/<!-- \1 -->/<CR>
-"noremap ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR> 
+noremap ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR> 
 
 "}}}2
 "### Window関連の設定 "{{{2
@@ -592,10 +625,16 @@ NeoBundleLazy 'Shougo/vimfiler', {
 "# vim-watchdogs
 NeoBundle 'osyo-manga/vim-watchdogs'
 "# quickrun
-NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-quickrun', {
+            \   'autoload' : { 'commands' : ['Q', 'QuickRun']}
+            \ }
 "# nerdtree
 NeoBundleLazy 'scrooloose/nerdtree', {
-            \ 'autoload' : { 'commands' : 'NERDTreeToggle'}
+            \   'autoload' : { 'commands' : 'NERDTreeToggle'}
+            \ }
+"# thumbnail.vim
+NeoBundle 'itchyny/thumbnail.vim', {
+            \   'autoload' : { 'commands' : ['Thumbnail']}
             \ }
 "# neco-look
 NeoBundle "ujihisa/neco-look"
@@ -627,6 +666,7 @@ NeoBundleLazy 'thinca/vim-ref', {
             \       'function' : ['ref#open']
             \    },
             \ }
+
 "#----------------------------------#
 "# unite.vim & unite source plug-in #
 "#----------------------------------#
@@ -644,6 +684,7 @@ NeoBundle 'tsukkee/unite-help'
 NeoBundle 'sgur/unite-qf'
 "# unite-outline
 NeoBundle 'h1mesuke/unite-outline'
+
 "#---------------------------#
 "# programing suport plug-in #
 "#---------------------------#
@@ -657,9 +698,11 @@ NeoBundle 'houtsnip/vim-emacscommandline'
 NeoBundle 'MultipleSearch'
 "# align.vim
 NeoBundle 'Align'
+
 "#-----------------------#
 "# llvm                  #
 "#-----------------------#
+
 "# cocoa.vim
 NeoBundleLazy 'cocoa.vim', {
             \ 'autoload' : {'filetype': ['objective-c']}
@@ -691,6 +734,7 @@ NeoBundleLazy 'mikelue/vim-maven-plugin', {
 NeoBundleLazy 'derekwyatt/vim-scala', {
             \ 'autoload' : {'filetype': ['scala']}
             \ }
+
 "#-----------------------#
 "# perl                  #
 "#-----------------------#
@@ -698,6 +742,7 @@ NeoBundleLazy 'derekwyatt/vim-scala', {
 NeoBundleLazy 'perl-mauke.vim',  {
             \ 'autoload' : {'filetype': ['perl']}
             \ }
+
 "#-----------------------#
 "# javascript            #
 "#-----------------------#
@@ -721,6 +766,7 @@ NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
 NeoBundleLazy 'kchmck/vim-coffee-script', {
             \ 'autoload' : {'filetype': ['coffeescript']}
             \ }
+
 "#-----------------------#
 "# python                #
 "#-----------------------#
@@ -736,6 +782,7 @@ NeoBundleLazy 'jmcantrell/vim-virtualenv', {
 NeoBundleLazy 'rkulla/pydiction', {
             \ 'autoload' : {'filetype': ['python']}
             \ }
+
 "#-----------------------#
 "# html-coding           #
 "#-----------------------#
@@ -753,6 +800,7 @@ NeoBundleLazy 'nginx.vim', {
             \ }
 "# httpstatus
 NeoBundle 'mattn/httpstatus-vim'
+
 "#-----------------------#
 "# git-tool              #
 "#-----------------------#
@@ -775,6 +823,7 @@ NeoBundle 'yanktmp.vim'
 if executable('w3m')
     NeoBundle 'yuratomo/w3m.vim'
 endif
+
 "#-----------------------#
 "# external service      #
 "#-----------------------#
@@ -790,8 +839,11 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'basyura/twibill.vim'
 "# TweetVim
 NeoBundle 'basyura/TweetVim'
+if has('mac')
 "# vim-itunes
-NeoBundle "ryutorion/vim-itunes"
+    NeoBundle "ryutorion/vim-itunes"
+endif
+
 "#-------------------#
 "# Colorschemes      #
 "#-------------------#
@@ -908,8 +960,8 @@ function s:alter_vimshell()
 endfunction
 autocmd VimEnter * call s:alter_vimshell()
 
-nnoremap <silent> <Plug>(mykey)L :<C-u> call Shell()<CR>
-function! Shell()
+nnoremap <silent> <Plug>(mykey)L :<C-u> call s:Shell()<CR>
+function! s:Shell()
     echo 'vimshell start'
     VimShell
     setlocal number
@@ -918,10 +970,10 @@ endfunction
 nnoremap <silent> <Plug>(mykey)l :<C-u> call ShellSplit()<CR>
 function! ShellSplit()
     vsplit
-    call Shell()
+    call s:Shell()
 endfunction
 
-nnoremap <silent> <Plug>(mykey)y :VimShellPop<CR>
+nnoremap <silent> <Plug>(mykey)j :VimShellPop<CR>
 
 "}}}2
 "### vimfiler {{{2
@@ -997,7 +1049,17 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_dictionary_filetype_lists = {
             \ 'default' : '',
             \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
+            \ 'scheme' : $HOME.'/.vim/dict/scheme.dict',
+            \ 'scala' : $HOME.'/.vim/dict/scala.dict',
+            \ 'perl' : $HOME.'/.vim/dict/perl.dict',
+            \ 'php' : $HOME.'/.vim/dict/php.dict',
+            \ 'vim' : $HOME.'/.vim/dict/vim.dict',
+            \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
+            \ 'c' : $HOME.'/.vim/dict/c.dict',
+            \ 'cpp' : $HOME.'/.vim/dict/cpp.dict',
+            \ 'lua' : $HOME.'/.vim/dict/lua.dict',
+            \ 'java' : $HOME.'/.vim/dict/java.dict',
+            \ 'ocaml' : $HOME.'/.vim/dict/ocaml.dict',
             \ }
 
 "# Define keyword.
@@ -1260,7 +1322,6 @@ autocmd VimEnter * call s:alter_chalice()
 
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
-
 
 "### Perl support "{{{2
 
