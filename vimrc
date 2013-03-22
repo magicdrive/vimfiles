@@ -177,7 +177,7 @@ command! -nargs=0 SL :source %
 command! -nargs=0 SU :source $MYVIMRC
 
 command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
-command! -nargs=0 VE :VimrcEdit 
+command! -nargs=0 VE :VimrcEdit
 command! -nargs=0 E :edit!
 
 "# extract visual selected string
@@ -196,9 +196,9 @@ nnoremap <Plug>(mykey). :VimrcEdit<CR>
 "}}}i1
 "### encoding & fileencodingの設定 "{{{2
 
-"Encoding 
-set enc=utf-8 
-set fenc=utf-8 
+"Encoding
+set enc=utf-8
+set fenc=utf-8
 set fencs=utf-8,euc-jp,sjis
 
 let s:enc_jp = ["eucjp","euc","euc-jp" ]
@@ -229,7 +229,7 @@ function! s:edit_encode(code)
     endif
 endfunction
 
-command! -nargs=1  
+command! -nargs=1
             \ -complete=customlist,s:completion_encode 
             \ Encode :call s:edit_encode('<args>')
 
@@ -328,7 +328,7 @@ augroup LineNumber
         if &number ==# '1'
             echo "disable line number"
         else
-            echo "enable line number "
+            echo "enable line number"
         endif
         setlocal number!
     endfunction
@@ -1168,8 +1168,8 @@ function! OpenPerlfunc(func_str)
 endfunction
 
 function AlterRef()
-    AlterCommand  perldoc Perldoc
-    AlterCommand  perlf[unc] Perlfunc
+    AlterCommand  perldoc Ref perldoc
+    AlterCommand  perlf[unc] Ref perldoc -f
     AlterCommand  man[page] Manpage
 endfunction
 
@@ -1186,7 +1186,7 @@ vnoremap ? :Search<Space>
 
 
 "# 検索ハイライト消去
-nnoremap <silent> mm :<C-u>call SearchHighlightOff()<CR> 
+nnoremap <silent> mm :<C-u>call SearchHighlightOff()<CR>
 
 function! SearchHighlightOff ()
     if exists(":SearchReset")
@@ -1243,8 +1243,8 @@ augroup iTunes
         endfunction
 
         function AlterITunes()
-            AlterCommand  iT[unes] ITunes 
-            AlterCommand  it[unes] ITunes 
+            AlterCommand  iT[unes] ITunes
+            AlterCommand  it[unes] ITunes
         endfunction
 
         autocmd VimEnter * call AlterITunes()
@@ -1301,7 +1301,7 @@ nnoremap <Plug>(mykey)s :TempolaryBuffer sh<CR>
 command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
 function! s:scratchbuffer_filetype(filetype)
     split
-    Scratch 
+    Scratch
     execute 'set filetype=' . a:filetype
 endfunction
 function s:alter_scratch()
@@ -1349,33 +1349,29 @@ augroup PerlFTPlugin
         if  a:module ==# '<visual>'
             let l:module_name=s:get_visual_selected()
         else
-            let l:module_name=a:module ==# '<cword>' 
-                        \ ? expand('<cword>') 
+            let l:module_name=a:module ==# '<cword>'
+                        \ ? expand('<cword>')
                         \ : a:module
         endif
 
         let l:module_path = 
-                    \ system('perl -MClass::Inspector -e ' 
-                    \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"') 
+                    \ system('perl -MClass::Inspector -e '
+                    \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"')
 
         if l:module_path !=# ''
             execute 'edit ' . l:module_path
         else
             echohl Error | echo 'No modulefile found.' | echohl None
         endif
-
     endfunction
 
     "# perldoc
-    if exists('*ref#open') 
-        "# required vim-ref !!!!
-        autocmd FileType perl 
+     autocmd FileType perl
                     \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
-        autocmd FileType perl 
+     autocmd FileType perl
                     \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
-    endif
 
-    "# read module source 
+    "# read module source
     autocmd FileType perl,ref-perldoc
                 \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
     autocmd FileType perl,ref-perldoc
