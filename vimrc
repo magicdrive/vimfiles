@@ -599,7 +599,7 @@ NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
             \ }
 "# vimfiler
-NeoBundle 'Shougo/vimfiler', {
+NeoBundleLazy 'Shougo/vimfiler', {
             \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ] }
             \ }
 "# quickrun
@@ -619,7 +619,9 @@ NeoBundleLazy 'itchyny/thumbnail.vim', {
             \   'autoload' : { 'commands' : ['Thumbnail']}
             \ }
 "# project.vim
-NeoBundle 'project.tar.gz'
+NeoBundleLazy 'project.tar.gz', {
+            \   'autoload' : { 'commands' : ['Project']}
+            \ }
 "# neco-look
 NeoBundle "ujihisa/neco-look"
 "# smartinput
@@ -819,8 +821,10 @@ endif
 NeoBundleLazy 'koron/chalice', {
             \ 'autoload' : {'commands' : 'Chalice' }
             \ }
-"# open-browser
-NeoBundle 'tyru/open-browser.vim'
+if has('mac')
+    "# open-browser
+    NeoBundle 'tyru/open-browser.vim'
+endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
 "# twibill
