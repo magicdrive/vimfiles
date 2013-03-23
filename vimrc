@@ -16,8 +16,8 @@ set nocompatible
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
-command! -nargs=0 ZZ :<C-u>wqa!
-command! -nargs=0 ZQ :<C-u>qa!
+command! -nargs=0 W :wqa!
+command! -nargs=0 C :qa!
 
 "# syntax highlight
 syntax on
@@ -839,8 +839,8 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'basyura/twibill.vim'
 "# TweetVim
 NeoBundle 'basyura/TweetVim'
-if has('mac')
 "# vim-itunes
+if has('mac')
     NeoBundle "ryutorion/vim-itunes"
 endif
 
@@ -960,20 +960,20 @@ function s:alter_vimshell()
 endfunction
 autocmd VimEnter * call s:alter_vimshell()
 
-nnoremap <silent> <Plug>(mykey)L :<C-u> call s:Shell()<CR>
+nnoremap <silent> <Plug>(mykey)< :<C-u> call s:Shell()<CR>
 function! s:Shell()
     echo 'vimshell start'
     VimShell
     setlocal number
 endfunction
 
-nnoremap <silent> <Plug>(mykey)l :<C-u> call ShellSplit()<CR>
+nnoremap <silent> <Plug>(mykey), :<C-u> call ShellSplit()<CR>
 function! ShellSplit()
     vsplit
     call s:Shell()
 endfunction
 
-nnoremap <silent> <Plug>(mykey)j :VimShellPop<CR>
+nnoremap <silent> <Plug>(mykey)l :VimShellPop<CR>
 
 "}}}2
 "### VimFiler {{{2
@@ -987,13 +987,12 @@ autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_curren
 "# vimfilerをデフォルトのexplorerと置き換える
 let g:vimfiler_as_default_explorer=1
 
-nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=35 -toggle -no-quit<Cr>
+nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
   nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
   nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
   nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
-  nnoremap <silent> <Plug>(mykey)a :VimFiler -buffer-name=explorer -split -winwidth=40 -toggle -no-quit<Cr>
 endfunction
 
 let s:my_action = { 'is_selectable' : 1 }
@@ -1009,9 +1008,6 @@ function! s:my_action.func(candidates)
   exec 'vsplit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_vsplit', s:my_action)
-
-
-
 
 
 "}}}2
@@ -1339,7 +1335,6 @@ endfunction
 autocmd VimEnter * call s:alter_chalice()
 
 "}}}2
-
 
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
