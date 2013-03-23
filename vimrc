@@ -4,7 +4,7 @@
 
 "[ ####------- Vim Basic Settings --------------#### ] {{{1
 
-"### Vim Option "{{{2
+"### Vim Options "{{{2
 
 "# mapkeyprefix
 map  <Space> <Plug>(mykey)
@@ -455,29 +455,10 @@ autocmd BufNewFile,BufRead *.mxml set filetype=mxml
 autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
 autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
+autocmd BufNewFile,BufRead cpanfile set filetype=perl
 autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
 autocmd BufNewFile,BufRead *.scala set filetype=scala
 autocmd BufNewFile,BufRead *.m set filetype=objective-c
-
-"}}}2
-"### comment用mapの設定 "{{{2
-
-"lhs comments
-noremap <Plug>(mykeylite)# :s/^/#/<CR>
-noremap <Plug>(mykeylite)/ :s/^/\/\//<CR>
-noremap <Plug>(mykeylite)> :s/^/> /<CR>
-noremap <Plug>(mykeylite)" :s/^/\"/<CR>
-noremap <Plug>(mykeylite)% :s/^/%/<CR>
-noremap <Plug>(mykeylite)! :s/^/!/<CR>
-noremap <Plug>(mykeylite); :s/^/;/<CR>
-noremap <Plug>(mykeylite)- :s/^/--/<CR>
-noremap ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>
-
-"wrapping comments
-noremap <Plug>(mykeylite)* :s/^\(.*\)$/\/\* \1 \*\//<CR>
-noremap <Plug>(mykeylite)( :s/^\(.*\)$/\(\* \1 \*\)/<CR>
-noremap <Plug>(mykeylite)< :s/^\(.*\)$/<!-- \1 -->/<CR>
-noremap ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR> 
 
 "}}}2
 "### Window関連の設定 "{{{2
@@ -631,6 +612,8 @@ NeoBundle 'jceb/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
+"# nerdcommneter
+NeoBundle 'scrooloose/nerdcommenter'
 "# thumbnail.vim
 NeoBundle 'itchyny/thumbnail.vim', {
             \   'autoload' : { 'commands' : ['Thumbnail']}
@@ -651,6 +634,10 @@ NeoBundle 'thinca/vim-visualstar'
 NeoBundle 'Lokaltog/vim-easymotion'
 "# foldCC
 NeoBundle 'magicdrive/foldCC'
+"# vdbi-vim
+NeoBundle 'mattn/vdbi-vim'
+"# vim-abolish
+NeoBundle 'tpope/vim-abolish'
 "# vim-powerline
 NeoBundle 'magicdrive/vim-powerline.git'
 "# memolist
@@ -746,7 +733,7 @@ NeoBundleLazy 'perl-mauke.vim',  {
 "# javascript            #
 "#-----------------------#
 "# javascript-syntax
-NeoBundleLazy 'jelera/vim-javascript-syntax', {
+NeoBundleLazy 'magicdrive/vim-javascript-syntax', {
             \ 'autoload' : {'filetype': ['javascript']}
             \ }
 "# jscomplete
@@ -1352,6 +1339,14 @@ function s:sudo_write(arg)
 endfunction
 
 "}}}2
+"### NerdCommenter {{{2
+
+let g:NERDCreateDefaultMappings = 0
+let NERDSpaceDelims = 1
+nmap <Leader><Leader> <Plug>NERDCommenterToggle
+vmap <Leader><Leader> <Plug>NERDCommenterToggle
+
+"}}}2
 
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
@@ -1770,5 +1765,5 @@ if filereadable(expand(g:local_vimrc))
 endif
 " }}}1
 
-"__END__
+" __END__
 
