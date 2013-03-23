@@ -16,8 +16,7 @@ set nocompatible
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
-command! -nargs=0 W :wqa!
-command! -nargs=0 C :qa!
+command! -nargs=0 Q :qa!
 
 "# syntax highlight
 syntax on
@@ -64,7 +63,7 @@ noremap ; :
 nnoremap <Plug>(mykey); :<C-u>!
 nnoremap <Plug>(mykey)r :<C-u>r!
 vnoremap <Plug>(mykey); :!
-vnoremap <Plug>(mykey)r :r!
+vnoremap <Plug>(mykeylite)r :r!
 
 "# substitution
 vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
@@ -593,7 +592,7 @@ augroup END
 " }}}1
 "[ ####------- Vim Plugins Settings ------------#### ] {{{1
 
-"### NeoBundle.vim{{{2
+"### NeoBundle {{{2
 
 filetype off
 
@@ -611,7 +610,7 @@ NeoBundle 'Shougo/neobundle.vim'
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 "# neosnippet
-NeoBundle 'Shougo/neosnippet'
+"NeoBundle 'Shougo/neosnippet'
 "# vimproc
 NeoBundle 'Shougo/vimproc'
 "# vimshell
@@ -1271,8 +1270,13 @@ augroup END
 "}}}2
 "### QuickRun {{{2
 
-nnoremap <silent> <Plug>(mykeylite)r <Plug>(quickrun)
-vnoremap <silent> <Plug>(mykeylite)r <Plug>(quickrun)
+nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
+vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
+
+function s:alter_quickrun()
+    AlterCommand  Q QuickRun
+endfunction
+autocmd VimEnter * call s:alter_quickrun()
 
 for [key, com] in items({
             \   '<Leader>x' : '>message',
@@ -1333,6 +1337,19 @@ function s:alter_chalice()
     AlterCommand  cha[lice] Chalice
 endfunction
 autocmd VimEnter * call s:alter_chalice()
+
+"}}}2
+"### sudo.vim {{{2
+
+command! -nargs=? W :call s:sudo_write('<args>')
+
+function s:sudo_write(arg)
+    if a:arg ==# ''
+        write sudo:%
+    else
+        execute 'write sudo:' . a:arg
+    endif
+endfunction
 
 "}}}2
 
@@ -1529,7 +1546,6 @@ autocmd BufNewFile *.py :r $HOME/.vim/misc/tmp/python.template.py | 1 | delete
 
 "### colorschemeの設定 "{{{2
 
-
 "# xterm-256color
 set t_Co=256
 
@@ -1546,9 +1562,9 @@ let g:gui_background_b='light'
 
 "# CUI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_b='molokai'
-let g:cui_background_a='light'
 let g:cui_colorscheme_a='jellybeans'
+let g:cui_background_a='light'
+let g:cui_colorscheme_b='molokai'
 let g:cui_background_b='light'
 
 let g:current_color_mode=g:default_color_mode
@@ -1623,25 +1639,25 @@ function! MyColor()
                 \ ctermbg=White
                 \ ctermfg=Black 
 
-    "    "# Foldingの色変更
-    "    highlight Folded
-    "                \ gui=bold
-    "                \ term=standout
-    "                \ ctermbg=DarkYellow
-    "                \ ctermfg=LightGray
-    "                \ guibg=Grey30
-    "                \ guifg=Grey80
-    "
-    "    highlight FoldColumn
-    "                \ gui=bold
-    "                \ term=standout
-    "                \ ctermbg=DarkYellow
-    "                \ ctermfg=LightGray
-    "                \ guibg=Grey
-    "                \ guifg=DarkBlue
+        "# Foldingの色変更
+        highlight Folded
+                    \ gui=bold
+                    \ term=standout
+                    \ ctermbg=Black
+                    \ ctermfg=LightGray
+                    \ guibg=Grey30
+                    \ guifg=Grey80
+    
+        highlight FoldColumn
+                    \ gui=bold
+                    \ term=standout
+                    \ ctermbg=Black
+                    \ ctermfg=LightGray
+                    \ guibg=Grey
+                    \ guifg=DarkBlue
 
     "# 検索結果のカラースキーム変更
-    highlight Search ctermbg=DarkGray
+    highlight Search ctermbg=Gray
 endfunction
 
 "# initialize colorcheme
@@ -1650,10 +1666,8 @@ call SetupColorScheme()
 "# switching colrschme & background
 nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
-
 "}}}2
 "### gui_MacVim用の設定 {{{2
-
 
 function MyGUIMacVimSetting()
 
@@ -1665,10 +1679,8 @@ function MyGUIMacVimSetting()
 
 endfunction
 
-
 "}}}2
 "### gvimの設定 {{{2
-
 
 "# windowの大きさ監視
 function WindowSupervise()
