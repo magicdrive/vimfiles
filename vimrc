@@ -632,10 +632,6 @@ NeoBundle 'jceb/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
-"# nerdtree
-NeoBundleLazy 'scrooloose/nerdtree', {
-            \   'autoload' : { 'commands' : 'NERDTreeToggle'}
-            \ }
 "# thumbnail.vim
 NeoBundle 'itchyny/thumbnail.vim', {
             \   'autoload' : { 'commands' : ['Thumbnail']}
@@ -948,7 +944,7 @@ if has('mac')
 endif
 
 "}}}2
-"### vimshell {{{2
+"### VimShell {{{2
 
 let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
 let g:vimshell_user_prompt='getcwd()'
@@ -980,7 +976,7 @@ endfunction
 nnoremap <silent> <Plug>(mykey)j :VimShellPop<CR>
 
 "}}}2
-"### vimfiler {{{2
+"### VimFiler {{{2
 
 nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 
@@ -991,11 +987,32 @@ autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_curren
 "# vimfilerをデフォルトのexplorerと置き換える
 let g:vimfiler_as_default_explorer=1
 
-"}}}2
-"### NERDTree {{{2
+nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=35 -toggle -no-quit<Cr>
+autocmd! FileType vimfiler call g:my_vimfiler_settings()
+function! g:my_vimfiler_settings()
+  nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+  nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
+  nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+  nnoremap <silent> <Plug>(mykey)a :VimFiler -buffer-name=explorer -split -winwidth=40 -toggle -no-quit<Cr>
+endfunction
 
-let g:NERDTreeHijackNetrw=0
-nnoremap <silent> <Plug>(mykey)a :NERDTreeToggle<CR>
+let s:my_action = { 'is_selectable' : 1 }
+function! s:my_action.func(candidates)
+  wincmd p
+  exec 'split '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_split', s:my_action)
+
+let s:my_action = { 'is_selectable' : 1 }                     
+function! s:my_action.func(candidates)
+  wincmd p
+  exec 'vsplit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_vsplit', s:my_action)
+
+
+
+
 
 "}}}2
 "### MemoList.vim {{{2
