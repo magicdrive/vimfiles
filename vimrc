@@ -622,12 +622,16 @@ NeoBundleLazy 'Shougo/vimshell', {
 NeoBundleLazy 'Shougo/vimfiler', {
             \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ] }
             \ }
+"# quickrun
+NeoBundle 'thinca/vim-quickrun'
 "# vim-watchdogs
 NeoBundle 'osyo-manga/vim-watchdogs'
-"# quickrun
-NeoBundle 'thinca/vim-quickrun', {
-            \   'autoload' : { 'commands' : ['Q', 'QuickRun']}
-            \ }
+"# vim-hier
+NeoBundle 'jceb/vim-hier'
+"# shabadou.vim
+NeoBundle 'osyo-manga/shabadou.vim'
+"# quickfixstatus
+NeoBundle 'dannyob/quickfixstatus'
 "# nerdtree
 NeoBundleLazy 'scrooloose/nerdtree', {
             \   'autoload' : { 'commands' : 'NERDTreeToggle'}
@@ -1290,7 +1294,7 @@ let g:watchdogs_check_CursorHold_enables = {
 
 let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
-            \		"runner/vimproc/updatetime" : 3,
+            \		"runner/vimproc/updatetime" : 1,
             \   }
 call watchdogs#setup(g:quickrun_config)
 
@@ -1530,9 +1534,9 @@ let g:gui_background_b='light'
 
 "# CUI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='molokai'
+let g:cui_colorscheme_b='molokai'
 let g:cui_background_a='light'
-let g:cui_colorscheme_b='jellybeans'
+let g:cui_colorscheme_a='jellybeans'
 let g:cui_background_b='light'
 
 let g:current_color_mode=g:default_color_mode
