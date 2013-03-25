@@ -599,7 +599,7 @@ NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
             \ }
 "# vimfiler
-NeoBundleLazy 'Shougo/vimfiler', {
+NeoBundle 'Shougo/vimfiler', {
             \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ] }
             \ }
 "# quickrun
@@ -615,7 +615,7 @@ NeoBundle 'dannyob/quickfixstatus'
 "# nerdcommneter
 NeoBundle 'scrooloose/nerdcommenter'
 "# thumbnail.vim
-NeoBundle 'itchyny/thumbnail.vim', {
+NeoBundleLazy 'itchyny/thumbnail.vim', {
             \   'autoload' : { 'commands' : ['Thumbnail']}
             \ }
 "# neco-look
@@ -970,9 +970,6 @@ nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
 autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
 
-"# vimfilerをデフォルトのexplorerと置き換える
-let g:vimfiler_as_default_explorer=1
-
 nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
@@ -995,6 +992,11 @@ function! s:my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_vsplit', s:my_action)
 
+"# ファイルの先頭文字検索
+autocmd FileType vimfiler nnoremap <buffer> / /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+
+"# vimfilerをデフォルトのexplorerと置き換える
+let g:vimfiler_as_default_explorer=1
 
 "}}}2
 "### MemoList.vim {{{2
