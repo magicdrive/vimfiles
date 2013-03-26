@@ -458,6 +458,7 @@ autocmd BufNewFile,BufRead *.psgi set filetype=perl
 autocmd BufNewFile,BufRead cpanfile set filetype=perl
 autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
 autocmd BufNewFile,BufRead *.scala set filetype=scala
+autocmd BufNewFile,BufRead *.gradle set filetype=groovy
 autocmd BufNewFile,BufRead *.m set filetype=objective-c
 
 "}}}2
