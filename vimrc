@@ -618,6 +618,8 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundleLazy 'itchyny/thumbnail.vim', {
             \   'autoload' : { 'commands' : ['Thumbnail']}
             \ }
+"# project.vim
+NeoBundle 'project.tar.gz'
 "# neco-look
 NeoBundle "ujihisa/neco-look"
 "# smartinput
