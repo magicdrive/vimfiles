@@ -785,6 +785,8 @@ NeoBundleLazy 'groenewege/vim-less', {
 NeoBundleLazy 'mattn/zencoding-vim', {
             \ 'autoload' : {'filetype': ['html','tt','haml']}
             \ }
+NeoBundle 'chreekat/vim-instant-markdown'
+
 "# nginx.vim
 NeoBundleLazy 'nginx.vim', {
             \ 'autoload' : {'filetype': ['nginx']}
@@ -1270,7 +1272,7 @@ nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
 
 function s:alter_quickrun()
-    AlterCommand  Q QuickRun
+    AlterCommand  qui[ckrun] QuickRun
 endfunction
 autocmd VimEnter * call s:alter_quickrun()
 
@@ -1280,7 +1282,7 @@ for [key, com] in items({
             \   '<Leader>w' : '>buffer',
             \   '<Leader>q' : '>>buffer',
             \ })
-    execute 'vnoremap <silent>' . key . ':QuickRun' com '-mode v<CR>'
+    execute 'nnoremap <silent>' . key . ':QuickRun' . com . '-mode n<CR>'
     execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
 
 endfor
