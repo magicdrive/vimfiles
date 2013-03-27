@@ -1669,7 +1669,7 @@ function MyGUIMacVimSetting()
     set transparency=10
     set imdisable 
     set antialias
-    set guifont=Ricty:h18
+    set guifont=Ricty:h14
     set nobackup
 
 endfunction
