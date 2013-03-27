@@ -458,6 +458,7 @@ autocmd BufNewFile,BufRead *.psgi set filetype=perl
 autocmd BufNewFile,BufRead cpanfile set filetype=perl
 autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
 autocmd BufNewFile,BufRead *.scala set filetype=scala
+autocmd BufNewFile,BufRead *.gradle set filetype=groovy
 autocmd BufNewFile,BufRead *.m set filetype=objective-c
 
 "}}}2
@@ -615,8 +616,12 @@ NeoBundle 'dannyob/quickfixstatus'
 "# nerdcommneter
 NeoBundle 'scrooloose/nerdcommenter'
 "# thumbnail.vim
-NeoBundle 'itchyny/thumbnail.vim', {
+NeoBundleLazy 'itchyny/thumbnail.vim', {
             \   'autoload' : { 'commands' : ['Thumbnail']}
+            \ }
+"# project.vim
+NeoBundleLazy 'project.tar.gz', {
+            \   'autoload' : { 'commands' : ['Project']}
             \ }
 "# neco-look
 NeoBundle "ujihisa/neco-look"
@@ -644,6 +649,8 @@ NeoBundle 'magicdrive/vim-powerline.git'
 NeoBundle 'glidenote/memolist.vim'
 "# sudo.vim
 NeoBundle 'sudo.vim'
+"# vim-rooter
+NeoBundle 'airblade/vim-rooter'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
@@ -780,6 +787,8 @@ NeoBundleLazy 'groenewege/vim-less', {
 NeoBundleLazy 'mattn/zencoding-vim', {
             \ 'autoload' : {'filetype': ['html','tt','haml']}
             \ }
+NeoBundle 'chreekat/vim-instant-markdown'
+
 "# nginx.vim
 NeoBundleLazy 'nginx.vim', {
             \ 'autoload' : {'filetype': ['nginx']}
@@ -817,8 +826,10 @@ endif
 NeoBundleLazy 'koron/chalice', {
             \ 'autoload' : {'commands' : 'Chalice' }
             \ }
-"# open-browser
-NeoBundle 'tyru/open-browser.vim'
+if has('mac')
+    "# open-browser
+    NeoBundle 'tyru/open-browser.vim'
+endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
 "# twibill
@@ -970,9 +981,6 @@ nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
 autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
 
-"# vimfilerをデフォルトのexplorerと置き換える
-let g:vimfiler_as_default_explorer=1
-
 nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
 autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
@@ -995,6 +1003,11 @@ function! s:my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_vsplit', s:my_action)
 
+"# ファイルの先頭文字検索
+autocmd FileType vimfiler nnoremap <buffer> / /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+
+"# vimfilerをデフォルトのexplorerと置き換える
+let g:vimfiler_as_default_explorer=1
 
 "}}}2
 "### MemoList.vim {{{2
@@ -1261,7 +1274,7 @@ nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
 
 function s:alter_quickrun()
-    AlterCommand  Q QuickRun
+    AlterCommand  qui[ckrun] QuickRun
 endfunction
 autocmd VimEnter * call s:alter_quickrun()
 
@@ -1271,7 +1284,7 @@ for [key, com] in items({
             \   '<Leader>w' : '>buffer',
             \   '<Leader>q' : '>>buffer',
             \ })
-    execute 'vnoremap <silent>' . key . ':QuickRun' com '-mode v<CR>'
+    execute 'nnoremap <silent>' . key . ':QuickRun' . com . '-mode n<CR>'
     execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
 
 endfor

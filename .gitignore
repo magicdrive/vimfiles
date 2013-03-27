@@ -12,3 +12,4 @@ vim/doc/tags-ja
 *.orig
 .netrwhist
 .DS_Store
+vim/README.md
