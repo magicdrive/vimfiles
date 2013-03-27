@@ -649,6 +649,8 @@ NeoBundle 'magicdrive/vim-powerline.git'
 NeoBundle 'glidenote/memolist.vim'
 "# sudo.vim
 NeoBundle 'sudo.vim'
+"# vim-rooter
+NeoBundle 'airblade/vim-rooter'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
