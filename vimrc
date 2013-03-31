@@ -99,7 +99,7 @@ set title
 set laststatus=2
 
 "# バッファを開いた時に、カレントディレクトリを自動で移動
-au BufEnter * execute ":lcd " . expand("%:p:h")
+"#au BufEnter * execute ":lcd " . expand("%:p:h")
 
 "# line number
 set number
@@ -457,6 +457,7 @@ autocmd BufNewFile,BufRead *.t set filetype=perl
 autocmd BufNewFile,BufRead *.psgi set filetype=perl
 autocmd BufNewFile,BufRead cpanfile set filetype=perl
 autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
+autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
 autocmd BufNewFile,BufRead *.scala set filetype=scala
 autocmd BufNewFile,BufRead *.gradle set filetype=groovy
 autocmd BufNewFile,BufRead *.m set filetype=objective-c
@@ -709,6 +710,12 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
             \ 'autoload' : {'filetype': ['objective-c','cpp','c']}
             \ }
 "#-----------------------#
+"# haskell               #
+"#-----------------------#
+"# ghcmod.vim
+NeoBundle 'eagletmt/ghcmod-vim'
+
+"#-----------------------#
 "# jvm                   #
 "#-----------------------#
 "# javacomplete
@@ -724,7 +731,7 @@ NeoBundleLazy 'mikelue/vim-maven-plugin', {
             \ 'autoload' : {'filetype': ['java','groovy']}
             \ }
 "# vim-scala
-NeoBundleLazy 'derekwyatt/vim-scala', {
+NeoBundleLazy 'jergason/vim-scala', {
             \ 'autoload' : {'filetype': ['scala']}
             \ }
 
@@ -795,6 +802,8 @@ NeoBundleLazy 'nginx.vim', {
             \ }
 "# httpstatus
 NeoBundle 'mattn/httpstatus-vim'
+"# tmux.vim
+NeoBundle 'zaiste/tmux.vim'
 
 "#-----------------------#
 "# git-tool              #
@@ -1298,12 +1307,12 @@ let g:quickrun_config['coffee'] = {
 "### Watchdogs {{{2
 
 
-let g:watchdogs_check_BufWritePost_enable = 1
+"#let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enables = {
             \	"perl"   : 1,
             \	"python" : 1,
             \	"bash"   : 1,
-            \	"scala"  : 1,
+            \	"scala"  : 0,
             \	"ruby"   : 1,
             \   "clang"  : 1,
             \   "jshint" : 1,
@@ -1477,6 +1486,45 @@ augroup RubyFTPlugin
 
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
+
+
+"}}}2
+"### Scala support{{{2
+
+function! s:ujihisa_start_sbt()
+  execute "VimShellInteractive --split='split | resize 5' sbt"
+  stopinsert
+  let t:sbt_bufname = bufname('%')
+  if !has_key(t:, 'sbt_cmds')
+    let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
+  endif
+  wincmd j
+endfunction
+
+command! -nargs=0 StartSBT call <SID>ujihisa_start_sbt()
+
+function! s:sbt_run()
+  let cmds = get(t:, 'sbt_cmds', 'run')
+
+  let sbt_bufname = get(t:, 'sbt_bufname')
+  if sbt_bufname !=# ''
+    call vimshell#interactive#set_send_buffer(sbt_bufname)
+    call vimshell#interactive#send(cmds)
+  else
+    echoerr 'try StartSBT'
+  endif
+endfunction
+
+function! s:vimrc_scala()
+  nnoremap <buffer> <Space>m :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
+endfunction
+
+augroup vimrc_scala
+  autocmd!
+  autocmd FileType scala call s:vimrc_scala()
+  autocmd FileType scala nnoremap <buffer> <Space>st :<C-u>StartSBT
+augroup END
+
 
 
 "}}}2
