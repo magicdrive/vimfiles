@@ -121,7 +121,7 @@ set virtualedit=block
 
 "# バックスペースでインデントや改行を削除できるようにする
 set backspace=indent,eol,start
- .
+.
 "# 2バイト文字でもカーソル位置がずれないようにする
 set ambiwidth=double
 
@@ -450,17 +450,20 @@ inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 "}}}2
 "### FileType判定 "{{{2
 
-autocmd BufNewFile,BufRead *.as set filetype=actionscript
-autocmd BufNewFile,BufRead *.mxml set filetype=mxml
-autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
-autocmd BufNewFile,BufRead *.t set filetype=perl
-autocmd BufNewFile,BufRead *.psgi set filetype=perl
-autocmd BufNewFile,BufRead cpanfile set filetype=perl
-autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
-autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
-autocmd BufNewFile,BufRead *.scala set filetype=scala
-autocmd BufNewFile,BufRead *.gradle set filetype=groovy
-autocmd BufNewFile,BufRead *.m set filetype=objective-c
+augroup detect_filetype
+    autocmd!
+    autocmd BufNewFile,BufRead *.as set filetype=actionscript
+    autocmd BufNewFile,BufRead *.mxml set filetype=mxml
+    autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
+    autocmd BufNewFile,BufRead *.t set filetype=perl
+    autocmd BufNewFile,BufRead *.psgi set filetype=perl
+    autocmd BufNewFile,BufRead cpanfile set filetype=perl
+    autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
+    autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
+    autocmd BufNewFile,BufRead *.scala set filetype=scala
+    autocmd BufNewFile,BufRead *.gradle set filetype=groovy
+    autocmd BufNewFile,BufRead *.m set filetype=objective-c
+augroup END
 
 "}}}2
 "### Window関連の設定 "{{{2
@@ -956,15 +959,18 @@ let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
 let g:vimshell_user_prompt='getcwd()'
 let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 
-"# shell buffer clear
-autocmd FileType vimshell nnoremap <silent><buffer> <C-l> <Insert>clear<CR>
 
 "# VimShellを新規Windowで立ち上げる
 command! Vshell call s:Shell()
 function s:alter_vimshell()
     AlterCommand  vsh[ell] Vshell
 endfunction
-autocmd VimEnter * call s:alter_vimshell()
+augroup vimshell_setting
+    autocmd!
+    "# shell buffer clear
+    autocmd FileType vimshell nnoremap <silent><buffer> <C-l> <Insert>clear<CR>
+    autocmd VimEnter * call s:alter_vimshell()
+augroup END
 
 nnoremap <silent> <Plug>(mykey)< :<C-u> call s:Shell()<CR>
 function! s:Shell()
@@ -986,34 +992,37 @@ nnoremap <silent> <Plug>(mykey)l :VimShellPop<CR>
 
 nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
 
-"autocmd FileType vimfiler nunmap <buffer> <Space>
-autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
-autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
+augroup vimfiler_setting
+    autocmd!
+    autocmd FileType vimfiler nmap <buffer> <Space> <Plug>(mykey)
+    autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
+    autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
+    autocmd FileType vimfiler nnoremap <buffer> / /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+    autocmd FileType vimfiler call g:my_vimfiler_settings()
+augroup END
 
 nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
-autocmd! FileType vimfiler call g:my_vimfiler_settings()
 function! g:my_vimfiler_settings()
-  nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
-  nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
-  nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+    nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
+    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
 endfunction
 
 let s:my_action = { 'is_selectable' : 1 }
 function! s:my_action.func(candidates)
-  wincmd p
-  exec 'split '. a:candidates[0].action__path
+    wincmd p
+    exec 'split '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_split', s:my_action)
 
 let s:my_action = { 'is_selectable' : 1 }                     
 function! s:my_action.func(candidates)
-  wincmd p
-  exec 'vsplit '. a:candidates[0].action__path
+    wincmd p
+    exec 'vsplit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_vsplit', s:my_action)
 
 "# ファイルの先頭文字検索
-autocmd FileType vimfiler nnoremap <buffer> / /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
 
 "# vimfilerをデフォルトのexplorerと置き換える
 let g:vimfiler_as_default_explorer=1
@@ -1149,7 +1158,6 @@ if !has('gui_running') && executable('w3m')
     command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
     command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
 
-
     "# dict
     let g:w3m_dict='yahoodict'
     command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_dict, '<args>')
@@ -1222,10 +1230,12 @@ endfunction
 "}}}2
 "### TweetVim {{{2
 
-
-autocmd FileType tweetvim
-            \ highlight tweetvim_separator
-            \ ctermfg=Black
+augroup tweetvim_setting
+    autocmd!
+    autocmd FileType tweetvim
+                \ highlight tweetvim_separator
+                \ ctermfg=Black
+augroup END
 
 nnoremap <silent> <Plug>(mykeylite)ts  :<C-u>TweetVimSay<CR>
 
@@ -1236,45 +1246,42 @@ function AlterTweet()
     AlterCommand  tws TweetVimSay
 endfunction
 
-
 "}}}2
 "### iTunes{{{2
 
-augroup iTunes 
-    if has('mac') 
-        nnoremap <Plug>(mykey)0 :ITunes<Space>
-        command! -nargs=1 
-                    \ -complete=customlist,CompletionITunes 
-                    \ ITunes :call ITunes('<args>')
+if has('mac') 
+    nnoremap <Plug>(mykey)0 :ITunes<Space>
+    command! -nargs=1 
+                \ -complete=customlist,CompletionITunes 
+                \ ITunes :call ITunes('<args>')
 
-        function ITunes(action)
-            if a:action ==# 'list' 
-                Unite -vertical it_track
-            else 
-                execute 'call itunes#' . a:action . '()'
-            endif
-        endfunction
+    function ITunes(action)
+        if a:action ==# 'list' 
+            Unite -vertical it_track
+        else 
+            execute 'call itunes#' . a:action . '()'
+        endif
+    endfunction
 
-        function! CompletionITunes(ArgLead, CmdLine, CusorPos)
-            let l:cmd = split(a:CmdLine)
-            let l:len_cmd = len(l:cmd)
-            if l:len_cmd <= 2
-                let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
-                return filter(
-                            \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'], 
-                            \ l:filter_cmd
-                            \ )
-            endif
-        endfunction
+    function! CompletionITunes(ArgLead, CmdLine, CusorPos)
+        let l:cmd = split(a:CmdLine)
+        let l:len_cmd = len(l:cmd)
+        if l:len_cmd <= 2
+            let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
+            return filter(
+                        \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'], 
+                        \ l:filter_cmd
+                        \ )
+        endif
+    endfunction
 
-        function AlterITunes()
-            AlterCommand  iT[unes] ITunes
-            AlterCommand  it[unes] ITunes
-        endfunction
+    function AlterITunes()
+        AlterCommand  iT[unes] ITunes
+        AlterCommand  it[unes] ITunes
+    endfunction
 
-        autocmd VimEnter * call AlterITunes()
-    endif
-augroup END 
+    autocmd VimEnter * call AlterITunes()
+endif
 
 "}}}2
 "### QuickRun {{{2
@@ -1337,7 +1344,10 @@ endfunction
 function s:alter_scratch()
     AlterCommand  tem[polarybuffer] TempolaryBuffer
 endfunction
-autocmd VimEnter * call s:alter_scratch()
+augroup scratch_setting
+    autocmd!
+    autocmd VimEnter * call s:alter_scratch()
+augroup END
 
 "}}}2
 "### Chalice {{{2
@@ -1375,81 +1385,72 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 
 "### Perl support "{{{2
 
-augroup PerlFTPlugin
+"# perldoc:  module source code open
+command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
+function! OpenPerlModuleCode(module) range
+    let l:module_name=''
+    if  a:module ==# '<visual>'
+        let l:module_name=s:get_visual_selected()
+    else
+        let l:module_name=a:module ==# '<cword>'
+                    \ ? expand('<cword>')
+                    \ : a:module
+    endif
+    let l:module_path = 
+                \ system('perl -MClass::Inspector -e '
+                \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"')
+    if l:module_path !=# ''
+        execute 'edit ' . l:module_path
+    else
+        echohl Error | echo 'No modulefile found.' | echohl None
+    endif
+endfunction
+function AlterFileTypePerl()
+    AlterCommand  perlre[ad] Perlread
+endfunction
+augroup perl_ftplugin
+    autocmd!
     "# コンパイラをperlに設定
     autocmd FileType perl :compiler perl
-
     "perltidy 
     autocmd FileType perl nnoremap <buffer> <C-\> <ESC>:%! perltidy<CR>
     autocmd FileType perl vnoremap <buffer> <C-\> :! perltidy<CR>
-
     "# :w + !perl command
     autocmd FileType perl nnoremap <buffer> <F4> :w !perl<CR>
     "# !perl 
     autocmd FileType perl nnoremap <buffer> <Plug>(mykeylite), :w !perl -c<CR>
-
     "# perl moduleの補完設定
     autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
-
-    "# perldoc:  module source code open
-    command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
-    function! OpenPerlModuleCode(module) range
-        let l:module_name=''
-
-        if  a:module ==# '<visual>'
-            let l:module_name=s:get_visual_selected()
-        else
-            let l:module_name=a:module ==# '<cword>'
-                        \ ? expand('<cword>')
-                        \ : a:module
-        endif
-
-        let l:module_path = 
-                    \ system('perl -MClass::Inspector -e '
-                    \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"')
-
-        if l:module_path !=# ''
-            execute 'edit ' . l:module_path
-        else
-            echohl Error | echo 'No modulefile found.' | echohl None
-        endif
-    endfunction
-
     "# perldoc
-     autocmd FileType perl
-                    \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
-     autocmd FileType perl
-                    \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
-
+    autocmd FileType perl
+                \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
+    autocmd FileType perl
+                \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
     "# read module source
     autocmd FileType perl,ref-perldoc
                 \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
     autocmd FileType perl,ref-perldoc
                 \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
-
-
-    function AlterFileTypePerl()
-        AlterCommand  perlre[ad] Perlread
-    endfunction
-
     autocmd VimEnter * call AlterFileTypePerl()
-
 augroup END
 
 "}}}2
 "### Python support {{{2
 
-autocmd FileType python call s:PythonIndent()
-autocmd FileType python let b:did_ftplugin = 1
-autocmd FileType python let g:jedi#auto_initialization = 1
-autocmd FileType python let g:jedi#rename_command = "<Leader>R"
-autocmd FileType python let g:jedi#popup_on_dot = 1
-autocmd FileType python setlocal iskeyword+=.,(
+augroup python_ftplugin
+    autocmd!
+    autocmd FileType python call s:PythonIndent()
+    autocmd FileType python let b:did_ftplugin = 1
+    autocmd FileType python let g:jedi#auto_initialization = 1
+    autocmd FileType python let g:jedi#rename_command = "<Leader>R"
+    autocmd FileType python let g:jedi#popup_on_dot = 1
+    autocmd FileType python setlocal nocindent
+    autocmd FileType python setlocal iskeyword+=.,(
+augroup END
+
 let g:pydiction_location=
             \ '~/.vim/bundle/automatic/pydiction/complete-dict'
-
 function s:PythonIndent()
-
     "" PEP 8 Indent rule
     setlocal tabstop=8
     setlocal softtabstop=4
@@ -1461,7 +1462,6 @@ function s:PythonIndent()
     setlocal cindent
     setlocal textwidth=80
     setlocal colorcolumn=80
-
     " Folding
     setlocal foldmethod=indent
     setlocal foldlevel=99"
@@ -1470,73 +1470,73 @@ endfunction
 "}}}2
 "### Ruby support "{{{2
 
+function AlterFileTypeRuby()
+    AlterCommand  rubydoc RubyDoc
+endfunction
 
-augroup RubyFTPlugin
+augroup ruby_ftplugin
+    autocmd!
+    autocmd FileType ruby setlocal nocindent
     "# コンパイラをrubyに設定
     autocmd FileType ruby :compiler ruby
-
     "# :w + !ruby command
     autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
     "# !ruby command
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
-
-    function AlterFileTypeRuby()
-        AlterCommand  rubydoc RubyDoc
-    endfunction
-
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
-
 
 "}}}2
 "### Scala support{{{2
 
-function! s:ujihisa_start_sbt()
-  execute "VimShellInteractive --split='split | resize 5' sbt"
-  stopinsert
-  let t:sbt_bufname = bufname('%')
-  if !has_key(t:, 'sbt_cmds')
-    let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
-  endif
-  wincmd j
+function! s:start_sbt()
+    if exists('g:sbt_project_dirname')
+        execute 'cd ' . g:sbt_project_dirname
+    endif
+    execute "VimShellInteractive --split='split | resize 5' sbt"
+    stopinsert
+    let t:sbt_bufname = bufname('%')
+    if !has_key(t:, 'sbt_cmds')
+        "let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
+        let t:sbt_cmds = ['compile']
+    endif
+    wincmd j
 endfunction
 
-command! -nargs=0 StartSBT call <SID>ujihisa_start_sbt()
+command! -nargs=0 StartSBT call <SID>start_sbt()
 
 function! s:sbt_run()
-  let cmds = get(t:, 'sbt_cmds', 'run')
+    let cmds = get(t:, 'sbt_cmds', 'run')
 
-  let sbt_bufname = get(t:, 'sbt_bufname')
-  if sbt_bufname !=# ''
-    call vimshell#interactive#set_send_buffer(sbt_bufname)
-    call vimshell#interactive#send(cmds)
-  else
-    echoerr 'try StartSBT'
-  endif
+    let sbt_bufname = get(t:, 'sbt_bufname')
+    if sbt_bufname !=# ''
+        call vimshell#interactive#set_send_buffer(sbt_bufname)
+        call vimshell#interactive#send(cmds)
+    else
+        echoerr 'try StartSBT'
+    endif
 endfunction
 
 function! s:vimrc_scala()
-  nnoremap <buffer> <Space>m :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
+    nnoremap <buffer> <Plug>(mykey)m :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
 endfunction
 
-augroup vimrc_scala
-  autocmd!
-  autocmd FileType scala call s:vimrc_scala()
-  autocmd FileType scala nnoremap <buffer> <Space>st :<C-u>StartSBT
+augroup scala_setting
+    autocmd!
+    autocmd FileType scala setlocal nocindent
+    autocmd FileType scala call s:vimrc_scala()
+    autocmd FileType scala nnoremap <buffer> <Space>st :<C-u>StartSBT
 augroup END
-
-
 
 "}}}2
 "### Java support{{{2
 
+"# highlight
+let g:java_highlight_all=1
+let g:java_highlight_functions="style"
 
-augroup JavaFTPlugin
-
-    "# highlight
-    let java_highlight_all=1
-    let java_highlight_functions="style"
-
+augroup java_ftplugin
+    autocmd!
     "# complete add
     autocmd FileType java setlocal complete+=.,w,b,u,t,i
     "# load ant.sh
@@ -1545,21 +1545,19 @@ augroup JavaFTPlugin
     "  autocmd BufRead *.java 
     "              \ setlocal errorformat=
     "                  \ \ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
-
 augroup END
-
 
 "}}}2
 "### JavaScript support {{{2
 
-augroup JavaScriptFTPlugin
-
+if !exists('g:neocomplcache_omni_functions')
+    let g:neocomplcache_omni_functions = {}
+endif
+augroup javascript_plugin
+    autocmd!
     autocmd FileType javascript nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
-    if !exists('g:neocomplcache_omni_functions')
-        let g:neocomplcache_omni_functions = {}
-    endif
     let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
     let g:node_usejscomplete = 1
 
@@ -1572,16 +1570,19 @@ augroup END
 set complete+=k
 
 "ファイルタイプ別辞書ファイル
-autocmd FileType c,cpp,perl setlocal cindent
-autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
-autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-autocmd FileType c setlocal omnifunc=ccomplete#Complete
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+augroup filetype_dict
+    autocmd!
+    autocmd FileType c,cpp,perl setlocal cindent
+    autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
+    autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c setlocal omnifunc=ccomplete#Complete
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+augroup END
 
 "CF用コメントハイライト有効
 let html_wrong_comments=1
@@ -1589,11 +1590,14 @@ let html_wrong_comments=1
 "}}}2
 "### Template FileSetting{{{2
 
-autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
-autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl_module.template.pm | 1 | delete
-autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
-autocmd BufNewFile *.psgi :r $HOME/.vim/misc/tmp/app.psgi | 1 | delete
-autocmd BufNewFile *.py :r $HOME/.vim/misc/tmp/python.template.py | 1 | delete
+augroup template_setting
+    autocmd!
+    autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
+    autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl_module.template.pm | 1 | delete
+    autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
+    autocmd BufNewFile *.psgi :r $HOME/.vim/misc/tmp/app.psgi | 1 | delete
+    autocmd BufNewFile *.py :r $HOME/.vim/misc/tmp/python.template.py | 1 | delete
+augroup END
 
 " }}}2
 
@@ -1695,22 +1699,22 @@ function! MyColor()
                 \ ctermbg=White
                 \ ctermfg=Black 
 
-        "# Foldingの色変更
-        highlight Folded
-                    \ gui=bold
-                    \ term=standout
-                    \ ctermbg=Black
-                    \ ctermfg=LightGray
-                    \ guibg=Grey30
-                    \ guifg=Grey80
-    
-        highlight FoldColumn
-                    \ gui=bold
-                    \ term=standout
-                    \ ctermbg=Black
-                    \ ctermfg=LightGray
-                    \ guibg=Grey
-                    \ guifg=DarkBlue
+    "# Foldingの色変更
+    highlight Folded
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey30
+                \ guifg=Grey80
+
+    highlight FoldColumn
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey
+                \ guifg=DarkBlue
 
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=Gray
@@ -1748,11 +1752,9 @@ function WindowSupervise()
     endif
 
     augroup SaveWindow
-
         autocmd!
         autocmd BufRead * call s:save_window()
         autocmd VimResized * call s:save_window()
-
         function! s:save_window()
             let options = [
                         \ 'set columns=' . &columns,

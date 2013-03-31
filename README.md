@@ -9,4 +9,3 @@
 #### and execute this command.
     :Unite -vertical neobundle install
 
-# Let us enjoy Vim life!
