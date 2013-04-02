@@ -733,9 +733,13 @@ NeoBundleLazy 'groovy.vim', {
 NeoBundleLazy 'mikelue/vim-maven-plugin', {
             \ 'autoload' : {'filetype': ['java','groovy']}
             \ }
+"# vim-sbt
+NeoBundleLazy 'ktvoelker/sbt-vim', {
+            \ 'autoload' : {'filetype' : ['scala']}
+            \ }
 "# vim-scala
-NeoBundleLazy 'derekwyatt/vim-scala', {
-            \ 'autoload' : {'filetype': ['scala']}
+NeoBundleLazy 'magicdrive/vim-scala', {
+            \ 'autoload' : {'filetype' : ['scala']}
             \ }
 
 "#-----------------------#
