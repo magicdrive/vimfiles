@@ -605,7 +605,10 @@ NeoBundleLazy 'Shougo/vimshell', {
             \ }
 "# vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
-            \   'autoload' : { 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ] }
+            \   'autoload' : { 
+            \ 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
+            \ 'explorer' : 1 ,
+            \   }
             \ }
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
@@ -1029,6 +1032,7 @@ call unite#custom_action('file', 'my_vsplit', s:my_action)
 "# ファイルの先頭文字検索
 
 "# vimfilerをデフォルトのexplorerと置き換える
+let g:loaded_netrwPlugin = 1
 let g:vimfiler_as_default_explorer=1
 
 "}}}2
