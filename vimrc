@@ -16,7 +16,8 @@ set nocompatible
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
-command! -nargs=0 Q :qa!
+command! -nargs=0 Q :q!
+command! -nargs=0 QQ :qa!
 
 "# syntax highlight
 syntax on
@@ -61,9 +62,9 @@ filetype plugin on
 "# command-line modeへの切り替え
 noremap ; :
 nnoremap <Plug>(mykey); :<C-u>!
-nnoremap <Plug>(mykey)r :<C-u>r!
+nnoremap <Plug>(mykey)' :<C-u>r!
 vnoremap <Plug>(mykey); :!
-vnoremap <Plug>(mykeylite)r :r!
+vnoremap <Plug>(mykeylite)' :r!
 
 "# substitution
 vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
@@ -98,8 +99,8 @@ set title
 "# 常にステータス行を表示
 set laststatus=2
 
-"# バッファを開いた時に、カレントディレクトリを自動で移動
-"#au BufEnter * execute ":lcd " . expand("%:p:h")
+"# カレントディレクトリを自動で移動
+nnoremap <C-x> :lcd expand("%:p:h")
 
 "# line number
 set number
@@ -740,6 +741,8 @@ NeoBundleLazy 'mikelue/vim-maven-plugin', {
 NeoBundle 'magicdrive/vim-scala', {
             \ 'autoload' : {'filetype' : ['scala']}
             \ }
+"# play2vim
+NeoBundle 'gre/play2vim'
 
 "#-----------------------#
 "# perl                  #
@@ -975,7 +978,7 @@ augroup vimshell_setting
     autocmd VimEnter * call s:alter_vimshell()
 augroup END
 
-nnoremap <silent> <Plug>(mykey)< :<C-u> call s:Shell()<CR>
+nnoremap <silent> <Plug>(mykey)< :<C-u> call <SID>Shell()<CR>
 function! s:Shell()
     echo 'vimshell start'
     VimShell
@@ -1507,7 +1510,7 @@ function! s:start_sbt()
     wincmd k 
 endfunction
 
-command! -nargs=0 StartSBT call <SID>start_sbt()
+command! -nargs=0 SBT call <SID>start_sbt()
 
 function! s:sbt_compile()
     let cmds = get(t:, 'sbt_cmds', 'run')
@@ -1517,7 +1520,7 @@ function! s:sbt_compile()
         call vimshell#interactive#set_send_buffer(sbt_bufname)
         call vimshell#interactive#send(cmds)
     else
-        echoerr 'try StartSBT'
+        echoerr 'try SBT'
     endif
 endfunction
 function! s:sbt_run()
@@ -1526,7 +1529,7 @@ function! s:sbt_run()
         call vimshell#interactive#set_send_buffer(sbt_bufname)
         call vimshell#interactive#send('run')
     else
-        echoerr 'try StartSBT'
+        echoerr 'try SBT'
     endif
 endfunction
 
