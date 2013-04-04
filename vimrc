@@ -736,12 +736,8 @@ NeoBundleLazy 'groovy.vim', {
 NeoBundleLazy 'mikelue/vim-maven-plugin', {
             \ 'autoload' : {'filetype': ['java','groovy']}
             \ }
-"# vim-sbt
-NeoBundleLazy 'ktvoelker/sbt-vim', {
-            \ 'autoload' : {'filetype' : ['scala']}
-            \ }
 "# vim-scala
-NeoBundleLazy 'magicdrive/vim-scala', {
+NeoBundle 'magicdrive/vim-scala', {
             \ 'autoload' : {'filetype' : ['scala']}
             \ }
 
@@ -1501,19 +1497,19 @@ function! s:start_sbt()
     if exists('g:sbt_project_dirname')
         execute 'cd ' . g:sbt_project_dirname
     endif
-    execute "VimShellInteractive --split='split | resize 5' sbt"
+    execute "VimShellInteractive --split='split | wincmd j' sbt"
     stopinsert
     let t:sbt_bufname = bufname('%')
     if !has_key(t:, 'sbt_cmds')
         "let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
         let t:sbt_cmds = ['compile']
     endif
-    wincmd j
+    wincmd k 
 endfunction
 
 command! -nargs=0 StartSBT call <SID>start_sbt()
 
-function! s:sbt_run()
+function! s:sbt_compile()
     let cmds = get(t:, 'sbt_cmds', 'run')
 
     let sbt_bufname = get(t:, 'sbt_bufname')
@@ -1524,9 +1520,19 @@ function! s:sbt_run()
         echoerr 'try StartSBT'
     endif
 endfunction
+function! s:sbt_run()
+    let sbt_bufname = get(t:, 'sbt_bufname')
+    if sbt_bufname !=# ''
+        call vimshell#interactive#set_send_buffer(sbt_bufname)
+        call vimshell#interactive#send('run')
+    else
+        echoerr 'try StartSBT'
+    endif
+endfunction
 
 function! s:vimrc_scala()
-    nnoremap <buffer> <Plug>(mykey)m :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
+    nnoremap <buffer> <Plug>(mykey)m :<C-u>write<Cr>:call <SID>sbt_compile()<Cr>
+    nnoremap <buffer> <Plug>(mykey)r :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
 endfunction
 
 augroup scala_setting
@@ -1561,14 +1567,15 @@ augroup END
 if !exists('g:neocomplcache_omni_functions')
     let g:neocomplcache_omni_functions = {}
 endif
+
+let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+let g:node_usejscomplete = 1
+
 augroup javascript_plugin
     autocmd!
     autocmd FileType javascript nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
-    let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
-    let g:node_usejscomplete = 1
-
 augroup END
 
 "}}}2
