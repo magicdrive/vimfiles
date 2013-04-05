@@ -1210,7 +1210,7 @@ function! OpenPerlfunc(func_str)
 endfunction
 
 function AlterRef()
-    AlterCommand  perldoc Ref perldoc
+    AlterCommand  perld[oc] Ref perldoc
     AlterCommand  perlf[unc] Ref perldoc -f
     AlterCommand  man[page] Manpage
 endfunction
@@ -1637,7 +1637,7 @@ let g:default_color_mode=has('unix') ? 'A' : 'B'
 "# GUI
 let g:gui_colorscheme_a='distinguished'
 let g:gui_background_a='light'
-let g:gui_colorscheme_b='rdark'
+let g:gui_colorscheme_b='github'
 let g:gui_background_b='light'
 
 "# CUI
