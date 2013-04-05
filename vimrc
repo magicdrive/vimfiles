@@ -416,6 +416,7 @@ noremap! <C-n> <DOWN>
 noremap! <C-p> <UP>
 noremap! <C-b> <LEFT>
 noremap! <C-f> <RIGHT>
+noremap! <C-g> <ESC>
 
 "# killing
 inoremap <expr> <C-k> col('.')==col('$')?"":"\<C-o>D"
@@ -462,6 +463,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
     autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
     autocmd BufNewFile,BufRead *.scala set filetype=scala
+    autocmd BufNewFile,BufRead *.sbt set filetype=scala
     autocmd BufNewFile,BufRead *.gradle set filetype=groovy
     autocmd BufNewFile,BufRead *.m set filetype=objective-c
 augroup END
@@ -1088,19 +1090,19 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 "# Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.vim/dict/scheme.dict',
-            \ 'scala' : $HOME.'/.vim/dict/scala.dict',
-            \ 'perl' : $HOME.'/.vim/dict/perl.dict',
-            \ 'php' : $HOME.'/.vim/dict/php.dict',
-            \ 'vim' : $HOME.'/.vim/dict/vim.dict',
+            \ 'default'    : '',
+            \ 'c'          : $HOME.'/.vim/dict/c.dict',
+            \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
+            \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
+            \ 'php'        : $HOME.'/.vim/dict/php.dict',
+            \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
+            \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
+            \ 'java'       : $HOME.'/.vim/dict/java.dict',
+            \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
+            \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
+            \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
+            \ 'vimshell'   : $HOME.'/.vimshell_hist',
             \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-            \ 'c' : $HOME.'/.vim/dict/c.dict',
-            \ 'cpp' : $HOME.'/.vim/dict/cpp.dict',
-            \ 'lua' : $HOME.'/.vim/dict/lua.dict',
-            \ 'java' : $HOME.'/.vim/dict/java.dict',
-            \ 'ocaml' : $HOME.'/.vim/dict/ocaml.dict',
             \ }
 
 "# Define keyword.
@@ -1542,7 +1544,7 @@ augroup scala_setting
     autocmd!
     autocmd FileType scala setlocal nocindent
     autocmd FileType scala call s:vimrc_scala()
-    autocmd FileType scala nnoremap <buffer> <Space>st :<C-u>StartSBT
+    autocmd FileType scala nnoremap <buffer> 9 :<C-u>SBT<CR>
 augroup END
 
 "}}}2
@@ -1649,28 +1651,21 @@ let g:current_color_mode=g:default_color_mode
 
 " setup color by background
 function! SetupColorScheme ()
-
-    if g:default_color_mode ==# 'A'
-        execute 'colorscheme ' . 
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-    else
-        execute 'colorscheme ' . 
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
-    endif
-
     if has('gui_running')
+        execute 'colorscheme ' . 
+                    \ ( (g:default_color_mode ==# 'A') ? 
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
         execute 'set background=' . 
                     \ ( (g:default_color_mode ==# 'A') ?
                     \ g:gui_background_a : g:gui_background_b)
     else
+        execute 'colorscheme ' . 
+                    \ ( (g:default_color_mode ==# 'A') ? 
+                    \ g:cui_colorscheme_a : g:cui_colorscheme_b)
         execute 'set background=' . 
                     \ ( (g:default_color_mode ==# 'A') ?
                     \ g:cui_background_a : g:cui_background_b)
     endif
-
-    call MyColor()
 endfunction
 
 
@@ -1700,14 +1695,11 @@ function! ChangeBackground()
                     \ ( (g:current_color_mode ==# 'A') ?
                     \ g:cui_background_a : g:cui_background_b)
     endif
-
     syntax on
-    call MyColor()
 endfunction
 
 
 function! MyColor()
-
     "# ポップアップメニューの色変更
     highlight Pmenu 
                 \ ctermbg=DarkGray
@@ -1738,6 +1730,11 @@ function! MyColor()
     highlight Search ctermbg=Gray
 endfunction
 
+augroup color_set
+    autocmd!
+    autocmd ColorScheme * call MyColor()
+augroup END
+
 "# initialize colorcheme
 call SetupColorScheme()
 
@@ -1749,7 +1746,8 @@ nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
 function MyGUIMacVimSetting()
 
-    set transparency=10
+    colorscheme distinguished
+    set background=dark
     set imdisable 
     set antialias
     set guifont=Ricty:h14
@@ -1785,7 +1783,6 @@ function WindowSupervise()
     augroup END
 endfunction
 
-
 "# gvimの設定関数
 function MyGUISetting ()
 
@@ -1805,6 +1802,14 @@ function MyGUISetting ()
 
     "# fullscreen option
     set fuoptions=maxvert,maxhorz
+
+    augroup focus_transparency
+      autocmd!
+      if has('mac')
+        autocmd FocusGained * set transparency=10
+        autocmd FocusLost * set transparency=50
+      endif
+    augroup END
 
 endfunction
 
