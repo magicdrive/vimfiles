@@ -746,6 +746,11 @@ NeoBundle 'magicdrive/vim-scala', {
 "# play2vim
 NeoBundle 'gre/play2vim'
 
+"# clojure
+NeoBundle 'thinca/vim-ft-clojure', {
+            \ 'autoload' : { 'filetype' : ['clojure'] }
+            \ }
+
 "#-----------------------#
 "# perl                  #
 "#-----------------------#
