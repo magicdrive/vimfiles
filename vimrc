@@ -1050,6 +1050,7 @@ let g:memolist_qfixgrep=1
 let g:memolist_vimfiler=1
 "let g:memolist_template_dir_path='$HOME/.vim/memo/'
 let g:memolist_path = "$HOME/.vim/memo/"
+let g:memolist_vimfiler_option=""
 
 "# key mapping
 nnoremap mn  :MemoNew<CR>
