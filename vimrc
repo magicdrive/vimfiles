@@ -1502,12 +1502,11 @@ function! s:start_sbt()
     if exists('g:sbt_project_dirname')
         execute 'cd ' . g:sbt_project_dirname
     endif
-    execute "VimShellInteractive --split='split | wincmd j' sbt"
+    execute "VimShellInteractive --split='split | wincmd j | resize 20' sbt"
     stopinsert
     let t:sbt_bufname = bufname('%')
     if !has_key(t:, 'sbt_cmds')
-        "let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
-        let t:sbt_cmds = ['compile']
+        let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
     endif
     wincmd k 
 endfunction
@@ -1525,27 +1524,38 @@ function! s:sbt_compile()
         echoerr 'try SBT'
     endif
 endfunction
-function! s:sbt_run()
+
+function! s:sbt_run(command)
     let sbt_bufname = get(t:, 'sbt_bufname')
     if sbt_bufname !=# ''
         call vimshell#interactive#set_send_buffer(sbt_bufname)
-        call vimshell#interactive#send('run')
+        call vimshell#interactive#send(a:command)
     else
         echoerr 'try SBT'
     endif
 endfunction
 
-function! s:vimrc_scala()
+function! s:sbt_controll()
     nnoremap <buffer> <Plug>(mykey)m :<C-u>write<Cr>:call <SID>sbt_compile()<Cr>
     nnoremap <buffer> <Plug>(mykey)r :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
+endfunction
+
+function! s:sbt_errorformat()
+    setlocal errorformat=%E\ %#[error]\ %#%f:%l:\ %m,%-Z\ %#[error]\ %p^,%-C\ %#[error]\ %m
+    setlocal errorformat+=,%W\ %#[warn]\ %#%f:%l:\ %m,%-Z\ %#[warn]\ %p^,%-C\ %#[warn]\ %m
+    setlocal errorformat+=,%-G%.%#
 endfunction
 
 augroup scala_setting
     autocmd!
     autocmd FileType scala setlocal nocindent
-    autocmd FileType scala call s:vimrc_scala()
+    autocmd FileType scala call s:sbt_errorformat()
+    autocmd FileType scala call s:sbt_controll()
     autocmd FileType scala nnoremap <buffer> 9 :<C-u>SBT<CR>
 augroup END
+
+
+
 
 "}}}2
 "### Java support{{{2
