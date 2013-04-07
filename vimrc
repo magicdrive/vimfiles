@@ -61,6 +61,7 @@ filetype plugin on
 
 "# command-line modeへの切り替え
 noremap ; :
+noremap : ; 
 nnoremap <Plug>(mykey); :<C-u>!
 nnoremap <Plug>(mykey)' :<C-u>r!
 vnoremap <Plug>(mykey); :!
@@ -99,8 +100,14 @@ set title
 "# 常にステータス行を表示
 set laststatus=2
 
-"# カレントディレクトリを自動で移動
-nnoremap <C-x> :lcd expand("%:p:h")
+"# バッファを開いた時に、カレントディレクトリを自動で移動
+let g:dir_jump=0
+function s:jump_current()
+    if g:dir_jump !=# 0
+        execute ":lcd " . expand("%:p:h")
+    endif
+endfunction
+autocmd BufEnter * :call <SID>jump_current()
 
 "# line number
 set number
@@ -176,7 +183,7 @@ noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j
 command! -nargs=0 SL :source %
 command! -nargs=0 SU :source $MYVIMRC
 
-command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
+command! -nargs=0 VimrcEdit :tabedit $HOME/.vimrc
 command! -nargs=0 VE :VimrcEdit
 command! -nargs=0 E :edit!
 
@@ -575,6 +582,23 @@ augroup vimrc-auto-mkdir
         endif
     endfunction
 augroup END
+
+" jump current dir
+command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
+function! s:ChangeCurrentDir(directory, bang)
+    if a:directory == ''
+        lcd %:p:h
+    else
+        execute 'lcd' . a:directory
+    endif
+
+    if a:bang == ''
+        pwd
+    endif
+endfunction
+
+" Change current directory.
+nnoremap <silent> <Plug>(mykey)cd :<C-u>CD<CR>
 
 "}}}2
 
