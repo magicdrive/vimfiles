@@ -18,6 +18,7 @@ noremap ZZ <Nop>
 noremap ZQ <Nop>
 command! -nargs=0 Q :q!
 command! -nargs=0 QQ :qa!
+command! -nargs=0 A :a!
 
 "# syntax highlight
 syntax on
@@ -61,7 +62,7 @@ filetype plugin on
 
 "# command-line modeへの切り替え
 noremap ; :
-noremap : ; 
+noremap ' ;
 nnoremap <Plug>(mykey); :<C-u>!
 nnoremap <Plug>(mykey)' :<C-u>r!
 vnoremap <Plug>(mykey); :!
@@ -569,7 +570,7 @@ if has('macvim')
 endif
 
 "}}}2
-"### Util系 {{{2
+"### Util functinos {{{2
 
 " create directory automatically
 augroup vimrc-auto-mkdir
@@ -586,19 +587,37 @@ augroup END
 " jump current dir
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
 function! s:ChangeCurrentDir(directory, bang)
-    if a:directory == ''
+    if a:directory ==# ''
         lcd %:p:h
     else
         execute 'lcd' . a:directory
     endif
 
-    if a:bang == ''
+    if a:bang ==# ''
         pwd
     endif
 endfunction
 
 " Change current directory.
 nnoremap <silent> <Plug>(mykey)cd :<C-u>CD<CR>
+
+" highlight 全角space
+function! ZenkakuSpace()
+    highlight ZenkakuSpace 
+              \ cterm=underline 
+              \ ctermfg=darkgrey 
+              \ gui=underline 
+              \ guifg=darkgrey
+endfunction
+
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
 
 "}}}2
 
@@ -616,7 +635,7 @@ endif
 call neobundle#rc( expand('~/.vim/bundle/automatic') )
 
 "#---------------------------#
-"# regular use                #
+"# regular use               #
 "#---------------------------#
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim'
@@ -764,16 +783,13 @@ NeoBundleLazy 'mikelue/vim-maven-plugin', {
             \ 'autoload' : {'filetype': ['java','groovy']}
             \ }
 "# vim-scala
-NeoBundle 'magicdrive/vim-scala', {
-            \ 'autoload' : {'filetype' : ['scala']}
-            \ }
+NeoBundle 'magicdrive/vim-scala'
 "# play2vim
-NeoBundle 'gre/play2vim'
-
-"# clojure
-NeoBundle 'thinca/vim-ft-clojure', {
-            \ 'autoload' : { 'filetype' : ['clojure'] }
+NeoBundleLazy 'gre/play2vim', {
+            \ 'autoload' : {'filetype': ['java','scala']}
             \ }
+"# clojure
+NeoBundle 'thinca/vim-ft-clojure'
 
 "#-----------------------#
 "# perl                  #
