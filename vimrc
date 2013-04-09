@@ -570,7 +570,7 @@ if has('macvim')
 endif
 
 "}}}2
-"### Util functinos {{{2
+"### Util Functinos {{{2
 
 " create directory automatically
 augroup vimrc-auto-mkdir
@@ -785,9 +785,7 @@ NeoBundleLazy 'mikelue/vim-maven-plugin', {
 "# vim-scala
 NeoBundle 'magicdrive/vim-scala'
 "# play2vim
-NeoBundleLazy 'gre/play2vim', {
-            \ 'autoload' : {'filetype': ['java','scala']}
-            \ }
+NeoBundle 'gre/play2vim'
 "# clojure
 NeoBundle 'thinca/vim-ft-clojure'
 
