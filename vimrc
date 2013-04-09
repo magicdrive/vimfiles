@@ -605,10 +605,10 @@ nnoremap <silent> <Plug>(mykey)cd :<C-u>CD<CR>
 " highlight 全角space
 function! ZenkakuSpace()
     highlight ZenkakuSpace 
-              \ cterm=underline 
-              \ ctermfg=darkgrey 
-              \ gui=underline 
-              \ guifg=darkgrey
+                \ cterm=underline 
+                \ ctermfg=darkgrey 
+                \ gui=underline 
+                \ guifg=darkgrey
 endfunction
 
 if has('syntax')
@@ -645,7 +645,14 @@ NeoBundle 'Shougo/neocomplcache'
 "# neosnippet
 "NeoBundle 'Shougo/neosnippet'
 "# vimproc
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+            \ 'build' : {
+            \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+            \     'cygwin'  : 'make -f make_cygwin.mak',
+            \     'mac'     : 'make -f make_mac.mak',
+            \     'unix'    : 'make -f make_unix.mak',
+            \    },
+            \ }
 "# vimshell
 NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
@@ -1862,11 +1869,11 @@ function MyGUISetting ()
     set fuoptions=maxvert,maxhorz
 
     augroup focus_transparency
-      autocmd!
-      if has('mac')
-        autocmd FocusGained * set transparency=10
-        autocmd FocusLost * set transparency=50
-      endif
+        autocmd!
+        if has('mac')
+            autocmd FocusGained * set transparency=10
+            autocmd FocusLost * set transparency=50
+        endif
     augroup END
 
 endfunction
