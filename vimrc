@@ -474,6 +474,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.sbt set filetype=scala
     autocmd BufNewFile,BufRead *.gradle set filetype=groovy
     autocmd BufNewFile,BufRead *.m set filetype=objective-c
+    autocmd BufNewFile,BufRead *.gosh set filetype=scheme
 augroup END
 
 "}}}2
@@ -1658,6 +1659,7 @@ augroup filetype_dict
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType c setlocal omnifunc=ccomplete#Complete
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType scheme let is_gauche=1
 augroup END
 
 "CF用コメントハイライト有効
