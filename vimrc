@@ -101,14 +101,12 @@ set title
 "# 常にステータス行を表示
 set laststatus=2
 
-"# バッファを開いた時に、カレントディレクトリを自動で移動
+"# カレントディレクトリ移動
 let g:dir_jump=0
-function s:jump_current()
-    if g:dir_jump !=# 0
-        execute ":lcd " . expand("%:p:h")
-    endif
-endfunction
-autocmd BufEnter * :call <SID>jump_current()
+command! -nargs=0 Lcd :execute ":lcd " . expand("%:p:h")
+if g:dir_jump !=# 0
+    autocmd BufEnter * :execute ":lcd " . expand("%:p:h")
+endif
 
 "# line number
 set number
@@ -643,12 +641,10 @@ NeoBundle 'Shougo/neobundle.vim'
 "# neocomplcache
 NeoBundle 'Shougo/neocomplcache'
 "# neosnippet
-"NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet'
 "# vimproc
 NeoBundle 'Shougo/vimproc', {
             \ 'build' : {
-            \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-            \     'cygwin'  : 'make -f make_cygwin.mak',
             \     'mac'     : 'make -f make_mac.mak',
             \     'unix'    : 'make -f make_unix.mak',
             \    },
@@ -660,8 +656,8 @@ NeoBundleLazy 'Shougo/vimshell', {
 "# vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
             \   'autoload' : { 
-            \ 'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
-            \ 'explorer' : 1 ,
+            \   'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
+            \   'explorer' : 1 ,
             \   }
             \ }
 "# quickrun
@@ -676,6 +672,10 @@ NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'dannyob/quickfixstatus'
 "# nerdcommneter
 NeoBundle 'scrooloose/nerdcommenter'
+"# vim-endwise
+NeoBundleLazy 'taichouchou2/vim-endwise', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
 "# thumbnail.vim
 NeoBundleLazy 'itchyny/thumbnail.vim', {
             \   'autoload' : { 'commands' : ['Thumbnail']}
@@ -844,6 +844,78 @@ NeoBundleLazy 'jmcantrell/vim-virtualenv', {
 NeoBundleLazy 'rkulla/pydiction', {
             \ 'autoload' : {'filetype': ['python']}
             \ }
+
+"#-----------------------#
+"# ruby                  #
+"#-----------------------#
+"# neocomplcache-rsense
+NeoBundle 'Shougo/neocomplcache-rsense', {
+      \ 'depends': 'Shougo/neocomplcache',
+      \ 'autoload': { 'filetypes': 'ruby' }}
+"# rsense
+NeoBundleLazy 'taichouchou2/rsense-0.3', {
+      \ 'build' : {
+      \    'mac': 'ruby etc/config.rb > ~/.rsense',
+      \    'unix': 'ruby etc/config.rb > ~/.rsense',
+      \ } }
+
+" ruby / rails
+NeoBundle 'tpope/vim-rails'
+NeoBundleLazy 'ujihisa/unite-rake', {
+      \ 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'basyura/unite-rails', {
+      \ 'depends' : 'Shjkougo/unite.vim' }
+NeoBundleLazy 'taichouchou2/unite-rails_best_practices', {
+      \ 'depends' : 'Shougo/unite.vim',
+      \ 'build' : {
+      \    'mac': 'gem install rails_best_practices',
+      \    'unix': 'gem install rails_best_practices',
+      \   }
+      \ }
+NeoBundleLazy 'taichouchou2/unite-reek', {
+      \ 'build' : {
+      \    'mac': 'gem install reek',
+      \    'unix': 'gem install reek',
+      \ },
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] },
+      \ 'depends' : 'Shougo/unite.vim' }
+NeoBundleLazy 'taichouchou2/alpaca_complete', {
+      \ 'depends' : 'tpope/vim-rails',
+      \ 'build' : {
+      \    'mac':  'gem install alpaca_complete',
+      \    'unix': 'gem install alpaca_complete',
+      \   }
+      \ }
+let s:bundle_rails = 'unite-rails unite-rails_best_practices unite-rake alpaca_complete'
+
+function! s:bundleLoadDepends(bundle_names) "{{{
+  " bundleの読み込み
+  execute 'NeoBundleSource '.a:bundle_names
+  au! RailsLazyPlugins
+endfunction"}}}
+aug RailsLazyPlugins
+  au User Rails call <SID>bundleLoadDepends(s:bundle_rails)
+aug END
+
+" reference環境
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'taka84u9/vim-ref-ri', {
+      \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'skwp/vim-rspec', {
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'ruby-matchit', {
+    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+
+function! s:bundleLoadDepends(bundle_names) "{{{
+  " bundleの読み込み
+  execute 'NeoBundleSource '.a:bundle_names
+  au! RailsLazyPlugins
+endfunction"}}}
+aug RailsLazyPlugins
+  au User Rails call <SID>bundleLoadDepends(s:bundle_rails)
+aug END
 
 "#-----------------------#
 "# html-coding           #
@@ -1123,7 +1195,7 @@ let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
 
 "}}}2
-"### neocomplcache {{{2
+"### NeoComplcache {{{2
 
 "# Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -1138,6 +1210,11 @@ let g:neocomplcache_enable_underbar_completion = 1
 "# Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache#sources#rsense#home_directory = expand('~/.bundle/rsense-0.3')
+let g:neocomplcache_skip_auto_completion_time = '0.3'
 
 
 "# Define dictionary.
