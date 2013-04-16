@@ -473,6 +473,8 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.gradle set filetype=groovy
     autocmd BufNewFile,BufRead *.m set filetype=objective-c
     autocmd BufNewFile,BufRead *.gosh set filetype=scheme
+    autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+    autocmd BufNewFile,BufRead *.ru set filetype=ruby
 augroup END
 
 "}}}2
@@ -850,72 +852,18 @@ NeoBundleLazy 'rkulla/pydiction', {
 "#-----------------------#
 "# neocomplcache-rsense
 NeoBundle 'Shougo/neocomplcache-rsense', {
-      \ 'depends': 'Shougo/neocomplcache',
       \ 'autoload': { 'filetypes': 'ruby' }}
-"# rsense
-NeoBundleLazy 'taichouchou2/rsense-0.3', {
-      \ 'build' : {
-      \    'mac': 'ruby etc/config.rb > ~/.rsense',
-      \    'unix': 'ruby etc/config.rb > ~/.rsense',
-      \ } }
-
-" ruby / rails
-NeoBundle 'tpope/vim-rails'
-NeoBundleLazy 'ujihisa/unite-rake', {
-      \ 'depends' : 'Shougo/unite.vim' }
-NeoBundleLazy 'basyura/unite-rails', {
-      \ 'depends' : 'Shjkougo/unite.vim' }
-NeoBundleLazy 'taichouchou2/unite-rails_best_practices', {
-      \ 'depends' : 'Shougo/unite.vim',
-      \ 'build' : {
-      \    'mac': 'gem install rails_best_practices',
-      \    'unix': 'gem install rails_best_practices',
-      \   }
-      \ }
-NeoBundleLazy 'taichouchou2/unite-reek', {
-      \ 'build' : {
-      \    'mac': 'gem install reek',
-      \    'unix': 'gem install reek',
-      \ },
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] },
-      \ 'depends' : 'Shougo/unite.vim' }
-NeoBundleLazy 'taichouchou2/alpaca_complete', {
-      \ 'depends' : 'tpope/vim-rails',
-      \ 'build' : {
-      \    'mac':  'gem install alpaca_complete',
-      \    'unix': 'gem install alpaca_complete',
-      \   }
-      \ }
-let s:bundle_rails = 'unite-rails unite-rails_best_practices unite-rake alpaca_complete'
-
-function! s:bundleLoadDepends(bundle_names) "{{{
-  " bundleの読み込み
-  execute 'NeoBundleSource '.a:bundle_names
-  au! RailsLazyPlugins
-endfunction"}}}
-aug RailsLazyPlugins
-  au User Rails call <SID>bundleLoadDepends(s:bundle_rails)
-aug END
 
 " reference環境
-NeoBundleLazy 'vim-ruby/vim-ruby', {
-    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'taka84u9/vim-ref-ri', {
-      \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'skwp/vim-rspec', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundleLazy 'ruby-matchit', {
-    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-
-function! s:bundleLoadDepends(bundle_names) "{{{
-  " bundleの読み込み
-  execute 'NeoBundleSource '.a:bundle_names
-  au! RailsLazyPlugins
-endfunction"}}}
-aug RailsLazyPlugins
-  au User Rails call <SID>bundleLoadDepends(s:bundle_rails)
-aug END
+"NeoBundleLazy 'vim-ruby/vim-ruby', {
+"    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+"NeoBundleLazy 'taka84u9/vim-ref-ri', {
+"      \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
+"      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+"NeoBundleLazy 'skwp/vim-rspec', {
+"      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+"NeoBundleLazy 'ruby-matchit', {
+"    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 
 "#-----------------------#
 "# html-coding           #
