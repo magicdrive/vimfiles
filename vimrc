@@ -811,9 +811,7 @@ NeoBundleLazy 'perl-mauke.vim',  {
 "# javascript            #
 "#-----------------------#
 "# javascript-syntax
-NeoBundleLazy 'magicdrive/vim-javascript-syntax', {
-            \ 'autoload' : {'filetype': ['javascript']}
-            \ }
+NeoBundle 'magicdrive/vim-javascript-syntax'
 "# jscomplete
 NeoBundleLazy 'teramako/jscomplete-vim', {
             \ 'autoload' : {'filetype': ['javascript']}
@@ -827,9 +825,7 @@ NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
             \ 'autoload' : {'filetype': ['javascript']}
             \ }
 "# vim-coffee-script
-NeoBundleLazy 'kchmck/vim-coffee-script', {
-            \ 'autoload' : {'filetype': ['coffeescript']}
-            \ }
+NeoBundle 'kchmck/vim-coffee-script'
 
 "#-----------------------#
 "# python                #
