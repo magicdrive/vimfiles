@@ -714,6 +714,8 @@ NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'sudo.vim'
 "# vim-rooter
 NeoBundle 'airblade/vim-rooter'
+"# vim-multiple-cursors
+NeoBundle 'terryma/vim-multiple-cursors'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
@@ -853,17 +855,16 @@ NeoBundleLazy 'rkulla/pydiction', {
 "# neocomplcache-rsense
 NeoBundle 'Shougo/neocomplcache-rsense', {
       \ 'autoload': { 'filetypes': 'ruby' }}
-
 " reference環境
-"NeoBundleLazy 'vim-ruby/vim-ruby', {
-"    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-"NeoBundleLazy 'taka84u9/vim-ref-ri', {
-"      \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
-"      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-"NeoBundleLazy 'skwp/vim-rspec', {
-"      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-"NeoBundleLazy 'ruby-matchit', {
-"    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'vim-ruby/vim-ruby', {
+    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'taka84u9/vim-ref-ri', {
+      \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'skwp/vim-rspec', {
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundleLazy 'ruby-matchit', {
+    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 
 "#-----------------------#
 "# html-coding           #
@@ -1700,11 +1701,12 @@ let html_wrong_comments=1
 
 augroup template_setting
     autocmd!
-    autocmd BufNewFile *.pl :r $HOME/.vim/misc/tmp/perl.template.pl | 1 | delete
-    autocmd BufNewFile *.pm :r $HOME/.vim/misc/tmp/perl_module.template.pm | 1 | delete
-    autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html | 1 | delete
-    autocmd BufNewFile *.psgi :r $HOME/.vim/misc/tmp/app.psgi | 1 | delete
-    autocmd BufNewFile *.py :r $HOME/.vim/misc/tmp/python.template.py | 1 | delete
+    autocmd BufNewFile *.pl   :r $HOME/.vim/misc/tmp/perl.template.pl        | 1 | delete
+    autocmd BufNewFile *.pm   :r $HOME/.vim/misc/tmp/perl_module.template.pm | 1 | delete
+    autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html     | 1 | delete
+    autocmd BufNewFile *.psgi :r $HOME/.vim/misc/tmp/app.psgi                | 1 | delete
+    autocmd BufNewFile *.py   :r $HOME/.vim/misc/tmp/python.template.py      | 1 | delete
+    autocmd BufNewFile *.rb   :r $HOME/.vim/misc/tmp/template.rb             | 1 | delete
 augroup END
 
 " }}}2
