@@ -1471,13 +1471,9 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 "# perldoc:  module source code open
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module) range
-    let l:module_name=''
-    if  a:module ==# '<visual>'
+    let l:module_name=a:module
+    if a:module ==# '<visual>'
         let l:module_name=s:get_visual_selected()
-    else
-        let l:module_name=a:module ==# '<cword>'
-                    \ ? expand('<cword>')
-                    \ : a:module
     endif
     let l:module_path = 
                 \ system('perl -MClass::Inspector -e '
@@ -1506,12 +1502,12 @@ augroup perl_ftplugin
     autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
     "# perldoc
     autocmd FileType perl
-                \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', '<cword>')<CR>
+                \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
     autocmd FileType perl
-                \ vnoremap <buffer> K :<C-u>call ref#open('perldoc', '')<CR>
+                \ vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
     "# read module source
     autocmd FileType perl,ref-perldoc
-                \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<cword>' )<CR>
+                \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
     autocmd FileType perl,ref-perldoc
                 \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
     autocmd VimEnter * call AlterFileTypePerl()
