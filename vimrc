@@ -719,7 +719,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
-            \       'filetype' : [ 'perl', 'python', 'sh', 'bash', 'zsh', 'vim'],
+            \       'filetype' : [ 'perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
             \       'commands' : ['Ref'],
             \       'function' : ['ref#open']
             \    },
@@ -760,7 +760,6 @@ NeoBundle 'Align'
 "#-----------------------#
 "# llvm                  #
 "#-----------------------#
-
 "# cocoa.vim
 NeoBundleLazy 'cocoa.vim', {
             \ 'autoload' : {'filetype': ['objective-c']}
@@ -850,17 +849,25 @@ NeoBundleLazy 'rkulla/pydiction', {
 "#-----------------------#
 "# neocomplcache-rsense
 NeoBundle 'Shougo/neocomplcache-rsense', {
-      \ 'autoload': { 'filetypes': 'ruby' }}
-" reference環境
+            \ 'autoload': { 'filetypes': 'ruby' }
+            \ }
+"# vim-ruby
 NeoBundleLazy 'vim-ruby/vim-ruby', {
-    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# vim-ref-ri
 NeoBundleLazy 'taka84u9/vim-ref-ri', {
-      \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+            \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# vim-rspec
 NeoBundleLazy 'skwp/vim-rspec', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# matchit
 NeoBundleLazy 'ruby-matchit', {
-    \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
 
 "#-----------------------#
 "# html-coding           #
@@ -1516,6 +1523,10 @@ augroup END
 "}}}2
 "### Python support {{{2
 
+function AlterFileTypePython()
+    AlterCommand  pydoc Ref pydoc
+endfunction
+
 augroup python_ftplugin
     autocmd!
     autocmd FileType python call s:PythonIndent()
@@ -1525,6 +1536,11 @@ augroup python_ftplugin
     autocmd FileType python let g:jedi#popup_on_dot = 1
     autocmd FileType python setlocal nocindent
     autocmd FileType python setlocal iskeyword+=.,(
+    autocmd FileType python
+                \ nnoremap <buffer> K :<C-u>call ref#open('pydoc', expand('<cword>'))<CR>
+    autocmd FileType python
+                \ vnoremap <buffer> K :<C-u>call ref#jump('visual', 'pydoc')<CR>
+    autocmd VimEnter * call AlterFileTypePython()
 augroup END
 
 let g:pydiction_location=
@@ -1550,7 +1566,7 @@ endfunction
 "### Ruby support "{{{2
 
 function AlterFileTypeRuby()
-    AlterCommand  rubydoc RubyDoc
+    AlterCommand  ri Ref ri
 endfunction
 
 augroup ruby_ftplugin
@@ -1562,6 +1578,10 @@ augroup ruby_ftplugin
     autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
     "# !ruby command
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
+    autocmd FileType ruby
+                \ nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
+    autocmd FileType ruby
+                \ vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
