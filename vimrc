@@ -807,6 +807,8 @@ NeoBundle 'thinca/vim-ft-clojure'
 NeoBundleLazy 'perl-mauke.vim',  {
             \ 'autoload' : {'filetype': ['perl']}
             \ }
+"# vim-perl_use_insertion
+autocmd FileType perl :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
 
 "#-----------------------#
 "# javascript            #
@@ -868,6 +870,8 @@ NeoBundleLazy 'skwp/vim-rspec', {
 NeoBundleLazy 'ruby-matchit', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
+"# rsense-local
+autocmd FileType ruby :setlocal runtimepath+=~/.vim/bundle/manual/rsense-local
 
 "#-----------------------#
 "# html-coding           #
@@ -1467,6 +1471,17 @@ let g:NERDCreateDefaultMappings = 0
 let NERDSpaceDelims = 1
 nmap <Leader><Leader> <Plug>NERDCommenterToggle
 vmap <Leader><Leader> <Plug>NERDCommenterToggle
+
+"}}}2
+"### Rsense {{{2
+
+let g:rsenseHome='/usr/local/rsense/Home'
+let g:rsenseUseOmniFunc = 1
+
+if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 "}}}2
 
