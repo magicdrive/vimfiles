@@ -7,5 +7,5 @@
     $ ./setup.sh.
     $ vim
 #### and execute this command.
-    :Unite -vertical neobundle install
+    :Unite -neobundle/install
 
