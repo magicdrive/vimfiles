@@ -772,6 +772,7 @@ NeoBundleLazy 'Shougo/neocomplcache-clang', {
 NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
             \ 'autoload' : {'filetype': ['objective-c','cpp','c']}
             \ }
+
 "#-----------------------#
 "# haskell               #
 "#-----------------------#
@@ -808,7 +809,8 @@ NeoBundleLazy 'perl-mauke.vim',  {
             \ 'autoload' : {'filetype': ['perl']}
             \ }
 "# vim-perl_use_insertion
-autocmd FileType perl :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
+autocmd FileType perl 
+            \ :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
 
 "#-----------------------#
 "# javascript            #
@@ -871,7 +873,8 @@ NeoBundleLazy 'ruby-matchit', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# rsense-local
-autocmd FileType ruby :setlocal runtimepath+=~/.vim/bundle/manual/rsense-local
+autocmd FileType ruby 
+            \ :setlocal runtimepath+=~/.vim/bundle/manual/rsense-local
 
 "#-----------------------#
 "# html-coding           #
@@ -904,6 +907,7 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'tpope/vim-fugitive'
 "# gitv
 NeoBundle 'gregsexton/gitv'
+
 "#-----------------------#
 "# util-tool             #
 "#-----------------------#
@@ -1000,9 +1004,9 @@ nnoremap <silent> <Plug>(mykey)nn :<C-u>Unite -no-split neobundle<CR>
 " neobundle search
 nnoremap <silent> <Plug>(mykey)ns :<C-u>Unite neobundle/search<CR>
 " neobundle update
-nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite -vertical neobundle/update<CR>
+nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite neobundle/update<CR>
 " neobundle install
-nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite -vertical neobundle/install:<CR>
+nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite neobundle/install:<CR>
 
 "#---------------------------#
 "# ref+unite                 #
