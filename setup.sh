@@ -33,7 +33,7 @@ done;
 
 cat << 'EOS'
 Please run "vim" and execute this command.
-    :Unite -vertical neobundle/install
+    :Unite neobundle/install
 EOS
 
 exit 0;
