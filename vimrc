@@ -182,7 +182,7 @@ noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j
 command! -nargs=0 SL :source %
 command! -nargs=0 SU :source $MYVIMRC
 
-command! -nargs=0 VimrcEdit :tabedit $HOME/.vimrc
+command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
 command! -nargs=0 VE :VimrcEdit
 command! -nargs=0 E :edit!
 
@@ -405,8 +405,6 @@ set hlsearch
 
 "# 検索ハイライト消去
 nnoremap <ESC><ESC> :nohlsearch<CR>
-nnoremap <Nul><Nul> :nohlsearch<CR>
-nnoremap <C-c><C-c> :nohlsearch<CR>
 
 "# 検索時にインクリメンタルサーチを行う
 set incsearch
@@ -887,12 +885,11 @@ NeoBundleLazy 'groenewege/vim-less', {
 NeoBundleLazy 'mattn/zencoding-vim', {
             \ 'autoload' : {'filetype': ['html','tt','haml']}
             \ }
-NeoBundle 'chreekat/vim-instant-markdown'
-
-"# nginx.vim
-NeoBundleLazy 'nginx.vim', {
-            \ 'autoload' : {'filetype': ['nginx']}
+NeoBundleLazy 'chreekat/vim-instant-markdown', {
+            \ 'autoload' : { 'commands' : ['InstantMarkdown'] }
             \ }
+"# nginx.vim
+NeoBundle 'nginx.vim'
 "# httpstatus
 NeoBundle 'mattn/httpstatus-vim'
 "# tmux.vim
@@ -1122,7 +1119,6 @@ let g:vimfiler_as_default_explorer=1
 "}}}2
 "### MemoList.vim {{{2
 
-
 let g:memolist_memo_suffix="txt"
 let g:memolist_memo_date="%Y-%m-%d %H:%M"
 "let g:memolist_memo_date = "epoch"
@@ -1139,7 +1135,6 @@ let g:memolist_vimfiler_option=""
 nnoremap mn  :MemoNew<CR>
 nnoremap ml  :MemoList<CR>
 nnoremap mg  :MemoGrep<CR>
-
 
 "}}}2
 "### yannktmp.vim "{{{2
@@ -1230,21 +1225,16 @@ endif
 "}}}2
 "### Solarized {{{2
 
-
 let g:solarized_termcolors=256
 let g:solarized_bold=0
 let g:solarized_underline=1
 let g:solarized_italic=0
 
-
 "}}}2
 "### EasyMotion {{{2
 
-
 let g:EasyMotion_leader_key = "q"
-
-"let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiop'
-
+let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm,./1234567890'
 
 "}}}2
 "### W3m.vim {{{2
@@ -1279,7 +1269,6 @@ endif
 "}}}2
 "### Ref.vim {{{2
 
-
 let g:ref_open="vsplit"
 
 " ref-manpage
@@ -1306,18 +1295,15 @@ endfunction
 
 autocmd VimEnter * call AlterRef()
 
-
 "}}}2
 "### MultipulSearch.vim {{{2
-
 
 "# 検索の置き換え
 nnoremap ? :Search<Space>
 vnoremap ? :Search<Space>
 
-
 "# 検索ハイライト消去
-nnoremap <silent> mm :<C-u>call SearchHighlightOff()<CR>
+nnoremap <silent> <C-c><C-c> :<C-u>call SearchHighlightOff()<CR>
 
 function! SearchHighlightOff ()
     if exists(":SearchReset")
