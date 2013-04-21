@@ -1411,8 +1411,7 @@ let g:quickrun_config['coffee'] = {
 "}}}2
 "### Watchdogs {{{2
 
-
-"#let g:watchdogs_check_BufWritePost_enable = 1
+let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enables = {
             \	"perl"   : 1,
             \	"python" : 1,
@@ -1732,12 +1731,12 @@ let html_wrong_comments=1
 
 augroup template_setting
     autocmd!
-    autocmd BufNewFile *.pl   :r $HOME/.vim/misc/tmp/perl.template.pl        | 1 | delete
-    autocmd BufNewFile *.pm   :r $HOME/.vim/misc/tmp/perl_module.template.pm | 1 | delete
-    autocmd BufNewFile *.html :r $HOME/.vim/misc/tmp/html5.template.html     | 1 | delete
-    autocmd BufNewFile *.psgi :r $HOME/.vim/misc/tmp/app.psgi                | 1 | delete
-    autocmd BufNewFile *.py   :r $HOME/.vim/misc/tmp/python.template.py      | 1 | delete
-    autocmd BufNewFile *.rb   :r $HOME/.vim/misc/tmp/template.rb             | 1 | delete
+    autocmd BufNewFile *.pl   0r $HOME/.vim/misc/tmp/perl.template.pl
+    autocmd BufNewFile *.pm   0r $HOME/.vim/misc/tmp/perl_module.template.pm
+    autocmd BufNewFile *.html 0r $HOME/.vim/misc/tmp/html5.template.html
+    autocmd BufNewFile *.psgi 0r $HOME/.vim/misc/tmp/app.psgi
+    autocmd BufNewFile *.py   0r $HOME/.vim/misc/tmp/python.template.py
+    autocmd BufNewFile *.rb   0r $HOME/.vim/misc/tmp/template.rb
 augroup END
 
 " }}}2
