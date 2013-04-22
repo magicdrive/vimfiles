@@ -1022,9 +1022,13 @@ nnoremap <silent> <Plug>(mykeylite)tw  :<C-u>Unite tweetvim<CR>
 "#---------------------------#
 "# unitesource:unite-help    #
 "#---------------------------#
-
 " Execute help.
 nnoremap <silent> g<C-h>  :<C-u>Unite -start-insert help<CR>
+
+"#---------------------------#
+"# unitesource:unite-outline #
+"#---------------------------#
+nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
 
 "#---------------------------#
 "# unitesource:unite-grep    #
