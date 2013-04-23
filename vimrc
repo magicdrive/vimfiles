@@ -885,6 +885,7 @@ NeoBundleLazy 'groenewege/vim-less', {
 NeoBundleLazy 'mattn/zencoding-vim', {
             \ 'autoload' : {'filetype': ['html','tt','haml']}
             \ }
+"# instantmarkdown
 NeoBundleLazy 'chreekat/vim-instant-markdown', {
             \ 'autoload' : { 'commands' : ['InstantMarkdown'] }
             \ }
@@ -1060,7 +1061,6 @@ endfunction
 augroup vimshell_setting
     autocmd!
     "# shell buffer clear
-    autocmd FileType vimshell nnoremap <silent><buffer> <C-l> <Insert>clear<CR>
     autocmd VimEnter * call s:alter_vimshell()
 augroup END
 
