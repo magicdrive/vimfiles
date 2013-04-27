@@ -746,6 +746,8 @@ NeoBundle 'h1mesuke/unite-outline'
 "#---------------------------#
 "# taglist
 NeoBundle 'taglist.vim'
+"# TagHighlight
+NeoBundle 'TagHighlight'
 "# scratch.vim
 NeoBundle 'scratch.vim'
 "# emacs-commandline
