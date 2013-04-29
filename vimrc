@@ -198,7 +198,6 @@ endfunction
 "# vimrcの編集
 nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
-
 "}}}i1
 "### encoding & fileencodingの設定 "{{{2
 
@@ -1723,12 +1722,14 @@ let html_wrong_comments=1
 
 augroup template_setting
     autocmd!
-    autocmd BufNewFile *.pl   0r $HOME/.vim/misc/tmp/perl.template.pl
-    autocmd BufNewFile *.pm   0r $HOME/.vim/misc/tmp/perl_module.template.pm
-    autocmd BufNewFile *.html 0r $HOME/.vim/misc/tmp/html5.template.html
-    autocmd BufNewFile *.psgi 0r $HOME/.vim/misc/tmp/app.psgi
-    autocmd BufNewFile *.py   0r $HOME/.vim/misc/tmp/python.template.py
-    autocmd BufNewFile *.rb   0r $HOME/.vim/misc/tmp/template.rb
+    autocmd BufNewFile *.pl     0r $HOME/.vim/misc/tmpl/perl.template.pl
+    autocmd BufNewFile *.pm     0r $HOME/.vim/misc/tmpl/perl_module.template.pm
+    autocmd BufNewFile *.html   0r $HOME/.vim/misc/tmpl/html5.template.html
+    autocmd BufNewFile *.psgi   0r $HOME/.vim/misc/tmpl/app.psgi
+    autocmd BufNewFile *.py     0r $HOME/.vim/misc/tmpl/python.template.py
+    autocmd BufNewFile *.rb     0r $HOME/.vim/misc/tmpl/template.rb
+    autocmd BufNewFile Gemfile  0r $HOME/.vim/misc/tmpl/Gemfile
+    autocmd BufNewFile Rakefile 0r $HOME/.vim/misc/tmpl/Rakefile
 augroup END
 
 " }}}2
