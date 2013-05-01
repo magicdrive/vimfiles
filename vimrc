@@ -471,6 +471,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.m set filetype=objective-c
     autocmd BufNewFile,BufRead *.gosh set filetype=scheme
     autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+    autocmd BufNewFile,BufRead gemspec set filetype=ruby
     autocmd BufNewFile,BufRead *.ru set filetype=ruby
 augroup END
 
@@ -641,6 +642,8 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 "# neosnippet
 NeoBundle 'Shougo/neosnippet'
+"# vim-singleton
+NeoBundle 'thinca/vim-singleton'
 "# vimproc
 NeoBundle 'Shougo/vimproc', {
             \ 'build' : {
@@ -1478,6 +1481,9 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 "}}}2
+"### Singleton.vim {{{2
+    call singleton#enable()
+"}}}2
 
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
@@ -1730,6 +1736,7 @@ augroup template_setting
     autocmd BufNewFile *.rb     0r $HOME/.vim/misc/tmpl/template.rb
     autocmd BufNewFile Gemfile  0r $HOME/.vim/misc/tmpl/Gemfile
     autocmd BufNewFile Rakefile 0r $HOME/.vim/misc/tmpl/Rakefile
+    autocmd BufNewFile gemspec  0r $HOME/.vim/misc/tmpl/gemspec
 augroup END
 
 " }}}2
