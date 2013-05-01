@@ -47,6 +47,12 @@ noremap! <C-?> <C-h>
 inoremap <C-h> <BS>
 inoremap <C-d> <DEL>
 
+" insert mode cursor
+imap OA <Up>
+imap OB <Down>
+imap OC <Right>
+imap OD <Left>
+
 "# 高速ターミナル接続
 set ttyfast
 
@@ -504,7 +510,6 @@ nnoremap <C-w>f <C-w>l
 "}}}2
 "### AutoBufferの設定 "{{{2
 
-
 "# tmpl perl
 iab PSIMPLE <ESC>:r ~/.vim/misc/tmpl/perl_simple.pl<CR>
 iab PMODULE <ESC>:r ~/.vim/misc/tmpl/perl_module.pl<CR>
@@ -549,15 +554,12 @@ iab concate concatenate
 set foldmethod=marker
 set foldtext=FoldCCtext()
 
-"nnoremap <Plug>(mykey)zo zo
-"nnoremap <Plug>(mykey)zc zc
 nnoremap <Space><Space> za<Space>
 
 "}}}2
 "### Macvim用の設定 {{{2
 
 if has('macvim')
-
     " kaoriyadicwin off
     let plugin_dicwin_disable=1
 
@@ -565,7 +567,6 @@ if has('macvim')
         " enable meta key
         set macmeta
     endif
-
 endif
 
 "}}}2
@@ -1511,27 +1512,16 @@ function AlterFileTypePerl()
 endfunction
 augroup perl_ftplugin
     autocmd!
-    "# コンパイラをperlに設定
     autocmd FileType perl :compiler perl
-    "perltidy 
     autocmd FileType perl nnoremap <buffer> <C-\> <ESC>:%! perltidy<CR>
     autocmd FileType perl vnoremap <buffer> <C-\> :! perltidy<CR>
-    "# :w + !perl command
     autocmd FileType perl nnoremap <buffer> <F4> :w !perl<CR>
-    "# !perl 
     autocmd FileType perl nnoremap <buffer> <Plug>(mykeylite), :w !perl -c<CR>
-    "# perl moduleの補完設定
     autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
-    "# perldoc
-    autocmd FileType perl
-                \ nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
-    autocmd FileType perl
-                \ vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
-    "# read module source
-    autocmd FileType perl,ref-perldoc
-                \ nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
-    autocmd FileType perl,ref-perldoc
-                \ vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
+    autocmd FileType perl nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
+    autocmd FileType perl vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
+    autocmd FileType perl,ref-perldoc nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
+    autocmd FileType perl,ref-perldoc vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
     autocmd VimEnter * call AlterFileTypePerl()
 augroup END
 
@@ -1551,10 +1541,8 @@ augroup python_ftplugin
     autocmd FileType python let g:jedi#popup_on_dot = 1
     autocmd FileType python setlocal nocindent
     autocmd FileType python setlocal iskeyword+=.,(
-    autocmd FileType python
-                \ nnoremap <buffer> K :<C-u>call ref#open('pydoc', expand('<cword>'))<CR>
-    autocmd FileType python
-                \ vnoremap <buffer> K :<C-u>call ref#jump('visual', 'pydoc')<CR>
+    autocmd FileType python nnoremap <buffer> K :<C-u>call ref#open('pydoc', expand('<cword>'))<CR>
+    autocmd FileType python vnoremap <buffer> K :<C-u>call ref#jump('visual', 'pydoc')<CR>
     autocmd VimEnter * call AlterFileTypePython()
 augroup END
 
@@ -1587,16 +1575,11 @@ endfunction
 augroup ruby_ftplugin
     autocmd!
     autocmd FileType ruby setlocal nocindent
-    "# コンパイラをrubyに設定
     autocmd FileType ruby :compiler ruby
-    "# :w + !ruby command
     autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
-    "# !ruby command
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
-    autocmd FileType ruby
-                \ nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
-    autocmd FileType ruby
-                \ vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
+    autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
+    autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
@@ -1658,9 +1641,6 @@ augroup scala_setting
     autocmd FileType scala call s:sbt_controll()
     autocmd FileType scala nnoremap <buffer> 9 :<C-u>SBT<CR>
 augroup END
-
-
-
 
 "}}}2
 "### Java support{{{2
