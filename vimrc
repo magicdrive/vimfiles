@@ -1,6 +1,17 @@
-"==========================
-" VIMRC for Vim7.3
-"==========================
+"=========================================================================
+"                                 ___           ___           ___
+"      ___            ___        /  /\         /  /\         /  /\
+"     /  /\          /__/\      /  /::|       /  /::\       /  /::\
+"    /  /:/          \__\:\    /  /:|:|      /  /:/\:\     /  /:/\:\
+"   /  /:/           /  /::\  /  /:/|:|__   /  /::\ \:\   /  /:/  \:\
+"  /__/:/  ___    __/  /:/\/ /__/:/_|::::\ /__/:/\:\_\:\ /__/:/ \  \:\
+"  |  |:| /  /\  /__/\/:/~~  \__\/  /~~/:/ \__\/~|::\/:/ \  \:\  \__\/
+"  |  |:|/  /:/  \  \::/           /  /:/     |  |:|::/   \  \:\
+"  |__|:|__/:/    \  \:\          /  /:/      |  |:|\/     \  \:\
+"   \__\::::/      \__\/         /__/:/       |__|:|        \  \:\
+"       ----                     \__\/         \__\|         \__\/
+"                            my vimrc
+"=========================================================================
 
 "[ ####------- Vim Basic Settings --------------#### ] {{{1
 
@@ -35,7 +46,7 @@ set wrap
 "# scroll時の最小行数値
 set scrolljump=15
 
-"# tabを表示 
+"# tabを表示
 set listchars=eol:$,tab:>\
 
 "# 補完キーをCtrl+jに変更
@@ -241,7 +252,7 @@ function! s:edit_encode(code)
 endfunction
 
 command! -nargs=1
-            \ -complete=customlist,s:completion_encode 
+            \ -complete=customlist,s:completion_encode
             \ Encode :call s:edit_encode('<args>')
 
 if isdirectory($HOME . '/.vim')
@@ -585,7 +596,7 @@ augroup vimrc-auto-mkdir
 augroup END
 
 " jump current dir
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
+command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
     if a:directory ==# ''
         lcd %:p:h
@@ -834,6 +845,8 @@ NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
             \ }
 "# vim-coffee-script
 NeoBundle 'kchmck/vim-coffee-script'
+"# vim-typescript
+NeoBundle 'leafgarland/typescript-vim'
 
 "#-----------------------#
 "# python                #
@@ -1408,19 +1421,29 @@ let g:quickrun_config['coffee'] = {
 
 let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enables = {
-            \	"perl"   : 1,
-            \	"python" : 1,
-            \	"bash"   : 1,
-            \	"scala"  : 0,
-            \	"ruby"   : 1,
-            \   "clang"  : 1,
-            \   "jshint" : 1,
+            \	"perl"       : 1,
+            \	"python"     : 1,
+            \	"bash"       : 1,
+            \	"scala"      : 0,
+            \	"ruby"       : 1,
+            \   "clang"      : 1,
+            \   "jshint"     : 1,
+            \   "typescript" : 1,
             \ }
 
 let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
             \		"runner/vimproc/updatetime" : 1,
             \   }
+let g:quickrun_config["watchdogs_checker/typescript"] = {
+            \	"command" : "tsc",
+            \	"exec"    : "%c %s:p",
+            \	"quickfix/errorformat" : "%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m",
+            \}
+let g:quickrun_config["typescript/watchdogs_checker"] = {
+            \	"type" : "watchdogs_checker/typescript"
+            \}
+
 call watchdogs#setup(g:quickrun_config)
 
 "}}}2
@@ -1679,6 +1702,15 @@ augroup javascript_plugin
 augroup END
 
 "}}}2
+"### TypeScript support {{{2
+
+
+augroup typescript_ftplugin
+    autocmd!
+    autocmd BufWritePost typescript :make
+augroup END
+
+"}}}2
 "### FileType(Language)別アシスタンス設定 "{{{2
 
 "辞書ファイルを使用する設定に変更
@@ -1850,7 +1882,7 @@ function MyGUIMacVimSetting()
     set background=dark
     set imdisable 
     set antialias
-    set guifont=Ricty:h14
+    set guifont=Ricty:h16
     set nobackup
 
 endfunction
@@ -1950,6 +1982,3 @@ if filereadable(expand(g:local_vimrc))
     execute 'source ' . g:local_vimrc
 endif
 " }}}1
-
-" __END__
-
