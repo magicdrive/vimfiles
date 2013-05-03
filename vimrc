@@ -985,6 +985,18 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 "# Zenburn
 NeoBundle 'Zenburn'
+if has('gui_running')
+    "# pyte
+    NeoBundle 'vim-scripts/pyte'
+endif
+if has('gui_running')
+    "# chlordane
+    NeoBundle 'vim-scripts/chlordane.vim'
+endif
+if has('gui_running')
+    "# matrix.vim
+    NeoBundle 'vim-scripts/matrix.vim--Yang'
+endif
 
 filetype plugin on
 filetype indent on
@@ -1363,7 +1375,7 @@ if has('mac')
 
     function ITunes(action)
         if a:action ==# 'list' 
-            Unite -vertical it_track
+            Unite it_track
         else 
             execute 'call itunes#' . a:action . '()'
         endif
@@ -1767,9 +1779,9 @@ syntax enable
 let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_a='distinguished'
+let g:gui_colorscheme_a='chlordane'
 let g:gui_background_a='light'
-let g:gui_colorscheme_b='github'
+let g:gui_colorscheme_b='pyte'
 let g:gui_background_b='light'
 
 "# CUI
@@ -1878,7 +1890,12 @@ nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
 function MyGUIMacVimSetting()
 
-    colorscheme distinguished
+    colorscheme chlordane
+    augroup color_set
+        autocmd!
+    augroup END
+
+
     set background=dark
     set imdisable 
     set antialias
