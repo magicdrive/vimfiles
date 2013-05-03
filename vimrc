@@ -1107,7 +1107,7 @@ augroup vimfiler_setting
     autocmd FileType vimfiler nmap <buffer> <Space> <Plug>(mykey)
     autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
     autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
-    autocmd FileType vimfiler nnoremap <buffer> / /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+    autocmd FileType vimfiler nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
     autocmd FileType vimfiler call g:my_vimfiler_settings()
 augroup END
 
