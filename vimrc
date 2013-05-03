@@ -963,6 +963,8 @@ endif
 "#-------------------#
 "# Colorschemes      #
 "#-------------------#
+"# vim-guicolorscheme
+NeoBundle 'thinca/vim-guicolorscheme'
 "# solarized
 NeoBundle 'altercation/vim-colors-solarized'
 "# sand
@@ -985,14 +987,12 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'vim-scripts/rdark'
 "# Zenburn
 NeoBundle 'Zenburn'
-if has('gui_running')
-    "# pyte
-    NeoBundle 'vim-scripts/pyte'
-endif
-if has('gui_running')
-    "# chlordane
-    NeoBundle 'vim-scripts/chlordane.vim'
-endif
+"# pyte
+NeoBundle 'vim-scripts/pyte'
+"# chlordane
+NeoBundle 'vim-scripts/chlordane.vim'
+"# CSApprox
+NeoBundle 'vim-scripts/CSApprox'
 if has('gui_running')
     "# matrix.vim
     NeoBundle 'vim-scripts/matrix.vim--Yang'
@@ -1788,7 +1788,7 @@ let g:gui_background_b='light'
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_a='jellybeans'
 let g:cui_background_a='light'
-let g:cui_colorscheme_b='molokai'
+let g:cui_colorscheme_b='matrix'
 let g:cui_background_b='light'
 
 let g:current_color_mode=g:default_color_mode
@@ -1876,7 +1876,7 @@ endfunction
 
 augroup color_set
     autocmd!
-    autocmd ColorScheme * call MyColor()
+    "autocmd ColorScheme * call MyColor()
 augroup END
 
 "# initialize colorcheme
@@ -1894,7 +1894,6 @@ function MyGUIMacVimSetting()
     augroup color_set
         autocmd!
     augroup END
-
 
     set background=dark
     set imdisable 
