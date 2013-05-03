@@ -490,6 +490,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead Gemfile set filetype=ruby
     autocmd BufNewFile,BufRead gemspec set filetype=ruby
     autocmd BufNewFile,BufRead *.ru set filetype=ruby
+    autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
 augroup END
 
 "}}}2
