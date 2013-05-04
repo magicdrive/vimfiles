@@ -994,10 +994,8 @@ NeoBundle 'vim-scripts/pyte'
 NeoBundle 'vim-scripts/chlordane.vim'
 "# CSApprox
 NeoBundle 'vim-scripts/CSApprox'
-if has('gui_running')
-    "# matrix.vim
-    NeoBundle 'vim-scripts/matrix.vim--Yang'
-endif
+"# matrix.vim
+NeoBundle 'vim-scripts/matrix.vim--Yang'
 
 filetype plugin on
 filetype indent on
@@ -1447,15 +1445,15 @@ let g:watchdogs_check_CursorHold_enables = {
 let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
             \		"runner/vimproc/updatetime" : 1,
-            \   }
+            \ }
 let g:quickrun_config["watchdogs_checker/typescript"] = {
             \	"command" : "tsc",
             \	"exec"    : "%c %s:p",
             \	"quickfix/errorformat" : "%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m",
-            \}
+            \ }
 let g:quickrun_config["typescript/watchdogs_checker"] = {
             \	"type" : "watchdogs_checker/typescript"
-            \}
+            \ }
 
 call watchdogs#setup(g:quickrun_config)
 
@@ -1717,7 +1715,6 @@ augroup END
 "}}}2
 "### TypeScript support {{{2
 
-
 augroup typescript_ftplugin
     autocmd!
     autocmd BufWritePost typescript :make
@@ -1899,7 +1896,7 @@ function MyGUIMacVimSetting()
     set background=dark
     set imdisable 
     set antialias
-    set guifont=Ricty:h16
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
     set nobackup
 
 endfunction
@@ -1948,6 +1945,8 @@ function MyGUISetting ()
 
     "# menu項目
     set guioptions-=t
+    set guioptions-=r
+    set guioptions-=b
 
     "# fullscreen option
     set fuoptions=maxvert,maxhorz
