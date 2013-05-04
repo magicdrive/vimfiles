@@ -1893,7 +1893,7 @@ function MyGUIMacVimSetting()
         autocmd!
     augroup END
 
-    set background=dark
+    set transparency=10
     set imdisable 
     set antialias
     set guifont=Source\ Code\ Pro\ for\ Powerline:h14
@@ -1946,6 +1946,7 @@ function MyGUISetting ()
     "# menu項目
     set guioptions-=t
     set guioptions-=r
+    set guioptions-=l
     set guioptions-=b
 
     "# fullscreen option
