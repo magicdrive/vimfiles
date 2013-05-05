@@ -991,33 +991,19 @@ NeoBundle 'vim-scripts/twilight'
 "# lucius
 NeoBundle 'jonathanfilip/vim-lucius'
 "# railscasts
-NeoBundleLazy 'jpo/vim-railscasts-theme', {
-            \ 'autoload' : { 'gui' : 1 }
-            \ }
+NeoBundle 'jpo/vim-railscasts-theme'
 "# hybrid
-NeoBundleLazy 'w0ng/vim-hybrid', {
-            \ 'autoload' : { 'gui' : 1 }
-            \ }
+NeoBundle 'w0ng/vim-hybrid'
 "# rdark
-NeoBundleLazy 'vim-scripts/rdark', {
-            \ 'autoload' : { 'gui' : 1 }
-            \ }
+NeoBundle 'vim-scripts/rdark'
 "# pyte
-NeoBundleLazy 'vim-scripts/pyte', {
-            \ 'autoload' : { 'gui' : 1 }
-            \ }
+NeoBundle 'vim-scripts/pyte'
 "# chlordane
-NeoBundleLazy 'vim-scripts/chlordane.vim', {
-            \ 'autoload' : { 'gui' : 1 }
-            \ }
+NeoBundle 'vim-scripts/chlordane.vim'
 "# CSApprox
-NeoBundleLazy 'vim-scripts/CSApprox', {
-            \ 'autoload' : { 'command' : [ 'CSApprox', 'CSApproxSnapshot'] }
-            \ }
+NeoBundle 'vim-scripts/CSApprox'
 "# matrix.vim
-NeoBundleLazy 'vim-scripts/matrix.vim--Yang', {
-            \ 'autoload' : { 'gui' : 1 }
-            \ }
+NeoBundle 'vim-scripts/matrix.vim--Yang'
 
 filetype plugin on
 filetype indent on
@@ -1800,7 +1786,7 @@ let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
 let g:gui_colorscheme_a='chlordane'
-let g:gui_background_a='light'
+let g:gui_background_a='dark'
 let g:gui_colorscheme_b='pyte'
 let g:gui_background_b='light'
 
