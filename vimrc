@@ -699,10 +699,12 @@ NeoBundleLazy 'itchyny/thumbnail.vim', {
 NeoBundleLazy 'project.tar.gz', {
             \   'autoload' : { 'commands' : ['Project']}
             \ }
+"# smartinput
+NeoBundleLazy 'kana/vim-smartinput', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
 "# neco-look
 NeoBundle "ujihisa/neco-look"
-"# smartinput
-NeoBundle 'kana/vim-smartinput'
 "# niceblock
 NeoBundle 'kana/vim-niceblock'
 "# altercmd
@@ -760,9 +762,13 @@ NeoBundle 'h1mesuke/unite-outline'
 "# programing suport plug-in #
 "#---------------------------#
 "# taglist
-NeoBundle 'taglist.vim'
+NeoBundleLazy 'taglist.vim', {
+            \  'autoload' : { 'command' : [ 'Tlist' ]}
+            \ }
 "# TagHighlight
-NeoBundle 'TagHighlight'
+NeoBundleLazy 'TagHighlight',{
+            \ 'autoload' : { 'command' : ['UpdateTagFile', 'UpdateTagFileDebug', 'UpdateTagFileOnly'] }
+            \ }
 "# scratch.vim
 NeoBundle 'scratch.vim'
 "# emacs-commandline
@@ -869,7 +875,7 @@ NeoBundleLazy 'rkulla/pydiction', {
 "# ruby                  #
 "#-----------------------#
 "# neocomplcache-rsense
-NeoBundle 'Shougo/neocomplcache-rsense', {
+NeoBundleLazy 'Shougo/neocomplcache-rsense', {
             \ 'autoload': { 'filetypes': 'ruby' }
             \ }
 "# vim-ruby
@@ -965,37 +971,53 @@ endif
 "# Colorschemes      #
 "#-------------------#
 "# vim-guicolorscheme
-NeoBundle 'thinca/vim-guicolorscheme'
+NeoBundleLazy 'thinca/vim-guicolorscheme', {
+            \ 'autoload' : { 'command' : ['GuiColorScheme'] }
+            \ }
 "# solarized
 NeoBundle 'altercation/vim-colors-solarized'
 "# sand
 NeoBundle 'sand'
 "# jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
-"# hybrid
-NeoBundle 'w0ng/vim-hybrid'
+"# wombat
+NeoBundle 'vim-scripts/Wombat'
+"# molokai
+NeoBundle 'tomasr/molokai'
+"# Zenburn
+NeoBundle 'Zenburn'
 "# twilight
 NeoBundle 'vim-scripts/twilight'
 "# lucius
 NeoBundle 'jonathanfilip/vim-lucius'
 "# railscasts
-NeoBundle 'jpo/vim-railscasts-theme'
-"# wombat
-NeoBundle 'vim-scripts/Wombat'
-"# molokai
-NeoBundle 'tomasr/molokai'
+NeoBundleLazy 'jpo/vim-railscasts-theme', {
+            \ 'autoload' : { 'gui' : 1 }
+            \ }
+"# hybrid
+NeoBundleLazy 'w0ng/vim-hybrid', {
+            \ 'autoload' : { 'gui' : 1 }
+            \ }
 "# rdark
-NeoBundle 'vim-scripts/rdark'
-"# Zenburn
-NeoBundle 'Zenburn'
+NeoBundleLazy 'vim-scripts/rdark', {
+            \ 'autoload' : { 'gui' : 1 }
+            \ }
 "# pyte
-NeoBundle 'vim-scripts/pyte'
+NeoBundleLazy 'vim-scripts/pyte', {
+            \ 'autoload' : { 'gui' : 1 }
+            \ }
 "# chlordane
-NeoBundle 'vim-scripts/chlordane.vim'
+NeoBundleLazy 'vim-scripts/chlordane.vim', {
+            \ 'autoload' : { 'gui' : 1 }
+            \ }
 "# CSApprox
-NeoBundle 'vim-scripts/CSApprox'
+NeoBundleLazy 'vim-scripts/CSApprox', {
+            \ 'autoload' : { 'command' : [ 'CSApprox', 'CSApproxSnapshot'] }
+            \ }
 "# matrix.vim
-NeoBundle 'vim-scripts/matrix.vim--Yang'
+NeoBundleLazy 'vim-scripts/matrix.vim--Yang', {
+            \ 'autoload' : { 'gui' : 1 }
+            \ }
 
 filetype plugin on
 filetype indent on
@@ -1999,3 +2021,4 @@ if filereadable(expand(g:local_vimrc))
     execute 'source ' . g:local_vimrc
 endif
 " }}}1
+"# __END__
