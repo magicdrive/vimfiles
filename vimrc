@@ -216,7 +216,7 @@ endfunction
 nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
 "}}}i1
-"### encoding & fileencodingの設定 "{{{2
+"### encoding & fileencoding "{{{2
 
 "Encoding
 set enc=utf-8
@@ -340,7 +340,7 @@ if has('autocmd')
 endif
 
 "}}}2
-"### LineNumber表示の設定 "{{{2
+"### LineNumber "{{{2
 
 "# LineNumberのトグル
 nnoremap <silent> <Plug>(mykeylite)n :<C-u>call ToggleNumber()<CR>
@@ -357,7 +357,7 @@ augroup LineNumber
 augroup END
 
 "}}}2
-"### mouse modeの設定 "{{{2
+"### mouse mode "{{{2
 
 if has('mouse')
     "# マウスモードの有効
@@ -379,7 +379,7 @@ if has('mouse')
 endif
 
 "}}}2
-"### backup,swapfileの設定 "{{{2
+"### backup,swapfile "{{{2
 
 "# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
 let g:backupfile_save_dir="$HOME/.vim-backup"
@@ -396,7 +396,7 @@ else
 endif
 
 "}}}2
-"### Tab機能の設定 "{{{2
+"### Tab "{{{2
 
 "# create new tab
 nnoremap <Plug>(mykey)t :tabnew<CR>
@@ -410,7 +410,7 @@ nnoremap <silent> <C-f> gt
 nnoremap <silent> <C-b> gT
 
 "}}}2
-"### search設定 "{{{2
+"### search "{{{2
 
 "# 検索に大文字を含んでいたら大小区別
 set ignorecase
@@ -426,7 +426,7 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 set incsearch
 
 "}}}2
-"### Emacs like keybindの設定 "{{{2
+"### Emacs like keybind "{{{2
 
 "# カーソルキーで行末／行頭の移動可能に設定
 set whichwrap=b,s,[,],<,>
@@ -446,7 +446,7 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
 "}}}2
-"### Indentの設定 "{{{2
+"### Indent "{{{2
 
 "# current buffer indent
 nnoremap <C-\> gg=G
@@ -470,7 +470,7 @@ set shiftwidth=4
 inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 
 "}}}2
-"### FileType判定 "{{{2
+"### FileType "{{{2
 
 augroup detect_filetype
     autocmd!
@@ -494,7 +494,7 @@ augroup detect_filetype
 augroup END
 
 "}}}2
-"### Window関連の設定 "{{{2
+"### Window "{{{2
 
 "# Window横分割
 nnoremap <silent> <Plug>(mykey)w :<ESC>:split<CR>
@@ -520,7 +520,7 @@ nnoremap <C-w>b <C-w>h
 nnoremap <C-w>f <C-w>l
 
 "}}}2
-"### AutoBufferの設定 "{{{2
+"### AutoBuffer "{{{2
 
 "# tmpl perl
 iab PSIMPLE <ESC>:r ~/.vim/misc/tmpl/perl_simple.pl<CR>
@@ -560,7 +560,7 @@ iab javasc javascript
 iab concate concatenate
 
 "}}}2
-"### Foldingの設定 {{{2
+"### Folding {{{2
 
 "# difine foldmethod
 set foldmethod=marker
@@ -569,7 +569,7 @@ set foldtext=FoldCCtext()
 nnoremap <Space><Space> za<Space>
 
 "}}}2
-"### Macvim用の設定 {{{2
+"### for MacVim {{{2
 
 if has('macvim')
     " kaoriyadicwin off
@@ -920,6 +920,12 @@ NeoBundle 'nginx.vim'
 NeoBundle 'mattn/httpstatus-vim'
 "# tmux.vim
 NeoBundle 'zaiste/tmux.vim'
+"# html5.vim
+NeoBundle 'taichouchou2/html5.vim'
+"# css3vim
+NeoBundle 'hail2u/vim-css3-syntax'
+"# sass
+NeoBundle 'AtsushiM/sass-compile.vim'
 
 "#-----------------------#
 "# git-tool              #
@@ -1527,6 +1533,15 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "### Singleton.vim {{{2
     call singleton#enable()
 "}}}2
+"### Sass {{{2
+    let g:sass_compile_auto = 1
+    let g:sass_compile_cdloop = 5
+    let g:sass_compile_cssdir = ['css', 'stylesheet']
+    let g:sass_compile_file = ['scss', 'sass']
+    let g:sass_started_dirs = []
+     
+    autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+"}}}2
 
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
@@ -1729,7 +1744,7 @@ augroup typescript_ftplugin
 augroup END
 
 "}}}2
-"### FileType(Language)別アシスタンス設定 "{{{2
+"### FileType(Language) assistance "{{{2
 
 "辞書ファイルを使用する設定に変更
 set complete+=k
@@ -1774,7 +1789,7 @@ augroup END
 " }}}1
 "[ ####------- GVim Visualize Settings ---------#### ] {{{1
 
-"### colorschemeの設定 "{{{2
+"### colorscheme "{{{2
 
 "# xterm-256color
 set t_Co=256
@@ -1892,7 +1907,7 @@ call SetupColorScheme()
 nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
 "}}}2
-"### gui_MacVim用の設定 {{{2
+"### for gui_MacVim {{{2
 
 function MyGUIMacVimSetting()
 
@@ -1910,7 +1925,7 @@ function MyGUIMacVimSetting()
 endfunction
 
 "}}}2
-"### gvimの設定 {{{2
+"### gvim {{{2
 
 "# windowの大きさ監視
 function WindowSupervise()
