@@ -1625,11 +1625,25 @@ endfunction
 "}}}2
 "### Ruby support "{{{2
 
+command! -nargs=1  RubyGemRead :call OpenRubyGemCode('<args>')
+function! OpenRubyGemCode(module) range
+    let l:module_name=a:module
+    if a:module ==# '<visual>'
+        let l:module_name=s:get_visual_selected()
+    endif
+    let l:module_path =
+                \ system('gem which ' . l:module_name )
+    if l:module_path !=# ''
+        execute 'edit ' . l:module_path
+    else
+        echohl Error | echo 'No gemfile found.' | echohl None
+    endif
+endfunction
 function AlterFileTypeRuby()
+    AlterCommand  rubyg[emread] RubyGemRead
+    AlterCommand  gem[read] RubyGemRead
     AlterCommand  ri Ref ri
 endfunction
-
-
 
 augroup ruby_ftplugin
     autocmd!
@@ -1641,6 +1655,8 @@ augroup ruby_ftplugin
     autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
     autocmd FileType ruby setlocal ts=2 sw=2 expandtab
     autocmd FileType ruby setlocal autoindent
+    autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call OpenRubyGemCode( expand('<cword>') )<CR>
+    autocmd FileType ruby,ref-ri vnoremap <buffer> <C-l> :<C-u>call OpenRubyGemCode( '<visual>' )<CR>
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
