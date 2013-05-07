@@ -74,7 +74,7 @@ nnoremap Y y$
 nnoremap <Plug>(mykey)/ :<C-u>set filetype=
 
 "# Plug-in有効設定
-filetype plugin indent on
+filetype indent on
 filetype plugin on
 
 "# command-line modeへの切り替え
@@ -1629,6 +1629,8 @@ function AlterFileTypeRuby()
     AlterCommand  ri Ref ri
 endfunction
 
+
+
 augroup ruby_ftplugin
     autocmd!
     autocmd FileType ruby setlocal nocindent
@@ -1637,6 +1639,8 @@ augroup ruby_ftplugin
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
     autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
     autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
+    autocmd FileType ruby setlocal ts=2 sw=2 expandtab
+    autocmd FileType ruby setlocal autoindent
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
