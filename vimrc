@@ -925,7 +925,9 @@ NeoBundle 'taichouchou2/html5.vim'
 "# css3vim
 NeoBundle 'hail2u/vim-css3-syntax'
 "# sass
-NeoBundle 'AtsushiM/sass-compile.vim'
+if executable('sass')
+    NeoBundle 'AtsushiM/sass-compile.vim'
+endif
 
 "#-----------------------#
 "# git-tool              #
@@ -1095,7 +1097,6 @@ let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
 let g:vimshell_user_prompt='getcwd()'
 let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 
-
 "# VimShellを新規Windowで立ち上げる
 command! Vshell call s:Shell()
 function s:alter_vimshell()
@@ -1157,9 +1158,6 @@ function! s:my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_vsplit', s:my_action)
 
-"# ファイルの先頭文字検索
-
-"# vimfilerをデフォルトのexplorerと置き換える
 let g:loaded_netrwPlugin = 1
 let g:vimfiler_as_default_explorer=1
 
@@ -1213,11 +1211,9 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-
 let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache#sources#rsense#home_directory = expand('~/.bundle/rsense-0.3')
+let g:neocomplcache#sources#rsense#home_directory = expand('/usr/local/rsense/Home')
 let g:neocomplcache_skip_auto_completion_time = '0.3'
-
 
 "# Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -1242,7 +1238,7 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 
 "# NeoCompleCacheToggle
-"nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
+nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 
 "}}}2
 "### Vim-Powerline {{{2
@@ -1531,7 +1527,7 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 "}}}2
 "### Singleton.vim {{{2
-    call singleton#enable()
+call singleton#enable()
 "}}}2
 "### Sass {{{2
     let g:sass_compile_auto = 1
@@ -1653,10 +1649,10 @@ augroup ruby_ftplugin
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
     autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
     autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
-    autocmd FileType ruby setlocal ts=2 sw=2 expandtab
-    autocmd FileType ruby setlocal autoindent
     autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call OpenRubyGemCode( expand('<cword>') )<CR>
     autocmd FileType ruby,ref-ri vnoremap <buffer> <C-l> :<C-u>call OpenRubyGemCode( '<visual>' )<CR>
+    autocmd FileType ruby setlocal ts=2 sw=2 expandtab
+    autocmd FileType ruby setlocal autoindent
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
