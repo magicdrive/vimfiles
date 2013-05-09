@@ -879,7 +879,7 @@ NeoBundleLazy 'Shougo/neocomplcache-rsense', {
             \ 'autoload': { 'filetypes': 'ruby' }
             \ }
 "# vim-ruby
-NeoBundleLazy 'vim-ruby/vim-ruby', {
+NeoBundle 'vim-ruby/vim-ruby', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# vim-ref-ri
@@ -888,7 +888,7 @@ NeoBundleLazy 'taka84u9/vim-ref-ri', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# vim-rspec
-NeoBundleLazy 'skwp/vim-rspec', {
+NeoBundle 'skwp/vim-rspec', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# matchit
