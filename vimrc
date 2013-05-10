@@ -656,7 +656,9 @@ NeoBundle 'Shougo/neocomplcache'
 "# neosnippet
 NeoBundle 'Shougo/neosnippet'
 "# vim-singleton
-NeoBundle 'thinca/vim-singleton'
+if has('clientserver')
+    NeoBundle 'thinca/vim-singleton'
+endif
 "# vimproc
 NeoBundle 'Shougo/vimproc', {
             \ 'build' : {
@@ -881,6 +883,18 @@ NeoBundleLazy 'Shougo/neocomplcache-rsense', {
 "# vim-ruby
 NeoBundle 'vim-ruby/vim-ruby', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# unite-ruby-require
+NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# neco-ruby-keyword-args
+NeoBundleLazy 'rhysd/neco-ruby-keyword-args', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# textobj-ruby
+NeoBundleLazy 'rhysd/vim-textobj-ruby', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# vim-ref-ri
 NeoBundleLazy 'taka84u9/vim-ref-ri', {
@@ -1527,7 +1541,9 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 "}}}2
 "### Singleton.vim {{{2
-call singleton#enable()
+if has('clientserver')
+    call singleton#enable()
+endif
 "}}}2
 "### Sass {{{2
     let g:sass_compile_auto = 1
