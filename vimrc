@@ -481,6 +481,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.psgi set filetype=perl
     autocmd BufNewFile,BufRead cpanfile set filetype=perl
     autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
+    autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
     autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
     autocmd BufNewFile,BufRead *.scala set filetype=scala
     autocmd BufNewFile,BufRead *.sbt set filetype=scala
@@ -652,7 +653,9 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim'
 "# neocomplcache
-NeoBundle 'Shougo/neocomplcache'
+NeoBundleLazy 'Shougo/neocomplcache', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
 "# neosnippet
 NeoBundle 'Shougo/neosnippet'
 "# vim-singleton
@@ -720,13 +723,17 @@ NeoBundle 'Lokaltog/vim-easymotion'
 "# foldCC
 NeoBundle 'magicdrive/foldCC'
 "# vdbi-vim
-NeoBundle 'mattn/vdbi-vim'
+NeoBundleLazy 'mattn/vdbi-vim', {
+            \ 'autoload' : { 'commands' : ['VDBI','VDBIExec', 'VDBIReset', 'VDBIDatasources'] }
+            \ }
 "# vim-abolish
 NeoBundle 'tpope/vim-abolish'
 "# vim-powerline
 NeoBundle 'magicdrive/vim-powerline.git'
 "# memolist
-NeoBundle 'glidenote/memolist.vim'
+NeoBundleLazy 'glidenote/memolist.vim', {
+            \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
+            \ }
 "# sudo.vim
 NeoBundle 'sudo.vim'
 "# vim-rooter
@@ -736,7 +743,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
-            \       'filetype' : [ 'perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
+            \       'filetype' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
             \       'commands' : ['Ref'],
             \       'function' : ['ref#open']
             \    },
@@ -750,15 +757,25 @@ NeoBundleLazy 'Shougo/unite.vim', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
 "# unite-ssh
-NeoBundle 'Shougo/unite-ssh'
+NeoBundleLazy 'Shougo/unite-ssh', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 "# unite-ack
-NeoBundle 't9md/vim-unite-ack'
+NeoBundleLazy 't9md/vim-unite-ack', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 "# unite-help
-NeoBundle 'tsukkee/unite-help'
+NeoBundleLazy 'tsukkee/unite-help', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 "# unite-qf
-NeoBundle 'sgur/unite-qf'
+NeoBundleLazy 'sgur/unite-qf', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 "# unite-outline
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundleLazy 'h1mesuke/unite-outline', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 
 "#---------------------------#
 "# programing suport plug-in #
@@ -772,13 +789,19 @@ NeoBundleLazy 'TagHighlight',{
             \ 'autoload' : { 'command' : ['UpdateTagFile', 'UpdateTagFileDebug', 'UpdateTagFileOnly'] }
             \ }
 "# scratch.vim
-NeoBundle 'scratch.vim'
+NeoBundleLazy 'scratch.vim', {
+            \ 'autoload' : { 'commands' : ['Scratch'] }
+            \ }
 "# emacs-commandline
 NeoBundle 'houtsnip/vim-emacscommandline'
 "# MultipleSearch
-NeoBundle 'MultipleSearch'
+NeoBundleLazy 'MultipleSearch', {
+            \ 'autoload' : { 'commands' : ['Search', 'SearchBuffers'] }
+            \ }
 "# align.vim
-NeoBundle 'Align'
+NeoBundleLazy 'Align', {
+            \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
+            \ }
 
 "#-----------------------#
 "# llvm                  #
@@ -902,9 +925,7 @@ NeoBundleLazy 'taka84u9/vim-ref-ri', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# vim-rspec
-NeoBundle 'skwp/vim-rspec', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
-            \ }
+NeoBundle 'skwp/vim-rspec'
 "# matchit
 NeoBundleLazy 'ruby-matchit', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
@@ -931,7 +952,9 @@ NeoBundleLazy 'chreekat/vim-instant-markdown', {
 "# nginx.vim
 NeoBundle 'nginx.vim'
 "# httpstatus
-NeoBundle 'mattn/httpstatus-vim'
+NeoBundleLazy 'mattn/httpstatus-vim', {
+            \ 'autoload' : { 'command' : ['HttpStatus'] }
+            \ }
 "# tmux.vim
 NeoBundle 'zaiste/tmux.vim'
 "# html5.vim
@@ -947,7 +970,9 @@ endif
 "# git-tool              #
 "#-----------------------#
 "# gist.vim
-NeoBundle 'mattn/gist-vim'
+NeoBundleLazy 'mattn/gist-vim', {
+            \ 'autoload' : { 'command' : ['Gist'] }
+            \ }
 "# fugitive
 NeoBundle 'tpope/vim-fugitive'
 "# gitv
@@ -996,6 +1021,10 @@ endif
 NeoBundleLazy 'thinca/vim-guicolorscheme', {
             \ 'autoload' : { 'command' : ['GuiColorScheme'] }
             \ }
+"# CSApprox
+NeoBundleLazy 'vim-scripts/CSApprox', {
+            \ 'autoload' : { 'command' : ['CSApprox', 'CSApproxSnapshot'] }
+            \ }
 "# solarized
 NeoBundle 'altercation/vim-colors-solarized'
 "# sand
@@ -1022,8 +1051,6 @@ NeoBundle 'vim-scripts/rdark'
 NeoBundle 'vim-scripts/pyte'
 "# chlordane
 NeoBundle 'vim-scripts/chlordane.vim'
-"# CSApprox
-NeoBundle 'vim-scripts/CSApprox'
 "# matrix.vim
 NeoBundle 'vim-scripts/matrix.vim--Yang'
 
