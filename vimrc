@@ -23,6 +23,7 @@ map  , <Plug>(mykeylite)
 
 "# vi互換のoff
 set nocompatible
+set regexpengine=1
 
 "# 強制終了の無効化
 noremap ZZ <Nop>
@@ -2081,4 +2082,5 @@ if filereadable(expand(g:local_vimrc))
     execute 'source ' . g:local_vimrc
 endif
 " }}}1
+
 "# __END__
