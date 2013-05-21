@@ -921,10 +921,7 @@ NeoBundleLazy 'rhysd/vim-textobj-ruby', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# vim-ref-ri
-NeoBundleLazy 'taka84u9/vim-ref-ri', {
-            \ 'depends': ['Shougo/unite.vim', 'thinca/vim-ref'],
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
-            \ }
+NeoBundle 'taka84u9/vim-ref-ri'
 "# vim-rspec
 NeoBundle 'skwp/vim-rspec'
 "# matchit
@@ -1869,7 +1866,7 @@ let g:gui_background_b='light'
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_a='jellybeans'
 let g:cui_background_a='light'
-let g:cui_colorscheme_b='matrix'
+let g:cui_colorscheme_b='mateix'
 let g:cui_background_b='light'
 
 let g:current_color_mode=g:default_color_mode
@@ -2082,5 +2079,4 @@ if filereadable(expand(g:local_vimrc))
     execute 'source ' . g:local_vimrc
 endif
 " }}}1
-
 "# __END__
