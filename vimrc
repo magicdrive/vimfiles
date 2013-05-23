@@ -483,6 +483,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead cpanfile set filetype=perl
     autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
     autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
+    autocmd BufNewFile,BufRead */patches/* set filetype=diff
     autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
     autocmd BufNewFile,BufRead *.scala set filetype=scala
     autocmd BufNewFile,BufRead *.sbt set filetype=scala
