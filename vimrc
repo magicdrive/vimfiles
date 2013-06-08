@@ -25,6 +25,11 @@ map  , <Plug>(mykeylite)
 set nocompatible
 set regexpengine=1
 
+"# timeout
+set to
+set tm=500
+set ttm=100
+
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
@@ -750,6 +755,8 @@ NeoBundleLazy 'thinca/vim-ref', {
             \       'function' : ['ref#open']
             \    },
             \ }
+
+set runtimepath+=~/.vim/bundle/manual/vim-golang
 
 "#----------------------------------#
 "# unite.vim & unite source plug-in #
