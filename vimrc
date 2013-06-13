@@ -971,6 +971,8 @@ NeoBundle 'hail2u/vim-css3-syntax'
 if executable('sass')
     NeoBundle 'AtsushiM/sass-compile.vim'
 endif
+"# slim
+NeoBundle 'slim-template/vim-slim'
 
 "#-----------------------#
 "# git-tool              #
