@@ -936,9 +936,6 @@ NeoBundle 'skwp/vim-rspec'
 NeoBundleLazy 'ruby-matchit', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
-"# rsense-local
-autocmd FileType ruby 
-            \ :setlocal runtimepath+=~/.vim/bundle/manual/rsense-local
 
 "#-----------------------#
 "# html-coding           #
@@ -1246,6 +1243,8 @@ let g:DrChipTopLvlMenu=''
 "}}}2
 "### NeoComplcache {{{2
 
+set infercase
+
 "# Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 "# Use neocomplcache.
@@ -1261,7 +1260,6 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache#sources#rsense#home_directory = expand('/usr/local/rsense/Home')
 let g:neocomplcache_skip_auto_completion_time = '0.3'
 
 "# Define dictionary.
@@ -1280,6 +1278,11 @@ let g:neocomplcache_dictionary_filetype_lists = {
             \ 'vimshell'   : $HOME.'/.vimshell_hist',
             \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
             \ }
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 "# Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -1566,13 +1569,9 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 "}}}2
 "### Rsense {{{2
 
+let g:neocomplcache#sources#rsense#home_directory = expand('/usr/local/rsense/Home')
 let g:rsenseHome='/usr/local/rsense/Home'
-let g:rsenseUseOmniFunc = 1
-
-if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:rsenseUseOmniFunc=1
 
 "}}}2
 "### Singleton.vim {{{2
