@@ -592,17 +592,17 @@ endif
 "}}}2
 "### Util Functinos {{{2
 
-" create directory automatically
-augroup vimrc-auto-mkdir
-    autocmd!
-    autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-    function! s:auto_mkdir(dir, force)
-        if !isdirectory(a:dir) && (a:force ||
-                    \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
-            call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-        endif
-    endfunction
-augroup END
+"" create directory automatically
+"augroup vimrc-auto-mkdir
+"    autocmd!
+"    autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+"    function! s:auto_mkdir(dir, force)
+"        if !isdirectory(a:dir) && (a:force ||
+"                    \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+"            call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+"        endif
+"    endfunction
+"augroup END
 
 " jump current dir
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
@@ -1282,7 +1282,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
-let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 "# Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
