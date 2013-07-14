@@ -785,6 +785,10 @@ NeoBundleLazy 'sgur/unite-qf', {
 NeoBundleLazy 'h1mesuke/unite-outline', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
+"# unite-rails
+NeoBundleLazy 'basyura/unite-rails', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 
 "#---------------------------#
 "# programing suport plug-in #
@@ -934,6 +938,10 @@ NeoBundle 'taka84u9/vim-ref-ri'
 NeoBundle 'skwp/vim-rspec'
 "# matchit
 NeoBundleLazy 'ruby-matchit', {
+            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# vim-rails
+NeoBundleLazy 'tpope/vim-rails', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 
