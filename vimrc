@@ -1603,7 +1603,7 @@ endif
     autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
 "}}}2
 " NERDTree {{{2
-nnoremap <Plug>(mykey)b :<C-u>NERDTreeToggle<CR>
+nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle<CR>
 "}}}2
 "
 " }}}1
