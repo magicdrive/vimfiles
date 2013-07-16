@@ -687,6 +687,13 @@ NeoBundleLazy 'Shougo/vimfiler', {
             \   'explorer' : 1 ,
             \   }
             \ }
+"# NERDTree
+NeoBundleLazy 'scrooloose/nerdtree', {
+            \   'autoload' : { 
+            \   'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ],
+            \   'explorer' : 1 ,
+            \   }
+            \ }
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
 "# vim-watchdogs
@@ -941,9 +948,7 @@ NeoBundleLazy 'ruby-matchit', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 "# vim-rails
-NeoBundleLazy 'tpope/vim-rails', {
-            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
-            \ }
+NeoBundle 'tpope/vim-rails'
 
 "#-----------------------#
 "# html-coding           #
@@ -1082,7 +1087,7 @@ let g:unite_source_file_mru_limit=10000
 "# buffers+unite             #
 "#---------------------------#
 " buffer
-nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
+"#nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
 " filehistory
 nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
 " filehistory and buffer
@@ -1597,7 +1602,10 @@ endif
      
     autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
 "}}}2
-
+" NERDTree {{{2
+nnoremap <Plug>(mykey)b :<C-u>NERDTreeToggle<CR>
+"}}}2
+"
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
 
