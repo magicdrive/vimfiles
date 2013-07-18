@@ -691,7 +691,6 @@ NeoBundleLazy 'Shougo/vimfiler', {
 NeoBundleLazy 'scrooloose/nerdtree', {
             \   'autoload' : { 
             \   'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ],
-            \   'explorer' : 1 ,
             \   }
             \ }
 "# quickrun
@@ -1604,6 +1603,7 @@ endif
 "}}}2
 "### NERDTree {{{2
 nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle<CR>
+let g:NERDTreeHijackNetrw=0
 "}}}2
 "
 " }}}1
