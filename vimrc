@@ -918,10 +918,6 @@ NeoBundleLazy 'rkulla/pydiction', {
 "#-----------------------#
 "# ruby                  #
 "#-----------------------#
-"# neocomplcache-rsense
-NeoBundleLazy 'Shougo/neocomplcache-rsense', {
-            \ 'autoload': { 'filetypes': 'ruby' }
-            \ }
 "# vim-ruby
 NeoBundle 'vim-ruby/vim-ruby', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
@@ -1295,7 +1291,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
 endif
-"let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 "# Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -1578,13 +1574,6 @@ let g:NERDCreateDefaultMappings = 0
 let NERDSpaceDelims = 1
 nmap <Leader><Leader> <Plug>NERDCommenterToggle
 vmap <Leader><Leader> <Plug>NERDCommenterToggle
-
-"}}}2
-"### Rsense {{{2
-
-let g:neocomplcache#sources#rsense#home_directory = expand('/usr/local/rsense/Home')
-let g:rsenseHome='/usr/local/rsense/Home'
-let g:rsenseUseOmniFunc=1
 
 "}}}2
 "### Singleton.vim {{{2
