@@ -1082,7 +1082,7 @@ let g:unite_source_file_mru_limit=10000
 "# buffers+unite             #
 "#---------------------------#
 " buffer
-"#nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
+nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
 " filehistory
 nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
 " filehistory and buffer
@@ -1515,7 +1515,7 @@ let g:watchdogs_check_CursorHold_enables = {
 
 let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
-            \		"runner/vimproc/updatetime" : 1,
+            \		"runner/vimproc/updatetime" : 0,
             \ }
 let g:quickrun_config["watchdogs_checker/typescript"] = {
             \	"command" : "tsc",
