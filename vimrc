@@ -1519,7 +1519,8 @@ let g:watchdogs_check_CursorHold_enables = {
 
 let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
-            \		"runner/vimproc/updatetime" : 0,
+            \		"runner/vimproc/updatetime" : 100,
+            \       'outputter/quickfix/open_cmd' : '',
             \ }
 let g:quickrun_config["watchdogs_checker/typescript"] = {
             \	"command" : "tsc",
@@ -1586,13 +1587,13 @@ if has('clientserver')
 endif
 "}}}2
 "### Sass {{{2
-    let g:sass_compile_auto = 1
-    let g:sass_compile_cdloop = 5
-    let g:sass_compile_cssdir = ['css', 'stylesheet']
-    let g:sass_compile_file = ['scss', 'sass']
-    let g:sass_started_dirs = []
-     
-    autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+let g:sass_compile_auto = 1
+let g:sass_compile_cdloop = 5
+let g:sass_compile_cssdir = ['css', 'stylesheet']
+let g:sass_compile_file = ['scss', 'sass']
+let g:sass_started_dirs = []
+
+autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
 "}}}2
 "### NERDTree {{{2
 nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
