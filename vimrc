@@ -485,7 +485,8 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
     autocmd BufNewFile,BufRead *.t set filetype=perl
     autocmd BufNewFile,BufRead *.psgi set filetype=perl
-    autocmd BufNewFile,BufRead cpanfile set filetype=perl
+    autocmd BufNewFile,BufRead cpanfile set filetype=cpanfile
+    autocmd BufNewFile,BufRead cpanfile set syntax=perl.cpanfile
     autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
     autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
     autocmd BufNewFile,BufRead */patches/* set filetype=diff
@@ -871,6 +872,10 @@ NeoBundle 'thinca/vim-ft-clojure'
 "#-----------------------#
 "# perl-mauke
 NeoBundleLazy 'perl-mauke.vim',  {
+            \ 'autoload' : {'filetype': ['perl']}
+            \ }
+"# vim-cpanfile
+NeoBundleLazy 'moznion/vim-cpanfile',  {
             \ 'autoload' : {'filetype': ['perl']}
             \ }
 "# vim-perl_use_insertion
@@ -1321,7 +1326,6 @@ if has('unix') && !has('gui_running')
     inoremap <silent> <ESC> <ESC>
     inoremap <silent> <C-[> <ESC>
 endif
-
 if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
     PowerlineClearCache | PowerlineReloadColorscheme
 endif
@@ -1373,7 +1377,7 @@ endif
 "}}}2
 "### Ref.vim {{{2
 
-let g:ref_open="vsplit"
+let g:ref_open="split | resize 15 | set noequalalways"
 
 " ref-manpage
 command! -nargs=?  Manpage call ref#open('man', '<args>')
@@ -1591,7 +1595,7 @@ endif
     autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
 "}}}2
 "### NERDTree {{{2
-nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle<CR>
+nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
 let g:NERDTreeHijackNetrw=0
 "}}}2
 "
