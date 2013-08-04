@@ -1522,14 +1522,6 @@ let g:quickrun_config["watchdogs_checker/_"] = {
             \		"runner/vimproc/updatetime" : 100,
             \       'outputter/quickfix/open_cmd' : '',
             \ }
-let g:quickrun_config["watchdogs_checker/typescript"] = {
-            \	"command" : "tsc",
-            \	"exec"    : "%c %s:p",
-            \	"quickfix/errorformat" : "%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m",
-            \ }
-let g:quickrun_config["typescript/watchdogs_checker"] = {
-            \	"type" : "watchdogs_checker/typescript"
-            \ }
 
 call watchdogs#setup(g:quickrun_config)
 
