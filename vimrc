@@ -1880,7 +1880,7 @@ let g:gui_background_b='light'
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_a='jellybeans'
 let g:cui_background_a='light'
-let g:cui_colorscheme_b='mateix'
+let g:cui_colorscheme_b='matrix'
 let g:cui_background_b='light'
 
 let g:current_color_mode=g:default_color_mode
