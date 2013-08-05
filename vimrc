@@ -704,6 +704,8 @@ NeoBundle 'jceb/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
+"# vim-dispatch
+NeoBundle 'tpope/vim-dispatch'
 "# nerdcommneter
 NeoBundle 'scrooloose/nerdcommenter'
 "# vim-endwise
