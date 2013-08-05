@@ -888,7 +888,7 @@ autocmd FileType perl
 "# javascript            #
 "#-----------------------#
 "# javascript-syntax
-NeoBundle 'magicdrive/vim-javascript-syntax'
+NeoBundle 'jelera/vim-javascript-syntax'
 "# jscomplete
 NeoBundleLazy 'teramako/jscomplete-vim', {
             \ 'autoload' : {'filetype': ['javascript']}
