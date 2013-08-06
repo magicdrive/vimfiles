@@ -959,9 +959,9 @@ NeoBundle 'tpope/vim-rails'
 NeoBundleLazy 'groenewege/vim-less', {
             \ 'autoload' : {'filetype': ['less']}
             \ }
-"# zencoding.vim
-NeoBundleLazy 'mattn/zencoding-vim', {
-            \ 'autoload' : {'filetype': ['html','tt','haml']}
+"# emmet.vim
+NeoBundleLazy 'mattn/emmet-vim', {
+            \ 'autoload' : {'filetype': ['eruby','html','tt','haml']}
             \ }
 "# instantmarkdown
 NeoBundleLazy 'chreekat/vim-instant-markdown', {
