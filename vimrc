@@ -759,7 +759,7 @@ NeoBundle 'terryma/vim-multiple-cursors'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
-            \       'filetype' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
+            \       'filetypes' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
             \       'commands' : ['Ref'],
             \       'function' : ['ref#open']
             \    },
@@ -804,11 +804,11 @@ NeoBundleLazy 'basyura/unite-rails', {
 "#---------------------------#
 "# taglist
 NeoBundleLazy 'taglist.vim', {
-            \  'autoload' : { 'command' : [ 'Tlist' ]}
+            \  'autoload' : { 'commands' : [ 'Tlist' ]}
             \ }
 "# TagHighlight
 NeoBundleLazy 'TagHighlight',{
-            \ 'autoload' : { 'command' : ['UpdateTagFile', 'UpdateTagFileDebug', 'UpdateTagFileOnly'] }
+            \ 'autoload' : { 'commands' : ['UpdateTagFile', 'UpdateTagFileDebug', 'UpdateTagFileOnly'] }
             \ }
 "# scratch.vim
 NeoBundleLazy 'scratch.vim', {
@@ -830,15 +830,15 @@ NeoBundleLazy 'Align', {
 "#-----------------------#
 "# cocoa.vim
 NeoBundleLazy 'cocoa.vim', {
-            \ 'autoload' : {'filetype': ['objective-c']}
+            \ 'autoload' : {'filetypes': ['objective-c']}
             \ }
 "# neocomplcache-clang
 NeoBundleLazy 'Shougo/neocomplcache-clang', {
-            \ 'autoload' : {'filetype': ['objective-c','cpp','c']}
+            \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
             \ }
 "# neocomplcache-clang_complete
 NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
-            \ 'autoload' : {'filetype': ['objective-c','cpp','c']}
+            \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
             \ }
 
 "#-----------------------#
@@ -852,15 +852,15 @@ NeoBundle 'eagletmt/ghcmod-vim'
 "#-----------------------#
 "# javacomplete
 NeoBundleLazy 'javacomplete', {
-            \ "autoload" : {"filetype": ['java']}
+            \ "autoload" : {"filetypes": ['java']}
             \ }
 "# groovy.vim
 NeoBundleLazy 'groovy.vim', {
-            \ "autoload" : {"filetype": ['groovy']}
+            \ "autoload" : {"filetypes": ['groovy']}
             \ }
 "# maven-plugin
 NeoBundleLazy 'mikelue/vim-maven-plugin', {
-            \ 'autoload' : {'filetype': ['java','groovy']}
+            \ 'autoload' : {'filetypes': ['java','groovy']}
             \ }
 "# vim-scala
 NeoBundle 'magicdrive/vim-scala'
@@ -874,11 +874,11 @@ NeoBundle 'thinca/vim-ft-clojure'
 "#-----------------------#
 "# perl-mauke
 NeoBundleLazy 'perl-mauke.vim',  {
-            \ 'autoload' : {'filetype': ['perl']}
+            \ 'autoload' : {'filetypes': ['perl']}
             \ }
 "# vim-cpanfile
 NeoBundleLazy 'moznion/vim-cpanfile',  {
-            \ 'autoload' : {'filetype': ['perl']}
+            \ 'autoload' : {'filetypes': ['perl']}
             \ }
 "# vim-perl_use_insertion
 autocmd FileType perl 
@@ -891,15 +891,15 @@ autocmd FileType perl
 NeoBundle 'jelera/vim-javascript-syntax'
 "# jscomplete
 NeoBundleLazy 'teramako/jscomplete-vim', {
-            \ 'autoload' : {'filetype': ['javascript']}
+            \ 'autoload' : {'filetypes': ['javascript']}
             \ }
 "# vim-nodejs-complete
 NeoBundleLazy 'myhere/vim-nodejs-complete', {
-            \ 'autoload' : {'filetype': ['javascript']}
+            \ 'autoload' : {'filetypes': ['javascript']}
             \ }
 "# yui complete
 NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
-            \ 'autoload' : {'filetype': ['javascript']}
+            \ 'autoload' : {'filetypes': ['javascript']}
             \ }
 "# vim-coffee-script
 NeoBundle 'kchmck/vim-coffee-script'
@@ -911,15 +911,15 @@ NeoBundle 'leafgarland/typescript-vim'
 "#-----------------------#
 "# jedi
 NeoBundleLazy 'davidhalter/jedi', {
-            \ 'autoload' : {'filetype': ['python']}
+            \ 'autoload' : {'filetypes': ['python']}
             \ }
 "# virtualenv
 NeoBundleLazy 'jmcantrell/vim-virtualenv', {
-            \ 'autoload' : {'filetype': ['python']}
+            \ 'autoload' : {'filetypes': ['python']}
             \ }
 "# pydiction
 NeoBundleLazy 'rkulla/pydiction', {
-            \ 'autoload' : {'filetype': ['python']}
+            \ 'autoload' : {'filetypes': ['python']}
             \ }
 
 "#-----------------------#
@@ -957,11 +957,11 @@ NeoBundle 'tpope/vim-rails'
 "#-----------------------#
 "# vim-less
 NeoBundleLazy 'groenewege/vim-less', {
-            \ 'autoload' : {'filetype': ['less']}
+            \ 'autoload' : {'filetypes': ['less']}
             \ }
 "# emmet.vim
 NeoBundleLazy 'mattn/emmet-vim', {
-            \ 'autoload' : {'filetype': ['eruby','html','tt','haml']}
+            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml']}
             \ }
 "# instantmarkdown
 NeoBundleLazy 'chreekat/vim-instant-markdown', {
@@ -971,7 +971,7 @@ NeoBundleLazy 'chreekat/vim-instant-markdown', {
 NeoBundle 'nginx.vim'
 "# httpstatus
 NeoBundleLazy 'mattn/httpstatus-vim', {
-            \ 'autoload' : { 'command' : ['HttpStatus'] }
+            \ 'autoload' : { 'commands' : ['HttpStatus'] }
             \ }
 "# tmux.vim
 NeoBundle 'zaiste/tmux.vim'
@@ -991,7 +991,7 @@ NeoBundle 'slim-template/vim-slim'
 "#-----------------------#
 "# gist.vim
 NeoBundleLazy 'mattn/gist-vim', {
-            \ 'autoload' : { 'command' : ['Gist'] }
+            \ 'autoload' : { 'commands' : ['Gist'] }
             \ }
 "# fugitive
 NeoBundle 'tpope/vim-fugitive'
@@ -1593,7 +1593,9 @@ autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
 nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
 let g:NERDTreeHijackNetrw=0
 "}}}2
-"
+"### Emmet {{{2
+"}}}2
+let g:user_emmet_mode='i'
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
 
