@@ -1623,10 +1623,12 @@ endfunction
 augroup perl_ftplugin
     autocmd!
     autocmd FileType perl :compiler perl
-    autocmd FileType perl nnoremap <buffer> <C-\> <ESC>:%! perltidy<CR>
-    autocmd FileType perl vnoremap <buffer> <C-\> :! perltidy<CR>
-    autocmd FileType perl nnoremap <buffer> <F4> :w !perl<CR>
-    autocmd FileType perl nnoremap <buffer> <Plug>(mykeylite), :w !perl -c<CR>
+    if executable('perltidy')
+        autocmd FileType perl nnoremap <buffer> <C-\>  ? <C-u>:%! perltidy<CR>
+        autocmd FileType perl vnoremap <buffer> <C-\> :!perltidy<CR>
+    endif
+    autocmd FileType perl nnoremap <buffer> <F4> :w !perl -c<CR>
+    autocmd FileType perl nnoremap <buffer> <F5> :w !perl -c %<CR>
     autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
     autocmd FileType perl nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
     autocmd FileType perl vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
@@ -1702,8 +1704,8 @@ augroup ruby_ftplugin
     autocmd!
     autocmd FileType ruby setlocal nocindent
     autocmd FileType ruby :compiler ruby
-    autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby<CR>
-    autocmd FileType ruby nnoremap <buffer> <F5> :!ruby %<CR>
+    autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby -c<CR>
+    autocmd FileType ruby nnoremap <buffer> <F5> :!ruby -c %<CR>
     autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
     autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
     autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call OpenRubyGemCode( expand('<cword>') )<CR>
