@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 #source 'http://production.cf.rubygems.org'
 
-
-
+group 'development' do
+  gem 'pry'
+  gem 'pry-debugger'
+end
