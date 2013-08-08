@@ -1680,8 +1680,8 @@ endfunction
 "}}}2
 "### Ruby support "{{{2
 
-command! -nargs=1  RubyGemRead :call OpenRubyGemCode('<args>')
-function! OpenRubyGemCode(module) range
+command! -nargs=1  RubyGemRead :call <SID>open_rubygem_code('<args>')
+function! s:open_rubygem_code(module) range
     let l:module_name=a:module
     if a:module ==# '<visual>'
         let l:module_name=s:get_visual_selected()
@@ -1715,6 +1715,21 @@ augroup ruby_ftplugin
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
+function! s:start_repl(repl_command)
+    let l:command_name=a:repl_command
+    if exists('g:ruby_project_dirname')
+        execute 'cd ' . g:ruby_project_dirname
+    endif
+    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
+    stopinsert
+endfunction
+
+command! -nargs=0 Irb call <SID>start_pry('irb')
+command! -nargs=0 IrbWithBundler call <SID>start_repl('bundle exec irb')
+command! -nargs=0 Pry call <SID>start_pry('pry')
+command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry')
+command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
+
 "}}}2
 "### Scala support{{{2
 
@@ -1722,7 +1737,7 @@ function! s:start_sbt()
     if exists('g:sbt_project_dirname')
         execute 'cd ' . g:sbt_project_dirname
     endif
-    execute "VimShellInteractive --split='split | wincmd j | resize 20' sbt"
+    execute "VimShellInteractive --split='split | wincmd j | resize 20 | setlocal noequalalways' sbt"
     stopinsert
     let t:sbt_bufname = bufname('%')
     if !has_key(t:, 'sbt_cmds')
