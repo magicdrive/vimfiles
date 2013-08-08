@@ -1722,6 +1722,7 @@ function! s:start_repl(repl_command)
     endif
     execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
     stopinsert
+    wincmd k 
 endfunction
 
 command! -nargs=0 Irb call <SID>start_pry('irb')
