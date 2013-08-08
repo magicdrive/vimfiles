@@ -1725,9 +1725,9 @@ function! s:start_repl(repl_command)
     wincmd k 
 endfunction
 
-command! -nargs=0 Irb call <SID>start_pry('irb')
+command! -nargs=0 Irb call <SID>start_repl('irb')
 command! -nargs=0 IrbWithBundler call <SID>start_repl('bundle exec irb')
-command! -nargs=0 Pry call <SID>start_pry('pry')
+command! -nargs=0 Pry call <SID>start_repl('pry')
 command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry')
 command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
 
