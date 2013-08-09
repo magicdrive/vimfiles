@@ -1826,6 +1826,17 @@ augroup javascript_plugin
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
 augroup END
 
+function s:start_node_repl()
+    let l:command_name='node'
+    if exists('g:node_project_dirname')
+        execute 'cd ' . g:node_project_dirname
+    endif
+    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
+    stopinsert
+    wincmd k 
+endfunction
+command! -nargs=0 NodeREPL   call <SID>start_node_repl()
+
 "}}}2
 "### TypeScript support {{{2
 
