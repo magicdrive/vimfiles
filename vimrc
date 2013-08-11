@@ -1594,8 +1594,8 @@ nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
 let g:NERDTreeHijackNetrw=0
 "}}}2
 "### Emmet {{{2
-"}}}2
 let g:user_emmet_mode='i'
+"}}}2
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
 
