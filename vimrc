@@ -848,6 +848,18 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
 NeoBundle 'eagletmt/ghcmod-vim'
 
 "#-----------------------#
+"# erlang                #
+"#-----------------------#
+"# vimerl
+NeoBundle 'jimenezrick/vimerl'
+
+"#-----------------------#
+"# elixir                #
+"#-----------------------#
+"# vim-elixir
+NeoBundle 'elixir-lang/vim-elixir'
+
+"#-----------------------#
 "# jvm                   #
 "#-----------------------#
 "# javacomplete
