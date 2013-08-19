@@ -593,18 +593,6 @@ endif
 "}}}2
 "### Util Functinos {{{2
 
-"" create directory automatically
-"augroup vimrc-auto-mkdir
-"    autocmd!
-"    autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-"    function! s:auto_mkdir(dir, force)
-"        if !isdirectory(a:dir) && (a:force ||
-"                    \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
-"            call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-"        endif
-"    endfunction
-"augroup END
-
 " jump current dir
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
@@ -782,21 +770,12 @@ NeoBundleLazy 'Shougo/unite-ssh', {
 NeoBundleLazy 't9md/vim-unite-ack', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
-"# unite-help
-NeoBundleLazy 'tsukkee/unite-help', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
-            \ }
-"# unite-qf
-NeoBundleLazy 'sgur/unite-qf', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
-            \ }
 "# unite-outline
-NeoBundleLazy 'h1mesuke/unite-outline', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
-            \ }
+NeoBundle 'h1mesuke/unite-outline'
+
 "# unite-rails
 NeoBundleLazy 'basyura/unite-rails', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
 
 "#---------------------------#
@@ -1608,6 +1587,7 @@ let g:NERDTreeHijackNetrw=0
 "### Emmet {{{2
 let g:user_emmet_mode='i'
 "}}}2
+
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
 
