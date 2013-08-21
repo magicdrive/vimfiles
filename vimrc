@@ -834,6 +834,14 @@ NeoBundleLazy 'jimenezrick/vimerl', {
             \ }
 
 "#-----------------------#
+"# ocaml                 #
+"#-----------------------#
+"# ocamlspot
+NeoBundleLazy 'cohama/the-ocamlspot.vim', {
+            \ "autoload" : {"filetypes": ['ocaml']}
+            \ }
+
+"#-----------------------#
 "# elixir                #
 "#-----------------------#
 "# vim-elixir
