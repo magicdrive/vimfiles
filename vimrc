@@ -732,8 +732,9 @@ NeoBundleLazy 'mattn/vdbi-vim', {
             \ }
 "# vim-abolish
 NeoBundle 'tpope/vim-abolish'
-"# vim-powerline
-NeoBundle 'magicdrive/vim-powerline.git'
+"# vim-powerline / ariline
+"NeoBundle 'magicdrive/vim-powerline'
+NeoBundle 'bling/vim-airline'
 "# memolist
 NeoBundleLazy 'glidenote/memolist.vim', {
             \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
@@ -820,13 +821,17 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
 "# haskell               #
 "#-----------------------#
 "# ghcmod.vim
-NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundleLazy 'eagletmt/ghcmod-vim', {
+            \ "autoload" : {"filetypes": ['haskell']}
+            \ }
 
 "#-----------------------#
 "# erlang                #
 "#-----------------------#
 "# vimerl
-NeoBundle 'jimenezrick/vimerl'
+NeoBundleLazy 'jimenezrick/vimerl', {
+            \ "autoload" : {"filetypes": ['erlang']}
+            \ }
 
 "#-----------------------#
 "# elixir                #
@@ -1009,6 +1014,8 @@ NeoBundleLazy 'koron/chalice', {
 if has('mac')
     "# open-browser
     NeoBundle 'tyru/open-browser.vim'
+    "# vim-itunes
+    NeoBundle "ryutorion/vim-itunes"
 endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
@@ -1016,10 +1023,6 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'basyura/twibill.vim'
 "# TweetVim
 NeoBundle 'basyura/TweetVim'
-"# vim-itunes
-if has('mac')
-    NeoBundle "ryutorion/vim-itunes"
-endif
 
 "#-------------------#
 "# Colorschemes      #
@@ -1034,8 +1037,6 @@ NeoBundleLazy 'vim-scripts/CSApprox', {
             \ }
 "# solarized
 NeoBundle 'altercation/vim-colors-solarized'
-"# sand
-NeoBundle 'sand'
 "# jellybeans
 NeoBundle 'nanotech/jellybeans.vim'
 "# wombat
@@ -1046,23 +1047,15 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'Zenburn'
 "# twilight
 NeoBundle 'vim-scripts/twilight'
-"# lucius
-NeoBundle 'jonathanfilip/vim-lucius'
-"# railscasts
-NeoBundle 'jpo/vim-railscasts-theme'
-"# hybrid
-NeoBundle 'w0ng/vim-hybrid'
-"# rdark
-NeoBundle 'vim-scripts/rdark'
 "# pyte
 NeoBundle 'vim-scripts/pyte'
-"# chlordane
-NeoBundle 'vim-scripts/chlordane.vim'
 "# matrix.vim
 NeoBundle 'vim-scripts/matrix.vim--Yang'
 
 filetype plugin on
 filetype indent on
+
+NeoBundleCheck
 
 "}}}2
 "### Unite.vim {{{2
@@ -1290,26 +1283,36 @@ nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 "}}}2
 "### Vim-Powerline {{{2
 
-let g:Powerline_symbols = 'fancy'
-"let g:Powerline_symbols = 'compatible'
-"let g:Powerline_symbols = 'unicode'
-let g:Powerline_symbols_override = {
-            \ 'BRANCH': [0x2213],
-            \ 'LINE': 'L',
-            \ }
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline#extensions#branch#symbol = '⭠'
+let g:airline#extensions#readonly#symbol = '⭤'
+let g:airline_linecolumn_prefix = '⭡'
 
-if $USER ==# 'root'
-    let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
-endif
+autocmd VimEnter * :AirlineTheme laederon
 
-"# ESCの遅延防止
-if has('unix') && !has('gui_running')
-    inoremap <silent> <ESC> <ESC>
-    inoremap <silent> <C-[> <ESC>
-endif
-if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
-    PowerlineClearCache | PowerlineReloadColorscheme
-endif
+"let g:Powerline_symbols = 'fancy'
+""let g:Powerline_symbols = 'compatible'
+""let g:Powerline_symbols = 'unicode'
+"let g:Powerline_symbols_override = {
+"            \ 'BRANCH': [0x2213],
+"            \ 'LINE': 'L',
+"            \ }
+"
+"if $USER ==# 'root'
+"    let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
+"endif
+"
+""# ESCの遅延防止
+"if has('unix') && !has('gui_running')
+"    inoremap <silent> <ESC> <ESC>
+"    inoremap <silent> <C-[> <ESC>
+"endif
+"if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
+"    PowerlineClearCache | PowerlineReloadColorscheme
+"endif
 
 "}}}2
 "### Solarized {{{2
