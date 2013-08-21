@@ -4,8 +4,6 @@
 ## Install
 
 #### shell
-    $ ./setup.sh.
+    $ ./setup.sh
     $ vim
-#### and execute this command.
-    :Unite -neobundle/install
 

@@ -31,10 +31,5 @@ for x in ${files[@]}; do
     ln -s ${PWD}/${x} ${HOME}/.${x}
 done;
 
-cat << 'EOS'
-Please run "vim" and execute this command.
-    :Unite neobundle/install
-EOS
-
 exit 0;
 

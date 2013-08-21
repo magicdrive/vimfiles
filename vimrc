@@ -1283,17 +1283,17 @@ endif
 nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 
 "}}}2
-"### Vim-Powerline {{{2
+"### Vim-Powerline / Airline {{{2
 
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
-let g:airline#extensions#branch#symbol = '⭠'
+let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡'
 
-autocmd VimEnter * :AirlineTheme laederon
+autocmd VimEnter * :AirlineTheme dark
 
 "let g:Powerline_symbols = 'fancy'
 ""let g:Powerline_symbols = 'compatible'
