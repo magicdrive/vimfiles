@@ -248,11 +248,11 @@ endfunction
 
 "# encode
 function! s:edit_encode(code)
-    if match(g:enc_jp, a:code)
-        edit ++enc=euc-jp
-    elseif match(g:shift_jis, a:code)
+    if match(s:shift_jis, a:code)
         edit ++enc=shift_jis
-    elseif match(g:utf8)
+    elseif match(s:enc_jp, a:code)
+        edit ++enc=euc-jp
+    elseif match(s:utf8)
         edit ++enc=utf-8
     endif
 endfunction
@@ -1049,6 +1049,8 @@ NeoBundle 'Zenburn'
 NeoBundle 'vim-scripts/twilight'
 "# pyte
 NeoBundle 'vim-scripts/pyte'
+"# chlordane
+NeoBundle 'vim-scripts/chlordane.vim'
 "# matrix.vim
 NeoBundle 'vim-scripts/matrix.vim--Yang'
 
