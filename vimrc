@@ -752,6 +752,10 @@ NeoBundleLazy 'thinca/vim-ref', {
             \       'function' : ['ref#open']
             \    },
             \ }
+"# gmail
+NeoBundleLazy 'yuratomo/gmail.vim', {
+            \ 'autoload' : { 'commands' : ['Gmail'] }
+            \ }
 
 set runtimepath+=~/.vim/bundle/manual/vim-golang
 
@@ -760,14 +764,6 @@ set runtimepath+=~/.vim/bundle/manual/vim-golang
 "#----------------------------------#
 "# unite.vim
 NeoBundleLazy 'Shougo/unite.vim', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
-            \ }
-"# unite-ssh
-NeoBundleLazy 'Shougo/unite-ssh', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
-            \ }
-"# unite-ack
-NeoBundleLazy 't9md/vim-unite-ack', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
 "# unite-outline
@@ -1095,14 +1091,6 @@ nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<
 "#---------------------------#
 " neobundle-menu
 nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
-"TODO 他の方法を考える
-"nnoremap <silent> <Plug>(mykey)nn :<C-u>Unite -no-split neobundle<CR>
-" neobundle search
-"nnoremap <silent> <Plug>(mykey)ns :<C-u>Unite neobundle/search<CR>
-" neobundle update
-"nnoremap <silent> <Plug>(mykey)nu :<C-u>Unite -vertical neobundle/update<CR>
-" neobundle install
-"nnoremap <silent> <Plug>(mykey)ni :<C-u>Unite -vertical neobundle/install<CR>
 
 "#---------------------------#
 "# ref+unite                 #
