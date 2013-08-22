@@ -166,8 +166,8 @@ set history=256
 nnoremap <Leader>t <C-t>
 
 "# buffer next/preview
-nnoremap <silent> <C-n> :bn<CR>
-nnoremap <silent> <C-p> :bp<CR>
+nnoremap <silent> <Up> :bNext<CR>
+nnoremap <silent> <Down> :bprevious<CR>
 
 "# "TODO"のgrep
 noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j 
@@ -653,7 +653,9 @@ NeoBundleLazy 'Shougo/neocomplcache', {
             \ 'autoload' : { 'insert' : 1, } 
             \ }
 "# neosnippet
-NeoBundle 'Shougo/neosnippet'
+NeoBundleLazy 'Shougo/neosnippet', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
 "# vim-singleton
 if has('clientserver')
     NeoBundle 'thinca/vim-singleton'
@@ -672,15 +674,13 @@ NeoBundleLazy 'Shougo/vimshell', {
 "# vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
             \   'autoload' : { 
-            \   'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
-            \   'explorer' : 1 ,
+            \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
+            \       'explorer' : 1 ,
             \   }
             \ }
 "# NERDTree
 NeoBundleLazy 'scrooloose/nerdtree', {
-            \   'autoload' : { 
-            \   'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ],
-            \   }
+            \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
             \ }
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
@@ -695,7 +695,9 @@ NeoBundle 'dannyob/quickfixstatus'
 "# vim-dispatch
 NeoBundle 'tpope/vim-dispatch'
 "# nerdcommneter
-NeoBundle 'scrooloose/nerdcommenter'
+NeoBundleLazy 'scrooloose/nerdcommenter', {
+            \   'autoload' : { 'commands' : ["NERDCommenterToggle"] }
+            \ }
 "# vim-endwise
 NeoBundleLazy 'taichouchou2/vim-endwise', {
             \ 'autoload' : { 'insert' : 1, } 
@@ -713,9 +715,13 @@ NeoBundleLazy 'kana/vim-smartinput', {
             \ 'autoload' : { 'insert' : 1, } 
             \ }
 "# neco-look
-NeoBundle "ujihisa/neco-look"
+NeoBundleLazy "ujihisa/neco-look", {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
 "# niceblock
-NeoBundle 'kana/vim-niceblock'
+NeoBundleLazy 'kana/vim-niceblock', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
 "# altercmd
 NeoBundle 'tyru/vim-altercmd'
 "# surround.vim
@@ -730,8 +736,6 @@ NeoBundle 'magicdrive/foldCC'
 NeoBundleLazy 'mattn/vdbi-vim', {
             \ 'autoload' : { 'commands' : ['VDBI','VDBIExec', 'VDBIReset', 'VDBIDatasources'] }
             \ }
-"# vim-abolish
-NeoBundle 'tpope/vim-abolish'
 "# vim-powerline / ariline
 "NeoBundle 'magicdrive/vim-powerline'
 NeoBundle 'bling/vim-airline'
@@ -767,13 +771,12 @@ set runtimepath+=~/.vim/bundle/manual/vim-golang
 NeoBundleLazy 'Shougo/unite.vim', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
-"# unite-outline
-NeoBundle 'h1mesuke/unite-outline'
-
 "# unite-rails
 NeoBundleLazy 'basyura/unite-rails', {
             \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
             \ }
+"# unite-outline
+NeoBundle 'h1mesuke/unite-outline'
 
 "#---------------------------#
 "# programing suport plug-in #
@@ -927,30 +930,32 @@ NeoBundleLazy 'rkulla/pydiction', {
 "#-----------------------#
 "# vim-ruby
 NeoBundle 'vim-ruby/vim-ruby', {
-            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# unite-ruby-require
 NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# neco-ruby-keyword-args
 NeoBundleLazy 'rhysd/neco-ruby-keyword-args', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# textobj-ruby
 NeoBundleLazy 'rhysd/vim-textobj-ruby', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
-"# vim-ref-ri
-NeoBundle 'taka84u9/vim-ref-ri'
 "# vim-rspec
-NeoBundle 'skwp/vim-rspec'
+NeoBundleLazy 'skwp/vim-rspec', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# matchit
 NeoBundleLazy 'ruby-matchit', {
-            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# vim-rails
 NeoBundle 'tpope/vim-rails'
+"# vim-ref-ri
+NeoBundle 'taka84u9/vim-ref-ri'
 
 "#-----------------------#
 "# html-coding           #
@@ -994,9 +999,13 @@ NeoBundleLazy 'mattn/gist-vim', {
             \ 'autoload' : { 'commands' : ['Gist'] }
             \ }
 "# fugitive
-NeoBundle 'tpope/vim-fugitive'
+NeoBundleLazy 'tpope/vim-fugitive', {
+            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
+            \ }
 "# gitv
-NeoBundle 'gregsexton/gitv'
+NeoBundleLazy 'gregsexton/gitv', {
+            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
+            \ }
 
 "#-----------------------#
 "# util-tool             #
@@ -1004,7 +1013,9 @@ NeoBundle 'gregsexton/gitv'
 "# lcoalrc
 NeoBundle 'thinca/vim-localrc'
 "# calendar.vim
-NeoBundle 'mattn/calendar-vim'
+NeoBundle 'mattn/calendar-vim', {
+            \ 'autoload' : {'commands' : ['Calendar', 'CalendarH', 'CalendarT'] }
+            \ }
 "# yanktmp
 NeoBundle 'yanktmp.vim'
 "# w3m.vim
@@ -1060,7 +1071,9 @@ NeoBundle 'vim-scripts/pyte'
 "# chlordane
 NeoBundle 'vim-scripts/chlordane.vim'
 "# matrix.vim
-NeoBundle 'vim-scripts/matrix.vim--Yang'
+NeoBundleLazy 'vim-scripts/matrix.vim--Yang', {
+            \ 'autoload' : { 'command' : ['Matrix'] }
+            \ }
 
 filetype plugin on
 filetype indent on
@@ -1166,6 +1179,17 @@ function! ShellSplit()
 endfunction
 
 nnoremap <silent> <Plug>(mykey)l :VimShellPop<CR>
+
+" iexe REPL
+function! s:start_repl(repl_command)
+    let l:command_name=a:repl_command
+    if exists('g:project_dirname')
+        execute 'cd ' . g:project_dirname
+    endif
+    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
+    stopinsert
+    wincmd k 
+endfunction
 
 "}}}2
 "### VimFiler {{{2
@@ -1495,6 +1519,10 @@ let g:quickrun_config['coffee'] = {
             \       "command" : 'coffee',
             \       'exec'    : ['%c -cbp %s']
             \   }
+let g:quickrun_config['typescript'] = { 
+            \       "command" : 'tsc',
+            \       'exec'    : ['%c --exec %s']
+            \   }
 
 "}}}2
 "### Watchdogs {{{2
@@ -1679,17 +1707,19 @@ function! s:open_rubygem_code(module) range
     if a:module ==# '<visual>'
         let l:module_name=s:get_visual_selected()
     endif
-    let l:module_path =
-                \ system('gem which ' . l:module_name )
-    if l:module_path !=# ''
-        execute 'edit ' . l:module_path
-    else
-        echohl Error | echo 'No gemfile found.' | echohl None
-    endif
+
+    try
+        execute 'edit ' . system('bundle exec gem which ' . l:module_name )
+    catch 
+        try
+            execute 'edit ' . system('gem which ' . l:module_name )
+        catch
+            echohl Error | echo 'No gemfile found.' | echohl None
+        endtry
+    endtry
+
 endfunction
 function AlterFileTypeRuby()
-    AlterCommand  rubyg[emread] RubyGemRead
-    AlterCommand  gem[read] RubyGemRead
     AlterCommand  ri Ref ri
 endfunction
 
@@ -1701,27 +1731,17 @@ augroup ruby_ftplugin
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby -c %<CR>
     autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
     autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
-    autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call OpenRubyGemCode( expand('<cword>') )<CR>
-    autocmd FileType ruby,ref-ri vnoremap <buffer> <C-l> :<C-u>call OpenRubyGemCode( '<visual>' )<CR>
-    autocmd FileType ruby setlocal ts=2 sw=2 expandtab
+    autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
+    autocmd FileType ruby,ref-ri vnoremap <buffer> <C-l> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
+    autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
     autocmd FileType ruby setlocal autoindent
     autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
-function! s:start_repl(repl_command)
-    let l:command_name=a:repl_command
-    if exists('g:ruby_project_dirname')
-        execute 'cd ' . g:ruby_project_dirname
-    endif
-    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
-    stopinsert
-    wincmd k 
-endfunction
-
 command! -nargs=0 Irb call <SID>start_repl('irb')
 command! -nargs=0 IrbWithBundler call <SID>start_repl('bundle exec irb')
-command! -nargs=0 Pry call <SID>start_repl('pry')
-command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry')
+command! -nargs=0 Pry call <SID>start_repl('pry --no-color')
+command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry --no-color')
 command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
 
 "}}}2
@@ -1792,7 +1812,8 @@ augroup scala_setting
     autocmd FileType scala setlocal nocindent
     autocmd FileType scala call s:sbt_errorformat()
     autocmd FileType scala call s:sbt_controll()
-    autocmd FileType scala nnoremap <buffer> 9 :<C-u>SBT<CR>
+    autocmd FileType scala nnoremap <buffer> <Plug>(mykey)r :<C-u>SBT<CR>
+    autocmd FileType scala nnoremap <buffer> <Leader>s :<C-u>SBT<CR>
 augroup END
 
 "}}}2
@@ -1826,21 +1847,10 @@ let g:node_usejscomplete = 1
 
 augroup javascript_plugin
     autocmd!
-    autocmd FileType javascript nnoremap <C-\> <Esc>:%! $HOME/.vim/misc/bin/js_swell.pl<CR>
-    autocmd FileType javascript vnoremap <C-\> <Esc>:! $HOME/.vim/misc/bin/js_swell.pl<CR>
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
 augroup END
 
-function s:start_node_repl()
-    let l:command_name='node'
-    if exists('g:node_project_dirname')
-        execute 'cd ' . g:node_project_dirname
-    endif
-    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
-    stopinsert
-    wincmd k 
-endfunction
-command! -nargs=0 NodeREPL   call <SID>start_node_repl()
+command! -nargs=0 NodeREPL   call <SID>start_repl('node --interactive')
 
 "}}}2
 "### TypeScript support {{{2
@@ -1849,6 +1859,11 @@ augroup typescript_ftplugin
     autocmd!
     autocmd BufWritePost typescript :make
 augroup END
+
+"}}}2
+"### Erlang support {{{2
+
+command! -nargs=0 Erl call <SID>start_repl('erl')
 
 "}}}2
 "### FileType(Language) assistance "{{{2
