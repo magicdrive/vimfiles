@@ -24,7 +24,7 @@ fi
 
 popd
 
-files=( 'vimrc' 'vim' );
+files=( 'vimrc' 'gvimrc' 'vim' );
 
 for x in ${files[@]}; do
     [ -e ${HOME}/.${x} ] && mv ${HOME}/.${x} ${HOME}/.${x}.BAK.${execdatetime}

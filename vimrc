@@ -13,6 +13,456 @@
 "                            my vimrc
 "=========================================================================
 
+"[ ####------- NeoBundle Settings --------------#### ] {{{1
+
+filetype off
+
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
+endif
+
+call neobundle#rc( expand('~/.vim/bundle/automatic') )
+
+"#---------------------------#
+"# regular use               #
+"#---------------------------#
+"# neobundle
+NeoBundle 'Shougo/neobundle.vim'
+"# neocomplcache
+NeoBundleLazy 'Shougo/neocomplcache', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
+"# neosnippet
+NeoBundleLazy 'Shougo/neosnippet', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
+"# vim-singleton
+if has('clientserver')
+    NeoBundle 'thinca/vim-singleton'
+endif
+"# vimproc
+NeoBundle 'Shougo/vimproc', {
+            \ 'build' : {
+            \     'mac'     : 'make -f make_mac.mak',
+            \     'unix'    : 'make -f make_unix.mak',
+            \    },
+            \ }
+"# vimshell
+NeoBundleLazy 'Shougo/vimshell', {
+            \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
+            \ }
+"# vimfiler
+NeoBundleLazy 'Shougo/vimfiler', {
+            \   'autoload' : { 
+            \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
+            \       'explorer' : 1 ,
+            \   }
+            \ }
+"# NERDTree
+NeoBundleLazy 'scrooloose/nerdtree', {
+            \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
+            \ }
+"# quickrun
+NeoBundle 'thinca/vim-quickrun'
+"# vim-watchdogs
+NeoBundle 'osyo-manga/vim-watchdogs'
+"# vim-hier
+NeoBundle 'jceb/vim-hier'
+"# shabadou.vim
+NeoBundle 'osyo-manga/shabadou.vim'
+"# quickfixstatus
+NeoBundle 'dannyob/quickfixstatus'
+"# vim-dispatch
+NeoBundle 'tpope/vim-dispatch'
+"# nerdcommneter
+NeoBundleLazy 'scrooloose/nerdcommenter', {
+            \   'autoload' : { 'commands' : ["NERDCommenterToggle"] }
+            \ }
+"# vim-endwise
+NeoBundleLazy 'taichouchou2/vim-endwise', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
+"# thumbnail.vim
+NeoBundleLazy 'itchyny/thumbnail.vim', {
+            \   'autoload' : { 'commands' : ['Thumbnail']}
+            \ }
+"# project.vim
+NeoBundleLazy 'project.tar.gz', {
+            \   'autoload' : { 'commands' : ['Project']}
+            \ }
+"# smartinput
+NeoBundleLazy 'kana/vim-smartinput', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
+"# neco-look
+NeoBundleLazy "ujihisa/neco-look", {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
+"# niceblock
+NeoBundleLazy 'kana/vim-niceblock', {
+            \ 'autoload' : { 'insert' : 1, } 
+            \ }
+"# altercmd
+NeoBundle 'tyru/vim-altercmd'
+"# surround.vim
+NeoBundle 'surround.vim'
+"# vimsualstar
+NeoBundle 'thinca/vim-visualstar'
+"# easymotion
+NeoBundle 'Lokaltog/vim-easymotion'
+"# foldCC
+NeoBundle 'magicdrive/foldCC'
+"# vdbi-vim
+NeoBundleLazy 'mattn/vdbi-vim', {
+            \ 'autoload' : { 'commands' : ['VDBI','VDBIExec', 'VDBIReset', 'VDBIDatasources'] }
+            \ }
+"# vim-powerline / ariline
+"NeoBundle 'magicdrive/vim-powerline'
+NeoBundle 'bling/vim-airline'
+"# memolist
+NeoBundleLazy 'glidenote/memolist.vim', {
+            \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
+            \ }
+"# sudo.vim
+NeoBundle 'sudo.vim'
+"# vim-rooter
+NeoBundle 'airblade/vim-rooter'
+"# vim-multiple-cursors
+NeoBundle 'terryma/vim-multiple-cursors'
+"# vim-ref
+NeoBundleLazy 'thinca/vim-ref', {
+            \ 'autoload' : {
+            \       'filetypes' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
+            \       'commands' : ['Ref'],
+            \       'function' : ['ref#open']
+            \    },
+            \ }
+"# gmail
+NeoBundleLazy 'yuratomo/gmail.vim', {
+            \ 'autoload' : { 'commands' : ['Gmail'] }
+            \ }
+
+set runtimepath+=~/.vim/bundle/manual/vim-golang
+
+"#----------------------------------#
+"# unite.vim & unite source plug-in #
+"#----------------------------------#
+"# unite.vim
+NeoBundleLazy 'Shougo/unite.vim', {
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
+"# unite-rails
+NeoBundleLazy 'basyura/unite-rails', {
+            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
+"# unite-outline
+NeoBundle 'h1mesuke/unite-outline'
+
+"#---------------------------#
+"# programing suport plug-in #
+"#---------------------------#
+"# taglist
+NeoBundleLazy 'taglist.vim', {
+            \  'autoload' : { 'commands' : [ 'Tlist' ]}
+            \ }
+"# TagHighlight
+NeoBundleLazy 'TagHighlight',{
+            \ 'autoload' : { 'commands' : ['UpdateTagFile', 'UpdateTagFileDebug', 'UpdateTagFileOnly'] }
+            \ }
+"# scratch.vim
+NeoBundleLazy 'scratch.vim', {
+            \ 'autoload' : { 'commands' : ['Scratch'] }
+            \ }
+"# emacs-commandline
+NeoBundle 'houtsnip/vim-emacscommandline'
+"# MultipleSearch
+NeoBundleLazy 'MultipleSearch', {
+            \ 'autoload' : { 'commands' : ['Search', 'SearchBuffers'] }
+            \ }
+"# align.vim
+NeoBundleLazy 'Align', {
+            \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
+            \ }
+
+"#-----------------------#
+"# llvm                  #
+"#-----------------------#
+"# cocoa.vim
+NeoBundleLazy 'cocoa.vim', {
+            \ 'autoload' : {'filetypes': ['objective-c']}
+            \ }
+"# neocomplcache-clang
+NeoBundleLazy 'Shougo/neocomplcache-clang', {
+            \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
+            \ }
+"# neocomplcache-clang_complete
+NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
+            \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
+            \ }
+
+"#-----------------------#
+"# haskell               #
+"#-----------------------#
+"# ghcmod.vim
+NeoBundleLazy 'eagletmt/ghcmod-vim', {
+            \ "autoload" : {"filetypes": ['haskell']}
+            \ }
+
+"#-----------------------#
+"# erlang                #
+"#-----------------------#
+"# vimerl
+NeoBundleLazy 'jimenezrick/vimerl', {
+            \ "autoload" : {"filetypes": ['erlang']}
+            \ }
+
+"#-----------------------#
+"# ocaml                 #
+"#-----------------------#
+"# ocamlspot
+NeoBundleLazy 'cohama/the-ocamlspot.vim', {
+            \ "autoload" : {"filetypes": ['ocaml']}
+            \ }
+
+"#-----------------------#
+"# elixir                #
+"#-----------------------#
+"# vim-elixir
+NeoBundle 'elixir-lang/vim-elixir'
+
+"#-----------------------#
+"# jvm                   #
+"#-----------------------#
+"# javacomplete
+NeoBundleLazy 'javacomplete', {
+            \ "autoload" : {"filetypes": ['java']}
+            \ }
+"# groovy.vim
+NeoBundleLazy 'groovy.vim', {
+            \ "autoload" : {"filetypes": ['groovy']}
+            \ }
+"# maven-plugin
+NeoBundleLazy 'mikelue/vim-maven-plugin', {
+            \ 'autoload' : {'filetypes': ['java','groovy']}
+            \ }
+"# vim-scala
+NeoBundle 'magicdrive/vim-scala'
+"# play2vim
+NeoBundle 'gre/play2vim'
+"# clojure
+NeoBundle 'thinca/vim-ft-clojure'
+
+"#-----------------------#
+"# perl                  #
+"#-----------------------#
+"# perl-mauke
+NeoBundleLazy 'perl-mauke.vim',  {
+            \ 'autoload' : {'filetypes': ['perl']}
+            \ }
+"# vim-cpanfile
+NeoBundleLazy 'moznion/vim-cpanfile',  {
+            \ 'autoload' : {'filetypes': ['perl']}
+            \ }
+"# vim-perl_use_insertion
+autocmd FileType perl 
+            \ :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
+
+"#-----------------------#
+"# javascript            #
+"#-----------------------#
+"# javascript-syntax
+NeoBundle 'jelera/vim-javascript-syntax'
+"# jscomplete
+NeoBundleLazy 'teramako/jscomplete-vim', {
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
+"# vim-nodejs-complete
+NeoBundleLazy 'myhere/vim-nodejs-complete', {
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
+"# yui complete
+NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
+"# vim-coffee-script
+NeoBundle 'kchmck/vim-coffee-script'
+"# vim-typescript
+NeoBundle 'leafgarland/typescript-vim'
+
+"#-----------------------#
+"# python                #
+"#-----------------------#
+"# jedi
+NeoBundleLazy 'davidhalter/jedi', {
+            \ 'autoload' : {'filetypes': ['python']}
+            \ }
+"# virtualenv
+NeoBundleLazy 'jmcantrell/vim-virtualenv', {
+            \ 'autoload' : {'filetypes': ['python']}
+            \ }
+"# pydiction
+NeoBundleLazy 'rkulla/pydiction', {
+            \ 'autoload' : {'filetypes': ['python']}
+            \ }
+
+"#-----------------------#
+"# ruby                  #
+"#-----------------------#
+"# vim-ruby
+NeoBundle 'vim-ruby/vim-ruby', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
+"# unite-ruby-require
+NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
+"# neco-ruby-keyword-args
+NeoBundleLazy 'rhysd/neco-ruby-keyword-args', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
+"# textobj-ruby
+NeoBundleLazy 'rhysd/vim-textobj-ruby', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
+"# vim-rspec
+NeoBundleLazy 'skwp/vim-rspec', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
+"# matchit
+NeoBundleLazy 'ruby-matchit', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
+"# vim-rails
+NeoBundle 'tpope/vim-rails'
+"# vim-ref-ri
+NeoBundle 'taka84u9/vim-ref-ri'
+
+"#-----------------------#
+"# html-coding           #
+"#-----------------------#
+"# vim-less
+NeoBundleLazy 'groenewege/vim-less', {
+            \ 'autoload' : {'filetypes': ['less']}
+            \ }
+"# emmet.vim
+NeoBundleLazy 'mattn/emmet-vim', {
+            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml']}
+            \ }
+"# instantmarkdown
+NeoBundleLazy 'chreekat/vim-instant-markdown', {
+            \ 'autoload' : { 'commands' : ['InstantMarkdown'] }
+            \ }
+"# nginx.vim
+NeoBundle 'nginx.vim'
+"# httpstatus
+NeoBundleLazy 'mattn/httpstatus-vim', {
+            \ 'autoload' : { 'commands' : ['HttpStatus'] }
+            \ }
+"# tmux.vim
+NeoBundle 'zaiste/tmux.vim'
+"# html5.vim
+NeoBundle 'taichouchou2/html5.vim'
+"# css3vim
+NeoBundle 'hail2u/vim-css3-syntax'
+"# sass
+if executable('sass')
+    NeoBundle 'AtsushiM/sass-compile.vim'
+endif
+"# slim
+NeoBundle 'slim-template/vim-slim'
+
+"#-----------------------#
+"# git-tool              #
+"#-----------------------#
+"# gist.vim
+NeoBundleLazy 'mattn/gist-vim', {
+            \ 'autoload' : { 'commands' : ['Gist'] }
+            \ }
+"# fugitive
+NeoBundleLazy 'tpope/vim-fugitive', {
+            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
+            \ }
+"# gitv
+NeoBundleLazy 'gregsexton/gitv', {
+            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
+            \ }
+
+"#-----------------------#
+"# util-tool             #
+"#-----------------------#
+"# lcoalrc
+NeoBundle 'thinca/vim-localrc'
+"# calendar.vim
+NeoBundle 'mattn/calendar-vim', {
+            \ 'autoload' : {'commands' : ['Calendar', 'CalendarH', 'CalendarT'] }
+            \ }
+"# yanktmp
+NeoBundle 'yanktmp.vim'
+"# w3m.vim
+if executable('w3m')
+    NeoBundle 'yuratomo/w3m.vim'
+endif
+
+"#-----------------------#
+"# external service      #
+"#-----------------------#
+"# chalice.vim
+NeoBundleLazy 'koron/chalice', {
+            \ 'autoload' : {'commands' : 'Chalice' }
+            \ }
+if has('mac')
+    "# open-browser
+    NeoBundle 'tyru/open-browser.vim'
+    "# vim-itunes
+    NeoBundle "ryutorion/vim-itunes"
+endif
+"# webapi
+NeoBundle 'mattn/webapi-vim'
+"# twibill
+NeoBundle 'basyura/twibill.vim'
+"# TweetVim
+NeoBundle 'basyura/TweetVim'
+
+"#-------------------#
+"# Colorschemes      #
+"#-------------------#
+"# vim-guicolorscheme
+NeoBundleLazy 'thinca/vim-guicolorscheme', {
+            \ 'autoload' : { 'command' : ['GuiColorScheme'] }
+            \ }
+"# CSApprox
+NeoBundleLazy 'vim-scripts/CSApprox', {
+            \ 'autoload' : { 'command' : ['CSApprox', 'CSApproxSnapshot'] }
+            \ }
+"# solarized
+NeoBundle 'altercation/vim-colors-solarized'
+"# jellybeans
+NeoBundle 'nanotech/jellybeans.vim'
+"# wombat
+NeoBundle 'vim-scripts/Wombat'
+"# molokai
+NeoBundle 'tomasr/molokai'
+"# Zenburn
+NeoBundle 'Zenburn'
+"# twilight
+NeoBundle 'vim-scripts/twilight'
+"# pyte
+NeoBundle 'vim-scripts/pyte'
+"# chlordane
+NeoBundle 'vim-scripts/chlordane.vim'
+"# landscape
+NeoBundle 'itchyny/landscape.vim'
+"# matrix.vim
+NeoBundleLazy 'vim-scripts/matrix.vim--Yang', {
+            \ 'autoload' : { 'command' : ['Matrix'] }
+            \ }
+
+filetype plugin on
+filetype indent on
+
+NeoBundleCheck
+
+"}}}2
 "[ ####------- Vim Basic Settings --------------#### ] {{{1
 
 "### Vim Options "{{{2
@@ -629,458 +1079,128 @@ if has('syntax')
 endif
 
 "}}}2
+"### colorscheme "{{{2
+
+"# xterm-256color
+set t_Co=256
+
+"# Colorscheme
+syntax enable
+
+let g:default_color_mode=has('unix') ? 'A' : 'B'
+
+"# GUI
+let g:gui_colorscheme_a='chlordane'
+let g:gui_background_a='dark'
+let g:gui_colorscheme_b='pyte'
+let g:gui_background_b='light'
+
+"# CUI
+"let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
+let g:cui_colorscheme_a='jellybeans'
+let g:cui_background_a='light'
+let g:cui_colorscheme_b='matrix'
+let g:cui_background_b='light'
+
+let g:current_color_mode=g:default_color_mode
+
+" setup color by background
+function! SetupColorScheme ()
+    if has('gui_running')
+        execute 'colorscheme ' . 
+                    \ ( (g:default_color_mode ==# 'A') ? 
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+        execute 'set background=' . 
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:gui_background_a : g:gui_background_b)
+    else
+        execute 'colorscheme ' . 
+                    \ ( (g:default_color_mode ==# 'A') ? 
+                    \ g:cui_colorscheme_a : g:cui_colorscheme_b)
+        execute 'set background=' . 
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:cui_background_a : g:cui_background_b)
+    endif
+endfunction
+
+
+"# change colorscheme & background
+function! ChangeBackground()
+
+    if g:current_color_mode ==# 'A'
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
+        let g:current_color_mode='B'
+        echo 'change backgrount=light'
+    else
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+        let g:current_color_mode='A'
+        echo 'change backgrount=dark'
+    endif
+
+    if has('gui_running')
+        execute 'set background=' . 
+                    \ ( g:current_color_mode ==# 'A' ?
+                    \ g:gui_background_a : g:gui_background_b)
+    else
+        execute 'set background=' . 
+                    \ ( (g:current_color_mode ==# 'A') ?
+                    \ g:cui_background_a : g:cui_background_b)
+    endif
+    syntax on
+endfunction
+
+
+function! MyColor()
+    "# ポップアップメニューの色変更
+    highlight Pmenu 
+                \ ctermbg=DarkGray
+                \ ctermfg=White
+
+    highlight PmenuSel
+                \ ctermbg=White
+                \ ctermfg=Black 
+
+    "# Foldingの色変更
+    highlight Folded
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey30
+                \ guifg=Grey80
+
+    highlight FoldColumn
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey
+                \ guifg=DarkBlue
+
+    "# 検索結果のカラースキーム変更
+    highlight Search ctermbg=Gray
+endfunction
+
+augroup color_set
+    autocmd!
+    "autocmd ColorScheme * call MyColor()
+augroup END
+
+"# initialize colorcheme
+call SetupColorScheme()
+
+"# switching colrschme & background
+nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
+
+"}}}2
 
 " }}}1
 "[ ####------- Vim Plugins Settings ------------#### ] {{{1
 
-"### NeoBundle {{{2
-
-filetype off
-
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
-endif
-
-call neobundle#rc( expand('~/.vim/bundle/automatic') )
-
-"#---------------------------#
-"# regular use               #
-"#---------------------------#
-"# neobundle
-NeoBundle 'Shougo/neobundle.vim'
-"# neocomplcache
-NeoBundleLazy 'Shougo/neocomplcache', {
-            \ 'autoload' : { 'insert' : 1, } 
-            \ }
-"# neosnippet
-NeoBundleLazy 'Shougo/neosnippet', {
-            \ 'autoload' : { 'insert' : 1, } 
-            \ }
-"# vim-singleton
-if has('clientserver')
-    NeoBundle 'thinca/vim-singleton'
-endif
-"# vimproc
-NeoBundle 'Shougo/vimproc', {
-            \ 'build' : {
-            \     'mac'     : 'make -f make_mac.mak',
-            \     'unix'    : 'make -f make_unix.mak',
-            \    },
-            \ }
-"# vimshell
-NeoBundleLazy 'Shougo/vimshell', {
-            \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
-            \ }
-"# vimfiler
-NeoBundleLazy 'Shougo/vimfiler', {
-            \   'autoload' : { 
-            \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
-            \       'explorer' : 1 ,
-            \   }
-            \ }
-"# NERDTree
-NeoBundleLazy 'scrooloose/nerdtree', {
-            \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
-            \ }
-"# quickrun
-NeoBundle 'thinca/vim-quickrun'
-"# vim-watchdogs
-NeoBundle 'osyo-manga/vim-watchdogs'
-"# vim-hier
-NeoBundle 'jceb/vim-hier'
-"# shabadou.vim
-NeoBundle 'osyo-manga/shabadou.vim'
-"# quickfixstatus
-NeoBundle 'dannyob/quickfixstatus'
-"# vim-dispatch
-NeoBundle 'tpope/vim-dispatch'
-"# nerdcommneter
-NeoBundleLazy 'scrooloose/nerdcommenter', {
-            \   'autoload' : { 'commands' : ["NERDCommenterToggle"] }
-            \ }
-"# vim-endwise
-NeoBundleLazy 'taichouchou2/vim-endwise', {
-            \ 'autoload' : { 'insert' : 1, } 
-            \ }
-"# thumbnail.vim
-NeoBundleLazy 'itchyny/thumbnail.vim', {
-            \   'autoload' : { 'commands' : ['Thumbnail']}
-            \ }
-"# project.vim
-NeoBundleLazy 'project.tar.gz', {
-            \   'autoload' : { 'commands' : ['Project']}
-            \ }
-"# smartinput
-NeoBundleLazy 'kana/vim-smartinput', {
-            \ 'autoload' : { 'insert' : 1, } 
-            \ }
-"# neco-look
-NeoBundleLazy "ujihisa/neco-look", {
-            \ 'autoload' : { 'insert' : 1, } 
-            \ }
-"# niceblock
-NeoBundleLazy 'kana/vim-niceblock', {
-            \ 'autoload' : { 'insert' : 1, } 
-            \ }
-"# altercmd
-NeoBundle 'tyru/vim-altercmd'
-"# surround.vim
-NeoBundle 'surround.vim'
-"# vimsualstar
-NeoBundle 'thinca/vim-visualstar'
-"# easymotion
-NeoBundle 'Lokaltog/vim-easymotion'
-"# foldCC
-NeoBundle 'magicdrive/foldCC'
-"# vdbi-vim
-NeoBundleLazy 'mattn/vdbi-vim', {
-            \ 'autoload' : { 'commands' : ['VDBI','VDBIExec', 'VDBIReset', 'VDBIDatasources'] }
-            \ }
-"# vim-powerline / ariline
-"NeoBundle 'magicdrive/vim-powerline'
-NeoBundle 'bling/vim-airline'
-"# memolist
-NeoBundleLazy 'glidenote/memolist.vim', {
-            \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
-            \ }
-"# sudo.vim
-NeoBundle 'sudo.vim'
-"# vim-rooter
-NeoBundle 'airblade/vim-rooter'
-"# vim-multiple-cursors
-NeoBundle 'terryma/vim-multiple-cursors'
-"# vim-ref
-NeoBundleLazy 'thinca/vim-ref', {
-            \ 'autoload' : {
-            \       'filetypes' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
-            \       'commands' : ['Ref'],
-            \       'function' : ['ref#open']
-            \    },
-            \ }
-"# gmail
-NeoBundleLazy 'yuratomo/gmail.vim', {
-            \ 'autoload' : { 'commands' : ['Gmail'] }
-            \ }
-
-set runtimepath+=~/.vim/bundle/manual/vim-golang
-
-"#----------------------------------#
-"# unite.vim & unite source plug-in #
-"#----------------------------------#
-"# unite.vim
-NeoBundleLazy 'Shougo/unite.vim', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
-            \ }
-"# unite-rails
-NeoBundleLazy 'basyura/unite-rails', {
-            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
-            \ }
-"# unite-outline
-NeoBundle 'h1mesuke/unite-outline'
-
-"#---------------------------#
-"# programing suport plug-in #
-"#---------------------------#
-"# taglist
-NeoBundleLazy 'taglist.vim', {
-            \  'autoload' : { 'commands' : [ 'Tlist' ]}
-            \ }
-"# TagHighlight
-NeoBundleLazy 'TagHighlight',{
-            \ 'autoload' : { 'commands' : ['UpdateTagFile', 'UpdateTagFileDebug', 'UpdateTagFileOnly'] }
-            \ }
-"# scratch.vim
-NeoBundleLazy 'scratch.vim', {
-            \ 'autoload' : { 'commands' : ['Scratch'] }
-            \ }
-"# emacs-commandline
-NeoBundle 'houtsnip/vim-emacscommandline'
-"# MultipleSearch
-NeoBundleLazy 'MultipleSearch', {
-            \ 'autoload' : { 'commands' : ['Search', 'SearchBuffers'] }
-            \ }
-"# align.vim
-NeoBundleLazy 'Align', {
-            \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
-            \ }
-
-"#-----------------------#
-"# llvm                  #
-"#-----------------------#
-"# cocoa.vim
-NeoBundleLazy 'cocoa.vim', {
-            \ 'autoload' : {'filetypes': ['objective-c']}
-            \ }
-"# neocomplcache-clang
-NeoBundleLazy 'Shougo/neocomplcache-clang', {
-            \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
-            \ }
-"# neocomplcache-clang_complete
-NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
-            \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
-            \ }
-
-"#-----------------------#
-"# haskell               #
-"#-----------------------#
-"# ghcmod.vim
-NeoBundleLazy 'eagletmt/ghcmod-vim', {
-            \ "autoload" : {"filetypes": ['haskell']}
-            \ }
-
-"#-----------------------#
-"# erlang                #
-"#-----------------------#
-"# vimerl
-NeoBundleLazy 'jimenezrick/vimerl', {
-            \ "autoload" : {"filetypes": ['erlang']}
-            \ }
-
-"#-----------------------#
-"# ocaml                 #
-"#-----------------------#
-"# ocamlspot
-NeoBundleLazy 'cohama/the-ocamlspot.vim', {
-            \ "autoload" : {"filetypes": ['ocaml']}
-            \ }
-
-"#-----------------------#
-"# elixir                #
-"#-----------------------#
-"# vim-elixir
-NeoBundle 'elixir-lang/vim-elixir'
-
-"#-----------------------#
-"# jvm                   #
-"#-----------------------#
-"# javacomplete
-NeoBundleLazy 'javacomplete', {
-            \ "autoload" : {"filetypes": ['java']}
-            \ }
-"# groovy.vim
-NeoBundleLazy 'groovy.vim', {
-            \ "autoload" : {"filetypes": ['groovy']}
-            \ }
-"# maven-plugin
-NeoBundleLazy 'mikelue/vim-maven-plugin', {
-            \ 'autoload' : {'filetypes': ['java','groovy']}
-            \ }
-"# vim-scala
-NeoBundle 'magicdrive/vim-scala'
-"# play2vim
-NeoBundle 'gre/play2vim'
-"# clojure
-NeoBundle 'thinca/vim-ft-clojure'
-
-"#-----------------------#
-"# perl                  #
-"#-----------------------#
-"# perl-mauke
-NeoBundleLazy 'perl-mauke.vim',  {
-            \ 'autoload' : {'filetypes': ['perl']}
-            \ }
-"# vim-cpanfile
-NeoBundleLazy 'moznion/vim-cpanfile',  {
-            \ 'autoload' : {'filetypes': ['perl']}
-            \ }
-"# vim-perl_use_insertion
-autocmd FileType perl 
-            \ :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
-
-"#-----------------------#
-"# javascript            #
-"#-----------------------#
-"# javascript-syntax
-NeoBundle 'jelera/vim-javascript-syntax'
-"# jscomplete
-NeoBundleLazy 'teramako/jscomplete-vim', {
-            \ 'autoload' : {'filetypes': ['javascript']}
-            \ }
-"# vim-nodejs-complete
-NeoBundleLazy 'myhere/vim-nodejs-complete', {
-            \ 'autoload' : {'filetypes': ['javascript']}
-            \ }
-"# yui complete
-NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
-            \ 'autoload' : {'filetypes': ['javascript']}
-            \ }
-"# vim-coffee-script
-NeoBundle 'kchmck/vim-coffee-script'
-"# vim-typescript
-NeoBundle 'leafgarland/typescript-vim'
-
-"#-----------------------#
-"# python                #
-"#-----------------------#
-"# jedi
-NeoBundleLazy 'davidhalter/jedi', {
-            \ 'autoload' : {'filetypes': ['python']}
-            \ }
-"# virtualenv
-NeoBundleLazy 'jmcantrell/vim-virtualenv', {
-            \ 'autoload' : {'filetypes': ['python']}
-            \ }
-"# pydiction
-NeoBundleLazy 'rkulla/pydiction', {
-            \ 'autoload' : {'filetypes': ['python']}
-            \ }
-
-"#-----------------------#
-"# ruby                  #
-"#-----------------------#
-"# vim-ruby
-NeoBundle 'vim-ruby/vim-ruby', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# unite-ruby-require
-NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# neco-ruby-keyword-args
-NeoBundleLazy 'rhysd/neco-ruby-keyword-args', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# textobj-ruby
-NeoBundleLazy 'rhysd/vim-textobj-ruby', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# vim-rspec
-NeoBundleLazy 'skwp/vim-rspec', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# matchit
-NeoBundleLazy 'ruby-matchit', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# vim-rails
-NeoBundle 'tpope/vim-rails'
-"# vim-ref-ri
-NeoBundle 'taka84u9/vim-ref-ri'
-
-"#-----------------------#
-"# html-coding           #
-"#-----------------------#
-"# vim-less
-NeoBundleLazy 'groenewege/vim-less', {
-            \ 'autoload' : {'filetypes': ['less']}
-            \ }
-"# emmet.vim
-NeoBundleLazy 'mattn/emmet-vim', {
-            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml']}
-            \ }
-"# instantmarkdown
-NeoBundleLazy 'chreekat/vim-instant-markdown', {
-            \ 'autoload' : { 'commands' : ['InstantMarkdown'] }
-            \ }
-"# nginx.vim
-NeoBundle 'nginx.vim'
-"# httpstatus
-NeoBundleLazy 'mattn/httpstatus-vim', {
-            \ 'autoload' : { 'commands' : ['HttpStatus'] }
-            \ }
-"# tmux.vim
-NeoBundle 'zaiste/tmux.vim'
-"# html5.vim
-NeoBundle 'taichouchou2/html5.vim'
-"# css3vim
-NeoBundle 'hail2u/vim-css3-syntax'
-"# sass
-if executable('sass')
-    NeoBundle 'AtsushiM/sass-compile.vim'
-endif
-"# slim
-NeoBundle 'slim-template/vim-slim'
-
-"#-----------------------#
-"# git-tool              #
-"#-----------------------#
-"# gist.vim
-NeoBundleLazy 'mattn/gist-vim', {
-            \ 'autoload' : { 'commands' : ['Gist'] }
-            \ }
-"# fugitive
-NeoBundleLazy 'tpope/vim-fugitive', {
-            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
-            \ }
-"# gitv
-NeoBundleLazy 'gregsexton/gitv', {
-            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
-            \ }
-
-"#-----------------------#
-"# util-tool             #
-"#-----------------------#
-"# lcoalrc
-NeoBundle 'thinca/vim-localrc'
-"# calendar.vim
-NeoBundle 'mattn/calendar-vim', {
-            \ 'autoload' : {'commands' : ['Calendar', 'CalendarH', 'CalendarT'] }
-            \ }
-"# yanktmp
-NeoBundle 'yanktmp.vim'
-"# w3m.vim
-if executable('w3m')
-    NeoBundle 'yuratomo/w3m.vim'
-endif
-
-"#-----------------------#
-"# external service      #
-"#-----------------------#
-"# chalice.vim
-NeoBundleLazy 'koron/chalice', {
-            \ 'autoload' : {'commands' : 'Chalice' }
-            \ }
-if has('mac')
-    "# open-browser
-    NeoBundle 'tyru/open-browser.vim'
-    "# vim-itunes
-    NeoBundle "ryutorion/vim-itunes"
-endif
-"# webapi
-NeoBundle 'mattn/webapi-vim'
-"# twibill
-NeoBundle 'basyura/twibill.vim'
-"# TweetVim
-NeoBundle 'basyura/TweetVim'
-
-"#-------------------#
-"# Colorschemes      #
-"#-------------------#
-"# vim-guicolorscheme
-NeoBundleLazy 'thinca/vim-guicolorscheme', {
-            \ 'autoload' : { 'command' : ['GuiColorScheme'] }
-            \ }
-"# CSApprox
-NeoBundleLazy 'vim-scripts/CSApprox', {
-            \ 'autoload' : { 'command' : ['CSApprox', 'CSApproxSnapshot'] }
-            \ }
-"# solarized
-NeoBundle 'altercation/vim-colors-solarized'
-"# jellybeans
-NeoBundle 'nanotech/jellybeans.vim'
-"# wombat
-NeoBundle 'vim-scripts/Wombat'
-"# molokai
-NeoBundle 'tomasr/molokai'
-"# Zenburn
-NeoBundle 'Zenburn'
-"# twilight
-NeoBundle 'vim-scripts/twilight'
-"# pyte
-NeoBundle 'vim-scripts/pyte'
-"# chlordane
-NeoBundle 'vim-scripts/chlordane.vim'
-"# matrix.vim
-NeoBundleLazy 'vim-scripts/matrix.vim--Yang', {
-            \ 'autoload' : { 'command' : ['Matrix'] }
-            \ }
-
-filetype plugin on
-filetype indent on
-
-NeoBundleCheck
-
-"}}}2
 "### Unite.vim {{{2
 
 nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
@@ -1325,7 +1445,12 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡'
 
-autocmd VimEnter * :AirlineTheme dark
+let g:airline_theme='dark'
+"# ESCの遅延防止
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
 
 "let g:Powerline_symbols = 'fancy'
 ""let g:Powerline_symbols = 'compatible'
@@ -1339,11 +1464,6 @@ autocmd VimEnter * :AirlineTheme dark
 "    let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
 "endif
 "
-""# ESCの遅延防止
-"if has('unix') && !has('gui_running')
-"    inoremap <silent> <ESC> <ESC>
-"    inoremap <silent> <C-[> <ESC>
-"endif
 "if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
 "    PowerlineClearCache | PowerlineReloadColorscheme
 "endif
@@ -1907,235 +2027,6 @@ augroup template_setting
 augroup END
 
 " }}}2
-
-" }}}1
-"[ ####------- GVim Visualize Settings ---------#### ] {{{1
-
-"### colorscheme "{{{2
-
-"# xterm-256color
-set t_Co=256
-
-"# Colorscheme
-syntax enable
-
-let g:default_color_mode=has('unix') ? 'A' : 'B'
-
-"# GUI
-let g:gui_colorscheme_a='chlordane'
-let g:gui_background_a='dark'
-let g:gui_colorscheme_b='pyte'
-let g:gui_background_b='light'
-
-"# CUI
-"let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='jellybeans'
-let g:cui_background_a='light'
-let g:cui_colorscheme_b='matrix'
-let g:cui_background_b='light'
-
-let g:current_color_mode=g:default_color_mode
-
-" setup color by background
-function! SetupColorScheme ()
-    if has('gui_running')
-        execute 'colorscheme ' . 
-                    \ ( (g:default_color_mode ==# 'A') ? 
-                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-        execute 'set background=' . 
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:gui_background_a : g:gui_background_b)
-    else
-        execute 'colorscheme ' . 
-                    \ ( (g:default_color_mode ==# 'A') ? 
-                    \ g:cui_colorscheme_a : g:cui_colorscheme_b)
-        execute 'set background=' . 
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:cui_background_a : g:cui_background_b)
-    endif
-endfunction
-
-
-"# change colorscheme & background
-function! ChangeBackground()
-
-    if g:current_color_mode ==# 'A'
-        execute 'colorscheme ' .
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
-        let g:current_color_mode='B'
-        echo 'change backgrount=light'
-    else
-        execute 'colorscheme ' .
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-        let g:current_color_mode='A'
-        echo 'change backgrount=dark'
-    endif
-
-    if has('gui_running')
-        execute 'set background=' . 
-                    \ ( g:current_color_mode ==# 'A' ?
-                    \ g:gui_background_a : g:gui_background_b)
-    else
-        execute 'set background=' . 
-                    \ ( (g:current_color_mode ==# 'A') ?
-                    \ g:cui_background_a : g:cui_background_b)
-    endif
-    syntax on
-endfunction
-
-
-function! MyColor()
-    "# ポップアップメニューの色変更
-    highlight Pmenu 
-                \ ctermbg=DarkGray
-                \ ctermfg=White
-
-    highlight PmenuSel
-                \ ctermbg=White
-                \ ctermfg=Black 
-
-    "# Foldingの色変更
-    highlight Folded
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=Black
-                \ ctermfg=LightGray
-                \ guibg=Grey30
-                \ guifg=Grey80
-
-    highlight FoldColumn
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=Black
-                \ ctermfg=LightGray
-                \ guibg=Grey
-                \ guifg=DarkBlue
-
-    "# 検索結果のカラースキーム変更
-    highlight Search ctermbg=Gray
-endfunction
-
-augroup color_set
-    autocmd!
-    "autocmd ColorScheme * call MyColor()
-augroup END
-
-"# initialize colorcheme
-call SetupColorScheme()
-
-"# switching colrschme & background
-nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
-
-"}}}2
-"### for gui_MacVim {{{2
-
-function MyGUIMacVimSetting()
-
-    colorscheme chlordane
-    augroup color_set
-        autocmd!
-    augroup END
-
-    set transparency=10
-    set imdisable 
-    set antialias
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
-    set nobackup
-
-endfunction
-
-"}}}2
-"### gvim {{{2
-
-"# windowの大きさ監視
-function WindowSupervise()
-
-    let g:save_window_file = '$HOME/.vimwinpos'
-
-    if filereadable( expand(g:save_window_file) )
-        execute 'source ' . g:save_window_file
-    endif
-
-    augroup SaveWindow
-        autocmd!
-        autocmd BufRead * call s:save_window()
-        autocmd VimResized * call s:save_window()
-        function! s:save_window()
-            let options = [
-                        \ 'set columns=' . &columns,
-                        \ 'set lines=' . &lines,
-                        \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
-                        \ ]
-            call writefile(options, expand(g:save_window_file) )
-        endfunction
-
-    augroup END
-endfunction
-
-"# gvimの設定関数
-function MyGUISetting ()
-
-    if has('vim_starting')
-        "# インサートモード以外でIMEをオフ
-        set iminsert
-    endif
-
-    "# LineNumber
-    set number
-
-    "# yankとclipboardを同期する
-    set clipboard+=unnamed
-
-    "# menu項目
-    set guioptions-=t
-    set guioptions-=r
-    set guioptions-=l
-    set guioptions-=b
-
-    "# fullscreen option
-    set fuoptions=maxvert,maxhorz
-
-    augroup focus_transparency
-        autocmd!
-        if has('mac')
-            autocmd FocusGained * set transparency=10
-            autocmd FocusLost * set transparency=50
-        endif
-    augroup END
-
-endfunction
-
-function MyGUISettingLazy()
-
-    call SetupColorScheme()
-
-    if has('multi_byte_ime')
-
-        highlight Cursor
-                    \ guifg=NONE
-                    \ guibg=Green
-        highlight CursorIM
-                    \ guifg=NONE
-                    \ guibg=Purple
-    endif
-
-    call WindowSupervise()
-
-    if has('gui_macvim')
-        call MyGUIMacVimSetting()
-    endif
-
-endfunction
-
-if has('gui_running')
-    call MyGUISetting ()
-endif
-
-autocmd GUIEnter * call MyGUISettingLazy()
-
-"}}}2
 
 " }}}1
 "[ ####------- Read Local Settings -------------#### ] {{{1
