@@ -783,17 +783,18 @@ endif
 let loaded_ReCheckFENC = 1
 
 " 日本語を含まない場合は fileencoding に encoding を使うようにする
-if has('autocmd')
-    function! AU_ReCheck_FENC()
-        if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-            let &fileencoding=&encoding
-            if has('win16') || has('win32') || has('win64') || has('win32unix') || has('win95')
-                let &fileencoding='cp932'
-            endif
+function! AU_ReCheck_FENC()
+    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+        let &fileencoding=&encoding
+        if has('win16') || has('win32') || has('win64') || has('win32unix') || has('win95')
+            let &fileencoding='cp932'
         endif
-    endfunction
+    endif
+endfunction
+augroup encode_group
+    autocmd!
     autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
+augroup END
 
 "}}}2
 "### LineNumber "{{{2
@@ -1364,11 +1365,6 @@ let g:memolist_vimfiler=1
 let g:memolist_path = "$HOME/.vim/memo/"
 let g:memolist_vimfiler_option=""
 
-"# key mapping
-nnoremap mn  :MemoNew<CR>
-nnoremap ml  :MemoList<CR>
-nnoremap mg  :MemoGrep<CR>
-
 "}}}2
 "### yannktmp.vim "{{{2
 
@@ -1435,7 +1431,7 @@ endif
 nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
 
 "}}}2
-"### Vim-Powerline / Airline {{{2
+"### Airline {{{2
 
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
@@ -1446,27 +1442,17 @@ let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡'
 
 let g:airline_theme='dark'
+
+augroup airline_group
+    autocmd!
+    autocmd VimEnter * :AirlineTheme dark
+augroup END
+
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
     inoremap <silent> <ESC> <ESC>
     inoremap <silent> <C-[> <ESC>
 endif
-
-"let g:Powerline_symbols = 'fancy'
-""let g:Powerline_symbols = 'compatible'
-""let g:Powerline_symbols = 'unicode'
-"let g:Powerline_symbols_override = {
-"            \ 'BRANCH': [0x2213],
-"            \ 'LINE': 'L',
-"            \ }
-"
-"if $USER ==# 'root'
-"    let g:Powerline_dividers_override = ['>>=>>', '> >', '<<=<<', '< <']
-"endif
-"
-"if exists(':PowerlineClearCache') && exists(':PowerlineReloadColorscheme') 
-"    PowerlineClearCache | PowerlineReloadColorscheme
-"endif
 
 "}}}2
 "### Solarized {{{2
@@ -1538,8 +1524,10 @@ function AlterRef()
     AlterCommand  perlf[unc] Ref perldoc -f
     AlterCommand  man[page] Manpage
 endfunction
-
-autocmd VimEnter * call AlterRef()
+augroup ref_group
+    autocmd!
+    autocmd VimEnter * call AlterRef()
+augroup END
 
 "}}}2
 "### MultipulSearch.vim {{{2
@@ -1610,7 +1598,10 @@ if has('mac')
         AlterCommand  it[unes] ITunes
     endfunction
 
-    autocmd VimEnter * call AlterITunes()
+    augroup itunes_group
+        autocmd!
+        autocmd VimEnter * call AlterITunes()
+    augroup END
 endif
 
 "}}}2
@@ -1622,7 +1613,10 @@ vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
 function s:alter_quickrun()
     AlterCommand  qui[ckrun] QuickRun
 endfunction
-autocmd VimEnter * call s:alter_quickrun()
+augroup quickrun_group
+    autocmd!
+    autocmd VimEnter * call s:alter_quickrun()
+augroup END
 
 for [key, com] in items({
             \   '<Leader>x' : '>message',
@@ -1691,7 +1685,10 @@ augroup END
 function s:alter_chalice()
     AlterCommand  cha[lice] Chalice
 endfunction
-autocmd VimEnter * call s:alter_chalice()
+augroup chalice_group
+    autocmd!
+    autocmd VimEnter * call s:alter_chalice()
+augroup END
 
 "}}}2
 "### sudo.vim {{{2
@@ -1727,7 +1724,10 @@ let g:sass_compile_cssdir = ['css', 'stylesheet']
 let g:sass_compile_file = ['scss', 'sass']
 let g:sass_started_dirs = []
 
-autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+augroup sass_group
+    autocmd!
+    autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+augroup END
 "}}}2
 "### NERDTree {{{2
 nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
@@ -1867,16 +1867,11 @@ command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console
 "}}}2
 "### Scala support{{{2
 
-set makeprg=sbt-no-color\ compile
 if exists("current_compiler")
   finish
 endif
-let current_compiler = "sbt"
+let g:current_compiler = "sbt"
 
-set errorformat=%E[error]\ %f:%l:\ %m,%C[error]\ %p^,%-C%.%#,%Z,
-               \%W[warn]\ %f:%l:\ %m,%C[warn]\ %p^,%-C%.%#,%Z,
-               \%-G%.%#
-set errorfile=target/error
 
 "# sbt
 function! s:start_sbt()
@@ -1921,17 +1916,19 @@ function! s:sbt_controll()
     nnoremap <buffer> <Plug>(mykey)r :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
 endfunction
 
-function! s:sbt_errorformat()
-    setlocal errorformat=%E\ %#[error]\ %#%f:%l:\ %m,%-Z\ %#[error]\ %p^,%-C\ %#[error]\ %m
-    setlocal errorformat+=,%W\ %#[warn]\ %#%f:%l:\ %m,%-Z\ %#[warn]\ %p^,%-C\ %#[warn]\ %m
-    setlocal errorformat+=,%-G%.%#
+function! s:set_compiler_sbt()
+    setlocal errorformat=%E[error]\ %f:%l:\ %m,%C[error]\ %p^,%-C%.%#,%Z,
+                   \%W[warn]\ %f:%l:\ %m,%C[warn]\ %p^,%-C%.%#,%Z,
+                   \%-G%.%#
+    setlocal makeprg=sbt-no-color\ compile
+    setlocal errorfile=target/error
 endfunction
 
 augroup scala_setting
     autocmd!
     autocmd FileType scala setlocal nocindent
-    autocmd FileType scala call s:sbt_errorformat()
-    autocmd FileType scala call s:sbt_controll()
+    autocmd FileType scala call <SID>set_compiler_sbt()
+    autocmd FileType scala call <SID>sbt_controll()
     autocmd FileType scala nnoremap <buffer> <Plug>(mykey)r :<C-u>SBT<CR>
     autocmd FileType scala nnoremap <buffer> <Leader>s :<C-u>SBT<CR>
 augroup END
