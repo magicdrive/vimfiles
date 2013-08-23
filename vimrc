@@ -142,6 +142,8 @@ NeoBundleLazy 'yuratomo/gmail.vim', {
             \ 'autoload' : { 'commands' : ['Gmail'] }
             \ }
 
+NeoBundle 'troydm/easybuffer.vim'
+
 set runtimepath+=~/.vim/bundle/manual/vim-golang
 
 "#----------------------------------#
@@ -1212,61 +1214,34 @@ let g:unite_source_file_mru_limit=10000
 "#---------------------------#
 "# buffers+unite             #
 "#---------------------------#
-" buffer
 nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
-" filehistory
 nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
-" filehistory and buffer
 nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
-" Directry
-nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
-" files
 nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<CR>
+nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
 
 "#---------------------------#
 "# neobundle+unite           #
 "#---------------------------#
 " neobundle-menu
-nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle<CR>
+nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle/
 
 "#---------------------------#
 "# ref+unite                 #
 "#---------------------------#
 " perldoc
-nnoremap <silent> <Plug>(mykey)Rp :<C-u>Unite ref/perldoc<CR>
-" manpage
-nnoremap <silent> <Plug>(mykey)Rm :<C-u>Unite ref/man<CR>
+nnoremap <silent> <Plug>(mykeylite)r :<C-u>Unite ref/
 
 "#---------------------------#
 "# tweetvim+unite            #
 "#---------------------------#
 " tweetvim menu
-nnoremap <silent> <Plug>(mykeylite)tw  :<C-u>Unite tweetvim<CR>
-
-"#---------------------------#
-"# unitesource:unite-help    #
-"#---------------------------#
-" Execute help.
-nnoremap <silent> g<C-h>  :<C-u>Unite -start-insert help<CR>
+nnoremap <silent> <Plug>(mykeylite)t  :<C-u>Unite tweetvim<CR>
 
 "#---------------------------#
 "# unitesource:unite-outline #
 "#---------------------------#
 nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
-
-"#---------------------------#
-"# unitesource:unite-grep    #
-"#---------------------------#
-" Execute grep.
-nnoremap <silent> <Plug>(mykey)g  :<C-u>Unite -vertical grep<CR>
-
-"#---------------------------#
-"# unitesource:it_track      #
-"#---------------------------#
-"# itunes track
-if has('mac')
-    nnoremap <silent> <Plug>(mykeylite)ti  :<C-u>Unite -vertical it_track<CR>
-endif
 
 "}}}2
 "### VimShell {{{2
@@ -1383,12 +1358,8 @@ let g:DrChipTopLvlMenu=''
 
 set infercase
 
-"# Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-"# Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
-"# Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
 "# Use camel case completion.
 let g:neocomplcache_enable_camel_case_completion = 1
 "# Use underbar completion.
@@ -1427,9 +1398,6 @@ if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
 endif
 
-"# NeoCompleCacheToggle
-nnoremap <Plug>(mykeylite)t :NeoComplCacheToggle<CR>
-
 "}}}2
 "### Airline {{{2
 
@@ -1439,7 +1407,7 @@ let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
 let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
+let g:airline_linecolumn_prefix = '⭡ '
 
 let g:airline_theme='dark'
 
@@ -1456,18 +1424,17 @@ endif
 
 "}}}2
 "### Solarized {{{2
-
 let g:solarized_termcolors=256
 let g:solarized_bold=0
 let g:solarized_underline=1
 let g:solarized_italic=0
-
 "}}}2
 "### EasyMotion {{{2
-
 let g:EasyMotion_leader_key = "q"
 let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm,./1234567890'
-
+"}}}2
+"### EasyBuffer {{{2
+nnoremap B :EasyBufferToggle<CR>
 "}}}2
 "### W3m.vim {{{2
 
@@ -1571,9 +1538,9 @@ if has('mac')
     nnoremap <Plug>(mykey)0 :ITunes<Space>
     command! -nargs=1 
                 \ -complete=customlist,CompletionITunes 
-                \ ITunes :call ITunes('<args>')
+                \ ITunes :call <SID>ITunes('<args>')
 
-    function ITunes(action)
+    function! s:ITunes(action)
         if a:action ==# 'list' 
             Unite it_track
         else 
@@ -1694,7 +1661,6 @@ augroup END
 "### sudo.vim {{{2
 
 command! -nargs=? W :call s:sudo_write('<args>')
-
 function s:sudo_write(arg)
     if a:arg ==# ''
         write sudo:%
