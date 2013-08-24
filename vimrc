@@ -1324,6 +1324,7 @@ call unite#custom_action('file', 'my_vsplit', s:my_action)
 
 let g:loaded_netrwPlugin = 1
 let g:vimfiler_as_default_explorer=1
+let g:vimfiler_force_overwrite_statusline = 0
 
 "}}}2
 "### MemoList.vim {{{2
