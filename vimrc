@@ -475,7 +475,7 @@ map  , <Plug>(mykeylite)
 
 "# vi互換のoff
 set nocompatible
-set regexpengine=1
+"#set regexpengine=1
 
 "# timeout
 set to
@@ -1214,7 +1214,7 @@ let g:unite_source_file_mru_limit=10000
 "#---------------------------#
 "# buffers+unite             #
 "#---------------------------#
-nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split -start-insert buffer<CR>
+nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
 nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
 nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
 nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<CR>
@@ -1434,7 +1434,7 @@ let g:EasyMotion_leader_key = "q"
 let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm,./1234567890'
 "}}}2
 "### EasyBuffer {{{2
-nnoremap B :EasyBufferToggle<CR>
+nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
 "}}}2
 "### W3m.vim {{{2
 
@@ -1670,14 +1670,6 @@ function s:sudo_write(arg)
 endfunction
 
 "}}}2
-"### NerdCommenter {{{2
-
-let g:NERDCreateDefaultMappings = 0
-let NERDSpaceDelims = 1
-nmap <Leader><Leader> <Plug>NERDCommenterToggle
-vmap <Leader><Leader> <Plug>NERDCommenterToggle
-
-"}}}2
 "### Singleton.vim {{{2
 if has('clientserver')
     call singleton#enable()
@@ -1698,6 +1690,14 @@ augroup END
 "### NERDTree {{{2
 nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
 let g:NERDTreeHijackNetrw=0
+"}}}2
+"### NERDCommenter {{{2
+
+let g:NERDCreateDefaultMappings = 0
+let NERDSpaceDelims = 1
+nmap <Leader><Leader> <Plug>NERDCommenterToggle
+vmap <Leader><Leader> <Plug>NERDCommenterToggle
+
 "}}}2
 "### Emmet {{{2
 let g:user_emmet_mode='i'
