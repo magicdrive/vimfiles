@@ -1336,11 +1336,11 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme='dark'
+let g:airline_theme='jellybeans'
 
 augroup airline_group
     autocmd!
-    autocmd VimEnter * :AirlineTheme dark
+    autocmd VimEnter * :AirlineTheme jellybeans
 augroup END
 
 "# ESCの遅延防止
