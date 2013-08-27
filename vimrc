@@ -362,6 +362,8 @@ NeoBundleLazy 'mattn/httpstatus-vim', {
             \ }
 "# tmux.vim
 NeoBundle 'zaiste/tmux.vim'
+"# monit
+NeoBundle 'tmatilai/vim-monit'
 "# html5.vim
 NeoBundle 'taichouchou2/html5.vim'
 "# css3vim
@@ -866,7 +868,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.psgi set filetype=perl
     autocmd BufNewFile,BufRead cpanfile set filetype=cpanfile
     autocmd BufNewFile,BufRead cpanfile set syntax=perl.cpanfile
-    autocmd BufNewFile,BufRead */nginx/conf/* set filetype=nginx
+    autocmd BufNewFile,BufRead */nginx/conf/*.conf* set filetype=nginx
     autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
     autocmd BufNewFile,BufRead */patches/* set filetype=diff
     autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
@@ -879,6 +881,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead gemspec set filetype=ruby
     autocmd BufNewFile,BufRead *.ru set filetype=ruby
     autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
+    autocmd BufNewFile,BufRead *monitrc set filetype=monitrc
 augroup END
 
 "}}}2
