@@ -330,6 +330,8 @@ NeoBundleLazy 'rhysd/vim-textobj-ruby', {
 NeoBundleLazy 'skwp/vim-rspec', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
+"# rspec-syntax
+NeoBundle 'Keithbsmiley/rspec.vim'
 "# matchit
 NeoBundleLazy 'ruby-matchit', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
@@ -866,8 +868,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
     autocmd BufNewFile,BufRead *.t set filetype=perl
     autocmd BufNewFile,BufRead *.psgi set filetype=perl
-    autocmd BufNewFile,BufRead cpanfile set filetype=cpanfile
-    autocmd BufNewFile,BufRead cpanfile set syntax=perl.cpanfile
+    autocmd BufNewFile,BufRead cpanfile set filetype=perl.cpanfile
     autocmd BufNewFile,BufRead */nginx/conf/*.conf* set filetype=nginx
     autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
     autocmd BufNewFile,BufRead */patches/* set filetype=diff
@@ -882,6 +883,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.ru set filetype=ruby
     autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
     autocmd BufNewFile,BufRead *monitrc set filetype=monitrc
+    autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
 augroup END
 
 "}}}2
