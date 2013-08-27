@@ -365,7 +365,7 @@ NeoBundleLazy 'mattn/httpstatus-vim', {
 "# tmux.vim
 NeoBundle 'zaiste/tmux.vim'
 "# monit
-NeoBundle 'tmatilai/vim-monit'
+NeoBundle 'magicdrive/vim-monit'
 "# html5.vim
 NeoBundle 'taichouchou2/html5.vim'
 "# css3vim
