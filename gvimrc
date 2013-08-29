@@ -107,6 +107,7 @@ autocmd GUIEnter * call MyGUISettingLazy()
 function MyGUIMacVimSetting()
 
     colorscheme chlordane
+    let g:airline_theme='luna'
     augroup color_set
         autocmd!
     augroup END
