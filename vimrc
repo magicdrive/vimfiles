@@ -1742,6 +1742,7 @@ augroup ruby_ftplugin
     autocmd FileType ruby :compiler ruby
     autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby -c<CR>
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby -c %<CR>
+    autocmd FileType ruby,ref-ri setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,?,-
     autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
     autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
     autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
