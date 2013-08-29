@@ -10,6 +10,8 @@
 
 filetype off
 
+let g:neobundle_default_git_protocol = 'git'
+
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
 endif
