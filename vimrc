@@ -1341,7 +1341,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme='simple'
+let g:airline_theme='luna'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
