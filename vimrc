@@ -1,17 +1,10 @@
-"=========================================================================
-"                                 ___           ___           ___
-"      ___            ___        /  /\         /  /\         /  /\
-"     /  /\          /__/\      /  /::|       /  /::\       /  /::\
-"    /  /:/          \__\:\    /  /:|:|      /  /:/\:\     /  /:/\:\
-"   /  /:/           /  /::\  /  /:/|:|__   /  /::\ \:\   /  /:/  \:\
-"  /__/:/  ___    __/  /:/\/ /__/:/_|::::\ /__/:/\:\_\:\ /__/:/ \  \:\
-"  |  |:| /  /\  /__/\/:/~~  \__\/  /~~/:/ \__\/~|::\/:/ \  \:\  \__\/
-"  |  |:|/  /:/  \  \::/           /  /:/     |  |:|::/   \  \:\
-"  |__|:|__/:/    \  \:\          /  /:/      |  |:|\/     \  \:\
-"   \__\::::/      \__\/         /__/:/       |__|:|        \  \:\
-"       ~~~~                     \__\/         \__\|         \__\/
-"                            my vimrc
-"=========================================================================
+"#          __                            
+"#  __  __ /\_\    ___ ___   _ __   ___   
+"# /\ \/\ \\/\ \ /' __` __`\/\`'__\/'___\ 
+"# \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/ 
+"#  \ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
+"#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
+"#                for vim7.4
 
 "[ ####------- NeoBundle Settings --------------#### ] {{{1
 
@@ -866,8 +859,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.as set filetype=actionscript
     autocmd BufNewFile,BufRead *.mxml set filetype=mxml
     autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
-    autocmd BufNewFile,BufRead *.t set filetype=perl
-    autocmd BufNewFile,BufRead *.psgi set filetype=perl
+    autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
     autocmd BufNewFile,BufRead cpanfile set filetype=perl.cpanfile
     autocmd BufNewFile,BufRead */nginx/conf/*.conf* set filetype=nginx
     autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
@@ -882,7 +874,6 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead gemspec set filetype=ruby
     autocmd BufNewFile,BufRead *.ru set filetype=ruby
     autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
-    autocmd BufNewFile,BufRead *monitrc set filetype=monitrc
     autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
 augroup END
 
