@@ -732,9 +732,9 @@ nnoremap <silent> <Plug>(mykeylite)n :<C-u>call ToggleNumber()<CR>
 augroup LineNumber
     function! ToggleNumber()
         if &number ==# '1'
-            echo "disable line number"
+            echohl DiffChange | echo "disable line number" | echohl None
         else
-            echo "enable line number"
+            echohl DiffChange | echo "enable line number" | echohl None
         endif
         setlocal number!
     endfunction
@@ -754,10 +754,10 @@ if has('mouse')
     function! ToggleMouseMode()
         if &mouse ==# 'a'
             set mouse=
-            echo "MouseMode disabled"
+            echohl DiffChange | echo "MouseMode disabled" | echohl None
         else
             set mouse=a
-            echo "MouseMode enabled"
+            echohl DiffChange | echo "MouseMode enabled" | echohl None
         endif
     endfunction
 endif
