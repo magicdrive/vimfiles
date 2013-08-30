@@ -756,6 +756,7 @@ if has('mouse')
     set ttymouse=xterm2
     "# toggle mouse mode
     nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
+    command! -nargs=0 MouseToggle :call ToggleMouseMode()
 
     function! ToggleMouseMode()
         if &mouse ==# 'a'
