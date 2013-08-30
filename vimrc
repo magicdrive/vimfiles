@@ -481,6 +481,12 @@ set to
 set tm=500
 set ttm=100
 
+"# 上下移動
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
