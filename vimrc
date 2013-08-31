@@ -380,13 +380,9 @@ NeoBundleLazy 'mattn/gist-vim', {
             \ 'autoload' : { 'commands' : ['Gist'] }
             \ }
 "# fugitive
-NeoBundleLazy 'tpope/vim-fugitive', {
-            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
-            \ }
+NeoBundleLazy 'tpope/vim-fugitive'
 "# gitv
-NeoBundleLazy 'gregsexton/gitv', {
-            \   'autoload' : { 'commands' : [ 'Git', "Gitv"] }
-            \ }
+NeoBundleLazy 'gregsexton/gitv'
 
 "#-----------------------#
 "# util-tool             #
