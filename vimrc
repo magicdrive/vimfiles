@@ -729,18 +729,17 @@ set fileformats=unix,mac,dos
 "### LineNumber "{{{2
 
 "# LineNumberのトグル
-nnoremap <silent> <Plug>(mykeylite)n :<C-u>call ToggleNumber()<CR>
+nnoremap <silent> <Plug>(mykeylite)n :<C-u>call <SID>ToggleNumber()<CR>
+command! -nargs=0 NumberToggle :call <SID>ToggleNumber()
 
-augroup LineNumber
-    function! ToggleNumber()
-        if &number ==# '1'
-            echohl DiffChange | echo "disable line number" | echohl None
-        else
-            echohl DiffChange | echo "enable line number" | echohl None
-        endif
-        setlocal number!
-    endfunction
-augroup END
+function! s:ToggleNumber()
+    if &number ==# '1'
+        echohl Error | echo "disable line number" | echohl None
+    else
+        echohl DiffChange | echo "enable line number" | echohl None
+    endif
+    setlocal number!
+endfunction
 
 "}}}2
 "### mouse mode "{{{2
@@ -751,19 +750,35 @@ if has('mouse')
     "# terminalmutiprexa内でもマウスモード設定を反映 
     set ttymouse=xterm2
     "# toggle mouse mode
-    nnoremap <silent> <Plug>(mykeylite)m :<C-u>call ToggleMouseMode()<CR>
-    command! -nargs=0 MouseToggle :call ToggleMouseMode()
+    nnoremap <silent> <Plug>(mykeylite)m :<C-u>call <SID>ToggleMouseMode()<CR>
+    command! -nargs=0 MouseToggle :call <SID>ToggleMouseMode()
 
-    function! ToggleMouseMode()
+    function! s:ToggleMouseMode()
         if &mouse ==# 'a'
             set mouse=
-            echohl DiffChange | echo "MouseMode disabled" | echohl None
+            echohl Error | echo "MouseMode disabled" | echohl None
         else
             set mouse=a
             echohl DiffChange | echo "MouseMode enabled" | echohl None
         endif
     endfunction
 endif
+
+"}}}2
+"### ListChar "{{{2
+
+"# Listcharのトグル
+nnoremap <silent> <Plug>(mykey)c :<C-u>call <SID>ToggleListChar()<CR>
+command! -nargs=0 ListCharToggle :call <SID>ToggleListChar()
+
+function! s:ToggleListChar()
+    if &list ==# '1'
+        echohl Error | echo "disable list char" | echohl None
+    else
+        echohl DiffChange | echo "enable list char" | echohl None
+    endif
+    setlocal list!
+endfunction
 
 "}}}2
 "### backup,swapfile "{{{2
@@ -987,9 +1002,6 @@ function! s:ChangeCurrentDir(directory, bang)
     endif
 endfunction
 
-" Change current directory.
-nnoremap <silent> <Plug>(mykey)cd :<C-u>CD<CR>
-
 " highlight 全角space
 function! ZenkakuSpace()
     highlight ZenkakuSpace 
@@ -1025,7 +1037,7 @@ let g:gui_background_a='dark'
 let g:gui_colorscheme_b='pyte'
 let g:gui_background_b='light'
 
-"# CUI
+"# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_a='jellybeans'
 let g:cui_background_a='light'
