@@ -1641,6 +1641,18 @@ let g:user_emmet_mode='i'
 " }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
 
+"### C++ support "{{{2
+
+augroup cpp_ftplugin
+    autocmd!
+    autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 expandtab
+    if executable('clang-format')
+        autocmd FileType cpp nnoremap <buffer> <C-\> :<C-u>%!clang-format<CR>
+        autocmd FileType cpp vnoremap <buffer> <C-\> :!clang-format<CR>
+    endif
+augroup END
+
+"}}}2
 "### Perl support "{{{2
 
 "# perldoc:  module source code open
@@ -1666,7 +1678,7 @@ augroup perl_ftplugin
     autocmd!
     autocmd FileType perl :compiler perl
     if executable('perltidy')
-        autocmd FileType perl nnoremap <buffer> <C-\>  ? <C-u>:%! perltidy<CR>
+        autocmd FileType perl nnoremap <buffer> <C-\> <C-u>:%! perltidy<CR>
         autocmd FileType perl vnoremap <buffer> <C-\> :!perltidy<CR>
     endif
     autocmd FileType perl nnoremap <buffer> <F4> :w !perl -c<CR>
