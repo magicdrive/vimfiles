@@ -609,7 +609,7 @@ set virtualedit=block
 "# バックスペースでインデントや改行を削除できるようにする
 set backspace=indent,eol,start
 .
-"# 2バイト文字でもカーソル位置がずれないようにする
+"# 全角文字でもカーソル位置がずれないようにする
 set ambiwidth=double
 
 "# コマンドライン補完するときに強化されたものを使う
