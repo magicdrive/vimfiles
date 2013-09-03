@@ -1629,6 +1629,7 @@ augroup END
 "### NERDTree {{{2
 nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
 let g:NERDTreeHijackNetrw=0
+let g:NERDTreeWinSize=35
 "}}}2
 "### NERDCommenter {{{2
 
