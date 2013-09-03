@@ -380,9 +380,13 @@ NeoBundleLazy 'mattn/gist-vim', {
             \ 'autoload' : { 'commands' : ['Gist'] }
             \ }
 "# fugitive
-NeoBundleLazy 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive'
 "# gitv
-NeoBundleLazy 'gregsexton/gitv'
+NeoBundle 'gregsexton/gitv'
+"# git-gutter
+NeoBundleLazy 'airblade/vim-gitgutter', {
+            \ 'autoload' : { 'commands' : ['GitGutter','GitGutterDisable','GitGutterEnable','GitGutterToggle'] }
+            \ }
 
 "#-----------------------#
 "# util-tool             #
@@ -1636,6 +1640,23 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 "}}}2
 "### Emmet {{{2
 let g:user_emmet_mode='i'
+"}}}2
+"### GitGutter {{{2
+nnoremap <silent> <Plug>(mykey)g :call <SID>gitgutter_load()<CR>
+let g:myvimrc_gitgutter_switch=0
+function s:gitgutter_load()
+    if g:myvimrc_gitgutter_switch == 0
+        GitGutterEnable
+        nnoremap <silent> gh :GitGutterNextHunk<CR>
+        nnoremap <silent> gH :GitGutterPrevHunk<CR>
+        let g:myvimrc_gitgutter_switch=1
+    else
+        GitGutterDisable
+        nnoremap <silent> gh gh
+        nnoremap <silent> gH gH
+        let g:myvimrc_gitgutter_switch=0
+    endif
+endfunction
 "}}}2
 
 " }}}1
