@@ -854,8 +854,15 @@ inoremap <C-e> <End>
 "}}}2
 "### Indent "{{{2
 
+function! s:IndentFormat(cmd)
+    let l:cmd = a:cmd
+    let l:linenum=line(".")
+    execute "normal " . l:cmd
+    execute l:linenum
+endfunction
+
 "# current buffer indent
-nnoremap <C-\> gg=G
+nnoremap <C-\> :call <SID>IndentFormat('gg=G')<CR>
 vnoremap <C-\> =
 
 "# インデント
