@@ -856,9 +856,9 @@ inoremap <C-e> <End>
 
 function! s:IndentFormat(cmd)
     let l:cmd = a:cmd
-    let l:linenum=line(".")
+    mkview
     execute "normal " . l:cmd
-    execute l:linenum
+    loadview
 endfunction
 
 "# current buffer indent
@@ -1676,7 +1676,7 @@ augroup cpp_ftplugin
     autocmd!
     autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 expandtab
     if executable('clang-format')
-        autocmd FileType cpp nnoremap <buffer> <C-\> :<C-u>%!clang-format<CR>
+        autocmd FileType cpp nnoremap <buffer> <C-\> :<C-u>call <SID>IndentFormat('%!clang-format')<CR>
         autocmd FileType cpp vnoremap <buffer> <C-\> :!clang-format<CR>
     endif
 augroup END
@@ -1707,7 +1707,7 @@ augroup perl_ftplugin
     autocmd!
     autocmd FileType perl :compiler perl
     if executable('perltidy')
-        autocmd FileType perl nnoremap <buffer> <C-\> <C-u>:%! perltidy<CR>
+        autocmd FileType perl nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('%! perltidy')<CR>
         autocmd FileType perl vnoremap <buffer> <C-\> :!perltidy<CR>
     endif
     autocmd FileType perl nnoremap <buffer> <F4> :w !perl -c<CR>
@@ -1735,9 +1735,9 @@ augroup python_ftplugin
     autocmd FileType python let g:jedi#rename_command = "<Leader>R"
     autocmd FileType python let g:jedi#popup_on_dot = 1
     autocmd FileType python setlocal nocindent
-    autocmd FileType python setlocal iskeyword+=.,(
     autocmd FileType python nnoremap <buffer> K :<C-u>call ref#open('pydoc', expand('<cword>'))<CR>
     autocmd FileType python vnoremap <buffer> K :<C-u>call ref#jump('visual', 'pydoc')<CR>
+    autocmd FileType python setlocal iskeyword+=.,(
     autocmd VimEnter * call AlterFileTypePython()
 augroup END
 
@@ -1811,7 +1811,7 @@ command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console
 "### Scala support{{{2
 
 if exists("current_compiler")
-  finish
+    finish
 endif
 let g:current_compiler = "sbt"
 
@@ -1861,8 +1861,8 @@ endfunction
 
 function! s:set_compiler_sbt()
     setlocal errorformat=%E[error]\ %f:%l:\ %m,%C[error]\ %p^,%-C%.%#,%Z,
-                   \%W[warn]\ %f:%l:\ %m,%C[warn]\ %p^,%-C%.%#,%Z,
-                   \%-G%.%#
+                \%W[warn]\ %f:%l:\ %m,%C[warn]\ %p^,%-C%.%#,%Z,
+                \%-G%.%#
     setlocal makeprg=sbt-no-color\ compile
     setlocal errorfile=target/error
 endfunction

@@ -4,12 +4,26 @@ vim/eclim/
 vim/plugin/
 vim/memo/*
 vim/doc/tags-ja
-*~
-*\.swp
-*\.swo
-*\.\#*
-*\#
-*.orig
-.netrwhist
-.DS_Store
+vim/view
 vim/README.md
+
+### vim ###
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
