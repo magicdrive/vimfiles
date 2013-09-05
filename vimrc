@@ -429,11 +429,11 @@ NeoBundle 'basyura/TweetVim'
 "#-------------------#
 "# vim-guicolorscheme
 NeoBundleLazy 'thinca/vim-guicolorscheme', {
-            \ 'autoload' : { 'command' : ['GuiColorScheme'] }
+            \ 'autoload' : { 'commands' : ['GuiColorScheme'] }
             \ }
 "# CSApprox
 NeoBundleLazy 'vim-scripts/CSApprox', {
-            \ 'autoload' : { 'command' : ['CSApprox', 'CSApproxSnapshot'] }
+            \ 'autoload' : { 'commands' : ['CSApprox', 'CSApproxSnapshot'] }
             \ }
 "# solarized
 NeoBundle 'altercation/vim-colors-solarized'
@@ -445,6 +445,10 @@ NeoBundle 'vim-scripts/Wombat'
 NeoBundle 'tomasr/molokai'
 "# Zenburn
 NeoBundle 'Zenburn'
+"# railscasts
+NeoBundle 'dhruvasagar/vim-railscasts-theme'
+"# hybrid
+NeoBundle 'w0ng/vim-hybrid'
 "# twilight
 NeoBundle 'vim-scripts/twilight'
 "# pyte
@@ -455,7 +459,7 @@ NeoBundle 'vim-scripts/chlordane.vim'
 NeoBundle 'itchyny/landscape.vim'
 "# matrix.vim
 NeoBundleLazy 'vim-scripts/matrix.vim--Yang', {
-            \ 'autoload' : { 'command' : ['Matrix'] }
+            \ 'autoload' : { 'commands' : ['Matrix'] }
             \ }
 
 filetype plugin on
@@ -1050,8 +1054,8 @@ let g:gui_background_b='light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='jellybeans'
-let g:cui_background_a='light'
+let g:cui_colorscheme_a='landscape'
+let g:cui_background_a='dark'
 let g:cui_colorscheme_b='matrix'
 let g:cui_background_b='light'
 
