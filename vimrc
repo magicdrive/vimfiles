@@ -1002,6 +1002,10 @@ endif
 "}}}2
 "### Util Functinos {{{2
 
+" jump startdir
+let g:vimstart_dir=$PWD
+command! -nargs=0 Home :execute 'cd ' . g:vimstart_dir
+
 " jump current dir
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
@@ -1637,7 +1641,21 @@ augroup sass_group
 augroup END
 "}}}2
 "### NERDTree {{{2
-nnoremap <Plug>(mykey)n :<C-u>NERDTreeToggle \| wincmd l<CR>
+
+"# NERDTreeToggle wrapper
+nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
+let g:my_nerdtree_status=0
+
+function! s:MY_NERDTreeToggle()
+    :NERDTreeToggle
+    if g:my_nerdtree_status == 0
+        wincmd l
+        let g:my_nerdtree_status=1
+    else
+        let g:my_nerdtree_status=0
+    endif
+endfunction
+
 let g:NERDTreeHijackNetrw=0
 let g:NERDTreeWinSize=35
 "}}}2
