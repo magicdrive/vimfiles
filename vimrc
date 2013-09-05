@@ -581,7 +581,6 @@ set showmode
 
 "# タイトルを表示
 set title
-
 "# 常にステータス行を表示
 set laststatus=2
 
@@ -1007,9 +1006,9 @@ endif
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
     if a:directory ==# ''
-        lcd %:p:h
+        cd %:p:h
     else
-        execute 'lcd' . a:directory
+        execute 'cd' . a:directory
     endif
 
     if a:bang ==# ''
@@ -1054,8 +1053,8 @@ let g:gui_background_b='light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='landscape'
-let g:cui_background_a='dark'
+let g:cui_colorscheme_a='jellybeans'
+let g:cui_background_a='light'
 let g:cui_colorscheme_b='matrix'
 let g:cui_background_b='light'
 
@@ -1669,6 +1668,9 @@ function s:gitgutter_load()
         let g:myvimrc_gitgutter_switch=0
     endif
 endfunction
+"}}}2
+"### jellybeans {{{2
+let g:jellybeans_use_lowcolor_black = 0
 "}}}2
 
 " }}}1
