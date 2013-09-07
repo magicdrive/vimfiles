@@ -1589,8 +1589,8 @@ augroup cpp_ftplugin
     autocmd!
     autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 expandtab
     if executable('clang-format')
-        autocmd FileType cpp nnoremap <buffer> <C-\> :<C-u>call <SID>IndentFormat('%!clang-format')<CR>
-        autocmd FileType cpp vnoremap <buffer> <C-\> :!clang-format<CR>
+        autocmd FileType c,cpp nnoremap <buffer> <C-\> :<C-u>call <SID>IndentFormat('%!clang-format')<CR>
+        autocmd FileType c,cpp vnoremap <buffer> <C-\> :!clang-format<CR>
     endif
 augroup END
 
