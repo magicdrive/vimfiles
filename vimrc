@@ -1893,16 +1893,12 @@ let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
 let g:gui_colorscheme_a='chlordane'
-let g:gui_background_a='dark'
 let g:gui_colorscheme_b='pyte'
-let g:gui_background_b='light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
 let g:cui_colorscheme_a='jellybeans'
-let g:cui_background_a='light'
 let g:cui_colorscheme_b='matrix'
-let g:cui_background_b='light'
 
 let g:current_color_mode=g:default_color_mode
 
@@ -1912,45 +1908,27 @@ function! SetupColorScheme ()
         execute 'colorscheme ' . 
                     \ ( (g:default_color_mode ==# 'A') ? 
                     \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-        execute 'set background=' . 
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:gui_background_a : g:gui_background_b)
     else
         execute 'colorscheme ' . 
                     \ ( (g:default_color_mode ==# 'A') ? 
                     \ g:cui_colorscheme_a : g:cui_colorscheme_b)
-        execute 'set background=' . 
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:cui_background_a : g:cui_background_b)
     endif
 endfunction
 
 
 "# change colorscheme & background
 function! ChangeBackground()
-
     if g:current_color_mode ==# 'A'
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_b : g:cui_colorscheme_b)
         let g:current_color_mode='B'
-        echo 'change backgrount=light'
     else
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_a : g:cui_colorscheme_a)
         let g:current_color_mode='A'
         echo 'change backgrount=dark'
-    endif
-
-    if has('gui_running')
-        execute 'set background=' . 
-                    \ ( g:current_color_mode ==# 'A' ?
-                    \ g:gui_background_a : g:gui_background_b)
-    else
-        execute 'set background=' . 
-                    \ ( (g:current_color_mode ==# 'A') ?
-                    \ g:cui_background_a : g:cui_background_b)
     endif
     syntax on
 endfunction
