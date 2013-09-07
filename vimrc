@@ -1013,7 +1013,7 @@ NeoBundleLazy 'vim-scripts/CSApprox', {
 "# solarized
 NeoBundle 'altercation/vim-colors-solarized'
 "# jellybeans
-NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'magicdrive/jellybeans.vim'
 "# wombat
 NeoBundle 'vim-scripts/Wombat'
 "# molokai
@@ -1573,6 +1573,8 @@ endfunction
 "}}}2
 "### jellybeans {{{2
 let g:jellybeans_use_lowcolor_black=0
+let g:jellybeans_background_color=''
+let g:jellybeans_background_color_256=''
 "}}}2
 "### molokai {{{2
 let g:molokai_original=1
