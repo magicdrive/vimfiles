@@ -1804,9 +1804,9 @@ augroup java_ftplugin
     "# load ant.sh
     autocmd FileType java setlocal makeprg=$HOME/.vim/misc/bin/vim_ant.sh
     "# errorformat
-    "  autocmd BufRead *.java 
-    "              \ setlocal errorformat=
-    "                  \ \ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#
+    autocmd BufRead *.java 
+                  \ setlocal errorformat=
+                      \ '\ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#'
 augroup END
 
 "}}}2
