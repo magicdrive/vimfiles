@@ -959,9 +959,7 @@ NeoBundle 'tpope/vim-fugitive'
 "# gitv
 NeoBundle 'gregsexton/gitv'
 "# git-gutter
-NeoBundleLazy 'airblade/vim-gitgutter', {
-            \ 'autoload' : { 'commands' : ['GitGutter','GitGutterDisable','GitGutterEnable','GitGutterToggle'] }
-            \ }
+NeoBundle 'airblade/vim-gitgutter'
 
 "#-----------------------#
 "# util-tool             #
@@ -1570,6 +1568,7 @@ function! s:gitgutter_load()
         let g:myvimrc_gitgutter_switch=0
     endif
 endfunction
+let g:gitgutter_enabled = 0
 "}}}2
 "### jellybeans {{{2
 let g:jellybeans_use_lowcolor_black=0
