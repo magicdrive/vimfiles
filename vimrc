@@ -443,6 +443,8 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/Wombat'
 "# molokai
 NeoBundle 'tomasr/molokai'
+"# molokai
+NeoBundle 'tomasr/magikai'
 "# Zenburn
 NeoBundle 'Zenburn'
 "# railscasts
@@ -468,6 +470,543 @@ filetype indent on
 NeoBundleCheck
 
 "}}}2
+"[ ####------- Vim Plugins Settings ------------#### ] {{{1
+
+"### Unite.vim {{{2
+
+nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
+
+"# filehistory limit
+let g:unite_source_file_mru_limit=10000
+
+"#---------------------------#
+"# buffers+unite             #
+"#---------------------------#
+nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
+nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
+nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
+nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<CR>
+nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
+
+"#---------------------------#
+"# neobundle+unite           #
+"#---------------------------#
+" neobundle-menu
+nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle/
+
+"#---------------------------#
+"# ref+unite                 #
+"#---------------------------#
+" perldoc
+nnoremap <silent> <Plug>(mykeylite)r :<C-u>Unite ref/
+
+"#---------------------------#
+"# tweetvim+unite            #
+"#---------------------------#
+" tweetvim menu
+nnoremap <silent> <Plug>(mykeylite)t  :<C-u>Unite tweetvim<CR>
+
+"#---------------------------#
+"# unitesource:unite-outline #
+"#---------------------------#
+nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
+
+"}}}2
+"### VimShell {{{2
+
+let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
+let g:vimshell_user_prompt='getcwd()'
+let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
+
+"# VimShellを新規Windowで立ち上げる
+command! Vshell call s:Shell()
+function s:alter_vimshell()
+    AlterCommand  vsh[ell] Vshell
+endfunction
+augroup vimshell_setting
+    autocmd!
+    "# shell buffer clear
+    autocmd VimEnter * call s:alter_vimshell()
+augroup END
+
+nnoremap <silent> <Plug>(mykey)< :<C-u> call <SID>Shell()<CR>
+function! s:Shell()
+    echo 'vimshell start'
+    VimShell
+    setlocal number
+endfunction
+
+nnoremap <silent> <Plug>(mykey), :<C-u> call ShellSplit()<CR>
+function! ShellSplit()
+    vsplit
+    call s:Shell()
+endfunction
+
+nnoremap <silent> <Plug>(mykey)l :VimShellPop<CR>
+
+" iexe REPL
+function! s:start_repl(repl_command)
+    let l:command_name=a:repl_command
+    if exists('g:project_dirname')
+        execute 'cd ' . g:project_dirname
+    endif
+    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
+    stopinsert
+    wincmd k 
+endfunction
+
+"}}}2
+"### VimFiler {{{2
+
+nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
+
+augroup vimfiler_setting
+    autocmd!
+    autocmd FileType vimfiler nmap <buffer> <Space> <Plug>(mykey)
+    autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
+    autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
+    autocmd FileType vimfiler nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+    autocmd FileType vimfiler call g:my_vimfiler_settings()
+augroup END
+
+nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
+function! g:my_vimfiler_settings()
+    nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
+    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+endfunction
+
+let s:my_action = { 'is_selectable' : 1 }
+function! s:my_action.func(candidates)
+    wincmd p
+    exec 'split '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_split', s:my_action)
+
+let s:my_action = { 'is_selectable' : 1 }                     
+function! s:my_action.func(candidates)
+    wincmd p
+    exec 'vsplit '. a:candidates[0].action__path
+endfunction
+call unite#custom_action('file', 'my_vsplit', s:my_action)
+
+let g:loaded_netrwPlugin = 1
+let g:vimfiler_as_default_explorer=1
+let g:vimfiler_force_overwrite_statusline = 0
+
+"}}}2
+"### MemoList.vim {{{2
+
+let g:memolist_memo_suffix="txt"
+let g:memolist_memo_date="%Y-%m-%d %H:%M"
+"let g:memolist_memo_date = "epoch"
+"let g:memolist_memo_date = "%D %T"
+let g:memolist_prompt_tags=1
+let g:memolist_prompt_categories=1
+let g:memolist_qfixgrep=1
+let g:memolist_vimfiler=1
+"let g:memolist_template_dir_path='$HOME/.vim/memo/'
+let g:memolist_path = "$HOME/.vim/memo/"
+let g:memolist_vimfiler_option=""
+
+"}}}2
+"### yannktmp.vim "{{{2
+
+map <silent> sy :call YanktmpYank()<CR>
+map <silent> sp :call YanktmpPaste_p()<CR>
+map <silent> sP :call YanktmpPaste_P()<CR>
+
+"}}}2
+"### Align.vim {{{2
+
+let g:Align_xstrlen=3
+let g:DrChipTopLvlMenu=''
+
+"}}}2
+"### NeoComplcache {{{2
+
+set infercase
+
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+"# Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+"# Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+"# Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_skip_auto_completion_time = '0.3'
+
+"# Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+            \ 'default'    : '',
+            \ 'c'          : $HOME.'/.vim/dict/c.dict',
+            \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
+            \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
+            \ 'php'        : $HOME.'/.vim/dict/php.dict',
+            \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
+            \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
+            \ 'java'       : $HOME.'/.vim/dict/java.dict',
+            \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
+            \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
+            \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
+            \ 'vimshell'   : $HOME.'/.vimshell_hist',
+            \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
+            \ }
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+"# Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+
+"}}}2
+"### Airline {{{2
+
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline#extensions#branch#symbol = '⭠ '
+let g:airline#extensions#readonly#symbol = '⭤'
+let g:airline_linecolumn_prefix = '⭡ '
+
+let g:airline_theme='laederon'
+
+"# ESCの遅延防止
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
+
+"}}}2
+"### Solarized {{{2
+let g:solarized_termcolors=256
+let g:solarized_bold=0
+let g:solarized_underline=1
+let g:solarized_italic=0
+"}}}2
+"### EasyMotion {{{2
+let g:EasyMotion_leader_key = "q"
+let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm,./1234567890'
+"}}}2
+"### EasyBuffer {{{2
+nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
+"}}}2
+"### W3m.vim {{{2
+
+if !has('gui_running') && executable('w3m')
+
+    "# alc
+    let g:w3m_alc='alc'
+    command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
+    command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
+
+    "# dict
+    let g:w3m_dict='yahoodict'
+    command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_dict, '<args>')
+    command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_dict, '<args>')
+
+    "# dict
+    let g:w3m_wiki='wikipedia'
+    command! -nargs=1 Wikipedia :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wiki, '<args>')
+    command! -nargs=1 WikipediaSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wiki, '<args>')
+
+    function AlterW3m()
+        AlterCommand dict Dict
+        AlterCommand alc Alc
+        AlterCommand wikip[edia] Wikipedia
+    endfunction
+
+    autocmd VimEnter * call AlterW3m()
+
+endif
+
+"}}}2
+"### Ref.vim {{{2
+
+let g:ref_open="split | resize 15 | set noequalalways"
+
+" ref-manpage
+command! -nargs=?  Manpage call ref#open('man', '<args>')
+
+" ref-perldoc
+command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
+command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
+
+" ref-pydoc
+command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
+
+let g:ref_perldoc_auto_append_f=1
+
+function! OpenPerlfunc(func_str)
+    execute "Ref perldoc -f " . a:func_str
+endfunction
+
+function AlterRef()
+    AlterCommand  perld[oc] Ref perldoc
+    AlterCommand  perlf[unc] Ref perldoc -f
+    AlterCommand  man[page] Manpage
+endfunction
+augroup ref_group
+    autocmd!
+    autocmd VimEnter * call AlterRef()
+augroup END
+
+"}}}2
+"### MultipulSearch.vim {{{2
+
+"# 検索の置き換え
+nnoremap ? :Search<Space>
+vnoremap ? :Search<Space>
+
+"# 検索ハイライト消去
+nnoremap <silent> <C-c><C-c> :<C-u>call SearchHighlightOff()<CR>
+
+function! SearchHighlightOff ()
+    if exists(":SearchReset")
+        SearchReset
+    endif
+endfunction
+
+"}}}2
+"### TweetVim {{{2
+
+augroup tweetvim_setting
+    autocmd!
+    autocmd FileType tweetvim
+                \ highlight tweetvim_separator
+                \ ctermfg=Black
+augroup END
+
+nnoremap <silent> <Plug>(mykeylite)ts  :<C-u>TweetVimSay<CR>
+
+let g:tweetvim_tweet_per_page=100
+let g:tweetvim_open_buffer_cmd='split'
+
+function AlterTweet()
+    AlterCommand  tws TweetVimSay
+endfunction
+
+"}}}2
+"### iTunes{{{2
+
+if has('mac') 
+    nnoremap <Plug>(mykey)0 :ITunes<Space>
+    command! -nargs=1 
+                \ -complete=customlist,CompletionITunes 
+                \ ITunes :call <SID>ITunes('<args>')
+
+    function! s:ITunes(action)
+        if a:action ==# 'list' 
+            Unite it_track
+        else 
+            execute 'call itunes#' . a:action . '()'
+        endif
+    endfunction
+
+    function! CompletionITunes(ArgLead, CmdLine, CusorPos)
+        let l:cmd = split(a:CmdLine)
+        let l:len_cmd = len(l:cmd)
+        if l:len_cmd <= 2
+            let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
+            return filter(
+                        \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'], 
+                        \ l:filter_cmd
+                        \ )
+        endif
+    endfunction
+
+    function AlterITunes()
+        AlterCommand  iT[unes] ITunes
+        AlterCommand  it[unes] ITunes
+    endfunction
+
+    augroup itunes_group
+        autocmd!
+        autocmd VimEnter * call AlterITunes()
+    augroup END
+endif
+
+"}}}2
+"### QuickRun {{{2
+
+nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
+vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
+
+function s:alter_quickrun()
+    AlterCommand  qui[ckrun] QuickRun
+endfunction
+augroup quickrun_group
+    autocmd!
+    autocmd VimEnter * call s:alter_quickrun()
+augroup END
+
+for [key, com] in items({
+            \   '<Leader>x' : '>message',
+            \   '<Leader>p' : '-runner shell',
+            \   '<Leader>w' : '>buffer',
+            \   '<Leader>q' : '>>buffer',
+            \ })
+    execute 'nnoremap <silent>' . key . ':QuickRun' . com . '-mode n<CR>'
+    execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
+
+endfor
+let g:quickrun_config = {}
+let g:quickrun_config['coffee'] = { 
+            \       "command" : 'coffee',
+            \       'exec'    : ['%c -cbp %s']
+            \   }
+let g:quickrun_config['typescript'] = { 
+            \       "command" : 'tsc',
+            \       'exec'    : ['%c --exec %s']
+            \   }
+
+"}}}2
+"### Watchdogs {{{2
+
+let g:watchdogs_check_BufWritePost_enable = 1
+let g:watchdogs_check_CursorHold_enables = {
+            \	"perl"       : 1,
+            \	"python"     : 1,
+            \	"bash"       : 1,
+            \	"scala"      : 0,
+            \	"ruby"       : 1,
+            \   "clang"      : 1,
+            \   "jshint"     : 1,
+            \   "typescript" : 1,
+            \ }
+
+let g:quickrun_config["watchdogs_checker/_"] = {
+            \       "hook/close_quickfix/enable_exit" : 1,
+            \		"runner/vimproc/updatetime" : 100,
+            \       'outputter/quickfix/open_cmd' : '',
+            \ }
+
+call watchdogs#setup(g:quickrun_config)
+
+"}}}2
+"### Scratch {{{2
+
+nnoremap <Plug>(mykey)s :TempolaryBuffer sh<CR>
+command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
+function! s:scratchbuffer_filetype(filetype)
+    split
+    Scratch
+    execute 'set filetype=' . a:filetype
+endfunction
+function s:alter_scratch()
+    AlterCommand  tem[polarybuffer] TempolaryBuffer
+endfunction
+augroup scratch_setting
+    autocmd!
+    autocmd VimEnter * call s:alter_scratch()
+augroup END
+
+"}}}2
+"### Chalice {{{2
+
+function s:alter_chalice()
+    AlterCommand  cha[lice] Chalice
+endfunction
+augroup chalice_group
+    autocmd!
+    autocmd VimEnter * call s:alter_chalice()
+augroup END
+
+"}}}2
+"### sudo.vim {{{2
+
+command! -nargs=? W :call s:sudo_write('<args>')
+function s:sudo_write(arg)
+    if a:arg ==# ''
+        write sudo:%
+    else
+        execute 'write sudo:' . a:arg
+    endif
+endfunction
+
+"}}}2
+"### Singleton.vim {{{2
+if has('clientserver')
+    call singleton#enable()
+endif
+"}}}2
+"### Sass {{{2
+let g:sass_compile_auto = 1
+let g:sass_compile_cdloop = 5
+let g:sass_compile_cssdir = ['css', 'stylesheet']
+let g:sass_compile_file = ['scss', 'sass']
+let g:sass_started_dirs = []
+
+augroup sass_group
+    autocmd!
+    autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+augroup END
+"}}}2
+"### NERDTree {{{2
+
+"# NERDTreeToggle wrapper
+nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
+let g:my_nerdtree_status=0
+
+function! s:MY_NERDTreeToggle()
+    :NERDTreeToggle
+    if g:my_nerdtree_status == 0
+        wincmd l
+        let g:my_nerdtree_status=1
+    else
+        let g:my_nerdtree_status=0
+    endif
+endfunction
+
+let g:NERDTreeHijackNetrw=0
+let g:NERDTreeWinSize=35
+"}}}2
+"### NERDCommenter {{{2
+
+let g:NERDCreateDefaultMappings = 0
+let NERDSpaceDelims = 1
+nmap <Leader><Leader> <Plug>NERDCommenterToggle
+vmap <Leader><Leader> <Plug>NERDCommenterToggle
+
+"}}}2
+"### Emmet {{{2
+let g:user_emmet_mode='i'
+"}}}2
+"### GitGutter {{{2
+nnoremap <silent> <Plug>(mykey)g :call <SID>gitgutter_load()<CR>
+let g:myvimrc_gitgutter_switch=0
+function s:gitgutter_load()
+    if g:myvimrc_gitgutter_switch == 0
+        GitGutterEnable
+        nnoremap <silent> gh :GitGutterNextHunk<CR>
+        nnoremap <silent> gH :GitGutterPrevHunk<CR>
+        let g:myvimrc_gitgutter_switch=1
+    else
+        GitGutterDisable
+        nnoremap <silent> gh gh
+        nnoremap <silent> gH gH
+        let g:myvimrc_gitgutter_switch=0
+    endif
+endfunction
+"}}}2
+"### jellybeans {{{2
+let g:jellybeans_use_lowcolor_black = 0
+"}}}2
+"### mookai {{{2
+let g:molokai_original=1
+let g:rehash256=1
+"}}}2
+
+" }}}1
 "[ ####------- Vim Basic Settings --------------#### ] {{{1
 
 "### Vim Options "{{{2
@@ -1057,7 +1596,7 @@ let g:gui_background_b='light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='jellybeans'
+let g:cui_colorscheme_a='molokai'
 let g:cui_background_a='light'
 let g:cui_colorscheme_b='matrix'
 let g:cui_background_b='light'
@@ -1147,7 +1686,7 @@ endfunction
 
 augroup color_set
     autocmd!
-    "autocmd ColorScheme * call MyColor()
+    autocmd ColorScheme * call MyColor()
 augroup END
 
 "# initialize colorcheme
@@ -1156,539 +1695,6 @@ call SetupColorScheme()
 "# switching colrschme & background
 nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
 
-"}}}2
-
-" }}}1
-"[ ####------- Vim Plugins Settings ------------#### ] {{{1
-
-"### Unite.vim {{{2
-
-nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
-
-"# filehistory limit
-let g:unite_source_file_mru_limit=10000
-
-"#---------------------------#
-"# buffers+unite             #
-"#---------------------------#
-nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
-nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
-nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
-nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<CR>
-nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
-
-"#---------------------------#
-"# neobundle+unite           #
-"#---------------------------#
-" neobundle-menu
-nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle/
-
-"#---------------------------#
-"# ref+unite                 #
-"#---------------------------#
-" perldoc
-nnoremap <silent> <Plug>(mykeylite)r :<C-u>Unite ref/
-
-"#---------------------------#
-"# tweetvim+unite            #
-"#---------------------------#
-" tweetvim menu
-nnoremap <silent> <Plug>(mykeylite)t  :<C-u>Unite tweetvim<CR>
-
-"#---------------------------#
-"# unitesource:unite-outline #
-"#---------------------------#
-nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
-
-"}}}2
-"### VimShell {{{2
-
-let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
-let g:vimshell_user_prompt='getcwd()'
-let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
-
-"# VimShellを新規Windowで立ち上げる
-command! Vshell call s:Shell()
-function s:alter_vimshell()
-    AlterCommand  vsh[ell] Vshell
-endfunction
-augroup vimshell_setting
-    autocmd!
-    "# shell buffer clear
-    autocmd VimEnter * call s:alter_vimshell()
-augroup END
-
-nnoremap <silent> <Plug>(mykey)< :<C-u> call <SID>Shell()<CR>
-function! s:Shell()
-    echo 'vimshell start'
-    VimShell
-    setlocal number
-endfunction
-
-nnoremap <silent> <Plug>(mykey), :<C-u> call ShellSplit()<CR>
-function! ShellSplit()
-    vsplit
-    call s:Shell()
-endfunction
-
-nnoremap <silent> <Plug>(mykey)l :VimShellPop<CR>
-
-" iexe REPL
-function! s:start_repl(repl_command)
-    let l:command_name=a:repl_command
-    if exists('g:project_dirname')
-        execute 'cd ' . g:project_dirname
-    endif
-    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
-    stopinsert
-    wincmd k 
-endfunction
-
-"}}}2
-"### VimFiler {{{2
-
-nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
-
-augroup vimfiler_setting
-    autocmd!
-    autocmd FileType vimfiler nmap <buffer> <Space> <Plug>(mykey)
-    autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
-    autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
-    autocmd FileType vimfiler nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
-    autocmd FileType vimfiler call g:my_vimfiler_settings()
-augroup END
-
-nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
-function! g:my_vimfiler_settings()
-    nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
-    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
-    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
-endfunction
-
-let s:my_action = { 'is_selectable' : 1 }
-function! s:my_action.func(candidates)
-    wincmd p
-    exec 'split '. a:candidates[0].action__path
-endfunction
-call unite#custom_action('file', 'my_split', s:my_action)
-
-let s:my_action = { 'is_selectable' : 1 }                     
-function! s:my_action.func(candidates)
-    wincmd p
-    exec 'vsplit '. a:candidates[0].action__path
-endfunction
-call unite#custom_action('file', 'my_vsplit', s:my_action)
-
-let g:loaded_netrwPlugin = 1
-let g:vimfiler_as_default_explorer=1
-let g:vimfiler_force_overwrite_statusline = 0
-
-"}}}2
-"### MemoList.vim {{{2
-
-let g:memolist_memo_suffix="txt"
-let g:memolist_memo_date="%Y-%m-%d %H:%M"
-"let g:memolist_memo_date = "epoch"
-"let g:memolist_memo_date = "%D %T"
-let g:memolist_prompt_tags=1
-let g:memolist_prompt_categories=1
-let g:memolist_qfixgrep=1
-let g:memolist_vimfiler=1
-"let g:memolist_template_dir_path='$HOME/.vim/memo/'
-let g:memolist_path = "$HOME/.vim/memo/"
-let g:memolist_vimfiler_option=""
-
-"}}}2
-"### yannktmp.vim "{{{2
-
-map <silent> sy :call YanktmpYank()<CR>
-map <silent> sp :call YanktmpPaste_p()<CR>
-map <silent> sP :call YanktmpPaste_P()<CR>
-
-"}}}2
-"### Align.vim {{{2
-
-let g:Align_xstrlen=3
-let g:DrChipTopLvlMenu=''
-
-"}}}2
-"### NeoComplcache {{{2
-
-set infercase
-
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-"# Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-"# Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-"# Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_skip_auto_completion_time = '0.3'
-
-"# Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-            \ 'default'    : '',
-            \ 'c'          : $HOME.'/.vim/dict/c.dict',
-            \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
-            \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
-            \ 'php'        : $HOME.'/.vim/dict/php.dict',
-            \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-            \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
-            \ 'java'       : $HOME.'/.vim/dict/java.dict',
-            \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-            \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
-            \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
-            \ 'vimshell'   : $HOME.'/.vimshell_hist',
-            \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-            \ }
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-"# Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-
-"}}}2
-"### Airline {{{2
-
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline#extensions#branch#symbol = '⭠ '
-let g:airline#extensions#readonly#symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡ '
-
-let g:airline_theme='laederon'
-
-"# ESCの遅延防止
-if has('unix') && !has('gui_running')
-    inoremap <silent> <ESC> <ESC>
-    inoremap <silent> <C-[> <ESC>
-endif
-
-"}}}2
-"### Solarized {{{2
-let g:solarized_termcolors=256
-let g:solarized_bold=0
-let g:solarized_underline=1
-let g:solarized_italic=0
-"}}}2
-"### EasyMotion {{{2
-let g:EasyMotion_leader_key = "q"
-let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm,./1234567890'
-"}}}2
-"### EasyBuffer {{{2
-nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
-"}}}2
-"### W3m.vim {{{2
-
-if !has('gui_running') && executable('w3m')
-
-    "# alc
-    let g:w3m_alc='alc'
-    command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
-    command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
-
-    "# dict
-    let g:w3m_dict='yahoodict'
-    command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_dict, '<args>')
-    command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_dict, '<args>')
-
-    "# dict
-    let g:w3m_wiki='wikipedia'
-    command! -nargs=1 Wikipedia :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wiki, '<args>')
-    command! -nargs=1 WikipediaSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wiki, '<args>')
-
-    function AlterW3m()
-        AlterCommand dict Dict
-        AlterCommand alc Alc
-        AlterCommand wikip[edia] Wikipedia
-    endfunction
-
-    autocmd VimEnter * call AlterW3m()
-
-endif
-
-"}}}2
-"### Ref.vim {{{2
-
-let g:ref_open="split | resize 15 | set noequalalways"
-
-" ref-manpage
-command! -nargs=?  Manpage call ref#open('man', '<args>')
-
-" ref-perldoc
-command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
-command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
-
-" ref-pydoc
-command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
-
-let g:ref_perldoc_auto_append_f=1
-
-function! OpenPerlfunc(func_str)
-    execute "Ref perldoc -f " . a:func_str
-endfunction
-
-function AlterRef()
-    AlterCommand  perld[oc] Ref perldoc
-    AlterCommand  perlf[unc] Ref perldoc -f
-    AlterCommand  man[page] Manpage
-endfunction
-augroup ref_group
-    autocmd!
-    autocmd VimEnter * call AlterRef()
-augroup END
-
-"}}}2
-"### MultipulSearch.vim {{{2
-
-"# 検索の置き換え
-nnoremap ? :Search<Space>
-vnoremap ? :Search<Space>
-
-"# 検索ハイライト消去
-nnoremap <silent> <C-c><C-c> :<C-u>call SearchHighlightOff()<CR>
-
-function! SearchHighlightOff ()
-    if exists(":SearchReset")
-        SearchReset
-    endif
-endfunction
-
-"}}}2
-"### TweetVim {{{2
-
-augroup tweetvim_setting
-    autocmd!
-    autocmd FileType tweetvim
-                \ highlight tweetvim_separator
-                \ ctermfg=Black
-augroup END
-
-nnoremap <silent> <Plug>(mykeylite)ts  :<C-u>TweetVimSay<CR>
-
-let g:tweetvim_tweet_per_page=100
-let g:tweetvim_open_buffer_cmd='split'
-
-function AlterTweet()
-    AlterCommand  tws TweetVimSay
-endfunction
-
-"}}}2
-"### iTunes{{{2
-
-if has('mac') 
-    nnoremap <Plug>(mykey)0 :ITunes<Space>
-    command! -nargs=1 
-                \ -complete=customlist,CompletionITunes 
-                \ ITunes :call <SID>ITunes('<args>')
-
-    function! s:ITunes(action)
-        if a:action ==# 'list' 
-            Unite it_track
-        else 
-            execute 'call itunes#' . a:action . '()'
-        endif
-    endfunction
-
-    function! CompletionITunes(ArgLead, CmdLine, CusorPos)
-        let l:cmd = split(a:CmdLine)
-        let l:len_cmd = len(l:cmd)
-        if l:len_cmd <= 2
-            let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
-            return filter(
-                        \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'], 
-                        \ l:filter_cmd
-                        \ )
-        endif
-    endfunction
-
-    function AlterITunes()
-        AlterCommand  iT[unes] ITunes
-        AlterCommand  it[unes] ITunes
-    endfunction
-
-    augroup itunes_group
-        autocmd!
-        autocmd VimEnter * call AlterITunes()
-    augroup END
-endif
-
-"}}}2
-"### QuickRun {{{2
-
-nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
-vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
-
-function s:alter_quickrun()
-    AlterCommand  qui[ckrun] QuickRun
-endfunction
-augroup quickrun_group
-    autocmd!
-    autocmd VimEnter * call s:alter_quickrun()
-augroup END
-
-for [key, com] in items({
-            \   '<Leader>x' : '>message',
-            \   '<Leader>p' : '-runner shell',
-            \   '<Leader>w' : '>buffer',
-            \   '<Leader>q' : '>>buffer',
-            \ })
-    execute 'nnoremap <silent>' . key . ':QuickRun' . com . '-mode n<CR>'
-    execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
-
-endfor
-let g:quickrun_config = {}
-let g:quickrun_config['coffee'] = { 
-            \       "command" : 'coffee',
-            \       'exec'    : ['%c -cbp %s']
-            \   }
-let g:quickrun_config['typescript'] = { 
-            \       "command" : 'tsc',
-            \       'exec'    : ['%c --exec %s']
-            \   }
-
-"}}}2
-"### Watchdogs {{{2
-
-let g:watchdogs_check_BufWritePost_enable = 1
-let g:watchdogs_check_CursorHold_enables = {
-            \	"perl"       : 1,
-            \	"python"     : 1,
-            \	"bash"       : 1,
-            \	"scala"      : 0,
-            \	"ruby"       : 1,
-            \   "clang"      : 1,
-            \   "jshint"     : 1,
-            \   "typescript" : 1,
-            \ }
-
-let g:quickrun_config["watchdogs_checker/_"] = {
-            \       "hook/close_quickfix/enable_exit" : 1,
-            \		"runner/vimproc/updatetime" : 100,
-            \       'outputter/quickfix/open_cmd' : '',
-            \ }
-
-call watchdogs#setup(g:quickrun_config)
-
-"}}}2
-"### Scratch {{{2
-
-nnoremap <Plug>(mykey)s :TempolaryBuffer sh<CR>
-command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
-function! s:scratchbuffer_filetype(filetype)
-    split
-    Scratch
-    execute 'set filetype=' . a:filetype
-endfunction
-function s:alter_scratch()
-    AlterCommand  tem[polarybuffer] TempolaryBuffer
-endfunction
-augroup scratch_setting
-    autocmd!
-    autocmd VimEnter * call s:alter_scratch()
-augroup END
-
-"}}}2
-"### Chalice {{{2
-
-function s:alter_chalice()
-    AlterCommand  cha[lice] Chalice
-endfunction
-augroup chalice_group
-    autocmd!
-    autocmd VimEnter * call s:alter_chalice()
-augroup END
-
-"}}}2
-"### sudo.vim {{{2
-
-command! -nargs=? W :call s:sudo_write('<args>')
-function s:sudo_write(arg)
-    if a:arg ==# ''
-        write sudo:%
-    else
-        execute 'write sudo:' . a:arg
-    endif
-endfunction
-
-"}}}2
-"### Singleton.vim {{{2
-if has('clientserver')
-    call singleton#enable()
-endif
-"}}}2
-"### Sass {{{2
-let g:sass_compile_auto = 1
-let g:sass_compile_cdloop = 5
-let g:sass_compile_cssdir = ['css', 'stylesheet']
-let g:sass_compile_file = ['scss', 'sass']
-let g:sass_started_dirs = []
-
-augroup sass_group
-    autocmd!
-    autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
-augroup END
-"}}}2
-"### NERDTree {{{2
-
-"# NERDTreeToggle wrapper
-nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
-let g:my_nerdtree_status=0
-
-function! s:MY_NERDTreeToggle()
-    :NERDTreeToggle
-    if g:my_nerdtree_status == 0
-        wincmd l
-        let g:my_nerdtree_status=1
-    else
-        let g:my_nerdtree_status=0
-    endif
-endfunction
-
-let g:NERDTreeHijackNetrw=0
-let g:NERDTreeWinSize=35
-"}}}2
-"### NERDCommenter {{{2
-
-let g:NERDCreateDefaultMappings = 0
-let NERDSpaceDelims = 1
-nmap <Leader><Leader> <Plug>NERDCommenterToggle
-vmap <Leader><Leader> <Plug>NERDCommenterToggle
-
-"}}}2
-"### Emmet {{{2
-let g:user_emmet_mode='i'
-"}}}2
-"### GitGutter {{{2
-nnoremap <silent> <Plug>(mykey)g :call <SID>gitgutter_load()<CR>
-let g:myvimrc_gitgutter_switch=0
-function s:gitgutter_load()
-    if g:myvimrc_gitgutter_switch == 0
-        GitGutterEnable
-        nnoremap <silent> gh :GitGutterNextHunk<CR>
-        nnoremap <silent> gH :GitGutterPrevHunk<CR>
-        let g:myvimrc_gitgutter_switch=1
-    else
-        GitGutterDisable
-        nnoremap <silent> gh gh
-        nnoremap <silent> gH gH
-        let g:myvimrc_gitgutter_switch=0
-    endif
-endfunction
-"}}}2
-"### jellybeans {{{2
-let g:jellybeans_use_lowcolor_black = 0
 "}}}2
 
 " }}}1
