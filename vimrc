@@ -34,7 +34,6 @@ noremap ZZ <Nop>
 noremap ZQ <Nop>
 command! -nargs=0 Q :q!
 command! -nargs=0 QQ :qa!
-command! -nargs=0 A :a!
 
 "# syntax highlight
 syntax on
@@ -538,11 +537,14 @@ if has('macvim')
 endif
 
 "}}}2
-"### Util Functinos {{{2
+"### Util Functions {{{2
 
 " jump startdir
 let g:vimstart_dir=$PWD
-command! -nargs=0 Home :execute 'cd ' . g:vimstart_dir
+let g:vimhome_dir=g:vimstart_dir
+command! -nargs=0 Home :execute 'cd ' . g:vimhome_dir
+command! -nargs=0 SetHome :let g:vimhome_dir=expand('%:p:h')
+command! -nargs=0 ResetHome :let g:vimhome_dir=g:vimstart_dir | Home
 
 " jump current dir
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
@@ -1016,8 +1018,6 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'vim-scripts/Wombat'
 "# molokai
 NeoBundle 'tomasr/molokai'
-"# molokai
-NeoBundle 'tomasr/magikai'
 "# Zenburn
 NeoBundle 'Zenburn'
 "# railscasts
@@ -1557,7 +1557,7 @@ let g:user_emmet_mode='i'
 "### GitGutter {{{2
 nnoremap <silent> <Plug>(mykey)g :call <SID>gitgutter_load()<CR>
 let g:myvimrc_gitgutter_switch=0
-function s:gitgutter_load()
+function! s:gitgutter_load()
     if g:myvimrc_gitgutter_switch == 0
         GitGutterEnable
         nnoremap <silent> gh :GitGutterNextHunk<CR>
@@ -1572,9 +1572,9 @@ function s:gitgutter_load()
 endfunction
 "}}}2
 "### jellybeans {{{2
-let g:jellybeans_use_lowcolor_black = 0
+let g:jellybeans_use_lowcolor_black=0
 "}}}2
-"### mookai {{{2
+"### molokai {{{2
 let g:molokai_original=1
 let g:rehash256=1
 "}}}2
@@ -1899,7 +1899,7 @@ let g:gui_background_b='light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='molokai'
+let g:cui_colorscheme_a='jellybeans'
 let g:cui_background_a='light'
 let g:cui_colorscheme_b='matrix'
 let g:cui_background_b='light'
