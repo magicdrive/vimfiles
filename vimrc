@@ -6,6 +6,579 @@
 "#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
 "#                for vim7.4
 
+"[ ####------- Vim Basic Settings --------------#### ] {{{1
+
+"### Vim Options "{{{2
+
+"# mapkeyprefix
+map  <Space> <Plug>(mykey)
+map  , <Plug>(mykeylite)
+
+"# vi互換のoff
+set nocompatible
+"#set regexpengine=1
+
+"# timeout
+set to
+set tm=500
+set ttm=100
+
+"# 上下移動
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+"# 強制終了の無効化
+noremap ZZ <Nop>
+noremap ZQ <Nop>
+command! -nargs=0 Q :q!
+command! -nargs=0 QQ :qa!
+command! -nargs=0 A :a!
+
+"# syntax highlight
+syntax on
+
+"# beep and visualbell off
+set visualbell t_vb=
+
+"# 保存なしで他のファイルを開ける
+set hidden
+
+"# Window幅で折り返す
+set wrap
+
+"# scroll時の最小行数値
+set scrolljump=15
+
+"# tabを表示
+set listchars=eol:$,tab:>\
+
+"# 補完キーをCtrl+jに変更
+inoremap <C-j> <C-n>
+
+"# backspaceキーの動作
+noremap  <C-?> <C-h>
+noremap! <C-?> <C-h>
+inoremap <C-h> <BS>
+inoremap <C-d> <DEL>
+
+" insert mode cursor
+imap OA <Up>
+imap OB <Down>
+imap OC <Right>
+imap OD <Left>
+
+"# 高速ターミナル接続
+set ttyfast
+
+"# yank
+nnoremap Y y$
+
+"# filetype
+nnoremap <Plug>(mykey)/ :<C-u>set filetype=
+
+"# Plug-in有効設定
+filetype indent on
+filetype plugin on
+
+"# command-line modeへの切り替え
+noremap ; :
+noremap ' ;
+nnoremap <Plug>(mykey); :<C-u>!
+nnoremap <Plug>(mykey)' :<C-u>r!
+vnoremap <Plug>(mykey); :!
+vnoremap <Plug>(mykeylite)' :r!
+
+"# substitution
+vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
+nnoremap <Plug>(mykeylite)s :<C-u>%s///<LEFT><LEFT>
+
+"# <ESC>のマッピング
+noremap  <silent> <C-@> <ESC>
+noremap! <silent> <C-@> <ESC>
+cnoremap <silent> <C-@> <C-c>
+noremap  <silent> <Nul> <ESC>
+noremap! <silent> <Nul> <ESC>
+cnoremap <silent> <Nul> <C-c>
+
+"# recording off
+nnoremap q <Nop>
+
+"# ヘルプファイル
+helptags $HOME/.vim/doc
+
+"# 日本語のHelpFileを開く
+set helplang=ja
+
+"# helpを素早く引く
+nnoremap <C-h> :<C-u>help<Space>
+
+"# modeを表示する
+set showmode
+
+"# タイトルを表示
+set title
+"# 常にステータス行を表示
+set laststatus=2
+
+"# カレントディレクトリ移動
+let g:dir_jump=0
+command! -nargs=0 Lcd :execute ":lcd " . expand("%:p:h")
+if g:dir_jump !=# 0
+    autocmd BufEnter * :execute ":lcd " . expand("%:p:h")
+endif
+
+"# line number
+set number
+
+"# 括弧入力時に対応する括弧を表示
+set showmatch
+
+"# コマンドをステータス行に表示
+set showcmd
+
+"# ルーラーを表示
+set ruler
+
+"# カーソルラインのハイライト
+set cursorline
+
+"# Visual blockモードでフリーカーソルを有効にする
+set virtualedit=block
+
+"# バックスペースでインデントや改行を削除できるようにする
+set backspace=indent,eol,start
+.
+"# 全角文字でもカーソル位置がずれないようにする
+set ambiwidth=double
+
+"# コマンドライン補完するときに強化されたものを使う
+set wildmenu
+set wildmode=longest,full
+
+"# コマンドラインの履歴の保存数
+set history=256
+
+"# tagjump stack preview
+nnoremap <Leader>t <C-t>
+
+"# buffer next/preview
+nnoremap <silent> <Up> :bNext<CR>
+nnoremap <silent> <Down> :bprevious<CR>
+
+"# "TODO"のgrep
+noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j 
+            \ **/*.pl
+            \ **/*.pm
+            \ **/*.tt
+            \ **/*.rb
+            \ **/*.css
+            \ **/*.haml
+            \ **/*.less
+            \ **/*.js
+            \ **/*.coffee
+            \ **/*.java
+            \ **/*.groovy
+            \ **/*.scala
+            \ **/*.py
+            \ **/*.py3
+            \ **/*.mako
+            \ **/*.tmpl
+            \ **/*.h
+            \ **/*.cpp
+            \ **/*.c
+            \ **/*.m
+            \ **/*.ml
+            \ **/*.sh
+            \ **/*.zsh
+            \ **/*.bash
+            \ **/*.php
+            \ **/*.vim
+            \ <CR>:cw<CR>
+
+"}}}2
+"### VimScript "{{{2
+
+command! -nargs=0 SL :source %
+command! -nargs=0 SU :source $MYVIMRC
+
+command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
+command! -nargs=0 VE :VimrcEdit
+command! -nargs=0 E :edit!
+
+"# extract visual selected string
+function! s:get_visual_selected()
+    let tmp = @@
+    silent normal gvy
+    let selected = @@
+    let @@ = tmp
+    return selected
+endfunction
+
+"# vimrcの編集
+nnoremap <Plug>(mykey). :VimrcEdit<CR>
+
+"}}}i1
+"### encoding & fileencoding "{{{2
+
+"Encoding
+set enc=utf-8
+set fenc=utf-8
+set fencs=utf-8,euc-jp,sjis
+
+let s:enc_jp = ["eucjp","euc","euc-jp" ]
+let s:shift_jis = ["sjis","shift_jis","shiftjis" ]
+let s:utf8 = ["utf8","utf-8" ]
+
+"# encode completion
+function! s:completion_encode(ArgLead, CmdLine, CusorPos)
+    let l:cmd = split(a:CmdLine)
+    let l:len_cmd = len(l:cmd)
+    if l:len_cmd <= 2
+        let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
+        return filter(
+                    \ ["utf8", "sjis", "eucjp"], 
+                    \ l:filter_cmd
+                    \ )
+    endif
+endfunction
+
+"# encode
+function! s:edit_encode(code)
+    if match(s:shift_jis, a:code)
+        edit ++enc=shift_jis
+    elseif match(s:enc_jp, a:code)
+        edit ++enc=euc-jp
+    elseif match(s:utf8)
+        edit ++enc=utf-8
+    endif
+endfunction
+
+command! -nargs=1
+            \ -complete=customlist,s:completion_encode
+            \ Encode :call s:edit_encode('<args>')
+
+
+if &encoding !=# 'utf-8'
+    set encoding=japan
+    set fileencoding=japan
+endif
+
+let vimrc_set_encoding = 1
+
+" 改行コードの自動認識
+set fileformats=unix,mac,dos
+
+"}}}2
+"### LineNumber "{{{2
+
+"# LineNumberのトグル
+nnoremap <silent> <Plug>(mykeylite)n :<C-u>call <SID>ToggleNumber()<CR>
+command! -nargs=0 NumberToggle :call <SID>ToggleNumber()
+
+function! s:ToggleNumber()
+    if &number ==# '1'
+        echohl Error | echo "disable line number" | echohl None
+    else
+        echohl DiffChange | echo "enable line number" | echohl None
+    endif
+    setlocal number!
+endfunction
+
+"}}}2
+"### mouse mode "{{{2
+
+if has('mouse')
+    "# マウスモードの有効
+    set mouse=
+    "# terminalmutiprexa内でもマウスモード設定を反映 
+    set ttymouse=xterm2
+    "# toggle mouse mode
+    nnoremap <silent> <Plug>(mykeylite)m :<C-u>call <SID>ToggleMouseMode()<CR>
+    command! -nargs=0 MouseToggle :call <SID>ToggleMouseMode()
+
+    function! s:ToggleMouseMode()
+        if &mouse ==# 'a'
+            set mouse=
+            echohl Error | echo "MouseMode disabled" | echohl None
+        else
+            set mouse=a
+            echohl DiffChange | echo "MouseMode enabled" | echohl None
+        endif
+    endfunction
+endif
+
+"}}}2
+"### ListChar "{{{2
+
+"# Listcharのトグル
+nnoremap <silent> <Plug>(mykey)c :<C-u>call <SID>ToggleListChar()<CR>
+command! -nargs=0 ListCharToggle :call <SID>ToggleListChar()
+
+function! s:ToggleListChar()
+    if &list ==# '1'
+        echohl Error | echo "disable list char" | echohl None
+    else
+        echohl DiffChange | echo "enable list char" | echohl None
+    endif
+    setlocal list!
+endfunction
+
+"}}}2
+"### backup,swapfile "{{{2
+
+"# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
+let g:backupfile_save_dir="$HOME/.vim-backup"
+if filewritable(expand(g:backupfile_save_dir))
+    set backup
+    set swapfile
+    execute 'set backupdir=' . g:backupfile_save_dir
+    set backupext=.back
+else
+    echohl Error | echo '!!! no backup mode !!!' | echohl None
+    echo '### mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup'
+    set nobackup
+    set noswapfile
+endif
+
+"}}}2
+"### Tab "{{{2
+
+"# create new tab
+nnoremap <Plug>(mykey)t :tabnew<CR>
+nnoremap <Plug>(mykey)Tc :tabnew<CR>
+
+"# close current tab
+nnoremap <Plug>(mykey)Tk :tabclose<CR>
+
+"# tab next/preview
+nnoremap <silent> <C-f> gt
+nnoremap <silent> <C-b> gT
+
+"}}}2
+"### search "{{{2
+
+"# 検索に大文字を含んでいたら大小区別
+set ignorecase
+set smartcase
+
+"# 検索時にヒット部位をハイライト
+set hlsearch
+
+"# 検索ハイライト消去
+nnoremap <ESC><ESC> :nohlsearch<CR>
+
+"# 検索時にインクリメンタルサーチを行う
+set incsearch
+
+"}}}2
+"### Emacs like keybind "{{{2
+
+"# カーソルキーで行末／行頭の移動可能に設定
+set whichwrap=b,s,[,],<,>
+
+"# Emacs 風カーソル移動
+noremap! <C-n> <DOWN>
+noremap! <C-p> <UP>
+noremap! <C-b> <LEFT>
+noremap! <C-f> <RIGHT>
+noremap! <C-g> <ESC>
+
+"# killing
+inoremap <expr> <C-k> col('.')==col('$')?"":"\<C-o>D"
+
+"# Emacs風 行頭行末移動
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+"}}}2
+"### Indent "{{{2
+
+function! s:IndentFormat(cmd)
+    let l:cmd = a:cmd
+    mkview
+    execute "normal " . l:cmd
+    loadview
+endfunction
+
+"# current buffer indent
+nnoremap <C-\> :call <SID>IndentFormat('gg=G')<CR>
+vnoremap <C-\> =
+
+"# インデント
+set autoindent
+set smartindent
+set smarttab
+
+"# if(){}などのインデント
+set cindent
+
+"# タブを空白に置き換える
+set tabstop=4
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+
+"# {}をインデントして入力
+inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
+
+"}}}2
+"### FileType "{{{2
+
+augroup detect_filetype
+    autocmd!
+    autocmd BufNewFile,BufRead *.as set filetype=actionscript
+    autocmd BufNewFile,BufRead *.mxml set filetype=mxml
+    autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
+    autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
+    autocmd BufNewFile,BufRead cpanfile set filetype=perl.cpanfile
+    autocmd BufNewFile,BufRead */nginx/conf/*.conf* set filetype=nginx
+    autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
+    autocmd BufNewFile,BufRead */patches/* set filetype=diff
+    autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
+    autocmd BufNewFile,BufRead *.scala set filetype=scala
+    autocmd BufNewFile,BufRead *.sbt set filetype=scala
+    autocmd BufNewFile,BufRead *.gradle set filetype=groovy
+    autocmd BufNewFile,BufRead *.m set filetype=objective-c
+    autocmd BufNewFile,BufRead *.gosh set filetype=scheme
+    autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+    autocmd BufNewFile,BufRead gemspec set filetype=ruby
+    autocmd BufNewFile,BufRead *.ru set filetype=ruby
+    autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
+    autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
+augroup END
+
+"}}}2
+"### Window "{{{2
+
+"# Window横分割
+nnoremap <silent> <Plug>(mykey)w :<ESC>:split<CR>
+"# Window縦分割
+nnoremap <silent> <Plug>(mykey)v :<ESC>:vsplit<CR>
+
+"# カレントWindow縦最大化
+nnoremap <C-w><C-w> <C-w>_
+nnoremap <C-w>w <C-w>_
+
+"# 縦最大化しつつWindowを移動
+nnoremap <C-j> <C-w>j<C-w>_
+nnoremap <C-k> <C-w>k<C-w>_
+
+"# Window移動
+nnoremap <C-w><C-n> <C-w>j
+nnoremap <C-w><C-p> <C-w>k
+nnoremap <C-w><C-b> <C-w>h
+nnoremap <C-w><C-f> <C-w>l
+nnoremap <C-w>n <C-w>j
+nnoremap <C-w>p <C-w>k
+nnoremap <C-w>b <C-w>h
+nnoremap <C-w>f <C-w>l
+
+"}}}2
+"### AutoBuffer "{{{2
+
+"# tmpl perl
+iab PSIMPLE <ESC>:r ~/.vim/misc/tmpl/perl_simple.pl<CR>
+iab PMODULE <ESC>:r ~/.vim/misc/tmpl/perl_module.pl<CR>
+iab PSUB    <ESC>:r ~/.vim/misc/tmpl/perl_sub.pl<CR>
+iab PHREF   $hash_name->{namae}
+iab PFOREACH    foreach my $element (@nanigasi){
+iab PFOR        for ( my $i=1; $i <= 100; $i++ ){
+iab PRINT       print $i, "\n";
+iab Pdumper use Data::Dumper; warn Dumper 
+iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
+
+"# tmpl other
+iab HSIMPLE <ESC>:r ~/.vim/misc/tmpl/xhtml_simple.html<CR>
+iab XSIMPLE <ESC>:r ~/.vim/misc/tmpl/xml_simple.xml<CR>
+iab LSIMPLE <ESC>:r ~/.vim/misc/tmpl/lisp_simple.lisp<CR>
+iab YDT <C-R>=strftime("%Y-%m-%d %T")<CR>
+
+"# user agent (web browser)
+iab UA_IE Mozilla/5.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)
+iab UA_FX Mozilla/5.0 (X11; U; Linux i686; ja; rv:1.8.0.4) Gecko/20060508 Firefox/1.5.0.4
+iab UA_CH Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19
+
+"# user agent (ios devise)
+iab UA_IPHONE Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A334 Safari/7534.48.3
+iab UA_IPHONE2 Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405 Safari/7534.48.3
+iab UA_IPOD Mozilla/5.0 (iPod; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
+iab UA_IPAD Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
+
+iab MIME_POST application/x-www-form-urlencoded
+iab MIME_JSON application/json
+iab MIME_JS text/javascript
+iab authe authentication
+iab autho authorization
+iab passw password
+iab javasc javascript
+iab concate concatenate
+
+"}}}2
+"### Folding {{{2
+
+"# difine foldmethod
+set foldmethod=marker
+set foldtext=FoldCCtext()
+
+nnoremap <Space><Space> za<Space>
+
+"}}}2
+"### for MacVim {{{2
+
+if has('macvim')
+    " kaoriyadicwin off
+    let plugin_dicwin_disable=1
+
+    if exists('+macmeta')
+        " enable meta key
+        set macmeta
+    endif
+endif
+
+"}}}2
+"### Util Functinos {{{2
+
+" jump startdir
+let g:vimstart_dir=$PWD
+command! -nargs=0 Home :execute 'cd ' . g:vimstart_dir
+
+" jump current dir
+command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+function! s:ChangeCurrentDir(directory, bang)
+    if a:directory ==# ''
+        cd %:p:h
+    else
+        execute 'cd' . a:directory
+    endif
+
+    if a:bang ==# ''
+        pwd
+    endif
+endfunction
+
+" highlight 全角space
+function! ZenkakuSpace()
+    highlight ZenkakuSpace 
+                \ cterm=underline 
+                \ ctermfg=darkgrey 
+                \ gui=underline 
+                \ guifg=darkgrey
+endfunction
+
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
+
+"}}}2
+
+" }}}1
 "[ ####------- NeoBundle Settings --------------#### ] {{{1
 
 filetype off
@@ -1007,697 +1580,6 @@ let g:rehash256=1
 "}}}2
 
 " }}}1
-"[ ####------- Vim Basic Settings --------------#### ] {{{1
-
-"### Vim Options "{{{2
-
-"# mapkeyprefix
-map  <Space> <Plug>(mykey)
-map  , <Plug>(mykeylite)
-
-"# vi互換のoff
-set nocompatible
-"#set regexpengine=1
-
-"# timeout
-set to
-set tm=500
-set ttm=100
-
-"# 上下移動
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
-
-"# 強制終了の無効化
-noremap ZZ <Nop>
-noremap ZQ <Nop>
-command! -nargs=0 Q :q!
-command! -nargs=0 QQ :qa!
-command! -nargs=0 A :a!
-
-"# syntax highlight
-syntax on
-
-"# beep and visualbell off
-set visualbell t_vb=
-
-"# 保存なしで他のファイルを開ける
-set hidden
-
-"# Window幅で折り返す
-set wrap
-
-"# scroll時の最小行数値
-set scrolljump=15
-
-"# tabを表示
-set listchars=eol:$,tab:>\
-
-"# 補完キーをCtrl+jに変更
-inoremap <C-j> <C-n>
-
-"# backspaceキーの動作
-noremap  <C-?> <C-h>
-noremap! <C-?> <C-h>
-inoremap <C-h> <BS>
-inoremap <C-d> <DEL>
-
-" insert mode cursor
-imap OA <Up>
-imap OB <Down>
-imap OC <Right>
-imap OD <Left>
-
-"# 高速ターミナル接続
-set ttyfast
-
-"# yank
-nnoremap Y y$
-
-"# filetype
-nnoremap <Plug>(mykey)/ :<C-u>set filetype=
-
-"# Plug-in有効設定
-filetype indent on
-filetype plugin on
-
-"# command-line modeへの切り替え
-noremap ; :
-noremap ' ;
-nnoremap <Plug>(mykey); :<C-u>!
-nnoremap <Plug>(mykey)' :<C-u>r!
-vnoremap <Plug>(mykey); :!
-vnoremap <Plug>(mykeylite)' :r!
-
-"# substitution
-vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
-nnoremap <Plug>(mykeylite)s :<C-u>%s///<LEFT><LEFT>
-
-"# <ESC>のマッピング
-noremap  <silent> <C-@> <ESC>
-noremap! <silent> <C-@> <ESC>
-cnoremap <silent> <C-@> <C-c>
-noremap  <silent> <Nul> <ESC>
-noremap! <silent> <Nul> <ESC>
-cnoremap <silent> <Nul> <C-c>
-
-"# recording off
-nnoremap q <Nop>
-
-"# ヘルプファイル
-helptags $HOME/.vim/doc
-
-"# 日本語のHelpFileを開く
-set helplang=ja
-
-"# helpを素早く引く
-nnoremap <C-h> :<C-u>help<Space>
-
-"# modeを表示する
-set showmode
-
-"# タイトルを表示
-set title
-"# 常にステータス行を表示
-set laststatus=2
-
-"# カレントディレクトリ移動
-let g:dir_jump=0
-command! -nargs=0 Lcd :execute ":lcd " . expand("%:p:h")
-if g:dir_jump !=# 0
-    autocmd BufEnter * :execute ":lcd " . expand("%:p:h")
-endif
-
-"# line number
-set number
-
-"# 括弧入力時に対応する括弧を表示
-set showmatch
-
-"# コマンドをステータス行に表示
-set showcmd
-
-"# ルーラーを表示
-set ruler
-
-"# カーソルラインのハイライト
-set cursorline
-
-"# Visual blockモードでフリーカーソルを有効にする
-set virtualedit=block
-
-"# バックスペースでインデントや改行を削除できるようにする
-set backspace=indent,eol,start
-.
-"# 全角文字でもカーソル位置がずれないようにする
-set ambiwidth=double
-
-"# コマンドライン補完するときに強化されたものを使う
-set wildmenu
-set wildmode=longest,full
-
-"# コマンドラインの履歴の保存数
-set history=256
-
-"# tagjump stack preview
-nnoremap <Leader>t <C-t>
-
-"# buffer next/preview
-nnoremap <silent> <Up> :bNext<CR>
-nnoremap <silent> <Down> :bprevious<CR>
-
-"# "TODO"のgrep
-noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j 
-            \ **/*.pl
-            \ **/*.pm
-            \ **/*.tt
-            \ **/*.rb
-            \ **/*.css
-            \ **/*.haml
-            \ **/*.less
-            \ **/*.js
-            \ **/*.coffee
-            \ **/*.java
-            \ **/*.groovy
-            \ **/*.scala
-            \ **/*.py
-            \ **/*.py3
-            \ **/*.mako
-            \ **/*.tmpl
-            \ **/*.h
-            \ **/*.cpp
-            \ **/*.c
-            \ **/*.m
-            \ **/*.ml
-            \ **/*.sh
-            \ **/*.zsh
-            \ **/*.bash
-            \ **/*.php
-            \ **/*.vim
-            \ <CR>:cw<CR>
-
-"}}}2
-"### VimScript "{{{2
-
-command! -nargs=0 SL :source %
-command! -nargs=0 SU :source $MYVIMRC
-
-command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
-command! -nargs=0 VE :VimrcEdit
-command! -nargs=0 E :edit!
-
-"# extract visual selected string
-function! s:get_visual_selected()
-    let tmp = @@
-    silent normal gvy
-    let selected = @@
-    let @@ = tmp
-    return selected
-endfunction
-
-"# vimrcの編集
-nnoremap <Plug>(mykey). :VimrcEdit<CR>
-
-"}}}i1
-"### encoding & fileencoding "{{{2
-
-"Encoding
-set enc=utf-8
-set fenc=utf-8
-set fencs=utf-8,euc-jp,sjis
-
-let s:enc_jp = ["eucjp","euc","euc-jp" ]
-let s:shift_jis = ["sjis","shift_jis","shiftjis" ]
-let s:utf8 = ["utf8","utf-8" ]
-
-"# encode completion
-function! s:completion_encode(ArgLead, CmdLine, CusorPos)
-    let l:cmd = split(a:CmdLine)
-    let l:len_cmd = len(l:cmd)
-    if l:len_cmd <= 2
-        let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
-        return filter(
-                    \ ["utf8", "sjis", "eucjp"], 
-                    \ l:filter_cmd
-                    \ )
-    endif
-endfunction
-
-"# encode
-function! s:edit_encode(code)
-    if match(s:shift_jis, a:code)
-        edit ++enc=shift_jis
-    elseif match(s:enc_jp, a:code)
-        edit ++enc=euc-jp
-    elseif match(s:utf8)
-        edit ++enc=utf-8
-    endif
-endfunction
-
-command! -nargs=1
-            \ -complete=customlist,s:completion_encode
-            \ Encode :call s:edit_encode('<args>')
-
-
-if &encoding !=# 'utf-8'
-    set encoding=japan
-    set fileencoding=japan
-endif
-
-let vimrc_set_encoding = 1
-
-" 改行コードの自動認識
-set fileformats=unix,mac,dos
-
-"}}}2
-"### LineNumber "{{{2
-
-"# LineNumberのトグル
-nnoremap <silent> <Plug>(mykeylite)n :<C-u>call <SID>ToggleNumber()<CR>
-command! -nargs=0 NumberToggle :call <SID>ToggleNumber()
-
-function! s:ToggleNumber()
-    if &number ==# '1'
-        echohl Error | echo "disable line number" | echohl None
-    else
-        echohl DiffChange | echo "enable line number" | echohl None
-    endif
-    setlocal number!
-endfunction
-
-"}}}2
-"### mouse mode "{{{2
-
-if has('mouse')
-    "# マウスモードの有効
-    set mouse=
-    "# terminalmutiprexa内でもマウスモード設定を反映 
-    set ttymouse=xterm2
-    "# toggle mouse mode
-    nnoremap <silent> <Plug>(mykeylite)m :<C-u>call <SID>ToggleMouseMode()<CR>
-    command! -nargs=0 MouseToggle :call <SID>ToggleMouseMode()
-
-    function! s:ToggleMouseMode()
-        if &mouse ==# 'a'
-            set mouse=
-            echohl Error | echo "MouseMode disabled" | echohl None
-        else
-            set mouse=a
-            echohl DiffChange | echo "MouseMode enabled" | echohl None
-        endif
-    endfunction
-endif
-
-"}}}2
-"### ListChar "{{{2
-
-"# Listcharのトグル
-nnoremap <silent> <Plug>(mykey)c :<C-u>call <SID>ToggleListChar()<CR>
-command! -nargs=0 ListCharToggle :call <SID>ToggleListChar()
-
-function! s:ToggleListChar()
-    if &list ==# '1'
-        echohl Error | echo "disable list char" | echohl None
-    else
-        echohl DiffChange | echo "enable list char" | echohl None
-    endif
-    setlocal list!
-endfunction
-
-"}}}2
-"### backup,swapfile "{{{2
-
-"# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
-let g:backupfile_save_dir="$HOME/.vim-backup"
-if filewritable(expand(g:backupfile_save_dir))
-    set backup
-    set swapfile
-    execute 'set backupdir=' . g:backupfile_save_dir
-    set backupext=.back
-else
-    echohl Error | echo '!!! no backup mode !!!' | echohl None
-    echo '### mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup'
-    set nobackup
-    set noswapfile
-endif
-
-"}}}2
-"### Tab "{{{2
-
-"# create new tab
-nnoremap <Plug>(mykey)t :tabnew<CR>
-nnoremap <Plug>(mykey)Tc :tabnew<CR>
-
-"# close current tab
-nnoremap <Plug>(mykey)Tk :tabclose<CR>
-
-"# tab next/preview
-nnoremap <silent> <C-f> gt
-nnoremap <silent> <C-b> gT
-
-"}}}2
-"### search "{{{2
-
-"# 検索に大文字を含んでいたら大小区別
-set ignorecase
-set smartcase
-
-"# 検索時にヒット部位をハイライト
-set hlsearch
-
-"# 検索ハイライト消去
-nnoremap <ESC><ESC> :nohlsearch<CR>
-
-"# 検索時にインクリメンタルサーチを行う
-set incsearch
-
-"}}}2
-"### Emacs like keybind "{{{2
-
-"# カーソルキーで行末／行頭の移動可能に設定
-set whichwrap=b,s,[,],<,>
-
-"# Emacs 風カーソル移動
-noremap! <C-n> <DOWN>
-noremap! <C-p> <UP>
-noremap! <C-b> <LEFT>
-noremap! <C-f> <RIGHT>
-noremap! <C-g> <ESC>
-
-"# killing
-inoremap <expr> <C-k> col('.')==col('$')?"":"\<C-o>D"
-
-"# Emacs風 行頭行末移動
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-
-"}}}2
-"### Indent "{{{2
-
-function! s:IndentFormat(cmd)
-    let l:cmd = a:cmd
-    mkview
-    execute "normal " . l:cmd
-    loadview
-endfunction
-
-"# current buffer indent
-nnoremap <C-\> :call <SID>IndentFormat('gg=G')<CR>
-vnoremap <C-\> =
-
-"# インデント
-set autoindent
-set smartindent
-set smarttab
-
-"# if(){}などのインデント
-set cindent
-
-"# タブを空白に置き換える
-set tabstop=4
-set expandtab
-set softtabstop=4
-set shiftwidth=4
-
-"# {}をインデントして入力
-inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
-
-"}}}2
-"### FileType "{{{2
-
-augroup detect_filetype
-    autocmd!
-    autocmd BufNewFile,BufRead *.as set filetype=actionscript
-    autocmd BufNewFile,BufRead *.mxml set filetype=mxml
-    autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
-    autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
-    autocmd BufNewFile,BufRead cpanfile set filetype=perl.cpanfile
-    autocmd BufNewFile,BufRead */nginx/conf/*.conf* set filetype=nginx
-    autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
-    autocmd BufNewFile,BufRead */patches/* set filetype=diff
-    autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
-    autocmd BufNewFile,BufRead *.scala set filetype=scala
-    autocmd BufNewFile,BufRead *.sbt set filetype=scala
-    autocmd BufNewFile,BufRead *.gradle set filetype=groovy
-    autocmd BufNewFile,BufRead *.m set filetype=objective-c
-    autocmd BufNewFile,BufRead *.gosh set filetype=scheme
-    autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-    autocmd BufNewFile,BufRead gemspec set filetype=ruby
-    autocmd BufNewFile,BufRead *.ru set filetype=ruby
-    autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
-    autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
-augroup END
-
-"}}}2
-"### Window "{{{2
-
-"# Window横分割
-nnoremap <silent> <Plug>(mykey)w :<ESC>:split<CR>
-"# Window縦分割
-nnoremap <silent> <Plug>(mykey)v :<ESC>:vsplit<CR>
-
-"# カレントWindow縦最大化
-nnoremap <C-w><C-w> <C-w>_
-nnoremap <C-w>w <C-w>_
-
-"# 縦最大化しつつWindowを移動
-nnoremap <C-j> <C-w>j<C-w>_
-nnoremap <C-k> <C-w>k<C-w>_
-
-"# Window移動
-nnoremap <C-w><C-n> <C-w>j
-nnoremap <C-w><C-p> <C-w>k
-nnoremap <C-w><C-b> <C-w>h
-nnoremap <C-w><C-f> <C-w>l
-nnoremap <C-w>n <C-w>j
-nnoremap <C-w>p <C-w>k
-nnoremap <C-w>b <C-w>h
-nnoremap <C-w>f <C-w>l
-
-"}}}2
-"### AutoBuffer "{{{2
-
-"# tmpl perl
-iab PSIMPLE <ESC>:r ~/.vim/misc/tmpl/perl_simple.pl<CR>
-iab PMODULE <ESC>:r ~/.vim/misc/tmpl/perl_module.pl<CR>
-iab PSUB    <ESC>:r ~/.vim/misc/tmpl/perl_sub.pl<CR>
-iab PHREF   $hash_name->{namae}
-iab PFOREACH    foreach my $element (@nanigasi){
-iab PFOR        for ( my $i=1; $i <= 100; $i++ ){
-iab PRINT       print $i, "\n";
-iab Pdumper use Data::Dumper; warn Dumper 
-iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
-
-"# tmpl other
-iab HSIMPLE <ESC>:r ~/.vim/misc/tmpl/xhtml_simple.html<CR>
-iab XSIMPLE <ESC>:r ~/.vim/misc/tmpl/xml_simple.xml<CR>
-iab LSIMPLE <ESC>:r ~/.vim/misc/tmpl/lisp_simple.lisp<CR>
-iab YDT <C-R>=strftime("%Y-%m-%d %T")<CR>
-
-"# user agent (web browser)
-iab UA_IE Mozilla/5.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)
-iab UA_FX Mozilla/5.0 (X11; U; Linux i686; ja; rv:1.8.0.4) Gecko/20060508 Firefox/1.5.0.4
-iab UA_CH Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19
-
-"# user agent (ios devise)
-iab UA_IPHONE Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A334 Safari/7534.48.3
-iab UA_IPHONE2 Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405 Safari/7534.48.3
-iab UA_IPOD Mozilla/5.0 (iPod; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
-iab UA_IPAD Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
-
-iab MIME_POST application/x-www-form-urlencoded
-iab MIME_JSON application/json
-iab MIME_JS text/javascript
-iab authe authentication
-iab autho authorization
-iab passw password
-iab javasc javascript
-iab concate concatenate
-
-"}}}2
-"### Folding {{{2
-
-"# difine foldmethod
-set foldmethod=marker
-set foldtext=FoldCCtext()
-
-nnoremap <Space><Space> za<Space>
-
-"}}}2
-"### for MacVim {{{2
-
-if has('macvim')
-    " kaoriyadicwin off
-    let plugin_dicwin_disable=1
-
-    if exists('+macmeta')
-        " enable meta key
-        set macmeta
-    endif
-endif
-
-"}}}2
-"### Util Functinos {{{2
-
-" jump startdir
-let g:vimstart_dir=$PWD
-command! -nargs=0 Home :execute 'cd ' . g:vimstart_dir
-
-" jump current dir
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
-function! s:ChangeCurrentDir(directory, bang)
-    if a:directory ==# ''
-        cd %:p:h
-    else
-        execute 'cd' . a:directory
-    endif
-
-    if a:bang ==# ''
-        pwd
-    endif
-endfunction
-
-" highlight 全角space
-function! ZenkakuSpace()
-    highlight ZenkakuSpace 
-                \ cterm=underline 
-                \ ctermfg=darkgrey 
-                \ gui=underline 
-                \ guifg=darkgrey
-endfunction
-
-if has('syntax')
-    augroup ZenkakuSpace
-        autocmd!
-        autocmd ColorScheme * call ZenkakuSpace()
-        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-    augroup END
-    call ZenkakuSpace()
-endif
-
-"}}}2
-"### colorscheme "{{{2
-
-"# xterm-256color
-set t_Co=256
-
-"# Colorscheme
-syntax enable
-
-let g:default_color_mode=has('unix') ? 'A' : 'B'
-
-"# GUI
-let g:gui_colorscheme_a='chlordane'
-let g:gui_background_a='dark'
-let g:gui_colorscheme_b='pyte'
-let g:gui_background_b='light'
-
-"# CLI
-"let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='molokai'
-let g:cui_background_a='light'
-let g:cui_colorscheme_b='matrix'
-let g:cui_background_b='light'
-
-let g:current_color_mode=g:default_color_mode
-
-" setup color by background
-function! SetupColorScheme ()
-    if has('gui_running')
-        execute 'colorscheme ' . 
-                    \ ( (g:default_color_mode ==# 'A') ? 
-                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-        execute 'set background=' . 
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:gui_background_a : g:gui_background_b)
-    else
-        execute 'colorscheme ' . 
-                    \ ( (g:default_color_mode ==# 'A') ? 
-                    \ g:cui_colorscheme_a : g:cui_colorscheme_b)
-        execute 'set background=' . 
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:cui_background_a : g:cui_background_b)
-    endif
-endfunction
-
-
-"# change colorscheme & background
-function! ChangeBackground()
-
-    if g:current_color_mode ==# 'A'
-        execute 'colorscheme ' .
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
-        let g:current_color_mode='B'
-        echo 'change backgrount=light'
-    else
-        execute 'colorscheme ' .
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-        let g:current_color_mode='A'
-        echo 'change backgrount=dark'
-    endif
-
-    if has('gui_running')
-        execute 'set background=' . 
-                    \ ( g:current_color_mode ==# 'A' ?
-                    \ g:gui_background_a : g:gui_background_b)
-    else
-        execute 'set background=' . 
-                    \ ( (g:current_color_mode ==# 'A') ?
-                    \ g:cui_background_a : g:cui_background_b)
-    endif
-    syntax on
-endfunction
-
-
-function! MyColor()
-    "# ポップアップメニューの色変更
-    highlight Pmenu 
-                \ ctermbg=DarkGray
-                \ ctermfg=White
-
-    highlight PmenuSel
-                \ ctermbg=White
-                \ ctermfg=Black 
-
-    "# Foldingの色変更
-    highlight Folded
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=Black
-                \ ctermfg=LightGray
-                \ guibg=Grey30
-                \ guifg=Grey80
-
-    highlight FoldColumn
-                \ gui=bold
-                \ term=standout
-                \ ctermbg=Black
-                \ ctermfg=LightGray
-                \ guibg=Grey
-                \ guifg=DarkBlue
-
-    "# 検索結果のカラースキーム変更
-    highlight Search ctermbg=Gray
-endfunction
-
-augroup color_set
-    autocmd!
-    autocmd ColorScheme * call MyColor()
-augroup END
-
-"# initialize colorcheme
-call SetupColorScheme()
-
-"# switching colrschme & background
-nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
-
-"}}}2
-
-" }}}1
 "[ ####------- Programming Support Settings ----#### ] {{{1
 
 "### C++ support "{{{2
@@ -1999,6 +1881,124 @@ augroup END
 " }}}2
 
 " }}}1
+"[ ####------- Colorscheme Settings ------------#### ] "{{{1
+
+"# xterm-256color
+set t_Co=256
+
+"# Colorscheme
+syntax enable
+
+let g:default_color_mode=has('unix') ? 'A' : 'B'
+
+"# GUI
+let g:gui_colorscheme_a='chlordane'
+let g:gui_background_a='dark'
+let g:gui_colorscheme_b='pyte'
+let g:gui_background_b='light'
+
+"# CLI
+"let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
+let g:cui_colorscheme_a='molokai'
+let g:cui_background_a='light'
+let g:cui_colorscheme_b='matrix'
+let g:cui_background_b='light'
+
+let g:current_color_mode=g:default_color_mode
+
+" setup color by background
+function! SetupColorScheme ()
+    if has('gui_running')
+        execute 'colorscheme ' . 
+                    \ ( (g:default_color_mode ==# 'A') ? 
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+        execute 'set background=' . 
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:gui_background_a : g:gui_background_b)
+    else
+        execute 'colorscheme ' . 
+                    \ ( (g:default_color_mode ==# 'A') ? 
+                    \ g:cui_colorscheme_a : g:cui_colorscheme_b)
+        execute 'set background=' . 
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:cui_background_a : g:cui_background_b)
+    endif
+endfunction
+
+
+"# change colorscheme & background
+function! ChangeBackground()
+
+    if g:current_color_mode ==# 'A'
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
+        let g:current_color_mode='B'
+        echo 'change backgrount=light'
+    else
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+        let g:current_color_mode='A'
+        echo 'change backgrount=dark'
+    endif
+
+    if has('gui_running')
+        execute 'set background=' . 
+                    \ ( g:current_color_mode ==# 'A' ?
+                    \ g:gui_background_a : g:gui_background_b)
+    else
+        execute 'set background=' . 
+                    \ ( (g:current_color_mode ==# 'A') ?
+                    \ g:cui_background_a : g:cui_background_b)
+    endif
+    syntax on
+endfunction
+
+
+function! MyColor()
+    "# ポップアップメニューの色変更
+    highlight Pmenu 
+                \ ctermbg=DarkGray
+                \ ctermfg=White
+
+    highlight PmenuSel
+                \ ctermbg=White
+                \ ctermfg=Black 
+
+    "# Foldingの色変更
+    highlight Folded
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey30
+                \ guifg=Grey80
+
+    highlight FoldColumn
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey
+                \ guifg=DarkBlue
+
+    "# 検索結果のカラースキーム変更
+    highlight Search ctermbg=Gray
+endfunction
+
+augroup color_set
+    autocmd!
+    autocmd ColorScheme * call MyColor()
+augroup END
+
+"# initialize colorcheme
+call SetupColorScheme()
+
+"# switching colrschme & background
+nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
+
+"}}}1
 "[ ####------- Read Local Settings -------------#### ] {{{1
 let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
