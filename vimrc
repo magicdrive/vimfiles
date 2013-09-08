@@ -1266,7 +1266,7 @@ let g:solarized_italic=0
 "}}}2
 "### EasyMotion {{{2
 let g:EasyMotion_leader_key = "q"
-let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm,./1234567890'
+let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm1234567890'
 "}}}2
 "### EasyBuffer {{{2
 nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
