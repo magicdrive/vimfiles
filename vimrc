@@ -1962,7 +1962,7 @@ function! MyColor()
                 \ guibg=Grey
                 \ guifg=DarkBlue
 
-    highlight Normal ctermfg=230 ctermbg=NONE
+    highlight Normal ctermbg=NONE
 
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=Gray
