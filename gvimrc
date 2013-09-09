@@ -11,7 +11,6 @@
 
 "# windowの大きさ監視
 function WindowSupervise()
-
     let g:save_window_file = '$HOME/.vimwinpos'
 
     if filereadable( expand(g:save_window_file) )
@@ -30,13 +29,11 @@ function WindowSupervise()
                         \ ]
             call writefile(options, expand(g:save_window_file) )
         endfunction
-
     augroup END
 endfunction
 
 "# gvimの設定関数
 function MyGUISetting ()
-
     if has('vim_starting')
         "# インサートモード以外でIMEをオフ
         set iminsert
@@ -64,13 +61,10 @@ function MyGUISetting ()
             autocmd FocusLost * set transparency=50
         endif
     augroup END
-
 endfunction
 
 function MyGUISettingLazy()
-
     call SetupColorScheme()
-
     if has('multi_byte_ime')
 
         highlight Cursor
@@ -80,19 +74,15 @@ function MyGUISettingLazy()
                     \ guifg=NONE
                     \ guibg=Purple
     endif
-
     call WindowSupervise()
-
     if has('gui_macvim')
         call MyGUIMacVimSetting()
     endif
-
 endfunction
 
 if has('gui_running')
     call MyGUISetting ()
 endif
-
 autocmd GUIEnter * call MyGUISettingLazy()
 
 "}}}

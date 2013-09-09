@@ -1898,7 +1898,7 @@ let g:cui_colorscheme_b='matrix'
 let g:current_color_mode=g:default_color_mode
 
 " setup color by background
-function! s:SetupColorScheme ()
+function! SetupColorScheme ()
     if has('gui_running')
         execute 'colorscheme ' . 
                     \ ( (g:default_color_mode ==# 'A') ? 
@@ -1965,7 +1965,7 @@ augroup color_set
 augroup END
 
 "# initialize colorcheme
-call <SID>SetupColorScheme()
+call SetupColorScheme()
 
 "# switching colrschme & background
 nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
