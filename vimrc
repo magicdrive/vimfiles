@@ -478,21 +478,15 @@ nnoremap <C-w>f <C-w>l
 "### AutoBuffer "{{{2
 
 "# tmpl perl
-iab PSIMPLE <ESC>:r ~/.vim/misc/tmpl/perl_simple.pl<CR>
-iab PMODULE <ESC>:r ~/.vim/misc/tmpl/perl_module.pl<CR>
-iab PSUB    <ESC>:r ~/.vim/misc/tmpl/perl_sub.pl<CR>
-iab PHREF   $hash_name->{namae}
-iab PFOREACH    foreach my $element (@nanigasi){
+iab PHREF   $hash->{key}
 iab PFOR        for ( my $i=1; $i <= 100; $i++ ){
 iab PRINT       print $i, "\n";
 iab Pdumper use Data::Dumper; warn Dumper 
 iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
 
 "# tmpl other
-iab HSIMPLE <ESC>:r ~/.vim/misc/tmpl/xhtml_simple.html<CR>
-iab XSIMPLE <ESC>:r ~/.vim/misc/tmpl/xml_simple.xml<CR>
-iab LSIMPLE <ESC>:r ~/.vim/misc/tmpl/lisp_simple.lisp<CR>
 iab YDT <C-R>=strftime("%Y-%m-%d %T")<CR>
+iab SHDATE $(data %Y-%m-%d %T)
 
 "# user agent (web browser)
 iab UA_IE Mozilla/5.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)
@@ -1904,7 +1898,7 @@ let g:cui_colorscheme_b='matrix'
 let g:current_color_mode=g:default_color_mode
 
 " setup color by background
-function! SetupColorScheme ()
+function! s:SetupColorScheme ()
     if has('gui_running')
         execute 'colorscheme ' . 
                     \ ( (g:default_color_mode ==# 'A') ? 
@@ -1916,9 +1910,8 @@ function! SetupColorScheme ()
     endif
 endfunction
 
-
 "# change colorscheme & background
-function! ChangeBackground()
+function! s:ChangeBackground()
     if g:current_color_mode ==# 'A'
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
@@ -1929,13 +1922,11 @@ function! ChangeBackground()
                     \ (has('gui_running') ?
                     \ g:gui_colorscheme_a : g:cui_colorscheme_a)
         let g:current_color_mode='A'
-        echo 'change backgrount=dark'
     endif
     syntax on
 endfunction
 
-
-function! MyColor()
+function! s:MyColor()
     "# ポップアップメニューの色変更
     highlight Pmenu 
                 \ ctermbg=DarkGray
@@ -1970,14 +1961,14 @@ endfunction
 
 augroup color_set
     autocmd!
-    autocmd ColorScheme * call MyColor()
+    autocmd ColorScheme * call <SID>MyColor()
 augroup END
 
 "# initialize colorcheme
-call SetupColorScheme()
+call <SID>SetupColorScheme()
 
 "# switching colrschme & background
-nnoremap <silent> <Leader>b :<C-u> call ChangeBackground()<CR>
+nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
 
 "}}}1
 "[ ####------- Read Local Settings -------------#### ] {{{1
