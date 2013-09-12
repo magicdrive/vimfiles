@@ -10,7 +10,7 @@
 "[ ####------ GVim Settings --------------------#### ]{{{
 
 "# windowの大きさ監視
-function WindowSupervise()
+function! WindowSupervise()
     let g:save_window_file = '$HOME/.vimwinpos'
 
     if filereadable( expand(g:save_window_file) )
@@ -33,7 +33,7 @@ function WindowSupervise()
 endfunction
 
 "# gvimの設定関数
-function MyGUISetting ()
+function! MyGUISetting ()
     if has('vim_starting')
         "# インサートモード以外でIMEをオフ
         set iminsert
@@ -63,7 +63,7 @@ function MyGUISetting ()
     augroup END
 endfunction
 
-function MyGUISettingLazy()
+function! MyGUISettingLazy()
     call SetupColorScheme()
     if has('multi_byte_ime')
 
@@ -88,10 +88,9 @@ autocmd GUIEnter * call MyGUISettingLazy()
 "}}}
 "[ ####------ MacVim Settings ------------------#### ]{{{
 
-function MyGUIMacVimSetting()
+function! MyGUIMacVimSetting()
 
     colorscheme chlordane
-    let g:airline_theme='luna'
     augroup color_set
         autocmd!
     augroup END

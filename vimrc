@@ -199,11 +199,17 @@ noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j
 "### VimScript "{{{2
 
 command! -nargs=0 SL :source %
-command! -nargs=0 SU :source $MYVIMRC
+command! -nargs=0 SU :source ~/.vimrc | call <SID>source_gvimrc()
 
-command! -nargs=0 VimrcEdit :edit $HOME/.vimrc
+command! -nargs=0 VimrcEdit :edit ~/.vimrc
 command! -nargs=0 VE :VimrcEdit
 command! -nargs=0 E :edit!
+
+function! s:source_gvimrc()
+ if has('gui_running')
+     :source ~/.gvimrc
+ endif
+endfunction
 
 "# extract visual selected string
 function! s:get_visual_selected()
@@ -1242,7 +1248,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme='laederon'
+let g:airline_theme=has('gui_running') ? 'luna' : 'laederon'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
