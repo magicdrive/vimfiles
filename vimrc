@@ -1367,7 +1367,7 @@ if has('mac')
     nnoremap <Plug>(mykey)0 :ITunes<Space>
     command! -nargs=1 
                 \ -complete=customlist,CompletionITunes 
-                \ ITunes :call <SID>ITunes('<args>')
+                \ ViTunes :call <SID>ITunes('<args>')
 
     function! s:ITunes(action)
         if a:action ==# 'list' 
@@ -1390,8 +1390,7 @@ if has('mac')
     endfunction
 
     function AlterITunes()
-        AlterCommand  iT[unes] ITunes
-        AlterCommand  it[unes] ITunes
+        AlterCommand  vit[unes] ViTunes
     endfunction
 
     augroup itunes_group
