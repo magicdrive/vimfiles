@@ -1793,12 +1793,6 @@ augroup java_ftplugin
     autocmd!
     "# complete add
     autocmd FileType java setlocal complete+=.,w,b,u,t,i
-    "# load ant.sh
-    autocmd FileType java setlocal makeprg=$HOME/.vim/misc/bin/vim_ant.sh
-    "# errorformat
-    autocmd BufRead *.java 
-                  \ setlocal errorformat=
-                      \ '\ %#[javac]\ %#%f:%l:%c:%*\\d:%*\\d:\ %t%[%^:]%#:%m, \%A\ %#[javac]\ %f:%l:\ %m,%-Z\ %#[javac]\ %p^,%-C%.%#'
 augroup END
 
 "}}}2
@@ -1960,7 +1954,9 @@ endfunction
 
 augroup color_set
     autocmd!
-    autocmd ColorScheme * call <SID>MyColor()
+    if !has('gui_running')
+        autocmd ColorScheme * call <SID>MyColor()
+    endif
 augroup END
 
 "# initialize colorcheme
