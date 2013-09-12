@@ -544,7 +544,7 @@ command! -nargs=0 ResetHome :let g:vimhome_dir=g:vimstart_dir | Home
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
     if a:directory ==# ''
-        cd %:p:h
+        execute "cd " . expand("%:p:h")
     else
         execute 'cd' . a:directory
     endif
@@ -1047,17 +1047,17 @@ let g:unite_source_file_mru_limit=10000
 "#---------------------------#
 "# buffers+unite             #
 "#---------------------------#
-nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split buffer<CR>
+nnoremap <silent> <Plug>(mykey)B  :<C-u>Unite -no-split buffer<CR>
 nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
-nnoremap <silent> <Plug>(mykey)f  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
-nnoremap <silent> <Plug>(mykey)i  :<C-u>Unite -no-split -buffer-name=files file<CR>
+nnoremap <silent> <Plug>(mykey)F  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
+nnoremap <silent> <Plug>(mykey)I  :<C-u>Unite -no-split -buffer-name=files file<CR>
 nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
 
 "#---------------------------#
 "# neobundle+unite           #
 "#---------------------------#
 " neobundle-menu
-nnoremap <silent> <Plug>(mykey)N  :<C-u>Unite -no-split neobundle/
+nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split neobundle/
 
 "#---------------------------#
 "# ref+unite                 #
@@ -1123,7 +1123,7 @@ endfunction
 "}}}2
 "### VimFiler {{{2
 
-nnoremap <Plug>(mykey)e :VimFilerCurrent<CR>
+nnoremap <Plug>(mykey)e :VimFilerCurrentDir<CR>
 
 augroup vimfiler_setting
     autocmd!
@@ -1134,7 +1134,7 @@ augroup vimfiler_setting
     autocmd FileType vimfiler call g:my_vimfiler_settings()
 augroup END
 
-nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
+"nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
 function! g:my_vimfiler_settings()
     nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
     nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
@@ -1520,16 +1520,23 @@ augroup END
 
 "# NERDTreeToggle wrapper
 nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
+nnoremap <silent> <Plug>(mykey)i :call <SID>MY_NERDTreeRefresh()<CR>
 let g:my_nerdtree_status=0
+
+function! s:MY_NERDTreeRefresh()
+    NERDTreeFocus
+    normal R 
+    wincmd l
+    let g:my_nerdtree_status = 1
+endfunction
 
 function! s:MY_NERDTreeToggle()
     :NERDTreeToggle
     if g:my_nerdtree_status == 0
         wincmd l
-        let g:my_nerdtree_status=1
-    else
-        let g:my_nerdtree_status=0
     endif
+    let g:my_nerdtree_status = 
+                \ g:my_nerdtree_status ==# 1 ? 0 : 1
 endfunction
 
 let g:NERDTreeHijackNetrw=0
