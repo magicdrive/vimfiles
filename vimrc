@@ -1,11 +1,10 @@
-"#          __                            
-"#  __  __ /\_\    ___ ___   _ __   ___   
-"# /\ \/\ \\/\ \ /' __` __`\/\`'__\/'___\ 
-"# \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/ 
+"#          __
+"#  __  __ /\_\    ___ ___   _ __   ___
+"# /\ \/\ \\/\ \ /' __` __`\/\`'__\/'___\
+"# \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/
 "#  \ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
 "#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
 "#                for vim7.4
-
 "[ ####------- Vim Basic Settings --------------#### ] {{{1
 
 "### Vim Options "{{{2
@@ -218,7 +217,7 @@ endfunction
 "# vimrcの編集
 nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
-"}}}i1
+"}}}2
 "### encoding & fileencoding "{{{2
 
 "Encoding
@@ -268,7 +267,6 @@ let vimrc_set_encoding = 1
 
 " 改行コードの自動認識
 set fileformats=unix,mac,dos
-
 "}}}2
 "### LineNumber "{{{2
 
@@ -1035,6 +1033,7 @@ filetype indent on
 NeoBundleCheck
 
 "}}}2
+
 "[ ####------- Vim Plugins Settings ------------#### ] {{{1
 
 "### Unite.vim {{{2
@@ -1085,7 +1084,7 @@ let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 
 "# VimShellを新規Windowで立ち上げる
 command! Vshell call s:Shell()
-function s:alter_vimshell()
+function! s:alter_vimshell()
     AlterCommand  vsh[ell] Vshell
 endfunction
 augroup vimshell_setting
@@ -1284,7 +1283,7 @@ if !has('gui_running') && executable('w3m')
     command! -nargs=1 Wikipedia :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wiki, '<args>')
     command! -nargs=1 WikipediaSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wiki, '<args>')
 
-    function AlterW3m()
+    function! AlterW3m()
         AlterCommand dict Dict
         AlterCommand alc Alc
         AlterCommand wikip[edia] Wikipedia
@@ -1315,7 +1314,7 @@ function! OpenPerlfunc(func_str)
     execute "Ref perldoc -f " . a:func_str
 endfunction
 
-function AlterRef()
+function! AlterRef()
     AlterCommand  perld[oc] Ref perldoc
     AlterCommand  perlf[unc] Ref perldoc -f
     AlterCommand  man[page] Manpage
@@ -1356,7 +1355,7 @@ nnoremap <silent> <Plug>(mykeylite)ts  :<C-u>TweetVimSay<CR>
 let g:tweetvim_tweet_per_page=100
 let g:tweetvim_open_buffer_cmd='split'
 
-function AlterTweet()
+function! AlterTweet()
     AlterCommand  tws TweetVimSay
 endfunction
 
@@ -1389,7 +1388,7 @@ if has('mac')
         endif
     endfunction
 
-    function AlterITunes()
+    function! AlterITunes()
         AlterCommand  vit[unes] ViTunes
     endfunction
 
@@ -1405,7 +1404,7 @@ endif
 nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
 
-function s:alter_quickrun()
+function! s:alter_quickrun()
     AlterCommand  qui[ckrun] QuickRun
 endfunction
 augroup quickrun_group
@@ -1466,7 +1465,7 @@ function! s:scratchbuffer_filetype(filetype)
     Scratch
     execute 'set filetype=' . a:filetype
 endfunction
-function s:alter_scratch()
+function! s:alter_scratch()
     AlterCommand  tem[polarybuffer] TempolaryBuffer
 endfunction
 augroup scratch_setting
@@ -1477,7 +1476,7 @@ augroup END
 "}}}2
 "### Chalice {{{2
 
-function s:alter_chalice()
+function! s:alter_chalice()
     AlterCommand  cha[lice] Chalice
 endfunction
 augroup chalice_group
@@ -1489,7 +1488,7 @@ augroup END
 "### sudo.vim {{{2
 
 command! -nargs=? W :call s:sudo_write('<args>')
-function s:sudo_write(arg)
+function! s:sudo_write(arg)
     if a:arg ==# ''
         write sudo:%
     else
@@ -1613,7 +1612,7 @@ function! OpenPerlModuleCode(module) range
         echohl Error | echo 'No modulefile found.' | echohl None
     endif
 endfunction
-function AlterFileTypePerl()
+function! AlterFileTypePerl()
     AlterCommand  perlre[ad] Perlread
 endfunction
 augroup perl_ftplugin
@@ -1636,7 +1635,7 @@ augroup END
 "}}}2
 "### Python support {{{2
 
-function AlterFileTypePython()
+function! AlterFileTypePython()
     AlterCommand  pydoc Ref pydoc
 endfunction
 
@@ -1656,7 +1655,7 @@ augroup END
 
 let g:pydiction_location=
             \ '~/.vim/bundle/automatic/pydiction/complete-dict'
-function s:PythonIndent()
+function! s:PythonIndent()
     "" PEP 8 Indent rule
     setlocal tabstop=8
     setlocal softtabstop=4
@@ -1694,7 +1693,7 @@ function! s:open_rubygem_code(module) range
     endtry
 
 endfunction
-function AlterFileTypeRuby()
+function! AlterFileTypeRuby()
     AlterCommand  ri Ref ri
 endfunction
 
@@ -1722,12 +1721,6 @@ command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console
 
 "}}}2
 "### Scala support{{{2
-
-if exists("current_compiler")
-    finish
-endif
-let g:current_compiler = "sbt"
-
 
 "# sbt
 function! s:start_sbt()
