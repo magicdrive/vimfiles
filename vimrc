@@ -858,6 +858,8 @@ NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
 NeoBundle 'kchmck/vim-coffee-script'
 "# vim-typescript
 NeoBundle 'leafgarland/typescript-vim'
+"# jade
+NeoBundle 'digitaltoad/vim-jade'
 
 "#-----------------------#
 "# python                #
