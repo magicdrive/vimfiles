@@ -576,6 +576,30 @@ if has('syntax')
     call ZenkakuSpace()
 endif
 
+function! GetCursorSyntaxGroup()
+    echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+                \    . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                \    . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfunction
+nnoremap <Leader>s :call GetCursorSyntaxGroup()<CR>
+vnoremap <Leader>s :call GetCursorSyntaxGroup()<CR>
+
+
+function! VimColorTest(outfile, fgend)
+  let result = []
+  for fg in range(a:fgend)
+      let kw = printf('%-7s', printf('c_%d', fg))
+      let h = printf('hi %s ctermfg=%d', kw, fg)
+      let s = printf('syn keyword %s %s', kw, kw)
+      call add(result, printf('%-32s | %s', h, s))
+  endfor
+  call writefile(result, a:outfile)
+  execute 'edit '.a:outfile
+  source %
+endfunction
+" Increase numbers in next line to see more colors.
+command! VimColorTest call VimColorTest('vim-color-test.tmp', 255)
+
 "}}}2
 
 " }}}1
