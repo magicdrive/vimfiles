@@ -1154,7 +1154,7 @@ endfunction
 "}}}2
 "### VimFiler {{{2
 
-nnoremap <Plug>(mykey)e :VimFilerCurrentDir<CR>
+nnoremap <Plug>(mykey)e :VimFiler<CR>
 
 augroup vimfiler_setting
     autocmd!
