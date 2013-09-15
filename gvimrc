@@ -57,7 +57,7 @@ function! MyGUISetting ()
     augroup focus_transparency
         autocmd!
         if has('mac')
-            autocmd FocusGained * set transparency=10
+            autocmd FocusGained * set transparency=25
             autocmd FocusLost * set transparency=50
         endif
     augroup END
@@ -95,7 +95,7 @@ function! MyGUIMacVimSetting()
         autocmd!
     augroup END
 
-    set transparency=10
+    set transparency=25
     set imdisable 
     set antialias
     set guifont=Source\ Code\ Pro\ for\ Powerline:h14
