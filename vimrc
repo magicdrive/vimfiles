@@ -666,6 +666,8 @@ NeoBundle 'osyo-manga/shabadou.vim'
 NeoBundle 'dannyob/quickfixstatus'
 "# vim-dispatch
 NeoBundle 'tpope/vim-dispatch'
+"# polyglot
+NeoBundle 'sheerun/vim-polyglot'
 "# nerdcommneter
 NeoBundleLazy 'scrooloose/nerdcommenter', {
             \   'autoload' : { 'commands' : ["NERDCommenterToggle"] }
