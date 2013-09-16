@@ -1015,6 +1015,8 @@ if has('mac')
     NeoBundle 'tyru/open-browser.vim'
     "# vim-itunes
     NeoBundle "ryutorion/vim-itunes"
+    "# macdict
+    NeoBundle "modsound/macdict-vim"
 endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
