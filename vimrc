@@ -166,7 +166,7 @@ nnoremap <silent> <Up> :bNext<CR>
 nnoremap <silent> <Down> :bprevious<CR>
 
 "# "TODO"のgrep
-noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j 
+noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j
             \ **/*.pl
             \ **/*.pm
             \ **/*.tt
@@ -242,7 +242,7 @@ function! s:completion_encode(ArgLead, CmdLine, CusorPos)
     if l:len_cmd <= 2
         let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
         return filter(
-                    \ ["utf8", "sjis", "eucjp"], 
+                    \ ["utf8", "sjis", "eucjp"],
                     \ l:filter_cmd
                     \ )
     endif
@@ -295,7 +295,7 @@ endfunction
 if has('mouse')
     "# マウスモードの有効
     set mouse=
-    "# terminalmutiprexa内でもマウスモード設定を反映 
+    "# terminalmutiprexa内でもマウスモード設定を反映
     set ttymouse=xterm2
     "# toggle mouse mode
     nnoremap <silent> <Plug>(mykeylite)m :<C-u>call <SID>ToggleMouseMode()<CR>
@@ -485,7 +485,7 @@ nnoremap <C-w>f <C-w>l
 iab PHREF   $hash->{key}
 iab PFOR        for ( my $i=1; $i <= 100; $i++ ){
 iab PRINT       print $i, "\n";
-iab Pdumper use Data::Dumper; warn Dumper 
+iab Pdumper use Data::Dumper; warn Dumper
 iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
 
 "# tmpl other
@@ -560,10 +560,10 @@ endfunction
 
 " highlight 全角space
 function! ZenkakuSpace()
-    highlight ZenkakuSpace 
-                \ cterm=underline 
-                \ ctermfg=darkgrey 
-                \ gui=underline 
+    highlight ZenkakuSpace
+                \ cterm=underline
+                \ ctermfg=darkgrey
+                \ gui=underline
                 \ guifg=darkgrey
 endfunction
 
@@ -572,6 +572,21 @@ if has('syntax')
         autocmd!
         autocmd ColorScheme * call ZenkakuSpace()
         autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
+
+function! MatsubiSpace()
+    highlight MatsubiSpace
+                \ ctermbg=199
+                \ guibg=199
+endfunction
+
+if has('syntax')
+    augroup MatsubiSpace
+        autocmd!
+        autocmd ColorScheme * call MatsubiSpace()
+        autocmd VimEnter,WinEnter * match MatsubiSpace /\s\+$/
     augroup END
     call ZenkakuSpace()
 endif
@@ -622,11 +637,11 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 NeoBundle 'Shougo/neobundle.vim'
 "# neocomplcache
 NeoBundleLazy 'Shougo/neocomplcache', {
-            \ 'autoload' : { 'insert' : 1, } 
+            \ 'autoload' : { 'insert' : 1, }
             \ }
 "# neosnippet
 NeoBundleLazy 'Shougo/neosnippet', {
-            \ 'autoload' : { 'insert' : 1, } 
+            \ 'autoload' : { 'insert' : 1, }
             \ }
 "# vim-singleton
 if has('clientserver')
@@ -645,7 +660,7 @@ NeoBundleLazy 'Shougo/vimshell', {
             \ }
 "# vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
-            \   'autoload' : { 
+            \   'autoload' : {
             \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
             \       'explorer' : 1 ,
             \   }
@@ -674,7 +689,7 @@ NeoBundleLazy 'scrooloose/nerdcommenter', {
             \ }
 "# vim-endwise
 NeoBundleLazy 'taichouchou2/vim-endwise', {
-            \ 'autoload' : { 'insert' : 1, } 
+            \ 'autoload' : { 'insert' : 1, }
             \ }
 "# thumbnail.vim
 NeoBundleLazy 'itchyny/thumbnail.vim', {
@@ -686,15 +701,15 @@ NeoBundleLazy 'project.tar.gz', {
             \ }
 "# smartinput
 NeoBundleLazy 'kana/vim-smartinput', {
-            \ 'autoload' : { 'insert' : 1, } 
+            \ 'autoload' : { 'insert' : 1, }
             \ }
 "# neco-look
 NeoBundleLazy "ujihisa/neco-look", {
-            \ 'autoload' : { 'insert' : 1, } 
+            \ 'autoload' : { 'insert' : 1, }
             \ }
 "# niceblock
 NeoBundleLazy 'kana/vim-niceblock', {
-            \ 'autoload' : { 'insert' : 1, } 
+            \ 'autoload' : { 'insert' : 1, }
             \ }
 "# altercmd
 NeoBundle 'tyru/vim-altercmd'
@@ -860,7 +875,7 @@ NeoBundleLazy 'moznion/vim-cpanfile',  {
             \ 'autoload' : {'filetypes': ['perl']}
             \ }
 "# vim-perl_use_insertion
-autocmd FileType perl 
+autocmd FileType perl
             \ :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
 
 "#-----------------------#
@@ -1152,7 +1167,7 @@ function! s:start_repl(repl_command)
     endif
     execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
     stopinsert
-    wincmd k 
+    wincmd k
 endfunction
 
 "}}}2
@@ -1183,7 +1198,7 @@ function! s:my_action.func(candidates)
 endfunction
 call unite#custom_action('file', 'my_split', s:my_action)
 
-let s:my_action = { 'is_selectable' : 1 }                     
+let s:my_action = { 'is_selectable' : 1 }
 function! s:my_action.func(candidates)
     wincmd p
     exec 'vsplit '. a:candidates[0].action__path
@@ -1398,16 +1413,16 @@ endfunction
 "}}}2
 "### iTunes{{{2
 
-if has('mac') 
+if has('mac')
     nnoremap <Plug>(mykey)0 :ITunes<Space>
-    command! -nargs=1 
-                \ -complete=customlist,CompletionITunes 
+    command! -nargs=1
+                \ -complete=customlist,CompletionITunes
                 \ ViTunes :call <SID>ITunes('<args>')
 
     function! s:ITunes(action)
-        if a:action ==# 'list' 
+        if a:action ==# 'list'
             Unite it_track
-        else 
+        else
             execute 'call itunes#' . a:action . '()'
         endif
     endfunction
@@ -1418,7 +1433,7 @@ if has('mac')
         if l:len_cmd <= 2
             let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
             return filter(
-                        \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'], 
+                        \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'],
                         \ l:filter_cmd
                         \ )
         endif
@@ -1459,11 +1474,11 @@ for [key, com] in items({
 
 endfor
 let g:quickrun_config = {}
-let g:quickrun_config['coffee'] = { 
+let g:quickrun_config['coffee'] = {
             \       "command" : 'coffee',
             \       'exec'    : ['%c -cbp %s']
             \   }
-let g:quickrun_config['typescript'] = { 
+let g:quickrun_config['typescript'] = {
             \       "command" : 'tsc',
             \       'exec'    : ['%c --exec %s']
             \   }
@@ -1559,7 +1574,7 @@ let g:my_nerdtree_status=0
 
 function! s:MY_NERDTreeRefresh()
     NERDTreeFocus
-    normal R 
+    normal R
     wincmd l
     let g:my_nerdtree_status = 1
 endfunction
@@ -1569,7 +1584,7 @@ function! s:MY_NERDTreeToggle()
     if g:my_nerdtree_status == 0
         wincmd l
     endif
-    let g:my_nerdtree_status = 
+    let g:my_nerdtree_status =
                 \ g:my_nerdtree_status ==# 1 ? 0 : 1
 endfunction
 
@@ -1639,7 +1654,7 @@ function! OpenPerlModuleCode(module) range
     if a:module ==# '<visual>'
         let l:module_name=s:get_visual_selected()
     endif
-    let l:module_path = 
+    let l:module_path =
                 \ system('perl -MClass::Inspector -e '
                 \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"')
     if l:module_path !=# ''
@@ -1720,7 +1735,7 @@ function! s:open_rubygem_code(module) range
 
     try
         execute 'edit ' . system('bundle exec gem which ' . l:module_name )
-    catch 
+    catch
         try
             execute 'edit ' . system('gem which ' . l:module_name )
         catch
@@ -1769,7 +1784,7 @@ function! s:start_sbt()
     if !has_key(t:, 'sbt_cmds')
         let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
     endif
-    wincmd k 
+    wincmd k
 endfunction
 
 command! -nargs=0 SBT call <SID>start_sbt()
@@ -1929,12 +1944,12 @@ let g:current_color_mode=g:default_color_mode
 " setup color by background
 function! SetupColorScheme ()
     if has('gui_running')
-        execute 'colorscheme ' . 
-                    \ ( (g:default_color_mode ==# 'A') ? 
+        execute 'colorscheme ' .
+                    \ ( (g:default_color_mode ==# 'A') ?
                     \ g:gui_colorscheme_a : g:cui_colorscheme_a)
     else
-        execute 'colorscheme ' . 
-                    \ ( (g:default_color_mode ==# 'A') ? 
+        execute 'colorscheme ' .
+                    \ ( (g:default_color_mode ==# 'A') ?
                     \ g:cui_colorscheme_a : g:cui_colorscheme_b)
     endif
 endfunction
@@ -1957,13 +1972,13 @@ endfunction
 
 function! s:MyColor()
     "# ポップアップメニューの色変更
-    highlight Pmenu 
+    highlight Pmenu
                 \ ctermbg=DarkGray
                 \ ctermfg=White
 
     highlight PmenuSel
                 \ ctermbg=White
-                \ ctermfg=Black 
+                \ ctermfg=Black
 
     "# Foldingの色変更
     highlight Folded
