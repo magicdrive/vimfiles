@@ -435,7 +435,6 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.mxml set filetype=mxml
     autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
     autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
-    autocmd BufNewFile,BufRead cpanfile set filetype=perl.cpanfile
     autocmd BufNewFile,BufRead */nginx/conf/*.conf* set filetype=nginx
     autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
     autocmd BufNewFile,BufRead */patches/* set filetype=diff
@@ -867,13 +866,16 @@ NeoBundle 'thinca/vim-ft-clojure'
 "# perl                  #
 "#-----------------------#
 "# perl-mauke
-NeoBundleLazy 'perl-mauke.vim',  {
+NeoBundle 'perl-mauke.vim',  {
             \ 'autoload' : {'filetypes': ['perl']}
             \ }
-"# vim-cpanfile
-NeoBundleLazy 'moznion/vim-cpanfile',  {
+NeoBundle 'vim-perl/vim-perl', {
             \ 'autoload' : {'filetypes': ['perl']}
             \ }
+NeoBundle 'c9s/perlomni.vim', {
+            \ 'autoload' : {'filetypes': ['perl']}
+            \ }
+
 "# vim-perl_use_insertion
 autocmd FileType perl
             \ :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
@@ -1675,7 +1677,7 @@ augroup perl_ftplugin
     endif
     autocmd FileType perl nnoremap <buffer> <F4> :w !perl -c<CR>
     autocmd FileType perl nnoremap <buffer> <F5> :w !perl -c %<CR>
-    autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,-
+    autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
     autocmd FileType perl nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
     autocmd FileType perl vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
     autocmd FileType perl,ref-perldoc nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
