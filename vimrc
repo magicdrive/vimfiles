@@ -1917,6 +1917,7 @@ augroup template_setting
     autocmd BufNewFile Gemfile  0r $HOME/.vim/misc/tmpl/Gemfile
     autocmd BufNewFile Rakefile 0r $HOME/.vim/misc/tmpl/Rakefile
     autocmd BufNewFile gemspec  0r $HOME/.vim/misc/tmpl/gemspec
+    autocmd BufNewFile *.ru     0r $HOME/.vim/misc/tmpl/config.ru
 augroup END
 
 " }}}2
