@@ -578,7 +578,7 @@ endif
 function! MatsubiSpace()
     highlight MatsubiSpace
                 \ ctermbg=199
-                \ guibg=199
+                \ guibg=Cyan
 endfunction
 
 if has('syntax')
@@ -1015,10 +1015,6 @@ NeoBundle 'mattn/calendar-vim', {
             \ }
 "# yanktmp
 NeoBundle 'yanktmp.vim'
-"# w3m.vim
-if executable('w3m')
-    NeoBundle 'yuratomo/w3m.vim'
-endif
 
 "#-----------------------#
 "# external service      #
@@ -1316,36 +1312,6 @@ let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm1234567890'
 "}}}2
 "### EasyBuffer {{{2
 nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
-"}}}2
-"### W3m.vim {{{2
-
-if !has('gui_running') && executable('w3m')
-
-    "# alc
-    let g:w3m_alc='alc'
-    command! -nargs=1 Alc :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_alc, '<args>')
-    command! -nargs=1 AlcSplit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_alc, '<args>')
-
-    "# dict
-    let g:w3m_dict='yahoodict'
-    command! -nargs=1 Dict :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_dict, '<args>')
-    command! -nargs=1 DictSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_dict, '<args>')
-
-    "# dict
-    let g:w3m_wiki='wikipedia'
-    command! -nargs=1 Wikipedia :call w3m#Open(g:w3m#OPEN_NORMAL, g:w3m_wiki, '<args>')
-    command! -nargs=1 WikipediaSprit :call w3m#Open(g:w3m#OPEN_SPLIT, g:w3m_wiki, '<args>')
-
-    function! AlterW3m()
-        AlterCommand dict Dict
-        AlterCommand alc Alc
-        AlterCommand wikip[edia] Wikipedia
-    endfunction
-
-    autocmd VimEnter * call AlterW3m()
-
-endif
-
 "}}}2
 "### Ref.vim {{{2
 
