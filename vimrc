@@ -733,6 +733,8 @@ NeoBundleLazy 'glidenote/memolist.vim', {
             \ }
 "# sudo.vim
 NeoBundle 'sudo.vim'
+"# sql-util
+NeoBundle 'SQLUtilities'
 "# vim-rooter
 NeoBundle 'airblade/vim-rooter'
 "# vim-multiple-cursors
