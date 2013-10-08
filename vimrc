@@ -435,7 +435,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.mxml set filetype=mxml
     autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
     autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
-    autocmd BufNewFile,BufRead */nginx/conf/*.conf* set filetype=nginx
+    autocmd BufNewFile,BufRead **/nginx/conf/*.conf set filetype=nginx
     autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
     autocmd BufNewFile,BufRead */patches/* set filetype=diff
     autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
