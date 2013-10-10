@@ -1,13 +1,13 @@
-"#  ____                                            
-"# /\  _`\            __                            
-"# \ \ \L\_\  __  __ /\_\    ___ ___   _ __   ___   
-"#  \ \ \L_L /\ \/\ \\/\ \ /' __` __`\/\`'__\/'___\ 
-"#   \ \ \/, \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/ 
+"#  ____
+"# /\  _`\            __
+"# \ \ \L\_\  __  __ /\_\    ___ ___   _ __   ___
+"#  \ \ \L_L /\ \/\ \\/\ \ /' __` __`\/\`'__\/'___\
+"#   \ \ \/, \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/
 "#    \ \____/\ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
 "#     \/___/  \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
-"#                    for vim7.4                    
+"#                    for vim7.4
 
-"[ ####------ GVim Settings --------------------#### ]{{{
+"[ ####------- GVim Settings -------------------#### ]{{{
 
 "# windowの大きさ監視
 function! WindowSupervise()
@@ -86,7 +86,7 @@ endif
 autocmd GUIEnter * call MyGUISettingLazy()
 
 "}}}
-"[ ####------ MacVim Settings ------------------#### ]{{{
+"[ ####------- MacVim Settings -----------------#### ]{{{
 
 function! MyGUIMacVimSetting()
 
@@ -96,7 +96,7 @@ function! MyGUIMacVimSetting()
     augroup END
 
     set transparency=25
-    set imdisable 
+    set imdisable
     set antialias
     set guifont=Source\ Code\ Pro\ for\ Powerline:h14
     set nobackup
@@ -104,4 +104,10 @@ function! MyGUIMacVimSetting()
 endfunction
 
 "}}}
+"[ ####------- Read Local Settings -------------#### ] {{{1
+let g:local_gvimrc = '$HOME/.gvimrc.local'
+if filereadable(expand(g:local_gvimrc))
+    execute 'source ' . g:local_gvimrc
+endif
+" }}}1
 "#__END__
