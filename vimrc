@@ -392,8 +392,12 @@ noremap! <C-g> <ESC>
 inoremap <expr> <C-k> col('.')==col('$')?"":"\<C-o>D"
 
 "# Emacs風 行頭行末移動
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
+noremap <C-a> <Home>
+noremap <C-e> <End>
+noremap! <C-a> <Home>
+noremap! <C-e> <End>
+nnoremap + <C-a>
+nnoremap - <C-x>
 
 "}}}2
 "### Indent "{{{2
@@ -1716,7 +1720,12 @@ function! s:open_rubygem_code(module) range
 endfunction
 function! AlterFileTypeRuby()
     AlterCommand  ri Ref ri
+    if executable('refe')
+        AlterCommand  refe Ref refe
+    endif
 endfunction
+
+let g:ref_ruby_cmd= executable('refe') ? 'refe' : 'ri'
 
 augroup ruby_ftplugin
     autocmd!
@@ -1725,8 +1734,8 @@ augroup ruby_ftplugin
     autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby -c<CR>
     autocmd FileType ruby nnoremap <buffer> <F5> :!ruby -c %<CR>
     autocmd FileType ruby,ref-ri setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,?,-
-    autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open('ri', expand('<cword>'))<CR>
-    autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', 'ri')<CR>
+    autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open(g:ref_ruby_cmd, expand('<cword>'))<CR>
+    autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', g:ref_ruby_cmd)<CR>
     autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
     autocmd FileType ruby,ref-ri vnoremap <buffer> <C-l> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
     autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
