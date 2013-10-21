@@ -817,6 +817,12 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
             \ }
 
 "#-----------------------#
+"# dlang                 #
+"#-----------------------#
+
+NeoBundle 'd.vim'
+
+"#-----------------------#
 "# haskell               #
 "#-----------------------#
 "# ghcmod.vim
