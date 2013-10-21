@@ -1750,6 +1750,15 @@ command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry --no-colo
 command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
 
 "}}}2
+"### SQL support{{{
+
+augroup sql_ftplugin
+    autocmd!
+    autocmd FileType sql nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('SQLUFormatter')<CR>
+    autocmd FileType sql vnoremap <buffer> <C-\> :SQLUFormatter<CR>
+augroup END
+
+" }}}
 "### Scala support{{{2
 
 "# sbt
