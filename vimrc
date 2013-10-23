@@ -760,6 +760,11 @@ NeoBundle 'troydm/easybuffer.vim'
 
 set runtimepath+=~/.vim/bundle/manual/vim-golang
 
+let g:gocode_path=globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+if filereadable(expand(g:gocode_path))
+    execute "set rtp+=".g:gocode_path
+endif
+
 "#----------------------------------#
 "# unite.vim & unite source plug-in #
 "#----------------------------------#
@@ -1756,6 +1761,15 @@ command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry --no-colo
 command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
 
 "}}}2
+"### Golang support {{{
+
+augroup sql_ftplugin
+    autocmd!
+    autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
+    autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
+augroup END
+
+"}}}
 "### SQL support{{{
 
 augroup sql_ftplugin
@@ -1875,6 +1889,7 @@ command! -nargs=0 Erl call <SID>start_repl('erl')
 
 "辞書ファイルを使用する設定に変更
 set complete+=k
+set completeopt=menu,preview
 
 "ファイルタイプ別辞書ファイル
 augroup filetype_dict
