@@ -1763,10 +1763,11 @@ command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console
 "}}}2
 "### Golang support {{{
 
-augroup sql_ftplugin
+augroup go_ftplugin
     autocmd!
     autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
     autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
+    autocmd BufWritePre *.go Fmt
 augroup END
 
 "}}}
