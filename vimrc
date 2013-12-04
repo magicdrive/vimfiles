@@ -637,7 +637,7 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 "# regular use               #
 "#---------------------------#
 "# neobundle
-NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# neocomplcache
 NeoBundleLazy 'Shougo/neocomplcache', {
             \ 'autoload' : { 'insert' : 1, }
@@ -651,7 +651,7 @@ if has('clientserver')
     NeoBundle 'thinca/vim-singleton'
 endif
 "# vimproc
-NeoBundle 'Shougo/vimproc', {
+NeoBundle 'Shougo/vimproc', 'ver.7.0', {
             \ 'build' : {
             \     'mac'     : 'make -f make_mac.mak',
             \     'unix'    : 'make -f make_unix.mak',
