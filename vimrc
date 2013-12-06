@@ -639,7 +639,7 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# neocomplcache
-NeoBundleLazy 'Shougo/neocomplcache', {
+NeoBundleLazy 'Shougo/neocomplcache', 'ver.8.0', {
             \ 'autoload' : { 'insert' : 1, }
             \ }
 "# neosnippet
