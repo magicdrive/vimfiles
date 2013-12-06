@@ -769,7 +769,7 @@ endif
 "# unite.vim & unite source plug-in #
 "#----------------------------------#
 "# unite.vim
-NeoBundleLazy 'Shougo/unite.vim', {
+NeoBundleLazy 'Shougo/unite.vim', 'ver.5.0', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
 "# unite-rails
