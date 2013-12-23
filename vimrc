@@ -921,6 +921,9 @@ NeoBundle 'leafgarland/typescript-vim'
 "# jade
 NeoBundle 'digitaltoad/vim-jade'
 
+"# vaxe
+NeoBundle 'jdonaldson/vaxe'
+
 "#-----------------------#
 "# python                #
 "#-----------------------#
