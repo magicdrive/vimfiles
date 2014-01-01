@@ -436,6 +436,7 @@ inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 augroup detect_filetype
     autocmd!
     autocmd BufNewFile,BufRead *.as set filetype=actionscript
+    autocmd BufNewFile,BufRead *.hx set filetype=haxe
     autocmd BufNewFile,BufRead *.mxml set filetype=mxml
     autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
     autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
@@ -480,40 +481,6 @@ nnoremap <C-w>n <C-w>j
 nnoremap <C-w>p <C-w>k
 nnoremap <C-w>b <C-w>h
 nnoremap <C-w>f <C-w>l
-
-"}}}2
-"### AutoBuffer "{{{2
-
-"# tmpl perl
-iab PHREF   $hash->{key}
-iab PFOR        for ( my $i=1; $i <= 100; $i++ ){
-iab PRINT       print $i, "\n";
-iab Pdumper use Data::Dumper; warn Dumper
-iab Prparam warn "$_ = ",$self->r->param($_) for ($self->r->param);
-
-"# tmpl other
-iab YDT <C-R>=strftime("%Y-%m-%d %T")<CR>
-iab SHDATE $(data %Y-%m-%d %T)
-
-"# user agent (web browser)
-iab UA_IE Mozilla/5.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)
-iab UA_FX Mozilla/5.0 (X11; U; Linux i686; ja; rv:1.8.0.4) Gecko/20060508 Firefox/1.5.0.4
-iab UA_CH Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.168 Safari/535.19
-
-"# user agent (ios devise)
-iab UA_IPHONE Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A334 Safari/7534.48.3
-iab UA_IPHONE2 Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405 Safari/7534.48.3
-iab UA_IPOD Mozilla/5.0 (iPod; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
-iab UA_IPAD Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3
-
-iab MIME_POST application/x-www-form-urlencoded
-iab MIME_JSON application/json
-iab MIME_JS text/javascript
-iab authe authentication
-iab autho authorization
-iab passw password
-iab javasc javascript
-iab concate concatenate
 
 "}}}2
 "### Folding {{{2
@@ -642,10 +609,6 @@ NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 NeoBundleLazy 'Shougo/neocomplcache', 'ver.8.0', {
             \ 'autoload' : { 'insert' : 1, }
             \ }
-"# neosnippet
-NeoBundleLazy 'Shougo/neosnippet', {
-            \ 'autoload' : { 'insert' : 1, }
-            \ }
 "# vim-singleton
 if has('clientserver')
     NeoBundle 'thinca/vim-singleton'
@@ -682,14 +645,9 @@ NeoBundle 'jceb/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
-"# vim-dispatch
-NeoBundle 'tpope/vim-dispatch'
 "# polyglot
 NeoBundle 'sheerun/vim-polyglot'
-"# nerdcommneter
-NeoBundleLazy 'scrooloose/nerdcommenter', {
-            \   'autoload' : { 'commands' : ["NERDCommenterToggle"] }
-            \ }
+
 "# vim-endwise
 NeoBundleLazy 'taichouchou2/vim-endwise', {
             \ 'autoload' : { 'insert' : 1, }
@@ -720,14 +678,8 @@ NeoBundle 'tyru/vim-altercmd'
 NeoBundle 'surround.vim'
 "# vimsualstar
 NeoBundle 'thinca/vim-visualstar'
-"# easymotion
-NeoBundle 'Lokaltog/vim-easymotion'
 "# foldCC
 NeoBundle 'magicdrive/foldCC'
-"# vdbi-vim
-NeoBundleLazy 'mattn/vdbi-vim', {
-            \ 'autoload' : { 'commands' : ['VDBI','VDBIExec', 'VDBIReset', 'VDBIDatasources'] }
-            \ }
 "# vim-powerline / ariline
 "NeoBundle 'magicdrive/vim-powerline'
 NeoBundle 'bling/vim-airline'
@@ -739,10 +691,6 @@ NeoBundleLazy 'glidenote/memolist.vim', {
 NeoBundle 'sudo.vim'
 "# sql-util
 NeoBundle 'SQLUtilities'
-"# vim-rooter
-NeoBundle 'airblade/vim-rooter'
-"# vim-multiple-cursors
-NeoBundle 'terryma/vim-multiple-cursors'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
@@ -750,10 +698,6 @@ NeoBundleLazy 'thinca/vim-ref', {
             \       'commands' : ['Ref'],
             \       'function' : ['ref#open']
             \    },
-            \ }
-"# gmail
-NeoBundleLazy 'yuratomo/gmail.vim', {
-            \ 'autoload' : { 'commands' : ['Gmail'] }
             \ }
 
 NeoBundle 'troydm/easybuffer.vim'
@@ -782,14 +726,6 @@ NeoBundle 'h1mesuke/unite-outline'
 "#---------------------------#
 "# programing suport plug-in #
 "#---------------------------#
-"# taglist
-NeoBundleLazy 'taglist.vim', {
-            \  'autoload' : { 'commands' : [ 'Tlist' ]}
-            \ }
-"# TagHighlight
-NeoBundleLazy 'TagHighlight',{
-            \ 'autoload' : { 'commands' : ['UpdateTagFile', 'UpdateTagFileDebug', 'UpdateTagFileOnly'] }
-            \ }
 "# scratch.vim
 NeoBundleLazy 'scratch.vim', {
             \ 'autoload' : { 'commands' : ['Scratch'] }
@@ -860,22 +796,12 @@ NeoBundle 'elixir-lang/vim-elixir'
 "#-----------------------#
 "# jvm                   #
 "#-----------------------#
-"# javacomplete
-NeoBundleLazy 'javacomplete', {
-            \ "autoload" : {"filetypes": ['java']}
-            \ }
 "# groovy.vim
 NeoBundleLazy 'groovy.vim', {
             \ "autoload" : {"filetypes": ['groovy']}
             \ }
-"# maven-plugin
-NeoBundleLazy 'mikelue/vim-maven-plugin', {
-            \ 'autoload' : {'filetypes': ['java','groovy']}
-            \ }
 "# vim-scala
 NeoBundle 'magicdrive/vim-scala'
-"# play2vim
-NeoBundle 'gre/play2vim'
 "# clojure
 NeoBundle 'thinca/vim-ft-clojure'
 
@@ -921,23 +847,12 @@ NeoBundle 'leafgarland/typescript-vim'
 "# jade
 NeoBundle 'digitaltoad/vim-jade'
 
+"#-----------------------#
+"# haxe                  #
+"#-----------------------#
 "# vaxe
-NeoBundle 'jdonaldson/vaxe'
-
-"#-----------------------#
-"# python                #
-"#-----------------------#
-"# jedi
-NeoBundleLazy 'davidhalter/jedi', {
-            \ 'autoload' : {'filetypes': ['python']}
-            \ }
-"# virtualenv
-NeoBundleLazy 'jmcantrell/vim-virtualenv', {
-            \ 'autoload' : {'filetypes': ['python']}
-            \ }
-"# pydiction
-NeoBundleLazy 'rkulla/pydiction', {
-            \ 'autoload' : {'filetypes': ['python']}
+NeoBundleLazy 'jdonaldson/vaxe', {
+            \ 'autoload' : {'filetypes': ['haxe']}
             \ }
 
 "#-----------------------#
@@ -1021,8 +936,6 @@ NeoBundleLazy 'mattn/gist-vim', {
 NeoBundle 'tpope/vim-fugitive'
 "# gitv
 NeoBundle 'gregsexton/gitv'
-"# git-gutter
-NeoBundle 'airblade/vim-gitgutter'
 
 "#-----------------------#
 "# util-tool             #
@@ -1044,19 +957,11 @@ NeoBundleLazy 'koron/chalice', {
             \ 'autoload' : {'commands' : 'Chalice' }
             \ }
 if has('mac')
-    "# open-browser
-    NeoBundle 'tyru/open-browser.vim'
     "# vim-itunes
     NeoBundle "ryutorion/vim-itunes"
-    "# macdict
-    NeoBundle "modsound/macdict-vim"
 endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
-"# twibill
-NeoBundle 'basyura/twibill.vim'
-"# TweetVim
-NeoBundle 'basyura/TweetVim'
 
 "#-------------------#
 "# Colorschemes      #
@@ -1089,12 +994,6 @@ NeoBundle 'vim-scripts/twilight'
 NeoBundle 'vim-scripts/pyte'
 "# chlordane
 NeoBundle 'vim-scripts/chlordane.vim'
-"# landscape
-NeoBundle 'itchyny/landscape.vim'
-"# matrix.vim
-NeoBundleLazy 'vim-scripts/matrix.vim--Yang', {
-            \ 'autoload' : { 'commands' : ['Matrix'] }
-            \ }
 
 filetype plugin on
 filetype indent on
@@ -1320,16 +1219,6 @@ if has('unix') && !has('gui_running')
 endif
 
 "}}}2
-"### Solarized {{{2
-let g:solarized_termcolors=256
-let g:solarized_bold=0
-let g:solarized_underline=1
-let g:solarized_italic=0
-"}}}2
-"### EasyMotion {{{2
-let g:EasyMotion_leader_key = "q"
-let g:EasyMotion_keys = 'fjdkslaureiwoqpvncmwqertyuiopzxcvbnm1234567890'
-"}}}2
 "### EasyBuffer {{{2
 nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
 "}}}2
@@ -1377,25 +1266,6 @@ function! SearchHighlightOff ()
     if exists(":SearchReset")
         SearchReset
     endif
-endfunction
-
-"}}}2
-"### TweetVim {{{2
-
-augroup tweetvim_setting
-    autocmd!
-    autocmd FileType tweetvim
-                \ highlight tweetvim_separator
-                \ ctermfg=Black
-augroup END
-
-nnoremap <silent> <Plug>(mykeylite)ts  :<C-u>TweetVimSay<CR>
-
-let g:tweetvim_tweet_per_page=100
-let g:tweetvim_open_buffer_cmd='split'
-
-function! AlterTweet()
-    AlterCommand  tws TweetVimSay
 endfunction
 
 "}}}2
@@ -1590,24 +1460,6 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 "### Emmet {{{2
 let g:user_emmet_mode='i'
 "}}}2
-"### GitGutter {{{2
-nnoremap <silent> <Plug>(mykey)g :call <SID>gitgutter_load()<CR>
-let g:myvimrc_gitgutter_switch=0
-function! s:gitgutter_load()
-    if g:myvimrc_gitgutter_switch == 0
-        GitGutterEnable
-        nnoremap <silent> gh :GitGutterNextHunk<CR>
-        nnoremap <silent> gH :GitGutterPrevHunk<CR>
-        let g:myvimrc_gitgutter_switch=1
-    else
-        GitGutterDisable
-        nnoremap <silent> gh gh
-        nnoremap <silent> gH gH
-        let g:myvimrc_gitgutter_switch=0
-    endif
-endfunction
-let g:gitgutter_enabled = 0
-"}}}2
 "### jellybeans {{{2
 let g:jellybeans_use_lowcolor_black=0
 let g:jellybeans_background_color=''
@@ -1670,46 +1522,6 @@ augroup perl_ftplugin
     autocmd FileType perl,ref-perldoc vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
     autocmd VimEnter * call AlterFileTypePerl()
 augroup END
-
-"}}}2
-"### Python support {{{2
-
-function! AlterFileTypePython()
-    AlterCommand  pydoc Ref pydoc
-endfunction
-
-augroup python_ftplugin
-    autocmd!
-    autocmd FileType python call s:PythonIndent()
-    autocmd FileType python let b:did_ftplugin = 1
-    autocmd FileType python let g:jedi#auto_initialization = 1
-    autocmd FileType python let g:jedi#rename_command = "<Leader>R"
-    autocmd FileType python let g:jedi#popup_on_dot = 1
-    autocmd FileType python setlocal nocindent
-    autocmd FileType python nnoremap <buffer> K :<C-u>call ref#open('pydoc', expand('<cword>'))<CR>
-    autocmd FileType python vnoremap <buffer> K :<C-u>call ref#jump('visual', 'pydoc')<CR>
-    autocmd FileType python setlocal iskeyword+=.,(
-    autocmd VimEnter * call AlterFileTypePython()
-augroup END
-
-let g:pydiction_location=
-            \ '~/.vim/bundle/automatic/pydiction/complete-dict'
-function! s:PythonIndent()
-    "" PEP 8 Indent rule
-    setlocal tabstop=8
-    setlocal softtabstop=4
-    setlocal shiftwidth=4
-    setlocal smarttab
-    setlocal expandtab
-    setlocal autoindent
-    setlocal nosmartindent
-    setlocal cindent
-    setlocal textwidth=80
-    setlocal colorcolumn=80
-    " Folding
-    setlocal foldmethod=indent
-    setlocal foldlevel=99"
-endfunction
 
 "}}}2
 "### Ruby support "{{{2
@@ -1846,19 +1658,6 @@ augroup scala_setting
 augroup END
 
 "}}}2
-"### Java support{{{2
-
-"# highlight
-let g:java_highlight_all=1
-let g:java_highlight_functions="style"
-
-augroup java_ftplugin
-    autocmd!
-    "# complete add
-    autocmd FileType java setlocal complete+=.,w,b,u,t,i
-augroup END
-
-"}}}2
 "### JavaScript support {{{2
 
 if !exists('g:neocomplcache_omni_functions')
@@ -1882,11 +1681,6 @@ augroup typescript_ftplugin
     autocmd!
     autocmd BufWritePost typescript :make
 augroup END
-
-"}}}2
-"### Erlang support {{{2
-
-command! -nargs=0 Erl call <SID>start_repl('erl')
 
 "}}}2
 "### FileType(Language) assistance "{{{2
