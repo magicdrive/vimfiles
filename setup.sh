@@ -27,6 +27,7 @@ for x in ${libs[@]}; do
 done;
 
 mkdir -p ${HOME}/.vim-backup && chmod 766 ${HOME}/.vim-backup
+mkdir -p ${HOME}/.vim-yankring
 
 vimproc_build() {
     cd ${current}/vim/bundle/automatic/vimproc
@@ -48,17 +49,6 @@ vimproc_build() {
     cd ${current}
 }
 
-nerdcommenter_build() {
-    [ $(which rake) ] || return
-
-    if [ ! -d ${current}/vim/bundle/automatic/nerdcommenter ];then
-            git clone git://github.com/scrooloose/nerdcommenter ${current}/vim/bundle/automatic/nerdcommenter
-    fi
-    cd ${current}/vim/bundle/automatic/nerdcommenter
-    rake
-    [ -f ${current}/vim/README.md ] && rm -f cd ${current}/vim/README.md
-    cd ${current}
-}
 
 files=( 'vimrc' 'gvimrc' 'vim' );
 for x in ${files[@]}; do
@@ -67,7 +57,6 @@ for x in ${files[@]}; do
 done;
 
 vimproc_build
-nerdcommenter_build
 
 yes | vim -c qa!
 

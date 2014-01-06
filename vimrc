@@ -699,8 +699,10 @@ NeoBundleLazy 'thinca/vim-ref', {
             \       'function' : ['ref#open']
             \    },
             \ }
-
+"# easybuffer
 NeoBundle 'troydm/easybuffer.vim'
+"# yankring
+NeoBundle 'YankRing.vim'
 
 set runtimepath+=~/.vim/bundle/manual/vim-golang
 
@@ -1458,8 +1460,13 @@ vmap <Leader><Leader> <Plug>NERDCommenterToggle
 
 "}}}2
 "### Emmet {{{2
-let g:user_emmet_mode='i'
+"#let g:user_emmet_mode='i'
+let g:user_emmet_expandabbr_key='<C-Y><C-Y>'
+let g:user_emmet_expandword_key='<C-Y><C-Y>'
 "}}}2
+"### YankRing{{{
+let g:yankring_history_dir='$HOME/.vim-yankring'
+"}}}
 "### jellybeans {{{2
 let g:jellybeans_use_lowcolor_black=0
 let g:jellybeans_background_color=''
