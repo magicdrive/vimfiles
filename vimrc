@@ -924,8 +924,10 @@ NeoBundle 'hail2u/vim-css3-syntax'
 if executable('sass')
     NeoBundle 'AtsushiM/sass-compile.vim'
 endif
+"# haml
+NeoBundleLazy 'tpope/vim-haml', {'autolocad': {'filetypes':['haml']}}
 "# slim
-NeoBundle 'slim-template/vim-slim'
+NeoBundleLazy 'slim-template/vim-slim', {'autolocad': {'filetypes':['slim']}}
 
 "#-----------------------#
 "# git-tool              #
