@@ -206,9 +206,9 @@ command! -nargs=0 VE :VimrcEdit
 command! -nargs=0 E :edit!
 
 function! s:source_gvimrc()
- if has('gui_running')
-     :source ~/.gvimrc
- endif
+    if has('gui_running')
+        :source ~/.gvimrc
+    endif
 endfunction
 
 "# extract visual selected string
@@ -571,16 +571,16 @@ vnoremap <Leader>s :call GetCursorSyntaxGroup()<CR>
 
 
 function! VimColorTest(outfile, fgend)
-  let result = []
-  for fg in range(a:fgend)
-      let kw = printf('%-7s', printf('c_%d', fg))
-      let h = printf('hi %s ctermfg=%d', kw, fg)
-      let s = printf('syn keyword %s %s', kw, kw)
-      call add(result, printf('%-32s | %s', h, s))
-  endfor
-  call writefile(result, a:outfile)
-  execute 'edit '.a:outfile
-  source %
+    let result = []
+    for fg in range(a:fgend)
+        let kw = printf('%-7s', printf('c_%d', fg))
+        let h = printf('hi %s ctermfg=%d', kw, fg)
+        let s = printf('syn keyword %s %s', kw, kw)
+        call add(result, printf('%-32s | %s', h, s))
+    endfor
+    call writefile(result, a:outfile)
+    execute 'edit '.a:outfile
+    source %
 endfunction
 " Increase numbers in next line to see more colors.
 command! VimColorTest call VimColorTest('vim-color-test.tmp', 255)
@@ -1466,6 +1466,10 @@ let g:user_emmet_expandword_key='<C-Y><C-Y>'
 "}}}2
 "### YankRing{{{
 let g:yankring_history_dir='$HOME/.vim-yankring'
+if !filewritable(expand(g:yankring_history_dir))
+    let s:tmp=system('mkdir -p ' . g:yankring_history_dir)
+    echo "create directory:  " . g:yankring_history_dir
+endif
 "}}}
 "### jellybeans {{{2
 let g:jellybeans_use_lowcolor_black=0
