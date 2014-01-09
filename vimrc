@@ -860,8 +860,9 @@ NeoBundleLazy 'jdonaldson/vaxe', {
 "#-----------------------#
 "# ruby                  #
 "#-----------------------#
+
 "# vim-ruby
-NeoBundle 'vim-ruby/vim-ruby', {
+NeoBundle 'vim-ruby/vim-ruby', 'vim7.4', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# unite-ruby-require
@@ -887,7 +888,7 @@ NeoBundleLazy 'ruby-matchit', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# vim-rails
-NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-rails', 'v5.0'
 "# vim-ref-ri
 NeoBundle 'taka84u9/vim-ref-ri'
 
