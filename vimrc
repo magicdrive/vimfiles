@@ -1684,6 +1684,8 @@ let g:node_usejscomplete = 1
 augroup javascript_plugin
     autocmd!
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
+    autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
+    autocmd FileType javascript setlocal autoindent
 augroup END
 
 command! -nargs=0 NodeREPL   call <SID>start_repl('node --interactive')
