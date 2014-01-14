@@ -645,8 +645,6 @@ NeoBundle 'jceb/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
-"# polyglot
-NeoBundle 'sheerun/vim-polyglot'
 
 "# vim-endwise
 NeoBundleLazy 'taichouchou2/vim-endwise', {
