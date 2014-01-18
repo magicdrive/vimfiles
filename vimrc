@@ -447,7 +447,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.scala set filetype=scala
     autocmd BufNewFile,BufRead *.sbt set filetype=scala
     autocmd BufNewFile,BufRead *.gradle set filetype=groovy
-    autocmd BufNewFile,BufRead *.m set filetype=objective-c
+    autocmd BufNewFile,BufRead *.m set filetype=objc
     autocmd BufNewFile,BufRead *.gosh set filetype=scheme
     autocmd BufNewFile,BufRead Gemfile set filetype=ruby
     autocmd BufNewFile,BufRead gemspec set filetype=ruby
