@@ -97,7 +97,7 @@ function! MyGUIMacVimSetting()
         autocmd!
     augroup END
 
-    set transparency=10
+   " set transparency=10
     set imdisable
     set antialias
     set guifont=Source\ Code\ Pro\ for\ Powerline:h14

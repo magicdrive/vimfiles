@@ -924,9 +924,9 @@ if executable('sass')
     NeoBundle 'AtsushiM/sass-compile.vim'
 endif
 "# haml
-NeoBundleLazy 'tpope/vim-haml', {'autolocad': {'filetypes':['haml']}}
+NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes':['haml']}}
 "# slim
-NeoBundleLazy 'slim-template/vim-slim', {'autolocad': {'filetypes':['slim']}}
+NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
 
 "#-----------------------#
 "# git-tool              #
@@ -1213,7 +1213,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme=has('gui_running') ? 'luna' : 'laederon'
+let g:airline_theme=has('gui_running') ? 'base16' : 'laederon'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1753,8 +1753,8 @@ syntax enable
 let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_a='github'
-let g:gui_colorscheme_b='chlordane'
+let g:gui_colorscheme_a='hybrid-light'
+let g:gui_colorscheme_b='railscasts'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
