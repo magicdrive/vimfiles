@@ -90,7 +90,9 @@ autocmd GUIEnter * call MyGUISettingLazy()
 
 function! MyGUIMacVimSetting()
 
-    colorscheme chlordane
+    execute 'colorscheme ' .
+                \ ( (g:default_color_mode ==# 'A') ?
+                \ g:gui_colorscheme_a : g:cui_colorscheme_a)
     augroup color_set
         autocmd!
     augroup END

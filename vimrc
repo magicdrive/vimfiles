@@ -1466,7 +1466,7 @@ let g:user_emmet_expandabbr_key='<C-Y><C-Y>'
 let g:user_emmet_expandword_key='<C-Y><C-Y>'
 "}}}2
 "### YankRing{{{
-let g:yankring_history_dir='$HOME/.vim-yankring'
+let g:yankring_history_dir=$HOME . '/.vim-yankring'
 if !filewritable(expand(g:yankring_history_dir))
     let s:tmp=system('mkdir -p ' . g:yankring_history_dir)
     echo "create directory:  " . g:yankring_history_dir
@@ -1753,8 +1753,8 @@ syntax enable
 let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_a='chlordane'
-let g:gui_colorscheme_b='github'
+let g:gui_colorscheme_a='github'
+let g:gui_colorscheme_b='chlordane'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
