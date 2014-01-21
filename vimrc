@@ -22,6 +22,8 @@ set to
 set tm=500
 set ttm=100
 
+set updatetime=300
+
 "# 上下移動
 nnoremap j gj
 nnoremap k gk
@@ -335,7 +337,7 @@ endfunction
 let g:backupfile_save_dir="$HOME/.vim-backup"
 if filewritable(expand(g:backupfile_save_dir))
     set backup
-    set swapfile
+    set noswapfile
     execute 'set backupdir=' . g:backupfile_save_dir
     set backupext=.back
 else
@@ -584,6 +586,70 @@ function! VimColorTest(outfile, fgend)
 endfunction
 " Increase numbers in next line to see more colors.
 command! VimColorTest call VimColorTest('vim-color-test.tmp', 255)
+
+
+" cursor word highlight
+" 1 が設定されていれば有効になる
+let g:enable_highlight_cursor_word=0
+
+function! s:toggle_highlight_cursor_word()
+    if g:enable_highlight_cursor_word
+        let g:enable_highlight_cursor_word = 0
+        call s:hl_clear()
+        echohl Error | echo "Highlight CursorWord disabled" | echohl None
+    else
+        let g:enable_highlight_cursor_word = 1
+        call <SID>set_cursor_word_color()
+        echohl DiffChange | echo "Highlight CursorWord enabled" | echohl None
+    endif
+endfunction
+
+nnoremap <silent> <Plug>(mykey)a :<C-u>call <SID>toggle_highlight_cursor_word()<CR>
+
+function! s:set_cursor_word_color()
+    highlight CursorWord ctermfg=Red guifg=Red
+endfunction
+
+augroup HighlightCursorWord
+    autocmd!
+    autocmd CursorHold * call s:hl_cword()
+    autocmd ColorScheme * call <SID>set_cursor_word_color()
+    autocmd BufLeave * call s:hl_clear()
+augroup END
+
+function! s:hl_clear()
+    if exists("b:highlight_cursor_word_id") && exists("b:highlight_cursor_word")
+        silent! call matchdelete(b:highlight_cursor_word_id)
+        unlet b:highlight_cursor_word_id
+        unlet b:highlight_cursor_word
+    endif
+endfunction
+
+function! s:hl_cword()
+    if !g:enable_highlight_cursor_word
+        return
+    endif
+
+    let word = expand("<cword>")
+    if word == ""
+        return
+    endif
+    if get(b:, "highlight_cursor_word", "") ==# word
+        return
+    endif
+
+    call s:hl_clear()
+
+    if !empty(filter(split(word, '\zs'), "strlen(v:val) > 1"))
+        return
+    endif
+
+    let pattern = printf("\\<%s\\>", expand("<cword>"))
+    silent! let b:highlight_cursor_word_id = matchadd("CursorWord", pattern)
+    let b:highlight_cursor_word = word
+endfunction
+
+
 
 "}}}2
 
