@@ -1414,20 +1414,15 @@ let g:quickrun_config['typescript'] = {
 "### Watchdogs {{{2
 
 let g:watchdogs_check_BufWritePost_enable = 1
+let g:watchdogs_check_CursorHold_enable = 0
 let g:watchdogs_check_CursorHold_enables = {
-            \	"perl"       : 1,
-            \	"python"     : 1,
-            \	"bash"       : 1,
-            \	"scala"      : 0,
-            \	"ruby"       : 1,
-            \   "clang"      : 1,
-            \   "jshint"     : 1,
-            \   "typescript" : 1,
+            \ 'scala' : 0,
+            \ 'd' : 0
             \ }
 
 let g:quickrun_config["watchdogs_checker/_"] = {
             \       "hook/close_quickfix/enable_exit" : 1,
-            \		"runner/vimproc/updatetime" : 100,
+            \		"runner/vimproc/updatetime" : 10,
             \       'outputter/quickfix/open_cmd' : '',
             \ }
 
@@ -1756,7 +1751,6 @@ command! -nargs=0 NodeREPL   call <SID>start_repl('node --interactive')
 
 "}}}2
 "### TypeScript support {{{2
-
 augroup typescript_ftplugin
     autocmd!
     autocmd BufWritePost typescript :make
