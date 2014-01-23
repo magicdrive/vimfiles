@@ -1659,6 +1659,12 @@ augroup go_ftplugin
 augroup END
 
 "}}}
+"### Shell support{{{
+augroup shell_ftplugin
+    autocmd FileType sh,bash,zsh,csh,tcsh,fish nnoremap <buffer> K :<C-u>call ref#open('man', expand('<cword>'))<CR>
+    autocmd FileType sh,bash,zsh,csh,tcsh,fish vnoremap <buffer> K :<C-u>call ref#jump('visual', 'man')<CR>
+augroup END
+"}}}
 "### SQL support{{{
 
 augroup sql_ftplugin
