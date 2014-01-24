@@ -870,6 +870,8 @@ NeoBundleLazy 'groovy.vim', {
 NeoBundle 'magicdrive/vim-scala'
 "# clojure
 NeoBundle 'thinca/vim-ft-clojure'
+"# vim-processing
+NeoBundle 'sophacles/vim-processing'
 
 "#-----------------------#
 "# perl                  #
@@ -1066,8 +1068,6 @@ NeoBundle 'vim-scripts/chlordane.vim'
 
 filetype plugin on
 filetype indent on
-
-NeoBundleCheck
 
 "}}}2
 
@@ -1409,6 +1409,13 @@ let g:quickrun_config['typescript'] = {
             \       "command" : 'tsc',
             \       'exec'    : ['%c --exec %s']
             \   }
+
+if executable('processing-java')
+    let g:quickrun_config['processing'] = {
+                \     'command': 'processing-java',
+                \     'exec': ['%c --run --force --sketch=$PWD --output=$PWD/output'],
+                \   }
+endif
 
 "}}}2
 "### Watchdogs {{{2
@@ -1910,5 +1917,6 @@ let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
     execute 'source ' . g:local_vimrc
 endif
+NeoBundleCheck
 " }}}1
 "# __END__
