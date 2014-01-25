@@ -5,8 +5,8 @@
 "#  \ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
 "#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
 "#                for vim7.4
-"[ ####------- Vim Basic Settings --------------#### ] {{{1
-"### Vim Options "{{{2
+"[ ####------- Vim Basic Settings --------------#### ] {{{
+"### Vim Options "{{{
 
 "# mapkeyprefix
 map  <Space> <Plug>(mykey)
@@ -200,8 +200,8 @@ noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j
             \ **/*.vim
             \ <CR>:cw<CR>
 
-"}}}2
-"### VimScript "{{{2
+"}}}
+"### VimScript "{{{
 
 command! -nargs=0 SL :source %
 command! -nargs=0 SU :source ~/.vimrc | call <SID>source_gvimrc()
@@ -228,8 +228,8 @@ endfunction
 "# vimrcの編集
 nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
-"}}}2
-"### encoding & fileencoding "{{{2
+"}}}
+"### encoding & fileencoding "{{{
 
 "Encoding
 set enc=utf-8
@@ -278,8 +278,8 @@ let vimrc_set_encoding = 1
 
 " 改行コードの自動認識
 set fileformats=unix,mac,dos
-"}}}2
-"### LineNumber "{{{2
+"}}}
+"### LineNumber "{{{
 
 "# LineNumberのトグル
 nnoremap <silent> <Plug>(mykeylite)n :<C-u>call <SID>ToggleNumber()<CR>
@@ -294,8 +294,8 @@ function! s:ToggleNumber()
     setlocal number!
 endfunction
 
-"}}}2
-"### mouse mode "{{{2
+"}}}
+"### mouse mode "{{{
 
 if has('mouse')
     "# マウスモードの有効
@@ -317,8 +317,8 @@ if has('mouse')
     endfunction
 endif
 
-"}}}2
-"### ListChar "{{{2
+"}}}
+"### ListChar "{{{
 
 "# Listcharのトグル
 nnoremap <silent> <Plug>(mykey)c :<C-u>call <SID>ToggleListChar()<CR>
@@ -333,8 +333,8 @@ function! s:ToggleListChar()
     setlocal list!
 endfunction
 
-"}}}2
-"### backup,swapfile "{{{2
+"}}}
+"### backup,swapfile "{{{
 
 "# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
 let g:backupfile_save_dir="$HOME/.vim-backup"
@@ -350,8 +350,8 @@ else
     set noswapfile
 endif
 
-"}}}2
-"### Tab "{{{2
+"}}}
+"### Tab "{{{
 
 "# create new tab
 nnoremap <Plug>(mykey)t :tabnew<CR>
@@ -364,8 +364,8 @@ nnoremap <Plug>(mykey)Tk :tabclose<CR>
 nnoremap <silent> <C-f> gt
 nnoremap <silent> <C-b> gT
 
-"}}}2
-"### search "{{{2
+"}}}
+"### search "{{{
 
 "# 検索に大文字を含んでいたら大小区別
 set ignorecase
@@ -380,8 +380,8 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 "# 検索時にインクリメンタルサーチを行う
 set incsearch
 
-"}}}2
-"### Emacs like keybind "{{{2
+"}}}
+"### Emacs like keybind "{{{
 
 "# カーソルキーで行末／行頭の移動可能に設定
 set whichwrap=b,s,[,],<,>
@@ -404,8 +404,8 @@ noremap! <C-e> <End>
 nnoremap + <C-a>
 nnoremap - <C-x>
 
-"}}}2
-"### Indent "{{{2
+"}}}
+"### Indent "{{{
 
 function! s:IndentFormat(cmd)
     let l:cmd = a:cmd
@@ -427,16 +427,17 @@ set smarttab
 set cindent
 
 "# タブを空白に置き換える
-set tabstop=4
+let g:my_default_indent=2
+execute 'set tabstop=' . g:my_default_indent
 set expandtab
-set softtabstop=4
-set shiftwidth=4
+execute 'set softtabstop=' . g:my_default_indent
+execute 'set shiftwidth=' . my_default_indent
 
 "# {}をインデントして入力
 inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 
-"}}}2
-"### Window "{{{2
+"}}}
+"### Window "{{{
 
 "# Window横分割
 nnoremap <silent> <Plug>(mykey)w :<ESC>:split<CR>
@@ -461,8 +462,8 @@ nnoremap <C-w>p <C-w>k
 nnoremap <C-w>b <C-w>h
 nnoremap <C-w>f <C-w>l
 
-"}}}2
-"### Folding {{{2
+"}}}
+"### Folding {{{
 
 "# difine foldmethod
 set foldmethod=marker
@@ -470,8 +471,8 @@ set foldtext=FoldCCtext()
 
 nnoremap <Space><Space> za<Space>
 
-"}}}2
-"### for MacVim {{{2
+"}}}
+"### for MacVim {{{
 
 if has('macvim')
     " kaoriyadicwin off
@@ -483,8 +484,8 @@ if has('macvim')
     endif
 endif
 
-"}}}2
-"### Util Functions {{{2
+"}}}
+"### Util Functions {{{
 
 " jump startdir
 let g:vimstart_dir=$PWD
@@ -628,18 +629,15 @@ endfunction
 
 
 
-"}}}2
-" }}}1
-"[ ####------- NeoBundle Settings --------------#### ] {{{1
-
+"}}}
+" }}}
+"[ ####------- NeoBundle Settings --------------#### ] {{{
 filetype off
 
 let g:neobundle_default_git_protocol = 'git'
-
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
 endif
-
 call neobundle#rc( expand('~/.vim/bundle/automatic') )
 
 "#---------------------------#
@@ -687,6 +685,8 @@ NeoBundle 'jceb/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
+"# indent-guides
+NeoBundle 'Yggdroot/indentLine'
 
 "# vim-endwise
 NeoBundleLazy 'taichouchou2/vim-endwise', {
@@ -944,6 +944,13 @@ NeoBundle 'taka84u9/vim-ref-ri'
 "#-----------------------#
 "# html-coding           #
 "#-----------------------#
+NeoBundleLazy 'davidhalter/jedi-vim', {
+            \ 'autoload': { 'filetypes': ['python'] }
+            \ }
+
+"#-----------------------#
+"# html-coding           #
+"#-----------------------#
 "# vim-less
 NeoBundleLazy 'groenewege/vim-less', {
             \ 'autoload' : {'filetypes': ['less']}
@@ -1051,12 +1058,9 @@ NeoBundle 'vim-scripts/chlordane.vim'
 
 filetype plugin on
 filetype indent on
-
-"}}}2
-
-"[ ####------- Vim Plugins Settings ------------#### ] {{{1
-
-"### Unite.vim {{{2
+"}}}
+"[ ####------- Vim Plugins Settings ------------#### ] {{{
+"### Unite.vim {{{
 
 nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
 
@@ -1095,8 +1099,8 @@ nnoremap <silent> <Plug>(mykeylite)t  :<C-u>Unite tweetvim<CR>
 "#---------------------------#
 nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
 
-"}}}2
-"### VimShell {{{2
+"}}}
+"### VimShell {{{
 
 let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
 let g:vimshell_user_prompt='getcwd()'
@@ -1139,8 +1143,8 @@ function! s:start_repl(repl_command)
     wincmd k
 endfunction
 
-"}}}2
-"### VimFiler {{{2
+"}}}
+"### VimFiler {{{
 
 nnoremap <Plug>(mykey)e :VimFiler ./<CR>
 
@@ -1178,8 +1182,8 @@ let g:loaded_netrwPlugin = 1
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_force_overwrite_statusline = 0
 
-"}}}2
-"### MemoList.vim {{{2
+"}}}
+"### MemoList.vim {{{
 
 let g:memolist_memo_suffix="txt"
 let g:memolist_memo_date="%Y-%m-%d %H:%M"
@@ -1193,21 +1197,21 @@ let g:memolist_vimfiler=1
 let g:memolist_path = "$HOME/.vim/memo/"
 let g:memolist_vimfiler_option=""
 
-"}}}2
-"### yannktmp.vim "{{{2
+"}}}
+"### yannktmp.vim "{{{
 
 map <silent> sy :call YanktmpYank()<CR>
 map <silent> sp :call YanktmpPaste_p()<CR>
 map <silent> sP :call YanktmpPaste_P()<CR>
 
-"}}}2
-"### Align.vim {{{2
+"}}}
+"### Align.vim {{{
 
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
 
-"}}}2
-"### NeoComplcache {{{2
+"}}}
+"### NeoComplcache {{{
 
 set infercase
 
@@ -1251,8 +1255,13 @@ if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
 endif
 
-"}}}2
-"### Airline {{{2
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
+"}}}
+"### Airline {{{
 
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
@@ -1270,11 +1279,11 @@ if has('unix') && !has('gui_running')
     inoremap <silent> <C-[> <ESC>
 endif
 
-"}}}2
-"### EasyBuffer {{{2
+"}}}
+"### EasyBuffer {{{
 nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
-"}}}2
-"### Ref.vim {{{2
+"}}}
+"### Ref.vim {{{
 
 let g:ref_open="split | resize 15 | set noequalalways"
 
@@ -1304,8 +1313,8 @@ augroup ref_group
     autocmd VimEnter * call AlterRef()
 augroup END
 
-"}}}2
-"### MultipulSearch.vim {{{2
+"}}}
+"### MultipulSearch.vim {{{
 
 "# 検索の置き換え
 nnoremap ? :Search<Space>
@@ -1320,8 +1329,8 @@ function! SearchHighlightOff ()
     endif
 endfunction
 
-"}}}2
-"### iTunes{{{2
+"}}}
+"### iTunes{{{
 
 if has('mac')
     nnoremap <Plug>(mykey)0 :ITunes<Space>
@@ -1359,8 +1368,8 @@ if has('mac')
     augroup END
 endif
 
-"}}}2
-"### QuickRun {{{2
+"}}}
+"### QuickRun {{{
 
 nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
@@ -1396,12 +1405,12 @@ let g:quickrun_config['typescript'] = {
 if executable('processing-java')
     let g:quickrun_config['processing'] = {
                 \     'command': 'processing-java',
-                \     'exec': ['%c --run --force --sketch=$PWD --output=$PWD/output'],
+                \     'exec': ['%c --run --force --sketch=$PWD --output=$PWD/build'],
                 \   }
 endif
 
-"}}}2
-"### Watchdogs {{{2
+"}}}
+"### Watchdogs {{{
 
 let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enable = 0
@@ -1418,8 +1427,8 @@ let g:quickrun_config["watchdogs_checker/_"] = {
 
 call watchdogs#setup(g:quickrun_config)
 
-"}}}2
-"### Scratch {{{2
+"}}}
+"### Scratch {{{
 
 nnoremap <Plug>(mykey)s :TempolaryBuffer sh<CR>
 command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
@@ -1436,8 +1445,8 @@ augroup scratch_setting
     autocmd VimEnter * call s:alter_scratch()
 augroup END
 
-"}}}2
-"### Chalice {{{2
+"}}}
+"### Chalice {{{
 
 function! s:alter_chalice()
     AlterCommand  cha[lice] Chalice
@@ -1447,8 +1456,8 @@ augroup chalice_group
     autocmd VimEnter * call s:alter_chalice()
 augroup END
 
-"}}}2
-"### sudo.vim {{{2
+"}}}
+"### sudo.vim {{{
 
 command! -nargs=? W :call s:sudo_write('<args>')
 function! s:sudo_write(arg)
@@ -1459,13 +1468,13 @@ function! s:sudo_write(arg)
     endif
 endfunction
 
-"}}}2
-"### Singleton.vim {{{2
+"}}}
+"### Singleton.vim {{{
 if has('clientserver')
     call singleton#enable()
 endif
-"}}}2
-"### Sass {{{2
+"}}}
+"### Sass {{{
 let g:sass_compile_auto = 1
 let g:sass_compile_cdloop = 5
 let g:sass_compile_cssdir = ['css', 'stylesheet']
@@ -1476,8 +1485,8 @@ augroup sass_group
     autocmd!
     autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
 augroup END
-"}}}2
-"### NERDTree {{{2
+"}}}
+"### NERDTree {{{
 
 "# NERDTreeToggle wrapper
 nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
@@ -1508,12 +1517,12 @@ endfunction
 
 let g:NERDTreeHijackNetrw=0
 let g:NERDTreeWinSize=35
-"}}}2
-"### Emmet {{{2
+"}}}
+"### Emmet {{{
 "#let g:user_emmet_mode='i'
 let g:user_emmet_expandabbr_key='<C-Y><C-Y>'
 let g:user_emmet_expandword_key='<C-Y><C-Y>'
-"}}}2
+"}}}
 "### YankRing{{{
 let g:yankring_history_dir=$HOME . '/.vim-yankring'
 if !filewritable(expand(g:yankring_history_dir))
@@ -1521,20 +1530,27 @@ if !filewritable(expand(g:yankring_history_dir))
     echo "create directory:  " . g:yankring_history_dir
 endif
 "}}}
-"### jellybeans {{{2
+"### jellybeans {{{
 let g:jellybeans_use_lowcolor_black=0
 let g:jellybeans_background_color=''
 let g:jellybeans_background_color_256=''
-"}}}2
-"### molokai {{{2
+"}}}
+"### molokai {{{
 let g:molokai_original=1
 let g:rehash256=1
-"}}}2
-
-" }}}1
-"[ ####------- Programming Support Settings ----#### ] {{{1
-
-"### C++ support "{{{2
+"}}}
+"### Jedi {{{
+command! -nargs=0 JediRename :call jedi#rename()
+let g:jedi#rename_command = ""
+let g:jedi#pydoc = ""
+"}}}
+"### IndentLine {{{
+nnoremap <silent> <Plug>(mykey)y :IndentLinesToggle<CR>
+let g:indentLine_fileType = ['python', 'coffee', 'clojure', 'lisp', 'scheme', 'erlang']
+"}}}
+" }}}
+"[ ####------- Programming Support Settings ----#### ] {{{
+"### C++ support "{{{
 
 augroup cpp_ftplugin
     autocmd!
@@ -1545,8 +1561,8 @@ augroup cpp_ftplugin
     endif
 augroup END
 
-"}}}2
-"### Perl support "{{{2
+"}}}
+"### Perl support "{{{
 
 "# perldoc:  module source code open
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
@@ -1584,8 +1600,8 @@ augroup perl_ftplugin
     autocmd VimEnter * call AlterFileTypePerl()
 augroup END
 
-"}}}2
-"### Ruby support "{{{2
+"}}}
+"### Ruby support "{{{
 
 command! -nargs=1  RubyGemRead :call <SID>open_rubygem_code('<args>')
 function! s:open_rubygem_code(module) range
@@ -1636,7 +1652,7 @@ command! -nargs=0 Pry call <SID>start_repl('pry --no-color')
 command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry --no-color')
 command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
 
-"}}}2
+"}}}
 "### Golang support {{{
 
 augroup go_ftplugin
@@ -1662,7 +1678,7 @@ augroup sql_ftplugin
 augroup END
 
 " }}}
-"### Scala support{{{2
+"### Scala support{{{
 
 "# sbt
 function! s:start_sbt()
@@ -1724,8 +1740,8 @@ augroup scala_setting
     autocmd FileType scala nnoremap <buffer> <Leader>s :<C-u>SBT<CR>
 augroup END
 
-"}}}2
-"### JavaScript support {{{2
+"}}}
+"### JavaScript support {{{
 
 if !exists('g:neocomplcache_omni_functions')
     let g:neocomplcache_omni_functions = {}
@@ -1743,15 +1759,15 @@ augroup END
 
 command! -nargs=0 NodeREPL   call <SID>start_repl('node --interactive')
 
-"}}}2
-"### TypeScript support {{{2
+"}}}
+"### TypeScript support {{{
 augroup typescript_ftplugin
     autocmd!
     autocmd BufWritePost typescript :make
 augroup END
 
-"}}}2
-"### FileType(Language) assistance "{{{2
+"}}}
+"### FileType(Language) assistance "{{{
 
 "辞書ファイルを使用する設定に変更
 set complete+=k
@@ -1776,9 +1792,8 @@ augroup END
 "CF用コメントハイライト有効
 let html_wrong_comments=1
 
-"}}}2
-"### Template FileSetting{{{2
-
+"}}}
+"### Template FileSetting{{{
 augroup template_setting
     autocmd!
     autocmd BufNewFile *.pl     0r $HOME/.vim/misc/tmpl/perl.template.pl
@@ -1792,11 +1807,9 @@ augroup template_setting
     autocmd BufNewFile gemspec  0r $HOME/.vim/misc/tmpl/gemspec
     autocmd BufNewFile *.ru     0r $HOME/.vim/misc/tmpl/config.ru
 augroup END
-
-" }}}2
-
-" }}}1
-"[ ####------- Colorscheme Settings ------------#### ] "{{{1
+" }}}
+" }}}
+"[ ####------- Colorscheme Settings ------------#### ] "{{{
 
 "# xterm-256color
 set t_Co=256
@@ -1905,8 +1918,8 @@ call SetupColorScheme()
 "# switching colrschme & background
 nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
 
-"}}}1
-"[ ####------- FileType ------------------------#### ]"{{{
+"}}}
+"[ ####------- FileType Settings ---------------#### ]"{{{
 augroup detect_filetype
     autocmd!
     " perl genus
@@ -1941,12 +1954,12 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.gosh :set syntax=clojure.scheme
 augroup END
 "}}}
-"[ ####------- Read Local Settings -------------#### ] {{{1
+"[ ####------- Read Local Settings -------------#### ] {{{
 let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
     execute 'source ' . g:local_vimrc
 endif
-" }}}1
+" }}}
 "[ ####------- NeoBundleCheck ------------------#### ] {{{
 NeoBundleCheck
 "}}}
