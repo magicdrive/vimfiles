@@ -870,6 +870,8 @@ NeoBundleLazy 'groovy.vim', {
 NeoBundle 'magicdrive/vim-scala'
 "# clojure
 NeoBundle 'thinca/vim-ft-clojure'
+"# processing
+NeoBundle 'sophacles/vim-processing'
 
 "#-----------------------#
 "# perl                  #
@@ -1858,7 +1860,7 @@ function! s:ChangeBackground()
     syntax on
 endfunction
 
-function! s:MyColor()
+function! MyColor()
     "# ポップアップメニューの色変更
     highlight Pmenu
                 \ ctermbg=DarkGray
@@ -1887,6 +1889,19 @@ function! s:MyColor()
 
     highlight Normal ctermbg=NONE
 
+    highlight WildMenu
+                \ term=bold
+                \ ctermfg=217
+                \ ctermbg=16
+                \ guifg=#f0a0c0
+                \ guibg=#302028
+    highlight StatusLine
+                \ term=bold
+                \ ctermfg=16
+                \ ctermbg=252
+                \ guifg=#000000
+                \ guibg=#dddddd
+
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=Gray
 endfunction
@@ -1894,7 +1909,7 @@ endfunction
 augroup color_set
     autocmd!
     if !has('gui_running')
-        autocmd ColorScheme * call <SID>MyColor()
+        autocmd ColorScheme * call MyColor()
     endif
 augroup END
 
