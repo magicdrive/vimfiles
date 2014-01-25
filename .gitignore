@@ -1,7 +1,6 @@
 vim/bundle/automatic
 vim/memo
 vim/eclim/
-vim/plugin/
 vim/memo/*
 vim/doc/tags-ja
 vim/view
