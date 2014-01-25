@@ -29,6 +29,10 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+vnoremap j gj
+vnoremap k gk
+vnoremap gj j
+vnoremap gk k
 
 "# 強制終了の無効化
 noremap ZZ <Nop>
@@ -870,7 +874,7 @@ NeoBundleLazy 'groovy.vim', {
 NeoBundle 'magicdrive/vim-scala'
 "# clojure
 NeoBundle 'thinca/vim-ft-clojure'
-"# processing
+"# vim-processing
 NeoBundle 'sophacles/vim-processing'
 
 "#-----------------------#
@@ -1068,8 +1072,6 @@ NeoBundle 'vim-scripts/chlordane.vim'
 
 filetype plugin on
 filetype indent on
-
-NeoBundleCheck
 
 "}}}2
 
@@ -1412,6 +1414,13 @@ let g:quickrun_config['typescript'] = {
             \       'exec'    : ['%c --exec %s']
             \   }
 
+if executable('processing-java')
+    let g:quickrun_config['processing'] = {
+                \     'command': 'processing-java',
+                \     'exec': ['%c --run --force --sketch=$PWD --output=$PWD/output'],
+                \   }
+endif
+
 "}}}2
 "### Watchdogs {{{2
 
@@ -1496,6 +1505,12 @@ nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
 nnoremap <silent> <Plug>(mykey)i :call <SID>MY_NERDTreeRefresh()<CR>
 let g:my_nerdtree_status=0
 
+
+augroup my_nerdtree_setting
+    autocmd!
+    autocmd FileType nerdtree nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+augroup END
+
 function! s:MY_NERDTreeRefresh()
     NERDTreeFocus
     normal R
@@ -1514,14 +1529,6 @@ endfunction
 
 let g:NERDTreeHijackNetrw=0
 let g:NERDTreeWinSize=35
-"}}}2
-"### NERDCommenter {{{2
-
-let g:NERDCreateDefaultMappings = 0
-let NERDSpaceDelims = 1
-nmap <Leader><Leader> <Plug>NERDCommenterToggle
-vmap <Leader><Leader> <Plug>NERDCommenterToggle
-
 "}}}2
 "### Emmet {{{2
 "#let g:user_emmet_mode='i'
@@ -1926,4 +1933,7 @@ if filereadable(expand(g:local_vimrc))
     execute 'source ' . g:local_vimrc
 endif
 " }}}1
+"[ ####------- NeoBundleCheck ------------------#### ] {{{
+NeoBundleCheck
+"}}}
 "# __END__
