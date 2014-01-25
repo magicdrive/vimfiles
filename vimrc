@@ -6,7 +6,6 @@
 "#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
 "#                for vim7.4
 "[ ####------- Vim Basic Settings --------------#### ] {{{1
-
 "### Vim Options "{{{2
 
 "# mapkeyprefix
@@ -437,32 +436,6 @@ set shiftwidth=4
 inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
 
 "}}}2
-"### FileType "{{{2
-
-augroup detect_filetype
-    autocmd!
-    autocmd BufNewFile,BufRead *.as set filetype=actionscript
-    autocmd BufNewFile,BufRead *.hx set filetype=haxe
-    autocmd BufNewFile,BufRead *.mxml set filetype=mxml
-    autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
-    autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
-    autocmd BufNewFile,BufRead **/nginx/conf/*.conf set filetype=nginx
-    autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
-    autocmd BufNewFile,BufRead */patches/* set filetype=diff
-    autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
-    autocmd BufNewFile,BufRead *.scala set filetype=scala
-    autocmd BufNewFile,BufRead *.sbt set filetype=scala
-    autocmd BufNewFile,BufRead *.gradle set filetype=groovy
-    autocmd BufNewFile,BufRead *.m set filetype=objc
-    autocmd BufNewFile,BufRead *.gosh set filetype=scheme
-    autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-    autocmd BufNewFile,BufRead gemspec set filetype=ruby
-    autocmd BufNewFile,BufRead *.ru set filetype=ruby
-    autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
-    autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
-augroup END
-
-"}}}2
 "### Window "{{{2
 
 "# Window横分割
@@ -656,7 +629,6 @@ endfunction
 
 
 "}}}2
-
 " }}}1
 "[ ####------- NeoBundle Settings --------------#### ] {{{1
 
@@ -825,6 +797,13 @@ NeoBundleLazy 'Shougo/neocomplcache-clang', {
 "# neocomplcache-clang_complete
 NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
             \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
+            \ }
+
+"#-----------------------#
+"# dlang                 #
+"#-----------------------#
+NeoBundleLazy 'slimv.vim',{
+            \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
             \ }
 
 "#-----------------------#
@@ -1927,6 +1906,41 @@ call SetupColorScheme()
 nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
 
 "}}}1
+"[ ####------- FileType ------------------------#### ]"{{{
+augroup detect_filetype
+    autocmd!
+    " perl genus
+    autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
+    autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
+    " llvm genus
+    autocmd BufNewFile,BufRead *.m set filetype=objective-c
+    " shell genus
+    autocmd BufNewFile,BufRead **/nginx/conf/*.conf set filetype=nginx
+    autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
+    autocmd BufNewFile,BufRead */patches/* set filetype=diff
+    autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
+    " graphics genus
+    autocmd BufNewFile,BufRead *.pde set filetype=processing
+    autocmd BufNewFile,BufRead *.as set filetype=actionscript
+    autocmd BufNewFile,BufRead *.hx set filetype=haxe
+    autocmd BufNewFile,BufRead *.mxml set filetype=mxml
+    " jvm genus
+    autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
+    autocmd BufNewFile,BufRead *.scala set filetype=scala
+    autocmd BufNewFile,BufRead *.sbt set filetype=scala
+    autocmd BufNewFile,BufRead *.gradle set filetype=groovy
+    " ruby genus
+    autocmd BufNewFile,BufRead Gemfile set filetype=ruby
+    autocmd BufNewFile,BufRead gemspec set filetype=ruby
+    autocmd BufNewFile,BufRead *.ru set filetype=ruby
+    autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
+    " lisp genus
+    autocmd BufNewFile,BufRead *.cl :set filetype=lisp
+    autocmd BufNewFile,BufRead *.cl :set syntax=clojure.lisp
+    autocmd BufNewFile,BufRead *.gosh :set filetype=scheme
+    autocmd BufNewFile,BufRead *.gosh :set syntax=clojure.scheme
+augroup END
+"}}}
 "[ ####------- Read Local Settings -------------#### ] {{{1
 let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
