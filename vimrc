@@ -802,7 +802,7 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
 "#-----------------------#
 "# dlang                 #
 "#-----------------------#
-NeoBundleLazy 'slimv.vim',{
+NeoBundleLazy 'magicdrive/slimv',{
             \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
             \ }
 
@@ -1948,10 +1948,9 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.ru set filetype=ruby
     autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
     " lisp genus
-    autocmd BufNewFile,BufRead *.cl :set filetype=lisp
-    autocmd BufNewFile,BufRead *.cl :set syntax=clojure.lisp
+    autocmd FileType lisp set syntax=clojure.lisp
     autocmd BufNewFile,BufRead *.gosh :set filetype=scheme
-    autocmd BufNewFile,BufRead *.gosh :set syntax=clojure.scheme
+    autocmd FileType scheme set syntax=clojure.scheme
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
