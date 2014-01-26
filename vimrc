@@ -1241,6 +1241,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
             \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
             \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
             \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
+            \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
             \ 'vimshell'   : $HOME.'/.vimshell_hist',
             \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
             \ }
@@ -1948,9 +1949,9 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead *.ru set filetype=ruby
     autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
     " lisp genus
-    autocmd FileType lisp set syntax=clojure.lisp
+    autocmd FileType lisp set syntax=lisp
     autocmd BufNewFile,BufRead *.gosh :set filetype=scheme
-    autocmd FileType scheme set syntax=clojure.scheme
+    autocmd FileType scheme set syntax=scheme
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
