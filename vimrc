@@ -1236,12 +1236,12 @@ let g:neocomplcache_dictionary_filetype_lists = {
             \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
             \ 'php'        : $HOME.'/.vim/dict/php.dict',
             \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-            \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
             \ 'java'       : $HOME.'/.vim/dict/java.dict',
             \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
             \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
             \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
             \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
+            \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
             \ 'vimshell'   : $HOME.'/.vimshell_hist',
             \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
             \ }
@@ -1676,6 +1676,15 @@ augroup sql_ftplugin
     autocmd!
     autocmd FileType sql nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('SQLUFormatter')<CR>
     autocmd FileType sql vnoremap <buffer> <C-\> :SQLUFormatter<CR>
+augroup END
+
+" }}}
+"### Lisp support{{{
+
+augroup lisp_ftplugin
+    autocmd!
+    autocmd FileType lisp :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clisp -i %<CR>
+    autocmd FileType scheme :nnoremap <buffer> <Plug>(mykey)m :<C-u>!igosh -i %<CR>
 augroup END
 
 " }}}
