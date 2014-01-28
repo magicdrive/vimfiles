@@ -800,9 +800,14 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
             \ }
 
 "#-----------------------#
-"# dlang                 #
+"# lisp                  #
 "#-----------------------#
-NeoBundleLazy 'magicdrive/slimv',{
+"# slimv
+NeoBundleLazy 'magicdrive/slimv', {
+            \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
+            \ }
+"# niji
+NeoBundleLazy 'amdt/vim-niji', {
             \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
             \ }
 
@@ -1258,6 +1263,9 @@ let g:jedi#auto_vim_configuration = 0
 let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
 "}}}
+"### Slimv{{{
+
+"}}}
 "### Airline {{{
 
 let g:airline_left_sep = '⮀'
@@ -1548,7 +1556,6 @@ let g:indentLine_fileType = ['python', 'coffee', 'clojure', 'lisp', 'scheme', 'e
 " }}}
 "[ ####------- Programming Support Settings ----#### ] {{{
 "### C++ support "{{{
-
 augroup cpp_ftplugin
     autocmd!
     autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 expandtab
@@ -1557,10 +1564,8 @@ augroup cpp_ftplugin
         autocmd FileType c,cpp vnoremap <buffer> <C-\> :!clang-format<CR>
     endif
 augroup END
-
 "}}}
 "### Perl support "{{{
-
 "# perldoc:  module source code open
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module) range
@@ -1596,7 +1601,6 @@ augroup perl_ftplugin
     autocmd FileType perl,ref-perldoc vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
     autocmd VimEnter * call AlterFileTypePerl()
 augroup END
-
 "}}}
 "### Ruby support "{{{
 
@@ -1651,14 +1655,12 @@ command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console
 
 "}}}
 "### Golang support {{{
-
 augroup go_ftplugin
     autocmd!
     autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
     autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
     autocmd BufWritePre *.go Fmt
 augroup END
-
 "}}}
 "### Shell support{{{
 augroup shell_ftplugin
@@ -1676,16 +1678,14 @@ augroup END
 
 " }}}
 "### Lisp support{{{
-
 augroup lisp_ftplugin
     autocmd!
     autocmd FileType lisp :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clisp -i %<CR>
     autocmd FileType scheme :nnoremap <buffer> <Plug>(mykey)m :<C-u>!igosh -i %<CR>
+    autocmd FileType lisp,scheme :setlocal lisp
 augroup END
-
 " }}}
 "### Scala support{{{
-
 "# sbt
 function! s:start_sbt()
     if exists('g:sbt_project_dirname')
@@ -1745,7 +1745,6 @@ augroup scala_setting
     autocmd FileType scala nnoremap <buffer> <Plug>(mykey)r :<C-u>SBT<CR>
     autocmd FileType scala nnoremap <buffer> <Leader>s :<C-u>SBT<CR>
 augroup END
-
 "}}}
 "### JavaScript support {{{
 
@@ -1771,7 +1770,6 @@ augroup typescript_ftplugin
     autocmd!
     autocmd BufWritePost typescript :make
 augroup END
-
 "}}}
 "### FileType(Language) assistance "{{{
 
