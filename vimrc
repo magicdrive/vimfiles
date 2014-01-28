@@ -993,10 +993,6 @@ NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
 NeoBundleLazy 'mattn/gist-vim', {
             \ 'autoload' : { 'commands' : ['Gist'] }
             \ }
-"# fugitive
-NeoBundle 'tpope/vim-fugitive'
-"# gitv
-NeoBundle 'gregsexton/gitv'
 
 "#-----------------------#
 "# util-tool             #
