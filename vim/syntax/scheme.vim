@@ -298,7 +298,7 @@ if exists("b:is_chicken") || exists("is_chicken")
     syn region schemeString start=+#<#\s*\z(.*\)+ end=+^\z1$+ 
 endif
 
-
+let b:is_gauche=1
 if exists("b:is_gauche") || exists("is_gauche")
     " Gauche extensions
     " multiline comment
