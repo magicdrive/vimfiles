@@ -500,7 +500,7 @@ function! s:ChangeCurrentDir(directory, bang)
     if a:directory ==# ''
         execute "cd " . expand("%:p:h")
     else
-        execute 'cd' . a:directory
+        execute 'cd ' . a:directory
     endif
 
     if a:bang ==# ''
