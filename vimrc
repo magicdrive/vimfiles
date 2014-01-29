@@ -803,7 +803,7 @@ NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
 "# lisp                  #
 "#-----------------------#
 "# slimv
-NeoBundleLazy 'magicdrive/slimv', {
+NeoBundleFetch 'magicdrive/slimv', {
             \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
             \ }
 "# niji
@@ -1680,9 +1680,11 @@ augroup END
 "### Lisp support{{{
 augroup lisp_ftplugin
     autocmd!
-    autocmd FileType lisp :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clisp -i %<CR>
-    autocmd FileType scheme :nnoremap <buffer> <Plug>(mykey)m :<C-u>!igosh -i %<CR>
+    autocmd FileType lisp    :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clisp -i %<CR>
+    autocmd FileType scheme  :nnoremap <buffer> <Plug>(mykey)m :<C-u>!igosh -i %<CR>
+    autocmd FileType clojure :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clj -i %<CR>
     autocmd FileType lisp,scheme :setlocal lisp
+    autocmd FileType lisp,scheme :setlocal nocindent
 augroup END
 " }}}
 "### Scala support{{{
@@ -1810,6 +1812,9 @@ augroup template_setting
     autocmd BufNewFile Rakefile 0r $HOME/.vim/misc/tmpl/Rakefile
     autocmd BufNewFile gemspec  0r $HOME/.vim/misc/tmpl/gemspec
     autocmd BufNewFile *.ru     0r $HOME/.vim/misc/tmpl/config.ru
+    autocmd BufNewFile *.scm    0r $HOME/.vim/misc/tmpl/template.scm
+    autocmd BufNewFile *.lisp   0r $HOME/.vim/misc/tmpl/template.lisp
+    autocmd BufNewFile *.clj   0r $HOME/.vim/misc/tmpl/template.clj
 augroup END
 " }}}
 " }}}
