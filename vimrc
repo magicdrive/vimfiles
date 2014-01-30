@@ -57,8 +57,9 @@ set scrolljump=15
 "# tabを表示
 set listchars=eol:$,tab:>\
 
-"# 補完キーをCtrl+jに変更
+"# completion
 inoremap <C-j> <C-n>
+inoremap <C-o> <C-x><C-o>
 
 "# backspaceキーの動作
 noremap  <C-?> <C-h>
@@ -526,11 +527,20 @@ if has('syntax')
   call ZenkakuSpace()
 endif
 
+let g:matsubi_space_state = 1
 function! MatsubiSpace()
-  highlight MatsubiSpace
-        \ ctermbg=199
-        \ guibg=Cyan
+  if g:matsubi_space_state
+    highlight MatsubiSpace ctermbg=199 guibg=Cyan
+  else
+    highlight MatsubiSpace ctermbg=NONE guibg=NONE
+  endif
 endfunction
+
+function! s:ToggleMatsubiSpaceHighLight()
+  let g:matsubi_space_state=g:matsubi_space_state ? 0 : 1
+  call MatsubiSpace()
+endfunction
+nnoremap <Plug>(mykeylite)c :call <SID>ToggleMatsubiSpaceHighLight()<CR>
 
 if has('syntax')
   augroup MatsubiSpace
@@ -666,6 +676,8 @@ endif
 "# vim-singleton
 if has('clientserver')
   NeoBundle 'thinca/vim-singleton'
+else
+  NeoBundleFetch 'thinca/vim-singleton'
 endif
 "# vimproc
 NeoBundle 'Shougo/vimproc', 'ver.7.0', {
@@ -734,8 +746,7 @@ NeoBundle 'surround.vim'
 NeoBundle 'thinca/vim-visualstar'
 "# foldCC
 NeoBundle 'magicdrive/foldCC'
-"# vim-powerline / ariline
-"NeoBundle 'magicdrive/vim-powerline'
+"# ariline
 NeoBundle 'bling/vim-airline'
 "# memolist
 NeoBundleLazy 'glidenote/memolist.vim', {
@@ -804,14 +815,21 @@ NeoBundleLazy 'Align', {
 NeoBundleLazy 'cocoa.vim', {
       \ 'autoload' : {'filetypes': ['objective-c']}
       \ }
-"# neocomplcache-clang
-NeoBundleLazy 'Shougo/neocomplcache-clang', {
-      \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
-      \ }
-"# neocomplcache-clang_complete
-NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
-      \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
-      \ }
+if g:meet_neocomplete_requirements
+  "# neocomplcache-clang
+  NeoBundleFetch 'Shougo/neocomplcache-clang'
+  "# neocomplcache-clang_complete
+  NeoBundleFetch 'Shougo/neocomplcache-clang_complete'
+else
+  "# neocomplcache-clang
+  NeoBundleLazy 'Shougo/neocomplcache-clang', {
+        \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
+        \ }
+  "# neocomplcache-clang_complete
+  NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
+        \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
+        \ }
+end
 
 "#-----------------------#
 "# lisp                  #
@@ -826,25 +844,11 @@ NeoBundleLazy 'amdt/vim-niji', {
       \ }
 
 "#-----------------------#
-"# dlang                 #
-"#-----------------------#
-
-NeoBundle 'd.vim'
-
-"#-----------------------#
 "# haskell               #
 "#-----------------------#
 "# ghcmod.vim
 NeoBundleLazy 'eagletmt/ghcmod-vim', {
       \ "autoload" : {"filetypes": ['haskell']}
-      \ }
-
-"#-----------------------#
-"# erlang                #
-"#-----------------------#
-"# vimerl
-NeoBundleLazy 'jimenezrick/vimerl', {
-      \ "autoload" : {"filetypes": ['erlang']}
       \ }
 
 "#-----------------------#
@@ -854,12 +858,6 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 NeoBundleLazy 'cohama/the-ocamlspot.vim', {
       \ "autoload" : {"filetypes": ['ocaml']}
       \ }
-
-"#-----------------------#
-"# elixir                #
-"#-----------------------#
-"# vim-elixir
-NeoBundle 'elixir-lang/vim-elixir'
 
 "#-----------------------#
 "# jvm                   #
@@ -978,10 +976,6 @@ NeoBundleLazy 'groenewege/vim-less', {
 NeoBundleLazy 'mattn/emmet-vim', {
       \ 'autoload' : {'filetypes': ['eruby','html','tt','haml']}
       \ }
-"# instantmarkdown
-NeoBundleLazy 'chreekat/vim-instant-markdown', {
-      \ 'autoload' : { 'commands' : ['InstantMarkdown'] }
-      \ }
 "# nginx.vim
 NeoBundle 'nginx.vim'
 "# httpstatus
@@ -999,6 +993,8 @@ NeoBundle 'hail2u/vim-css3-syntax'
 "# sass
 if executable('sass')
   NeoBundle 'AtsushiM/sass-compile.vim'
+else
+  NeoBundleFetch 'AtsushiM/sass-compile.vim'
 endif
 "# haml
 NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes':['haml']}}
@@ -1018,23 +1014,17 @@ NeoBundleLazy 'mattn/gist-vim', {
 "#-----------------------#
 "# lcoalrc
 NeoBundle 'thinca/vim-localrc'
-"# calendar.vim
-NeoBundle 'mattn/calendar-vim', {
-      \ 'autoload' : {'commands' : ['Calendar', 'CalendarH', 'CalendarT'] }
-      \ }
 "# yanktmp
 NeoBundle 'yanktmp.vim'
 
 "#-----------------------#
 "# external service      #
 "#-----------------------#
-"# chalice.vim
-NeoBundleLazy 'koron/chalice', {
-      \ 'autoload' : {'commands' : 'Chalice' }
-      \ }
 if has('mac')
   "# vim-itunes
   NeoBundle "ryutorion/vim-itunes"
+else
+  NeoBundleFetch "ryutorion/vim-itunes"
 endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
@@ -1229,7 +1219,7 @@ let g:DrChipTopLvlMenu=''
 "### NeoComplete or NeoComplcache {{{
 
 set infercase
-  let g:acp_enableAtStartup = 0
+let g:acp_enableAtStartup = 0
 autocmd FileType python setlocal omnifunc=jedi#completions
 
 if g:meet_neocomplete_requirements
