@@ -627,7 +627,7 @@ function! s:hl_cword()
   let b:highlight_cursor_word = word
 endfunction
 
-
+let g:meet_neocomplete_requirements = has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
 
 "}}}
 " }}}
@@ -649,6 +649,20 @@ NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 NeoBundleLazy 'Shougo/neocomplcache', 'ver.8.0', {
       \ 'autoload' : { 'insert' : 1, }
       \ }
+
+"# neocomplete or neocomplcache
+if g:meet_neocomplete_requirements
+  NeoBundleLazy 'Shougo/neocomplete.vim', {
+        \ 'autoload' : { 'insert' : 1, }
+        \ }
+  NeoBundleFetch 'Shougo/neocomplcache.vim'
+else
+  NeoBundleFetch 'Shougo/neocomplete.vim'
+  NeoBundleLazy 'Shougo/neocomplcache.vim', 'ver.8.0', {
+        \ 'autoload' : { 'insert' : 1, }
+        \ }
+endif
+
 "# vim-singleton
 if has('clientserver')
   NeoBundle 'thinca/vim-singleton'
@@ -1212,55 +1226,98 @@ let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
 
 "}}}
-"### NeoComplcache {{{
+"### NeoComplete or NeoComplcache {{{
 
 set infercase
-
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-"# Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-"# Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-"# Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_skip_auto_completion_time = '0.3'
-
-"# Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-      \ 'default'    : '',
-      \ 'c'          : $HOME.'/.vim/dict/c.dict',
-      \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
-      \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
-      \ 'php'        : $HOME.'/.vim/dict/php.dict',
-      \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-      \ 'java'       : $HOME.'/.vim/dict/java.dict',
-      \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-      \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
-      \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
-      \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
-      \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
-      \ 'vimshell'   : $HOME.'/.vimshell_hist',
-      \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-      \ }
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_force_omni_patterns')
-  let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-"# Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
-endif
-
+  let g:acp_enableAtStartup = 0
 autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
+if g:meet_neocomplete_requirements
+  " 新しく追加した neocomplete の設定
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+  let g:neocomplete#force_overwrite_completefunc = 1
+  let g:neocomplete#skip_auto_completion_time = '0.3'
+
+  "# Define dictionary.
+  let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default'    : '',
+        \ 'c'          : $HOME.'/.vim/dict/c.dict',
+        \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
+        \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
+        \ 'php'        : $HOME.'/.vim/dict/php.dict',
+        \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
+        \ 'java'       : $HOME.'/.vim/dict/java.dict',
+        \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
+        \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
+        \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
+        \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
+        \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
+        \ 'vimshell'   : $HOME.'/.vimshell_hist',
+        \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
+        \ }
+  " Enable heavy omni completion.
+  if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+  endif
+  let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+  "# Define keyword.
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+
+  let g:jedi#completions_enabled = 0
+  let g:jedi#auto_vim_configuration = 0
+  let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+else
+  " 今までの neocomplcache の設定
+  let g:neocomplcache_enable_at_startup = 1
+  "# Use camel case completion.
+  let g:neocomplcache_enable_camel_case_completion = 1
+  "# Use underbar completion.
+  let g:neocomplcache_enable_underbar_completion = 1
+  "# Set minimum syntax keyword length.
+  let g:neocomplcache_min_syntax_length = 3
+  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+  let g:neocomplcache_force_overwrite_completefunc = 1
+  let g:neocomplcache_skip_auto_completion_time = '0.3'
+
+  "# Define dictionary.
+  let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default'    : '',
+        \ 'c'          : $HOME.'/.vim/dict/c.dict',
+        \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
+        \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
+        \ 'php'        : $HOME.'/.vim/dict/php.dict',
+        \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
+        \ 'java'       : $HOME.'/.vim/dict/java.dict',
+        \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
+        \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
+        \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
+        \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
+        \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
+        \ 'vimshell'   : $HOME.'/.vimshell_hist',
+        \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
+        \ }
+  " Enable heavy omni completion.
+  if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+  endif
+  let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+  "# Define keyword.
+  if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+  endif
+
+  let g:jedi#completions_enabled = 0
+  let g:jedi#auto_vim_configuration = 0
+  let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+  " 今までの neocomplcache の設定
+endif
 
 "}}}
 "### Slimv{{{
