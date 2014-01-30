@@ -1736,7 +1736,7 @@ augroup END
 " }}}
 "### Lisp support{{{
 
-let g:gauche_repl_cmd = (executable('rlwrap') ? '!rlwrap ' : '!') . 'gosh -i -l '
+let g:gauche_repl_cmd = (executable('rlwrap') ? '!rlwrap -pCyan ' : '!') . 'gosh -i -l '
 function! s:GaucheREPL(file)
   let filename = a:file
   execute g:gauche_repl_cmd . filename
