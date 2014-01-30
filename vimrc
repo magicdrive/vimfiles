@@ -1735,8 +1735,7 @@ augroup END
 
 " }}}
 "### Lisp support{{{
-
-let g:gauche_repl_cmd = (executable('rlwrap') ? '!rlwrap -pCyan ' : '!') . 'gosh -i -l '
+let g:gauche_repl_cmd = 0
 function! s:GaucheREPL(file)
   let filename = a:file
   execute g:gauche_repl_cmd . filename
@@ -1745,7 +1744,7 @@ endfunction
 augroup lisp_ftplugin
   autocmd!
   autocmd FileType lisp    :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clisp -i %<CR>
-  autocmd FileType scheme  :let g:gauche_repl_cmd = (executable('rlwrap') ? '!rlwrap ' : '!') . 'gosh -i -l '
+  autocmd FileType scheme  :let g:gauche_repl_cmd = (executable('rlwrap') ? '!rlwrap -pCyan ' : '!') . 'gosh -i -l '
   autocmd FileType scheme  :nnoremap <buffer> <Plug>(mykey)m :<C-u>call <SID>GaucheREPL(expand("%:p"))<CR>
   autocmd FileType clojure :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clj -i %<CR>
   autocmd FileType lisp,scheme :setlocal lisp
