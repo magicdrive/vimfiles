@@ -665,7 +665,7 @@ if g:meet_neocomplete_requirements
   NeoBundleLazy 'Shougo/neocomplete.vim', {
         \ 'autoload' : { 'insert' : 1, }
         \ }
-  NeoBundleFetch 'Shougo/neocomplcache.vim'
+  NeoBundleFetch 'Shougo/neocomplcache.vim', 'ver.8.0'
 else
   NeoBundleFetch 'Shougo/neocomplete.vim'
   NeoBundleLazy 'Shougo/neocomplcache.vim', 'ver.8.0', {
