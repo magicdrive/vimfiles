@@ -1884,7 +1884,7 @@ let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
 let g:gui_colorscheme_a='hybrid-light'
-let g:gui_colorscheme_b='railscasts'
+let g:gui_colorscheme_b='hybrid'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
