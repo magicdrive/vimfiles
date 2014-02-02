@@ -1867,8 +1867,9 @@ augroup template_setting
   autocmd BufNewFile gemspec  0r $HOME/.vim/misc/tmpl/gemspec
   autocmd BufNewFile *.ru     0r $HOME/.vim/misc/tmpl/config.ru
   autocmd BufNewFile *.scm    0r $HOME/.vim/misc/tmpl/template.scm
+  autocmd BufNewFile *.ss     0r $HOME/.vim/misc/tmpl/template.scm
   autocmd BufNewFile *.lisp   0r $HOME/.vim/misc/tmpl/template.lisp
-  autocmd BufNewFile *.clj   0r $HOME/.vim/misc/tmpl/template.clj
+  autocmd BufNewFile *.clj    0r $HOME/.vim/misc/tmpl/template.clj
 augroup END
 " }}}
 " }}}
