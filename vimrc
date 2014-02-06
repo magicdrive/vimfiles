@@ -924,6 +924,17 @@ NeoBundleLazy 'jdonaldson/vaxe', {
       \ }
 
 "#-----------------------#
+"# beamvm                #
+"#-----------------------#
+NeoBundleLazy 'elixir-lang/vim-elixir', {
+      \ 'autoload' : {'filetypes': ['elixir']}
+      \ }
+
+NeoBundleLazy 'jimenezrick/vimerl', {
+      \ 'autoload' : {'filetypes': ['erlang']}
+      \ }
+
+"#-----------------------#
 "# ruby                  #
 "#-----------------------#
 
@@ -1007,6 +1018,9 @@ NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
 "# gist.vim
 NeoBundleLazy 'mattn/gist-vim', {
       \ 'autoload' : { 'commands' : ['Gist'] }
+      \ }
+NeoBundleLazy 'tpope/vim-fugitive', {
+      \ 'autoload' : { 'commands' : ['Gstatus', 'Gwrite', 'Gread', 'Gmove', 'Gremove', 'Gcommit', 'Gblame', 'Gdiff'] }
       \ }
 
 "#-----------------------#
@@ -2015,6 +2029,9 @@ augroup detect_filetype
   autocmd FileType lisp set syntax=lisp
   autocmd BufNewFile,BufRead *.gosh :set filetype=scheme
   autocmd FileType scheme set syntax=scheme
+  " beamvm
+  autocmd BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+  autocmd BufRead,BufNewFile *.erl set filetype=erlang
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
