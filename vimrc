@@ -1019,9 +1019,6 @@ NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
 NeoBundleLazy 'mattn/gist-vim', {
       \ 'autoload' : { 'commands' : ['Gist'] }
       \ }
-NeoBundleLazy 'tpope/vim-fugitive', {
-      \ 'autoload' : { 'commands' : ['Gstatus', 'Gwrite', 'Gread', 'Gmove', 'Gremove', 'Gcommit', 'Gblame', 'Gdiff'] }
-      \ }
 
 "#-----------------------#
 "# util-tool             #
