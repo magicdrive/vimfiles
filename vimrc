@@ -1234,7 +1234,6 @@ let g:acp_enableAtStartup = 0
 autocmd FileType python setlocal omnifunc=jedi#completions
 
 if g:meet_neocomplete_requirements
-  " 新しく追加した neocomplete の設定
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#sources#syntax#min_keyword_length = 3
   let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
@@ -1317,7 +1316,6 @@ else
   let g:jedi#completions_enabled = 0
   let g:jedi#auto_vim_configuration = 0
   let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-  " 今までの neocomplcache の設定
 endif
 
 "}}}
@@ -1469,6 +1467,13 @@ if executable('processing-java')
   let g:quickrun_config['processing'] = {
         \     'command': 'processing-java',
         \     'exec': ['%c --run --force --sketch=$PWD --output=$PWD/build'],
+        \   }
+endif
+
+if executable('html2haml')
+  let g:quickrun_config = {
+        \     'html' : { "type" : "html/haml" },
+        \     'html/haml' : { "command" : "html2haml" },
         \   }
 endif
 
