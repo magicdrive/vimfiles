@@ -36,8 +36,6 @@ vnoremap gk k
 "# 強制終了の無効化
 noremap ZZ <Nop>
 noremap ZQ <Nop>
-command! -nargs=0 Q :q!
-command! -nargs=0 QQ :qa!
 
 "# syntax highlight
 syntax on
@@ -170,36 +168,6 @@ nnoremap <Leader>t <C-t>
 "# buffer next/preview
 nnoremap <silent> <Up> :bNext<CR>
 nnoremap <silent> <Down> :bprevious<CR>
-
-"# "TODO"のgrep
-noremap <Plug>(mykeylite). :noautocmd vimgrep /TODO/j
-      \ **/*.pl
-      \ **/*.pm
-      \ **/*.tt
-      \ **/*.rb
-      \ **/*.css
-      \ **/*.haml
-      \ **/*.less
-      \ **/*.js
-      \ **/*.coffee
-      \ **/*.java
-      \ **/*.groovy
-      \ **/*.scala
-      \ **/*.py
-      \ **/*.py3
-      \ **/*.mako
-      \ **/*.tmpl
-      \ **/*.h
-      \ **/*.cpp
-      \ **/*.c
-      \ **/*.m
-      \ **/*.ml
-      \ **/*.sh
-      \ **/*.zsh
-      \ **/*.bash
-      \ **/*.php
-      \ **/*.vim
-      \ <CR>:cw<CR>
 
 "}}}
 "### VimScript "{{{
@@ -844,14 +812,6 @@ NeoBundleLazy 'amdt/vim-niji', {
       \ }
 
 "#-----------------------#
-"# haskell               #
-"#-----------------------#
-"# ghcmod.vim
-NeoBundleLazy 'eagletmt/ghcmod-vim', {
-      \ "autoload" : {"filetypes": ['haskell']}
-      \ }
-
-"#-----------------------#
 "# ocaml                 #
 "#-----------------------#
 "# ocamlspot
@@ -909,11 +869,17 @@ NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
       \ 'autoload' : {'filetypes': ['javascript']}
       \ }
 "# vim-coffee-script
-NeoBundle 'kchmck/vim-coffee-script'
+NeoBundleLazy 'kchmck/vim-coffee-script',{
+      \ 'autoload' : {'filetypes': ['coffee']}
+      \ }
 "# vim-typescript
-NeoBundle 'leafgarland/typescript-vim'
+NeoBundleLazy 'leafgarland/typescript-vim',{
+      \ 'autoload' : {'filetypes': ['typescript']}
+      \ }
 "# jade
-NeoBundle 'digitaltoad/vim-jade'
+NeoBundleLazy 'digitaltoad/vim-jade', {
+      \ 'autoload' : {'filetypes': ['javascript']}
+      \ }
 
 "#-----------------------#
 "# haxe                  #
@@ -970,7 +936,7 @@ NeoBundle 'tpope/vim-rails', 'v5.0'
 NeoBundle 'taka84u9/vim-ref-ri'
 
 "#-----------------------#
-"# html-coding           #
+"# python                #
 "#-----------------------#
 NeoBundleLazy 'davidhalter/jedi-vim', {
       \ 'autoload': { 'filetypes': ['python'] }
@@ -1161,7 +1127,6 @@ endfunction
 
 "}}}
 "### VimFiler {{{
-
 nnoremap <Plug>(mykey)e :VimFiler ./<CR>
 
 augroup vimfiler_setting
@@ -1197,7 +1162,6 @@ call unite#custom_action('file', 'my_vsplit', s:my_action)
 let g:loaded_netrwPlugin = 1
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_force_overwrite_statusline = 0
-
 "}}}
 "### MemoList.vim {{{
 
@@ -1215,17 +1179,12 @@ let g:memolist_vimfiler_option=""
 
 "}}}
 "### yannktmp.vim "{{{
-
-map <silent> sy :call YanktmpYank()<CR>
-map <silent> sp :call YanktmpPaste_p()<CR>
-map <silent> sP :call YanktmpPaste_P()<CR>
-
+map <silent> <Plug>(mykey)y :call YanktmpYank()<CR>
+map <silent> <Plug>(mykey)p :call YanktmpPaste_p()<CR>
 "}}}
 "### Align.vim {{{
-
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
-
 "}}}
 "### NeoComplete or NeoComplcache {{{
 
@@ -1319,9 +1278,6 @@ else
 endif
 
 "}}}
-"### Slimv{{{
-
-"}}}
 "### Airline {{{
 
 let g:airline_left_sep = '⮀'
@@ -1345,24 +1301,18 @@ endif
 nnoremap <Plug>(mykey)k :EasyBufferToggle<CR>
 "}}}
 "### Ref.vim {{{
-
 let g:ref_open="split | resize 15 | set noequalalways"
-
 " ref-manpage
 command! -nargs=?  Manpage call ref#open('man', '<args>')
-
 " ref-perldoc
 command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
 command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
-
-" ref-pydoc
-command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
-
-let g:ref_perldoc_auto_append_f=1
-
 function! OpenPerlfunc(func_str)
   execute "Ref perldoc -f " . a:func_str
 endfunction
+let g:ref_perldoc_auto_append_f=1
+" ref-pydoc
+command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
 
 function! AlterRef()
   AlterCommand  perld[oc] Ref perldoc
@@ -1373,26 +1323,20 @@ augroup ref_group
   autocmd!
   autocmd VimEnter * call AlterRef()
 augroup END
-
 "}}}
 "### MultipulSearch.vim {{{
-
 "# 検索の置き換え
 nnoremap ? :Search<Space>
 vnoremap ? :Search<Space>
-
 "# 検索ハイライト消去
 nnoremap <silent> <C-c><C-c> :<C-u>call SearchHighlightOff()<CR>
-
 function! SearchHighlightOff ()
   if exists(":SearchReset")
     SearchReset
   endif
 endfunction
-
 "}}}
 "### iTunes{{{
-
 if has('mac')
   nnoremap <Plug>(mykey)0 :ITunes<Space>
   command! -nargs=1
@@ -1428,10 +1372,8 @@ if has('mac')
     autocmd VimEnter * call AlterITunes()
   augroup END
 endif
-
 "}}}
 "### QuickRun {{{
-
 nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
 
@@ -1476,7 +1418,6 @@ if executable('html2haml')
         \     'html/haml' : { "command" : "html2haml" },
         \   }
 endif
-
 "}}}
 "### Watchdogs {{{
 
@@ -2034,6 +1975,9 @@ augroup detect_filetype
   " beamvm
   autocmd BufRead,BufNewFile *.ex,*.exs set filetype=elixir
   autocmd BufRead,BufNewFile *.erl set filetype=erlang
+  " altjs
+  autocmd BufRead,BufNewFile *.coffee set filetype=coffee
+  autocmd BufRead,BufNewFile *.ts set filetype=typescript
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
