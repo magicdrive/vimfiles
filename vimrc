@@ -85,8 +85,8 @@ filetype indent on
 filetype plugin on
 
 "# command-line modeへの切り替え
-noremap ; :
-noremap ' ;
+"#noremap ; :
+"#noremap ' ;
 nnoremap <Plug>(mykey); :<C-u>!
 nnoremap <Plug>(mykey)' :<C-u>r!
 vnoremap <Plug>(mykey); :!
