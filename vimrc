@@ -1081,7 +1081,6 @@ let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
 let g:vimshell_user_prompt='getcwd()'
 let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 
-"# VimShellを新規Windowで立ち上げる
 command! Vshell call s:Shell()
 function! s:alter_vimshell()
   AlterCommand  vsh[ell] Vshell
