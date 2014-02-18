@@ -1937,6 +1937,8 @@ nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
 "[ ####------- FileType Settings ---------------#### ]"{{{
 augroup detect_filetype
   autocmd!
+  " javascript genus
+  autocmd BufNewFile,BufRead *.bowerrc* set filetype=javascript
   " perl genus
   autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
   autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
