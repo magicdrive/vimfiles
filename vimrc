@@ -84,17 +84,10 @@ nnoremap <Plug>(mykey)/ :<C-u>set filetype=
 filetype indent on
 filetype plugin on
 
-"# command-line modeへの切り替え
-"#noremap ; :
-"#noremap ' ;
 nnoremap <Plug>(mykey); :<C-u>!
-nnoremap <Plug>(mykey)' :<C-u>r!
+nnoremap <Plug>(mykey): :<C-u>r!
 vnoremap <Plug>(mykey); :!
-vnoremap <Plug>(mykeylite)' :r!
-
-"# substitution
-vnoremap <Plug>(mykeylite)s :s///<LEFT><LEFT>
-nnoremap <Plug>(mykeylite)s :<C-u>%s///<LEFT><LEFT>
+vnoremap <Plug>(mykeylite): :r!
 
 "# <ESC>のマッピング
 noremap  <silent> <C-@> <ESC>
