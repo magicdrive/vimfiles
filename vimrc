@@ -927,6 +927,8 @@ NeoBundleLazy 'ruby-matchit', {
 NeoBundle 'tpope/vim-rails', 'v5.0'
 "# vim-ref-ri
 NeoBundle 'taka84u9/vim-ref-ri'
+"# vim-bundler
+NeoBundle 'tpope/vim-bundler'
 
 "#-----------------------#
 "# python                #
