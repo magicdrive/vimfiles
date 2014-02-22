@@ -1545,7 +1545,7 @@ let g:rehash256=1
 "### Jedi {{{
 command! -nargs=0 JediRename :call jedi#rename()
 let g:jedi#rename_command = ""
-let g:jedi#pydoc = ""
+let g:jedi#documentation_command = "pydoc"
 "}}}
 "### IndentLine {{{
 nnoremap <silent> <Plug>(mykey)y :IndentLinesToggle<CR>
@@ -1650,6 +1650,18 @@ command! -nargs=0 IrbWithBundler call <SID>start_repl('bundle exec irb')
 command! -nargs=0 Pry call <SID>start_repl('pry --no-color')
 command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry --no-color')
 command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
+
+"}}}
+"### Python support{{{
+
+augroup python_ftplugin
+  autocmd!
+  autocmd FileType python setlocal tabstop=2 shiftwidth=2 expandtab
+  autocmd FileType python setlocal autoindent
+  autocmd FileType python setlocal smartindent
+  autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
+  autocmd FileType python setlocal commentstring=#%s
+augroup END
 
 "}}}
 "### Golang support {{{
