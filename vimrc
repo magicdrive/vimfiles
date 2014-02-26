@@ -751,6 +751,7 @@ NeoBundleLazy 'basyura/unite-rails', {
 "# unite-outline
 NeoBundle 'h1mesuke/unite-outline'
 
+
 "#---------------------------#
 "# programing suport plug-in #
 "#---------------------------#
@@ -767,6 +768,13 @@ NeoBundleLazy 'MultipleSearch', {
 "# align.vim
 NeoBundleLazy 'Align', {
       \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
+      \ }
+
+"#-------#
+"# dlang #
+"#-------#
+NeoBundleLazy 'JesseKPhillips/d.vim', {
+      \ 'autoload' : {'filetypes': ['d']}
       \ }
 
 "#-----------------------#
@@ -1986,6 +1994,8 @@ augroup detect_filetype
   " altjs
   autocmd BufRead,BufNewFile *.coffee set filetype=coffee
   autocmd BufRead,BufNewFile *.ts set filetype=typescript
+  " dlang
+  autocmd BufNewFile,BufRead *.d setf d
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
