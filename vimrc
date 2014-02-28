@@ -881,6 +881,10 @@ NeoBundleLazy 'leafgarland/typescript-vim',{
 NeoBundleLazy 'digitaltoad/vim-jade', {
       \ 'autoload' : {'filetypes': ['javascript']}
       \ }
+"# jasmine
+NeoBundle 'claco/jasmine.vim', {
+      \ 'autoload' : {'filetypes': ['javascript']}
+      \ }
 
 "#-----------------------#
 "# haxe                  #
@@ -1958,44 +1962,46 @@ nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
 augroup detect_filetype
   autocmd!
   " javascript genus
-  autocmd BufNewFile,BufRead *.bowerrc* set filetype=javascript
+  autocmd BufNewFile,BufRead,BufWritePost *.bowerrc* set filetype=javascript
+  autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.js,*SpecHelper.js set filetype=jasmine.javascript syntax=jasmine.javascript
+  autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
   " perl genus
-  autocmd BufNewFile,BufRead *.tt,*.cfm set filetype=html
-  autocmd BufNewFile,BufRead *.t,*.psgi set filetype=perl
+  autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
+  autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
   " llvm genus
-  autocmd BufNewFile,BufRead *.m set filetype=objective-c
+  autocmd BufNewFile,BufRead,BufWritePost *.m set filetype=objective-c
   " shell genus
-  autocmd BufNewFile,BufRead **/nginx/conf/*.conf set filetype=nginx
-  autocmd BufNewFile,BufRead */apache/conf/* set filetype=apache
-  autocmd BufNewFile,BufRead */patches/* set filetype=diff
-  autocmd BufNewFile,BufRead *tmux*conf* set filetype=tmux
+  autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
+  autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
+  autocmd BufNewFile,BufRead,BufWritePost */patches/* set filetype=diff
+  autocmd BufNewFile,BufRead,BufWritePost *tmux*conf* set filetype=tmux
   " graphics genus
-  autocmd BufNewFile,BufRead *.pde set filetype=processing
-  autocmd BufNewFile,BufRead *.as set filetype=actionscript
-  autocmd BufNewFile,BufRead *.hx set filetype=haxe
-  autocmd BufNewFile,BufRead *.mxml set filetype=mxml
+  autocmd BufNewFile,BufRead,BufWritePost *.pde set filetype=processing
+  autocmd BufNewFile,BufRead,BufWritePost *.as set filetype=actionscript
+  autocmd BufNewFile,BufRead,BufWritePost *.hx set filetype=haxe
+  autocmd BufNewFile,BufRead,BufWritePost *.mxml set filetype=mxml
   " jvm genus
-  autocmd BufNewFile,BufRead .vrapperrc set filetype=vim
-  autocmd BufNewFile,BufRead *.scala set filetype=scala
-  autocmd BufNewFile,BufRead *.sbt set filetype=scala
-  autocmd BufNewFile,BufRead *.gradle set filetype=groovy
+  autocmd BufNewFile,BufRead,BufWritePost .vrapperrc set filetype=vim
+  autocmd BufNewFile,BufRead,BufWritePost *.scala set filetype=scala
+  autocmd BufNewFile,BufRead,BufWritePost *.sbt set filetype=scala
+  autocmd BufNewFile,BufRead,BufWritePost *.gradle set filetype=groovy
   " ruby genus
-  autocmd BufNewFile,BufRead Gemfile set filetype=ruby
-  autocmd BufNewFile,BufRead gemspec set filetype=ruby
-  autocmd BufNewFile,BufRead *.ru set filetype=ruby
-  autocmd BufNewFile,BufRead *_spec.rb set filetype=ruby.rspec
+  autocmd BufNewFile,BufRead,BufWritePost Gemfile set filetype=ruby
+  autocmd BufNewFile,BufRead,BufWritePost gemspec set filetype=ruby
+  autocmd BufNewFile,BufRead,BufWritePost *.ru set filetype=ruby
+  autocmd BufNewFile,BufRead,BufWritePost *_spec.rb set filetype=ruby.rspec
   " lisp genus
   autocmd FileType lisp set syntax=lisp
-  autocmd BufNewFile,BufRead *.gosh :set filetype=scheme
+  autocmd BufNewFile,BufRead,BufWritePost *.gosh :set filetype=scheme
   autocmd FileType scheme set syntax=scheme
   " beamvm
-  autocmd BufRead,BufNewFile *.ex,*.exs set filetype=elixir
-  autocmd BufRead,BufNewFile *.erl set filetype=erlang
+  autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
+  autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
   " altjs
-  autocmd BufRead,BufNewFile *.coffee set filetype=coffee
-  autocmd BufRead,BufNewFile *.ts set filetype=typescript
+  autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
+  autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
   " dlang
-  autocmd BufNewFile,BufRead *.d setf d
+  autocmd BufNewFile,BufRead,BufWritePost *.d setf d
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
