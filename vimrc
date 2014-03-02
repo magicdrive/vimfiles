@@ -1846,6 +1846,7 @@ augroup template_setting
   autocmd BufNewFile *.html   0r $HOME/.vim/misc/tmpl/html5.template.html
   autocmd BufNewFile *.psgi   0r $HOME/.vim/misc/tmpl/app.psgi
   autocmd BufNewFile *.py     0r $HOME/.vim/misc/tmpl/python.template.py
+  autocmd BufNewFile *.py3    0r $HOME/.vim/misc/tmpl/python3.template.py3
   autocmd BufNewFile *.rb     0r $HOME/.vim/misc/tmpl/template.rb
   autocmd BufNewFile Gemfile  0r $HOME/.vim/misc/tmpl/Gemfile
   autocmd BufNewFile Rakefile 0r $HOME/.vim/misc/tmpl/Rakefile
@@ -1978,6 +1979,8 @@ augroup detect_filetype
   " perl genus
   autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
   autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
+  " perl genus
+  autocmd BufNewFile,BufRead,BufWritePost *.py,*.py3.3,*.py3,*.py2,*py2.7 set filetype=python
   " llvm genus
   autocmd BufNewFile,BufRead,BufWritePost *.m set filetype=objective-c
   " shell genus
