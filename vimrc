@@ -1878,12 +1878,12 @@ syntax enable
 let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_a='hybrid-light'
-let g:gui_colorscheme_b='molokai'
+let g:gui_colorscheme_a='hybrid'
+let g:gui_colorscheme_b='hybrid-light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='hybrid'
+let g:cui_colorscheme_a='jellybeans'
 let g:cui_colorscheme_b='matrix'
 
 let g:current_color_mode=g:default_color_mode
