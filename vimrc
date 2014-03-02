@@ -821,6 +821,16 @@ NeoBundleLazy 'cohama/the-ocamlspot.vim', {
       \ }
 
 "#-----------------------#
+"# coq                   #
+"#-----------------------#
+"# coqtop
+NeoBundle 'eagletmt/coqtop-vim'
+"# coqsyntax
+NeoBundleLazy 'jvoorhis/coq.vim', {
+      \ "autoload" : {"filetypes": ['coq']}
+      \}
+
+"#-----------------------#
 "# jvm                   #
 "#-----------------------#
 "# groovy.vim
@@ -1992,8 +2002,10 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost *_spec.rb set filetype=ruby.rspec
   " lisp genus
   autocmd FileType lisp set syntax=lisp
-  autocmd BufNewFile,BufRead,BufWritePost *.gosh :set filetype=scheme
+  autocmd BufNewFile,BufRead,BufWritePost *.gosh set filetype=scheme
   autocmd FileType scheme set syntax=scheme
+  " coq
+  autocmd BufRead,BufNewFile,BufWritePost *.v set filetype=coq
   " beamvm
   autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
   autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
