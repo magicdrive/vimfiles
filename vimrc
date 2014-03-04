@@ -1566,6 +1566,9 @@ let g:jellybeans_background_color_256=''
 let g:molokai_original=1
 let g:rehash256=1
 "}}}
+"### plum {{{
+let g:plum_force_bg = "dark"
+"}}}
 "### Jedi {{{
 command! -nargs=0 JediRename :call jedi#rename()
 let g:jedi#rename_command = ""
