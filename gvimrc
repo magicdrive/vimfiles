@@ -92,7 +92,7 @@ function! MyGUIMacVimSetting()
 
     execute 'colorscheme ' .
                 \ ( (g:default_color_mode ==# 'A') ?
-                \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+                \ g:gui_colorscheme_a : g:gui_colorscheme_b)
     augroup color_set
         autocmd!
     augroup END

@@ -1059,8 +1059,6 @@ NeoBundle 'vim-scripts/twilight'
 NeoBundle 'vim-scripts/pyte'
 "# chlordane
 NeoBundle 'vim-scripts/chlordane.vim'
-"# chlordane
-NeoBundle 'gcmt/plum.vim'
 
 filetype plugin on
 filetype indent on
@@ -1881,11 +1879,11 @@ let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
 let g:gui_colorscheme_a='hybrid-light'
-let g:gui_colorscheme_b='plum'
+let g:gui_colorscheme_b='molokai'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='jellybeans'
+let g:cui_colorscheme_a='hybrid'
 let g:cui_colorscheme_b='matrix'
 
 let g:current_color_mode=g:default_color_mode
