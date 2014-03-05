@@ -311,6 +311,11 @@ else
   set nobackup
   set noswapfile
 endif
+"# undo
+if has('persistent_undo')
+  set undodir=~/.vimundo
+  set undofile
+endif
 
 "}}}
 "### Tab "{{{
