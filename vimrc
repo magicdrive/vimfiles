@@ -677,8 +677,6 @@ NeoBundle 'jceb/vim-hier'
 NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
-"# indent-guides
-NeoBundle 'Yggdroot/indentLine'
 
 "# vim-endwise
 NeoBundleLazy 'taichouchou2/vim-endwise', {
@@ -1576,10 +1574,6 @@ let g:plum_force_bg = "dark"
 command! -nargs=0 JediRename :call jedi#rename()
 let g:jedi#rename_command = ""
 let g:jedi#documentation_command = "pydoc"
-"}}}
-"### IndentLine {{{
-nnoremap <silent> <Plug>(mykey)y :IndentLinesToggle<CR>
-let g:indentLine_fileType = ['python', 'coffee', 'clojure', 'lisp', 'scheme', 'erlang']
 "}}}
 " }}}
 "[ ####------- Programming Support Settings ----#### ] {{{
