@@ -621,10 +621,10 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 "#---------------------------#
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
-"# neocomplcache
-NeoBundleLazy 'Shougo/neocomplcache', 'ver.8.0', {
-      \ 'autoload' : { 'insert' : 1, }
-      \ }
+"# sonictemplate
+NeoBundle 'mattn/sonictemplate-vim'
+     " \ 'autoload' : { 'commands' : ['Template'] }
+     " \ }
 
 "# neocomplete or neocomplcache
 if g:meet_neocomplete_requirements
@@ -1079,22 +1079,10 @@ nnoremap <silent> <Plug>(mykey)I  :<C-u>Unite -no-split -buffer-name=files file<
 nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
 
 "#---------------------------#
-"# neobundle+unite           #
-"#---------------------------#
-" neobundle-menu
-nnoremap <silent> <Plug>(mykey)b  :<C-u>Unite -no-split neobundle/
-
-"#---------------------------#
 "# ref+unite                 #
 "#---------------------------#
 " perldoc
 nnoremap <silent> <Plug>(mykeylite)r :<C-u>Unite ref/
-
-"#---------------------------#
-"# tweetvim+unite            #
-"#---------------------------#
-" tweetvim menu
-nnoremap <silent> <Plug>(mykeylite)t  :<C-u>Unite tweetvim<CR>
 
 "#---------------------------#
 "# unitesource:unite-outline #
@@ -1567,8 +1555,8 @@ let g:jellybeans_background_color_256=''
 let g:molokai_original=1
 let g:rehash256=1
 "}}}
-"### plum {{{
-let g:plum_force_bg = "dark"
+"### sonictemplate {{{
+nnoremap <Plug>(mykeylite)t :<C-u>Template<Space>
 "}}}
 "### Jedi {{{
 command! -nargs=0 JediRename :call jedi#rename()
@@ -1840,26 +1828,6 @@ augroup END
 let html_wrong_comments=1
 
 "}}}
-"### Template FileSetting{{{
-augroup template_setting
-  autocmd!
-  autocmd BufNewFile *.pl     0r $HOME/.vim/misc/tmpl/perl.template.pl
-  autocmd BufNewFile *.pm     0r $HOME/.vim/misc/tmpl/perl_module.template.pm
-  autocmd BufNewFile *.html   0r $HOME/.vim/misc/tmpl/html5.template.html
-  autocmd BufNewFile *.psgi   0r $HOME/.vim/misc/tmpl/app.psgi
-  autocmd BufNewFile *.py     0r $HOME/.vim/misc/tmpl/python.template.py
-  autocmd BufNewFile *.py3    0r $HOME/.vim/misc/tmpl/python3.template.py3
-  autocmd BufNewFile *.rb     0r $HOME/.vim/misc/tmpl/template.rb
-  autocmd BufNewFile Gemfile  0r $HOME/.vim/misc/tmpl/Gemfile
-  autocmd BufNewFile Rakefile 0r $HOME/.vim/misc/tmpl/Rakefile
-  autocmd BufNewFile gemspec  0r $HOME/.vim/misc/tmpl/gemspec
-  autocmd BufNewFile *.ru     0r $HOME/.vim/misc/tmpl/config.ru
-  autocmd BufNewFile *.scm    0r $HOME/.vim/misc/tmpl/template.scm
-  autocmd BufNewFile *.ss     0r $HOME/.vim/misc/tmpl/template.scm
-  autocmd BufNewFile *.lisp   0r $HOME/.vim/misc/tmpl/template.lisp
-  autocmd BufNewFile *.clj    0r $HOME/.vim/misc/tmpl/template.clj
-augroup END
-" }}}
 " }}}
 "[ ####------- Colorscheme Settings ------------#### ] "{{{
 
