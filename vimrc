@@ -1073,7 +1073,7 @@ let g:unite_source_file_mru_limit=10000
 "# buffers+unite             #
 "#---------------------------#
 nnoremap <silent> <Plug>(mykey)B  :<C-u>Unite -no-split buffer<CR>
-nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split -start-insert file_mru<CR>
+nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split file_mru<CR>
 nnoremap <silent> <Plug>(mykey)F  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
 nnoremap <silent> <Plug>(mykey)I  :<C-u>Unite -no-split -buffer-name=files file<CR>
 nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
@@ -1607,8 +1607,10 @@ augroup perl_ftplugin
   autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
   autocmd FileType perl nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
   autocmd FileType perl vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
-  autocmd FileType perl,ref-perldoc nnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
-  autocmd FileType perl,ref-perldoc vnoremap <buffer> <C-l> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
+  autocmd FileType perl,ref-perldoc nnoremap <buffer> <Plug>(mykey)3 :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
+  autocmd FileType perl,ref-perldoc vnoremap <buffer> <Plug>(mykey)3 :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
+  autocmd FileType perl,ref-perldoc nnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
+  autocmd FileType perl,ref-perldoc vnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
   autocmd VimEnter * call AlterFileTypePerl()
 augroup END
 "}}}
@@ -1650,8 +1652,10 @@ augroup ruby_ftplugin
   autocmd FileType ruby,ref-ri setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,?,-
   autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open(g:ref_ruby_cmd, expand('<cword>'))<CR>
   autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', g:ref_ruby_cmd)<CR>
-  autocmd FileType ruby,ref-ri nnoremap <buffer> <C-l> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
-  autocmd FileType ruby,ref-ri vnoremap <buffer> <C-l> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
+  autocmd FileType ruby,ref-ri nnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
+  autocmd FileType ruby,ref-ri vnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
+  autocmd FileType ruby,ref-ri nnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
+  autocmd FileType ruby,ref-ri vnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
   autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
   autocmd FileType ruby setlocal autoindent
   autocmd VimEnter * call AlterFileTypeRuby()
