@@ -1954,9 +1954,10 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
   autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
   " perl genus
-  autocmd BufNewFile,BufRead,BufWritePost *.py,*.py3.3,*.py3,*.py2,*py2.7 set filetype=python
+  autocmd BufNewFile,BufRead,BufWritePost *.py,*.py3.[0-9],*.py3,*.py2,*.py2.[0-9] set filetype=python
   " llvm genus
-  autocmd BufNewFile,BufRead,BufWritePost *.m set filetype=objective-c
+  autocmd BufNewFile,BufRead,BufWritePost *.m  set filetype=objective-c
+  autocmd BufNewFile,BufRead,BufWritePost *.mm set filetype=cpp.objective-c
   " shell genus
   autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
   autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
