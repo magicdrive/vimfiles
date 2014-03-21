@@ -12,7 +12,7 @@ current=$(cd $(dirname $0) && pwd)
 
 if [ ! -e ${current}/vim/memo ];then
   if [ -e $HOME/Dropbox/memolist.d ];then
-    ln -s $HOME/Dropbox/memolist.d ${current}/vim/memo
+    ln -sfn $HOME/Dropbox/memolist.d ${current}/vim/memo
   else
     if [ -L ${current}/vim/memo ];then
       rm ${current}/vim/memo
@@ -57,7 +57,7 @@ vimproc_build() {
 files=( 'vimrc' 'gvimrc' 'vim' );
 for x in ${files[@]}; do
   [ -e ${HOME}/.${x} ] && mv ${HOME}/.${x} ${HOME}/.${x}.BAK.${execdatetime}
-  ln -s ${current}/${x} ${HOME}/.${x}
+  ln -sfn ${current}/${x} ${HOME}/.${x}
 done;
 
 vimproc_build
