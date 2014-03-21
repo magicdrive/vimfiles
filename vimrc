@@ -623,8 +623,13 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# sonictemplate
 NeoBundle 'mattn/sonictemplate-vim'
-     " \ 'autoload' : { 'commands' : ['Template'] }
-     " \ }
+
+"# editorconfig
+if has('python')
+  NeoBundle 'editorconfig/editorconfig-vim'
+else
+  NeoBundleFetch 'editorconfig/editorconfig-vim'
+endif
 
 "# neocomplete or neocomplcache
 if g:meet_neocomplete_requirements
