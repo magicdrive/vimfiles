@@ -829,6 +829,12 @@ NeoBundleLazy 'cohama/the-ocamlspot.vim', {
       \ }
 
 "#-----------------------#
+"# julia                 #
+"#-----------------------#
+"# julia-vim
+NeoBundle 'JuliaLang/julia-vim'
+
+"#-----------------------#
 "# coq                   #
 "#-----------------------#
 "# coqtop
