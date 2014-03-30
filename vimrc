@@ -1568,6 +1568,7 @@ let g:rehash256=1
 "}}}
 "### sonictemplate {{{
 nnoremap <Plug>(mykeylite)t :<C-u>Template<Space>
+let g:sonictemplate_vim_template_dir = '~/.vim/misc/template/'
 "}}}
 "### Jedi {{{
 command! -nargs=0 JediRename :call jedi#rename()
