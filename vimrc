@@ -1306,7 +1306,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme=has('gui_running') ? 'lucius' : 'lucius'
+let g:airline_theme=has('gui_running') ? 'lucius' : 'base16'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1863,8 +1863,8 @@ let g:gui_colorscheme_b='hybrid-light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='molokai'
-let g:cui_colorscheme_b='jellybeans'
+let g:cui_colorscheme_a='jellybeans'
+let g:cui_colorscheme_b='molokai'
 
 let g:current_color_mode=g:default_color_mode
 
