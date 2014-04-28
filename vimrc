@@ -1306,7 +1306,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme=has('gui_running') ? 'badwolf' : 'badwolf'
+let g:airline_theme=has('gui_running') ? 'lucius' : 'lucius'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1543,7 +1543,9 @@ function! s:MY_NERDTreeToggle()
 endfunction
 
 let g:NERDTreeHijackNetrw=0
-let g:NERDTreeWinSize=35
+if !has('gui_running')
+  let g:NERDTreeWinSize=35
+endif
 "}}}
 "### Emmet {{{
 "#let g:user_emmet_mode='i'
@@ -1856,7 +1858,7 @@ syntax enable
 let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
-let g:gui_colorscheme_a='hybrid'
+let g:gui_colorscheme_a='molokai'
 let g:gui_colorscheme_b='hybrid-light'
 
 "# CLI

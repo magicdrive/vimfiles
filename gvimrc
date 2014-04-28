@@ -100,7 +100,7 @@ function! MyGUIMacVimSetting()
     set transparency=0
     set imdisable
     set antialias
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h16
     set nobackup
 
 endfunction
