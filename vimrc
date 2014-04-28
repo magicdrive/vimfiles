@@ -1153,7 +1153,7 @@ augroup vimfiler_setting
   autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
   autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
   autocmd FileType vimfiler nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
-  autocmd FileType vimfiler call g:my_vimfiler_settings()
+  autocmd FileType vimfiler call s:my_vimfiler_settings()
 augroup END
 
 "nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
@@ -1306,7 +1306,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme=has('gui_running') ? 'base16' : 'base16'
+let g:airline_theme=has('gui_running') ? 'badwolf' : 'badwolf'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1861,8 +1861,8 @@ let g:gui_colorscheme_b='hybrid-light'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='jellybeans'
-let g:cui_colorscheme_b='matrix'
+let g:cui_colorscheme_a='molokai'
+let g:cui_colorscheme_b='jellybeans'
 
 let g:current_color_mode=g:default_color_mode
 
