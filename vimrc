@@ -1859,7 +1859,7 @@ let g:default_color_mode=has('unix') ? 'A' : 'B'
 
 "# GUI
 let g:gui_colorscheme_a='molokai'
-let g:gui_colorscheme_b='hybrid-light'
+let g:gui_colorscheme_b='github'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
