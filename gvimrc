@@ -41,6 +41,7 @@ function! MyGUISetting ()
 
     "# LineNumber
     set number
+    set nowrap
 
     "# yankとclipboardを同期する
     set clipboard+=unnamed
@@ -100,7 +101,7 @@ function! MyGUIMacVimSetting()
     set transparency=0
     set imdisable
     set antialias
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h16
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
     set nobackup
 
 endfunction
