@@ -857,6 +857,8 @@ NeoBundle 'magicdrive/vim-scala'
 NeoBundle 'thinca/vim-ft-clojure'
 "# vim-processing
 NeoBundle 'sophacles/vim-processing'
+NeoBundle 'pig.vim'
+
 
 "#-----------------------#
 "# perl                  #
@@ -1987,6 +1989,7 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost *.scala set filetype=scala
   autocmd BufNewFile,BufRead,BufWritePost *.sbt set filetype=scala
   autocmd BufNewFile,BufRead,BufWritePost *.gradle set filetype=groovy
+  autocmd BufNewFile,BufRead,BufWritePost *.pig set filetype=pig syntax=pig
   " ruby genus
   autocmd BufNewFile,BufRead,BufWritePost Gemfile set filetype=ruby
   autocmd BufNewFile,BufRead,BufWritePost gemspec set filetype=ruby
