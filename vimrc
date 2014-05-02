@@ -846,6 +846,7 @@ NeoBundle 'thinca/vim-ft-clojure'
 NeoBundle 'sophacles/vim-processing'
 "# pig
 NeoBundle 'pig.vim'
+NeoBundle 'derekwyatt/vim-sbt'
 
 "#-----------------------#
 "# perl                  #
@@ -1244,7 +1245,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme=has('gui_running') ? 'lucius' : 'base16'
+let g:airline_theme=has('gui_running') ? 'lucius' : 'ubaryd'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1383,6 +1384,11 @@ let g:watchdogs_check_CursorHold_enables = {
       \ 'scala' : 0,
       \ 'd' : 0
       \ }
+
+let g:watchdogs_check_BufWritePost_enables = {
+      \	"scala" : 0,
+      \ 'd' : 0
+      \}
 
 let g:quickrun_config["watchdogs_checker/_"] = {
       \       "hook/close_quickfix/enable_exit" : 1,
@@ -1801,8 +1807,8 @@ let g:gui_colorscheme_b='github'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='jellybeans'
-let g:cui_colorscheme_b='molokai'
+let g:cui_colorscheme_a='molokai'
+let g:cui_colorscheme_b='jellybeans'
 
 let g:current_color_mode=g:default_color_mode
 
@@ -1879,6 +1885,8 @@ function! MyColor()
 
   "# 検索結果のカラースキーム変更
   highlight Search ctermbg=Gray
+  highlight rubyModule ctermfg=82 guifg=#5fff00
+  highlight rubyClass  ctermfg=82 guifg=#5fff00
 endfunction
 
 augroup color_set
