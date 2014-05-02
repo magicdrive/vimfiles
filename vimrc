@@ -394,7 +394,7 @@ set smarttab
 set cindent
 
 "# タブを空白に置き換える
-let g:my_default_indent=2
+let g:my_default_indent=4
 execute 'set tabstop=' . g:my_default_indent
 set expandtab
 execute 'set softtabstop=' . g:my_default_indent
@@ -621,6 +621,7 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 "#---------------------------#
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
+NeoBundle 'mattn/sonictemplate-vim'
 
 "# neocomplete or neocomplcache
 if g:meet_neocomplete_requirements
@@ -955,6 +956,10 @@ NeoBundle 'tpope/vim-rails', 'v5.0'
 NeoBundle 'taka84u9/vim-ref-ri'
 "# vim-bundler
 NeoBundle 'tpope/vim-bundler'
+"# ruby lvar highlight
+NeoBundleLazy 'todesking/ruby_hl_lvar.vim', {
+      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+      \ }
 
 "#-----------------------#
 "# python                #
@@ -1526,7 +1531,6 @@ let g:jedi#documentation_command = "pydoc"
 "### C++ support "{{{
 augroup cpp_ftplugin
   autocmd!
-  autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 expandtab
   if executable('clang-format')
     autocmd FileType c,cpp nnoremap <buffer> <C-\> :<C-u>call <SID>IndentFormat('%!clang-format')<CR>
     autocmd FileType c,cpp vnoremap <buffer> <C-\> :!clang-format<CR>
@@ -1751,7 +1755,6 @@ let g:node_usejscomplete = 1
 augroup javascript_plugin
   autocmd!
   autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
-  autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
   autocmd FileType javascript setlocal autoindent
 augroup END
 
