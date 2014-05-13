@@ -840,14 +840,19 @@ NeoBundleLazy 'groovy.vim', {
       \ "autoload" : {"filetypes": ['groovy']}
       \ }
 "# vim-scala
-NeoBundle 'magicdrive/vim-scala'
+NeoBundleLazy 'magicdrive/vim-scala', {
+      \ "autoload" : {"filetypes": ['scala']}
+      \}
 "# clojure
 NeoBundle 'thinca/vim-ft-clojure'
 "# vim-processing
 NeoBundle 'sophacles/vim-processing'
 "# pig
 NeoBundle 'pig.vim'
-NeoBundle 'derekwyatt/vim-sbt'
+"# sbt
+NeoBundleLazy 'derekwyatt/vim-sbt', {
+      \ "autoload" : {"filetypes": ['sbt']}
+      \}
 
 "#-----------------------#
 "# perl                  #
@@ -1930,7 +1935,7 @@ augroup detect_filetype
   " jvm genus
   autocmd BufNewFile,BufRead,BufWritePost .vrapperrc set filetype=vim
   autocmd BufNewFile,BufRead,BufWritePost *.scala set filetype=scala
-  autocmd BufNewFile,BufRead,BufWritePost *.sbt set filetype=scala
+  autocmd BufNewFile,BufRead,BufWritePost *.sbt set filetype=sbt
   autocmd BufNewFile,BufRead,BufWritePost *.gradle set filetype=groovy
   autocmd BufNewFile,BufRead,BufWritePost *.pig set filetype=pig syntax=pig
   " ruby genus
