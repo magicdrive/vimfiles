@@ -636,6 +636,11 @@ else
         \ }
 endif
 
+"# vimshell
+NeoBundleLazy 'Shougo/vimshell', {
+            \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
+            \ }
+
 "# vim-singleton
 if has('clientserver')
   NeoBundle 'thinca/vim-singleton'
@@ -1126,6 +1131,50 @@ let g:loaded_netrwPlugin = 1
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_force_overwrite_statusline = 0
 "}}}
+"### VimShell {{{2
+
+let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
+let g:vimshell_user_prompt='getcwd()'
+let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
+
+"# VimShellを新規Windowで立ち上げる
+command! Vshell call s:Shell()
+function! s:alter_vimshell()
+    AlterCommand  vsh[ell] Vshell
+endfunction
+augroup vimshell_setting
+    autocmd!
+    "# shell buffer clear
+    autocmd VimEnter * call s:alter_vimshell()
+augroup END
+
+nnoremap <silent> <Plug>(mykey)< :<C-u> call <SID>Shell()<CR>
+function! s:Shell()
+    echo 'vimshell start'
+    VimShell
+    setlocal number
+endfunction
+
+nnoremap <silent> <Plug>(mykey), :<C-u> call ShellSplit()<CR>
+function! ShellSplit()
+    vsplit
+    call s:Shell()
+endfunction
+
+nnoremap <silent> <Plug>(mykey)l :VimShellPop<CR>
+
+" iexe REPL
+function! s:start_repl(repl_command)
+    let l:command_name=a:repl_command
+    if exists('g:project_dirname')
+        execute 'cd ' . g:project_dirname
+    endif
+    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
+    stopinsert
+    wincmd k
+endfunction
+
+"}}}2
 "### MemoList.vim {{{
 
 let g:memolist_memo_suffix="txt"
