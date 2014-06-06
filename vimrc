@@ -970,9 +970,12 @@ NeoBundle 'tpope/vim-bundler'
 "#-----------------------#
 "# python                #
 "#-----------------------#
+"# jedi
 NeoBundleLazy 'davidhalter/jedi-vim', {
       \ 'autoload': { 'filetypes': ['python'] }
       \ }
+"# ansible
+NeoBundle 'chase/vim-ansible-yaml'
 
 "#-----------------------#
 "# html-coding           #
