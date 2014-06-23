@@ -1863,8 +1863,8 @@ let g:gui_colorscheme_b='github'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='molokai'
-let g:cui_colorscheme_b='jellybeans'
+let g:cui_colorscheme_a='jellybeans'
+let g:cui_colorscheme_b='molokai'
 
 let g:current_color_mode=g:default_color_mode
 
@@ -1941,8 +1941,8 @@ function! MyColor()
 
   "# 検索結果のカラースキーム変更
   highlight Search ctermbg=Gray
-  highlight rubyModule ctermfg=82 guifg=#5fff00
-  highlight rubyClass  ctermfg=82 guifg=#5fff00
+"  highlight rubyModule ctermfg=82 guifg=#5fff00
+"  highlight rubyClass  ctermfg=82 guifg=#5fff00
 endfunction
 
 augroup color_set
