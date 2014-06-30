@@ -662,7 +662,7 @@ NeoBundleLazy 'Shougo/vimfiler', {
       \   }
       \ }
 "# NERDTree
-NeoBundleLazy 'scrooloose/nerdtree', {
+NeoBundleLazy 'scrooloose/nerdtree', '4.2.0', {
       \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
       \ }
 "# quickrun
