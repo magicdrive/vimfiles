@@ -1303,7 +1303,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme=has('gui_running') ? 'lucius' : 'base16'
+let g:airline_theme=has('gui_running') ? 'lucius' : 'ubaryd'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
