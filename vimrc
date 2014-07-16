@@ -621,6 +621,7 @@ call neobundle#rc( expand('~/.vim/bundle/automatic') )
 "#---------------------------#
 "# neobundle
 NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
+"# sonic-template
 NeoBundle 'mattn/sonictemplate-vim'
 
 "# neocomplete or neocomplcache
@@ -908,6 +909,9 @@ NeoBundleLazy 'digitaltoad/vim-jade', {
       \ }
 "# jasmine
 NeoBundle 'claco/jasmine.vim', {
+      \ 'autoload' : {'filetypes': ['javascript']}
+      \ }
+NeoBundleLazy 'dart-lang/dart-vim-plugin', {
       \ 'autoload' : {'filetypes': ['javascript']}
       \ }
 
@@ -1966,6 +1970,7 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost *.bowerrc* set filetype=javascript
   autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.js,*SpecHelper.js set filetype=jasmine.javascript syntax=jasmine.javascript
   autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
+  autocmd BufRead,BufNewFile,BufWritePost *.dart set filetype=dart
   " perl genus
   autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
   autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
