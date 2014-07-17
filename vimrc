@@ -1971,6 +1971,10 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.js,*SpecHelper.js set filetype=jasmine.javascript syntax=jasmine.javascript
   autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
   autocmd BufRead,BufNewFile,BufWritePost *.dart set filetype=dart
+  autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
+  autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
+  " html genus
+  autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
   " perl genus
   autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
   autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
@@ -2009,9 +2013,6 @@ augroup detect_filetype
   " beamvm
   autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
   autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
-  " altjs
-  autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
-  autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
   " dlang
   autocmd BufNewFile,BufRead,BufWritePost *.d setf d
 augroup END
