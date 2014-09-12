@@ -663,7 +663,7 @@ NeoBundleLazy 'Shougo/vimfiler', {
       \   }
       \ }
 "# NERDTree
-NeoBundleLazy 'scrooloose/nerdtree', '4.2.0', {
+NeoBundleLazy 'scrooloose/nerdtree', {
       \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
       \ }
 "# quickrun
@@ -904,9 +904,7 @@ NeoBundleLazy 'leafgarland/typescript-vim',{
       \ 'autoload' : {'filetypes': ['typescript']}
       \ }
 "# jade
-NeoBundleLazy 'digitaltoad/vim-jade', {
-      \ 'autoload' : {'filetypes': ['javascript']}
-      \ }
+NeoBundle 'digitaltoad/vim-jade'
 "# jasmine
 NeoBundle 'claco/jasmine.vim', {
       \ 'autoload' : {'filetypes': ['javascript']}
