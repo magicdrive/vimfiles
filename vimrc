@@ -626,12 +626,12 @@ NeoBundle 'mattn/sonictemplate-vim'
 
 "# neocomplete or neocomplcache
 if g:meet_neocomplete_requirements
-  NeoBundleLazy 'Shougo/neocomplete.vim', {
+  NeoBundleLazy 'Shougo/neocomplete.vim', 'ver.1.1', {
         \ 'autoload' : { 'insert' : 1, }
         \ }
   NeoBundleFetch 'Shougo/neocomplcache.vim', 'ver.8.0'
 else
-  NeoBundleFetch 'Shougo/neocomplete.vim'
+  NeoBundleFetch 'Shougo/neocomplete.vim', 'ver.1.1'
   NeoBundleLazy 'Shougo/neocomplcache.vim', 'ver.8.0', {
         \ 'autoload' : { 'insert' : 1, }
         \ }
