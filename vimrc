@@ -823,22 +823,6 @@ NeoBundleLazy 'cohama/the-ocamlspot.vim', {
       \ }
 
 "#-----------------------#
-"# julia                 #
-"#-----------------------#
-"# julia-vim
-NeoBundle 'JuliaLang/julia-vim'
-
-"#-----------------------#
-"# coq                   #
-"#-----------------------#
-"# coqtop
-NeoBundle 'eagletmt/coqtop-vim'
-"# coqsyntax
-NeoBundleLazy 'jvoorhis/coq.vim', {
-      \ "autoload" : {"filetypes": ['coq']}
-      \}
-
-"#-----------------------#
 "# jvm                   #
 "#-----------------------#
 "# groovy.vim

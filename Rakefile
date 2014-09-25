@@ -17,3 +17,5 @@ task :dist_clean do
   Process::wait(spawn('rm -fr ./vim/bundle/automatic/*'))
 end
 
+desc 'clean install.'
+task :clean_install => [:dist_clean, :install]
