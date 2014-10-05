@@ -746,9 +746,7 @@ endif
 NeoBundleLazy 'Shougo/unite.vim', 'ver.6.0', {
       \ 'autoload' : { 'commands' : ['Unite'] }
       \ }
-NeoBundleLazy 'Shougo/neomru.vim', {
-      \ 'autoload' : { 'commands' : ['Unite'] }
-      \ }
+NeoBundle 'Shougo/neomru.vim'
 
 "# unite-rails
 NeoBundleLazy 'basyura/unite-rails', {
