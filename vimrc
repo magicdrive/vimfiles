@@ -1987,6 +1987,7 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost [Gg]emfile set filetype=ruby
   autocmd BufNewFile,BufRead,BufWritePost gemspec set filetype=ruby
   autocmd BufNewFile,BufRead,BufWritePost *.ru set filetype=ruby
+  autocmd BufNewFile,BufRead,BufWritePost *.unicorn set filetype=ruby
   autocmd BufNewFile,BufRead,BufWritePost *.god,*.eye set filetype=ruby
   autocmd BufNewFile,BufRead,BufWritePost *_spec.rb set filetype=ruby.rspec
   autocmd BufNewFile,BufRead,BufWritePost *[Pp]rocfile* set syntax=yaml
