@@ -1809,6 +1809,12 @@ augroup typescript_ftplugin
   autocmd BufWritePost typescript :make
 augroup END
 "}}}
+"### YAML file {{{
+augroup yaml_ftplugin
+  autocmd!
+  autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
+augroup END
+"}}}
 "### FileType(Language) assistance "{{{
 
 "辞書ファイルを使用する設定に変更
