@@ -614,7 +614,7 @@ let g:neobundle_default_git_protocol = 'git'
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
 endif
-call neobundle#rc( expand('~/.vim/bundle/automatic') )
+call neobundle#begin( expand('~/.vim/bundle/automatic') )
 
 "#---------------------------#
 "# regular use               #
@@ -1053,6 +1053,7 @@ NeoBundle 'vim-scripts/pyte'
 "# chlordane
 NeoBundle 'vim-scripts/chlordane.vim'
 
+call neobundle#end()
 filetype plugin on
 filetype indent on
 "}}}
