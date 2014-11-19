@@ -782,7 +782,7 @@ NeoBundleLazy 'JesseKPhillips/d.vim', {
       \ }
 
 "#-----------------------#
-"# llvm??                #
+"# xcode                 #
 "#-----------------------#
 "# cocoa.vim
 NeoBundleLazy 'cocoa.vim', {
@@ -1975,7 +1975,7 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
   " perl genus
   autocmd BufNewFile,BufRead,BufWritePost *.py,*.py3.[0-9],*.py3,*.py2,*.py2.[0-9] set filetype=python
-  " llvm genus
+  " xcode genus
   autocmd BufNewFile,BufRead,BufWritePost *.m  set filetype=objective-c
   autocmd BufNewFile,BufRead,BufWritePost *.mm set filetype=cpp.objective-c
   autocmd BufNewFile,BufRead,BufWritePost *.swift set filetype=swift
