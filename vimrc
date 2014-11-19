@@ -782,11 +782,15 @@ NeoBundleLazy 'JesseKPhillips/d.vim', {
       \ }
 
 "#-----------------------#
-"# llvm                  #
+"# llvm??                #
 "#-----------------------#
 "# cocoa.vim
 NeoBundleLazy 'cocoa.vim', {
       \ 'autoload' : {'filetypes': ['objective-c']}
+      \ }
+"# swift
+NeoBundleLazy 'toyamarinyon/vim-swift', {
+      \ 'autoload' : {'filetypes': ['swift']}
       \ }
 if g:meet_neocomplete_requirements
   "# neocomplcache-clang
@@ -1974,6 +1978,7 @@ augroup detect_filetype
   " llvm genus
   autocmd BufNewFile,BufRead,BufWritePost *.m  set filetype=objective-c
   autocmd BufNewFile,BufRead,BufWritePost *.mm set filetype=cpp.objective-c
+  autocmd BufNewFile,BufRead,BufWritePost *.swift set filetype=swift
   " shell genus
   autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
   autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
@@ -2010,6 +2015,7 @@ augroup detect_filetype
   autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
   " dlang
   autocmd BufNewFile,BufRead,BufWritePost *.d setf d
+  autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
