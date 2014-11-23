@@ -732,7 +732,11 @@ NeoBundle 'troydm/easybuffer.vim'
 "# yankring
 NeoBundle 'YankRing.vim'
 
-set runtimepath+=~/.vim/bundle/manual/vim-golang
+
+"#----------------------------------#
+"# go                               #
+"#----------------------------------#
+NeoBundle 'vim-jp/vim-go-extra'
 
 let g:gocode_path=globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 if filereadable(expand(g:gocode_path))
@@ -2016,6 +2020,8 @@ augroup detect_filetype
   " dlang
   autocmd BufNewFile,BufRead,BufWritePost *.d setf d
   autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
+  " go
+  autocmd BufNewFile,BufRead,BufWritePost Gomfile setlocal ft=gomfile syntax=ruby
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
