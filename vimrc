@@ -738,6 +738,7 @@ NeoBundle 'YankRing.vim'
 "#----------------------------------#
 NeoBundle 'vim-jp/vim-go-extra'
 NeoBundle 'ekalinin/Dockerfile.vim'
+NeoBundle 'zimbatm/direnv.vim'
 
 let g:gocode_path=globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 if filereadable(expand(g:gocode_path))
@@ -1989,6 +1990,7 @@ augroup detect_filetype
   autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
   autocmd BufNewFile,BufRead,BufWritePost */patches/* set filetype=diff
   autocmd BufNewFile,BufRead,BufWritePost *tmux*conf* set filetype=tmux
+  autocmd BufNewFile,BufRead,BufWritePost *envrc* set filetype=bash
   " graphics genus
   autocmd BufNewFile,BufRead,BufWritePost *.pde set filetype=processing
   autocmd BufNewFile,BufRead,BufWritePost *.as set filetype=actionscript
@@ -2013,13 +2015,12 @@ augroup detect_filetype
   autocmd FileType lisp set syntax=lisp
   autocmd BufNewFile,BufRead,BufWritePost *.gosh set filetype=scheme
   autocmd FileType scheme set syntax=scheme
-  " coq
-  autocmd BufRead,BufNewFile,BufWritePost *.v set filetype=coq
   " beamvm
   autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
   autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
   " dlang
   autocmd BufNewFile,BufRead,BufWritePost *.d setf d
+  " mysql
   autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
 augroup END
 "}}}
