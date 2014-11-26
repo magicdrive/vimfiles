@@ -121,7 +121,7 @@ set laststatus=2
 let g:dir_jump=0
 command! -nargs=0 Lcd :execute ":lcd " . expand("%:p:h")
 if g:dir_jump !=# 0
-  autocmd BufEnter * :execute ":lcd " . expand("%:p:h")
+    autocmd BufEnter * :execute ":lcd " . expand("%:p:h")
 endif
 
 "# line number
@@ -173,18 +173,18 @@ command! -nargs=0 VE :VimrcEdit
 command! -nargs=0 E :edit!
 
 function! s:source_gvimrc()
-  if has('gui_running')
-    :source ~/.gvimrc
-  endif
+    if has('gui_running')
+        :source ~/.gvimrc
+    endif
 endfunction
 
 "# extract visual selected string
 function! s:get_visual_selected()
-  let tmp = @@
-  silent normal gvy
-  let selected = @@
-  let @@ = tmp
-  return selected
+    let tmp = @@
+    silent normal gvy
+    let selected = @@
+    let @@ = tmp
+    return selected
 endfunction
 
 "# vimrcの編集
@@ -204,36 +204,36 @@ let s:utf8 = ["utf8","utf-8" ]
 
 "# encode completion
 function! s:completion_encode(ArgLead, CmdLine, CusorPos)
-  let l:cmd = split(a:CmdLine)
-  let l:len_cmd = len(l:cmd)
-  if l:len_cmd <= 2
-    let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
-    return filter(
-          \ ["utf8", "sjis", "eucjp"],
-          \ l:filter_cmd
-          \ )
-  endif
+    let l:cmd = split(a:CmdLine)
+    let l:len_cmd = len(l:cmd)
+    if l:len_cmd <= 2
+        let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
+        return filter(
+                    \ ["utf8", "sjis", "eucjp"],
+                    \ l:filter_cmd
+                    \ )
+    endif
 endfunction
 
 "# encode
 function! s:edit_encode(code)
-  if match(s:shift_jis, a:code)
-    edit ++enc=shift_jis
-  elseif match(s:enc_jp, a:code)
-    edit ++enc=euc-jp
-  elseif match(s:utf8)
-    edit ++enc=utf-8
-  endif
+    if match(s:shift_jis, a:code)
+        edit ++enc=shift_jis
+    elseif match(s:enc_jp, a:code)
+        edit ++enc=euc-jp
+    elseif match(s:utf8)
+        edit ++enc=utf-8
+    endif
 endfunction
 
 command! -nargs=1
-      \ -complete=customlist,s:completion_encode
-      \ Encode :call s:edit_encode('<args>')
+            \ -complete=customlist,s:completion_encode
+            \ Encode :call s:edit_encode('<args>')
 
 
 if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
+    set encoding=japan
+    set fileencoding=japan
 endif
 
 let vimrc_set_encoding = 1
@@ -248,35 +248,35 @@ nnoremap <silent> <Plug>(mykeylite)n :<C-u>call <SID>ToggleNumber()<CR>
 command! -nargs=0 NumberToggle :call <SID>ToggleNumber()
 
 function! s:ToggleNumber()
-  if &number ==# '1'
-    echohl Error | echo "disable line number" | echohl None
-  else
-    echohl DiffChange | echo "enable line number" | echohl None
-  endif
-  setlocal number!
+    if &number ==# '1'
+        echohl Error | echo "disable line number" | echohl None
+    else
+        echohl DiffChange | echo "enable line number" | echohl None
+    endif
+    setlocal number!
 endfunction
 
 "}}}
 "### mouse mode "{{{
 
 if has('mouse')
-  "# マウスモードの有効
-  set mouse=
-  "# terminalmutiprexa内でもマウスモード設定を反映
-  set ttymouse=xterm2
-  "# toggle mouse mode
-  nnoremap <silent> <Plug>(mykeylite)m :<C-u>call <SID>ToggleMouseMode()<CR>
-  command! -nargs=0 MouseToggle :call <SID>ToggleMouseMode()
+    "# マウスモードの有効
+    set mouse=
+    "# terminalmutiprexa内でもマウスモード設定を反映
+    set ttymouse=xterm2
+    "# toggle mouse mode
+    nnoremap <silent> <Plug>(mykeylite)m :<C-u>call <SID>ToggleMouseMode()<CR>
+    command! -nargs=0 MouseToggle :call <SID>ToggleMouseMode()
 
-  function! s:ToggleMouseMode()
-    if &mouse ==# 'a'
-      set mouse=
-      echohl Error | echo "MouseMode disabled" | echohl None
-    else
-      set mouse=a
-      echohl DiffChange | echo "MouseMode enabled" | echohl None
-    endif
-  endfunction
+    function! s:ToggleMouseMode()
+        if &mouse ==# 'a'
+            set mouse=
+            echohl Error | echo "MouseMode disabled" | echohl None
+        else
+            set mouse=a
+            echohl DiffChange | echo "MouseMode enabled" | echohl None
+        endif
+    endfunction
 endif
 
 "}}}
@@ -287,12 +287,12 @@ nnoremap <silent> <Plug>(mykey)c :<C-u>call <SID>ToggleListChar()<CR>
 command! -nargs=0 ListCharToggle :call <SID>ToggleListChar()
 
 function! s:ToggleListChar()
-  if &list ==# '1'
-    echohl Error | echo "disable list char" | echohl None
-  else
-    echohl DiffChange | echo "enable list char" | echohl None
-  endif
-  setlocal list!
+    if &list ==# '1'
+        echohl Error | echo "disable list char" | echohl None
+    else
+        echohl DiffChange | echo "enable list char" | echohl None
+    endif
+    setlocal list!
 endfunction
 
 "}}}
@@ -301,20 +301,20 @@ endfunction
 "# mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup
 let g:backupfile_save_dir="$HOME/.vim-backup"
 if filewritable(expand(g:backupfile_save_dir))
-  set backup
-  set noswapfile
-  execute 'set backupdir=' . g:backupfile_save_dir
-  set backupext=.back
+    set backup
+    set noswapfile
+    execute 'set backupdir=' . g:backupfile_save_dir
+    set backupext=.back
 else
-  echohl Error | echo '!!! no backup mode !!!' | echohl None
-  echo '### mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup'
-  set nobackup
-  set noswapfile
+    echohl Error | echo '!!! no backup mode !!!' | echohl None
+    echo '### mkdir $HOME/.vim-backup && chmod 766 $HOME/.vim-backup'
+    set nobackup
+    set noswapfile
 endif
 "# undo
 if has('persistent_undo')
-  set undodir=~/.vimundo
-  set undofile
+    set undodir=~/.vimundo
+    set undofile
 endif
 
 "}}}
@@ -375,10 +375,10 @@ nnoremap - <C-x>
 "### Indent "{{{
 
 function! s:IndentFormat(cmd)
-  let l:cmd = a:cmd
-  mkview
-  execute "normal " . l:cmd
-  loadview
+    let l:cmd = a:cmd
+    mkview
+    execute "normal " . l:cmd
+    loadview
 endfunction
 
 "# current buffer indent
@@ -442,13 +442,13 @@ nnoremap <Space><Space> za<Space>
 "### for MacVim {{{
 
 if has('macvim')
-  " kaoriyadicwin off
-  let plugin_dicwin_disable=1
+    " kaoriyadicwin off
+    let plugin_dicwin_disable=1
 
-  if exists('+macmeta')
-    " enable meta key
-    set macmeta
-  endif
+    if exists('+macmeta')
+        " enable meta key
+        set macmeta
+    endif
 endif
 
 "}}}
@@ -464,79 +464,79 @@ command! -nargs=0 ResetHome :let g:vimhome_dir=g:vimstart_dir | Home
 " jump current dir
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
-  if a:directory ==# ''
-    execute "cd " . expand("%:p:h")
-  else
-    execute 'cd ' . a:directory
-  endif
+    if a:directory ==# ''
+        execute "cd " . expand("%:p:h")
+    else
+        execute 'cd ' . a:directory
+    endif
 
-  if a:bang ==# ''
-    pwd
-  endif
+    if a:bang ==# ''
+        pwd
+    endif
 endfunction
 
 " highlight 全角space
 function! ZenkakuSpace()
-  highlight ZenkakuSpace
-        \ cterm=underline
-        \ ctermfg=darkgrey
-        \ gui=underline
-        \ guifg=darkgrey
+    highlight ZenkakuSpace
+                \ cterm=underline
+                \ ctermfg=darkgrey
+                \ gui=underline
+                \ guifg=darkgrey
 endfunction
 
 if has('syntax')
-  augroup ZenkakuSpace
-    autocmd!
-    autocmd ColorScheme * call ZenkakuSpace()
-    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-  augroup END
-  call ZenkakuSpace()
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
 endif
 
 let g:matsubi_space_state = 1
 function! MatsubiSpace()
-  if g:matsubi_space_state
-    highlight MatsubiSpace ctermbg=199 guibg=Cyan
-  else
-    highlight MatsubiSpace ctermbg=NONE guibg=NONE
-  endif
+    if g:matsubi_space_state
+        highlight MatsubiSpace ctermbg=199 guibg=Cyan
+    else
+        highlight MatsubiSpace ctermbg=NONE guibg=NONE
+    endif
 endfunction
 
 function! s:ToggleMatsubiSpaceHighLight()
-  let g:matsubi_space_state=g:matsubi_space_state ? 0 : 1
-  call MatsubiSpace()
+    let g:matsubi_space_state=g:matsubi_space_state ? 0 : 1
+    call MatsubiSpace()
 endfunction
 nnoremap <Plug>(mykeylite)c :call <SID>ToggleMatsubiSpaceHighLight()<CR>
 
 if has('syntax')
-  augroup MatsubiSpace
-    autocmd!
-    autocmd ColorScheme * call MatsubiSpace()
-    autocmd VimEnter,WinEnter * match MatsubiSpace /\s\+$/
-  augroup END
-  call ZenkakuSpace()
+    augroup MatsubiSpace
+        autocmd!
+        autocmd ColorScheme * call MatsubiSpace()
+        autocmd VimEnter,WinEnter * match MatsubiSpace /\s\+$/
+    augroup END
+    call ZenkakuSpace()
 endif
 
 function! GetCursorSyntaxGroup()
-  echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-        \    . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-        \    . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+    echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+                \    . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                \    . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfunction
 nnoremap <Leader>s :call GetCursorSyntaxGroup()<CR>
 vnoremap <Leader>s :call GetCursorSyntaxGroup()<CR>
 
 
 function! VimColorTest(outfile, fgend)
-  let result = []
-  for fg in range(a:fgend)
-    let kw = printf('%-7s', printf('c_%d', fg))
-    let h = printf('hi %s ctermfg=%d', kw, fg)
-    let s = printf('syn keyword %s %s', kw, kw)
-    call add(result, printf('%-32s | %s', h, s))
-  endfor
-  call writefile(result, a:outfile)
-  execute 'edit '.a:outfile
-  source %
+    let result = []
+    for fg in range(a:fgend)
+        let kw = printf('%-7s', printf('c_%d', fg))
+        let h = printf('hi %s ctermfg=%d', kw, fg)
+        let s = printf('syn keyword %s %s', kw, kw)
+        call add(result, printf('%-32s | %s', h, s))
+    endfor
+    call writefile(result, a:outfile)
+    execute 'edit '.a:outfile
+    source %
 endfunction
 " Increase numbers in next line to see more colors.
 command! VimColorTest call VimColorTest('vim-color-test.tmp', 255)
@@ -547,60 +547,60 @@ command! VimColorTest call VimColorTest('vim-color-test.tmp', 255)
 let g:enable_highlight_cursor_word=0
 
 function! s:toggle_highlight_cursor_word()
-  if g:enable_highlight_cursor_word
-    let g:enable_highlight_cursor_word = 0
-    call s:hl_clear()
-    echohl Error | echo "Highlight CursorWord disabled" | echohl None
-  else
-    let g:enable_highlight_cursor_word = 1
-    call <SID>set_cursor_word_color()
-    echohl DiffChange | echo "Highlight CursorWord enabled" | echohl None
-  endif
+    if g:enable_highlight_cursor_word
+        let g:enable_highlight_cursor_word = 0
+        call s:hl_clear()
+        echohl Error | echo "Highlight CursorWord disabled" | echohl None
+    else
+        let g:enable_highlight_cursor_word = 1
+        call <SID>set_cursor_word_color()
+        echohl DiffChange | echo "Highlight CursorWord enabled" | echohl None
+    endif
 endfunction
 
 nnoremap <silent> <Plug>(mykey)a :<C-u>call <SID>toggle_highlight_cursor_word()<CR>
 
 function! s:set_cursor_word_color()
-  highlight CursorWord ctermfg=Red guifg=Red
+    highlight CursorWord ctermfg=Red guifg=Red
 endfunction
 
 augroup HighlightCursorWord
-  autocmd!
-  autocmd CursorHold * call s:hl_cword()
-  autocmd ColorScheme * call <SID>set_cursor_word_color()
-  autocmd BufLeave * call s:hl_clear()
+    autocmd!
+    autocmd CursorHold * call s:hl_cword()
+    autocmd ColorScheme * call <SID>set_cursor_word_color()
+    autocmd BufLeave * call s:hl_clear()
 augroup END
 
 function! s:hl_clear()
-  if exists("b:highlight_cursor_word_id") && exists("b:highlight_cursor_word")
-    silent! call matchdelete(b:highlight_cursor_word_id)
-    unlet b:highlight_cursor_word_id
-    unlet b:highlight_cursor_word
-  endif
+    if exists("b:highlight_cursor_word_id") && exists("b:highlight_cursor_word")
+        silent! call matchdelete(b:highlight_cursor_word_id)
+        unlet b:highlight_cursor_word_id
+        unlet b:highlight_cursor_word
+    endif
 endfunction
 
 function! s:hl_cword()
-  if !g:enable_highlight_cursor_word
-    return
-  endif
+    if !g:enable_highlight_cursor_word
+        return
+    endif
 
-  let word = expand("<cword>")
-  if word == ""
-    return
-  endif
-  if get(b:, "highlight_cursor_word", "") ==# word
-    return
-  endif
+    let word = expand("<cword>")
+    if word == ""
+        return
+    endif
+    if get(b:, "highlight_cursor_word", "") ==# word
+        return
+    endif
 
-  call s:hl_clear()
+    call s:hl_clear()
 
-  if !empty(filter(split(word, '\zs'), "strlen(v:val) > 1"))
-    return
-  endif
+    if !empty(filter(split(word, '\zs'), "strlen(v:val) > 1"))
+        return
+    endif
 
-  let pattern = printf("\\<%s\\>", expand("<cword>"))
-  silent! let b:highlight_cursor_word_id = matchadd("CursorWord", pattern)
-  let b:highlight_cursor_word = word
+    let pattern = printf("\\<%s\\>", expand("<cword>"))
+    silent! let b:highlight_cursor_word_id = matchadd("CursorWord", pattern)
+    let b:highlight_cursor_word = word
 endfunction
 
 let g:meet_neocomplete_requirements = has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
@@ -612,7 +612,7 @@ filetype off
 
 let g:neobundle_default_git_protocol = 'git'
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/automatic/neobundle.vim/
 endif
 call neobundle#begin( expand('~/.vim/bundle/automatic') )
 
@@ -626,15 +626,15 @@ NeoBundle 'mattn/sonictemplate-vim'
 
 "# neocomplete or neocomplcache
 if g:meet_neocomplete_requirements
-  NeoBundleLazy 'Shougo/neocomplete.vim', 'ver.1.1', {
-        \ 'autoload' : { 'insert' : 1, }
-        \ }
-  NeoBundleFetch 'Shougo/neocomplcache.vim', 'ver.8.0'
+    NeoBundleLazy 'Shougo/neocomplete.vim', 'ver.1.1', {
+                \ 'autoload' : { 'insert' : 1, }
+                \ }
+    NeoBundleFetch 'Shougo/neocomplcache.vim', 'ver.8.0'
 else
-  NeoBundleFetch 'Shougo/neocomplete.vim', 'ver.1.1'
-  NeoBundleLazy 'Shougo/neocomplcache.vim', 'ver.8.0', {
-        \ 'autoload' : { 'insert' : 1, }
-        \ }
+    NeoBundleFetch 'Shougo/neocomplete.vim', 'ver.1.1'
+    NeoBundleLazy 'Shougo/neocomplcache.vim', 'ver.8.0', {
+                \ 'autoload' : { 'insert' : 1, }
+                \ }
 endif
 
 "# vimshell
@@ -644,28 +644,28 @@ NeoBundleLazy 'Shougo/vimshell', {
 
 "# vim-singleton
 if has('clientserver')
-  NeoBundle 'thinca/vim-singleton'
+    NeoBundle 'thinca/vim-singleton'
 else
-  NeoBundleFetch 'thinca/vim-singleton'
+    NeoBundleFetch 'thinca/vim-singleton'
 endif
 "# vimproc
 NeoBundle 'Shougo/vimproc', 'ver.7.0', {
-      \ 'build' : {
-      \     'mac'     : 'make -f make_mac.mak',
-      \     'unix'    : 'make -f make_unix.mak',
-      \    },
-      \ }
+            \ 'build' : {
+            \     'mac'     : 'make -f make_mac.mak',
+            \     'unix'    : 'make -f make_unix.mak',
+            \    },
+            \ }
 "# vimfiler
 NeoBundleLazy 'Shougo/vimfiler', {
-      \   'autoload' : {
-      \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
-      \       'explorer' : 1 ,
-      \   }
-      \ }
+            \   'autoload' : {
+            \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
+            \       'explorer' : 1 ,
+            \   }
+            \ }
 "# NERDTree
 NeoBundleLazy 'scrooloose/nerdtree', {
-      \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
-      \ }
+            \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
+            \ }
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
 "# vim-watchdogs
@@ -679,28 +679,28 @@ NeoBundle 'dannyob/quickfixstatus'
 
 "# vim-endwise
 NeoBundleLazy 'taichouchou2/vim-endwise', {
-      \ 'autoload' : { 'insert' : 1, }
-      \ }
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
 "# thumbnail.vim
 NeoBundleLazy 'itchyny/thumbnail.vim', {
-      \   'autoload' : { 'commands' : ['Thumbnail']}
-      \ }
+            \   'autoload' : { 'commands' : ['Thumbnail']}
+            \ }
 "# project.vim
 NeoBundleLazy 'project.tar.gz', {
-      \   'autoload' : { 'commands' : ['Project']}
-      \ }
+            \   'autoload' : { 'commands' : ['Project']}
+            \ }
 "# smartinput
 NeoBundleLazy 'kana/vim-smartinput', {
-      \ 'autoload' : { 'insert' : 1, }
-      \ }
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
 "# neco-look
 NeoBundleLazy "ujihisa/neco-look", {
-      \ 'autoload' : { 'insert' : 1, }
-      \ }
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
 "# niceblock
 NeoBundleLazy 'kana/vim-niceblock', {
-      \ 'autoload' : { 'insert' : 1, }
-      \ }
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
 "# altercmd
 NeoBundle 'tyru/vim-altercmd'
 "# surround.vim
@@ -713,20 +713,20 @@ NeoBundle 'magicdrive/foldCC'
 NeoBundle 'bling/vim-airline'
 "# memolist
 NeoBundleLazy 'glidenote/memolist.vim', {
-      \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
+            \ }
 "# sudo.vim
 NeoBundle 'sudo.vim'
 "# sql-util
 NeoBundle 'SQLUtilities'
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
-      \ 'autoload' : {
-      \       'filetypes' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
-      \       'commands' : ['Ref'],
-      \       'function' : ['ref#open']
-      \    },
-      \ }
+            \ 'autoload' : {
+            \       'filetypes' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
+            \       'commands' : ['Ref'],
+            \       'function' : ['ref#open']
+            \    },
+            \ }
 "# easybuffer
 NeoBundle 'troydm/easybuffer.vim'
 "# yankring
@@ -739,25 +739,23 @@ NeoBundle 'YankRing.vim'
 NeoBundle 'vim-jp/vim-go-extra'
 NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'zimbatm/direnv.vim'
+NeoBundle 'google/vim-ft-go'
+NeoBundle 'dgryski/vim-godef'
 
-let g:gocode_path=globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-if filereadable(expand(g:gocode_path))
-  execute "set rtp+=".g:gocode_path
-endif
 
 "#----------------------------------#
 "# unite.vim & unite source plug-in #
 "#----------------------------------#
 "# unite.vim
 NeoBundleLazy 'Shougo/unite.vim', 'ver.6.0', {
-      \ 'autoload' : { 'commands' : ['Unite'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['Unite'] }
+            \ }
 NeoBundle 'Shougo/neomru.vim'
 
 "# unite-rails
 NeoBundleLazy 'basyura/unite-rails', {
-      \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
-      \ }
+            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
+            \ }
 "# unite-outline
 NeoBundle 'h1mesuke/unite-outline'
 
@@ -767,51 +765,51 @@ NeoBundle 'h1mesuke/unite-outline'
 "#---------------------------#
 "# scratch.vim
 NeoBundleLazy 'scratch.vim', {
-      \ 'autoload' : { 'commands' : ['Scratch'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['Scratch'] }
+            \ }
 "# emacs-commandline
 NeoBundle 'houtsnip/vim-emacscommandline'
 "# MultipleSearch
 NeoBundleLazy 'MultipleSearch', {
-      \ 'autoload' : { 'commands' : ['Search', 'SearchBuffers'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['Search', 'SearchBuffers'] }
+            \ }
 "# align.vim
 NeoBundleLazy 'Align', {
-      \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
+            \ }
 
 "#-------#
 "# dlang #
 "#-------#
 NeoBundleLazy 'JesseKPhillips/d.vim', {
-      \ 'autoload' : {'filetypes': ['d']}
-      \ }
+            \ 'autoload' : {'filetypes': ['d']}
+            \ }
 
 "#-----------------------#
 "# xcode                 #
 "#-----------------------#
 "# cocoa.vim
 NeoBundleLazy 'cocoa.vim', {
-      \ 'autoload' : {'filetypes': ['objective-c']}
-      \ }
+            \ 'autoload' : {'filetypes': ['objective-c']}
+            \ }
 "# swift
 NeoBundleLazy 'toyamarinyon/vim-swift', {
-      \ 'autoload' : {'filetypes': ['swift']}
-      \ }
+            \ 'autoload' : {'filetypes': ['swift']}
+            \ }
 if g:meet_neocomplete_requirements
-  "# neocomplcache-clang
-  NeoBundleFetch 'Shougo/neocomplcache-clang'
-  "# neocomplcache-clang_complete
-  NeoBundleFetch 'Shougo/neocomplcache-clang_complete'
+    "# neocomplcache-clang
+    NeoBundleFetch 'Shougo/neocomplcache-clang'
+    "# neocomplcache-clang_complete
+    NeoBundleFetch 'Shougo/neocomplcache-clang_complete'
 else
-  "# neocomplcache-clang
-  NeoBundleLazy 'Shougo/neocomplcache-clang', {
-        \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
-        \ }
-  "# neocomplcache-clang_complete
-  NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
-        \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
-        \ }
+    "# neocomplcache-clang
+    NeoBundleLazy 'Shougo/neocomplcache-clang', {
+                \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
+                \ }
+    "# neocomplcache-clang_complete
+    NeoBundleLazy 'Shougo/neocomplcache-clang_complete', {
+                \ 'autoload' : {'filetypes': ['objective-c','cpp','c']}
+                \ }
 end
 
 "#-----------------------#
@@ -819,32 +817,32 @@ end
 "#-----------------------#
 "# slimv
 NeoBundleFetch 'magicdrive/slimv', {
-      \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
-      \ }
+            \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
+            \ }
 "# niji
 NeoBundleLazy 'amdt/vim-niji', {
-      \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
-      \ }
+            \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
+            \ }
 
 "#-----------------------#
 "# ocaml                 #
 "#-----------------------#
 "# ocamlspot
 NeoBundleLazy 'cohama/the-ocamlspot.vim', {
-      \ "autoload" : {"filetypes": ['ocaml']}
-      \ }
+            \ "autoload" : {"filetypes": ['ocaml']}
+            \ }
 
 "#-----------------------#
 "# jvm                   #
 "#-----------------------#
 "# groovy.vim
 NeoBundleLazy 'groovy.vim', {
-      \ "autoload" : {"filetypes": ['groovy']}
-      \ }
+            \ "autoload" : {"filetypes": ['groovy']}
+            \ }
 "# vim-scala
 NeoBundleLazy 'magicdrive/vim-scala', {
-      \ "autoload" : {"filetypes": ['scala']}
-      \}
+            \ "autoload" : {"filetypes": ['scala']}
+            \}
 "# clojure
 NeoBundle 'thinca/vim-ft-clojure'
 "# vim-processing
@@ -853,26 +851,26 @@ NeoBundle 'sophacles/vim-processing'
 NeoBundle 'pig.vim'
 "# sbt
 NeoBundleLazy 'derekwyatt/vim-sbt', {
-      \ "autoload" : {"filetypes": ['sbt']}
-      \}
+            \ "autoload" : {"filetypes": ['sbt']}
+            \}
 
 "#-----------------------#
 "# perl                  #
 "#-----------------------#
 "# perl-mauke
 NeoBundle 'perl-mauke.vim',  {
-      \ 'autoload' : {'filetypes': ['perl']}
-      \ }
+            \ 'autoload' : {'filetypes': ['perl']}
+            \ }
 NeoBundle 'vim-perl/vim-perl', {
-      \ 'autoload' : {'filetypes': ['perl']}
-      \ }
+            \ 'autoload' : {'filetypes': ['perl']}
+            \ }
 NeoBundle 'c9s/perlomni.vim', {
-      \ 'autoload' : {'filetypes': ['perl']}
-      \ }
+            \ 'autoload' : {'filetypes': ['perl']}
+            \ }
 
 "# vim-perl_use_insertion
 autocmd FileType perl
-      \ :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
+            \ :setlocal runtimepath+=~/.vim/bundle/manual/vim-perl_use_insertion
 
 "#-----------------------#
 "# javascript            #
@@ -881,52 +879,52 @@ autocmd FileType perl
 NeoBundle 'jelera/vim-javascript-syntax'
 "# jscomplete
 NeoBundleLazy 'mattn/jscomplete-vim', {
-      \ 'autoload' : {'filetypes': ['javascript']}
-      \ }
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
 "# vim-nodejs-complete
 NeoBundleLazy 'myhere/vim-nodejs-complete', {
-      \ 'autoload' : {'filetypes': ['javascript']}
-      \ }
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
 "# yui complete
 NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
-      \ 'autoload' : {'filetypes': ['javascript']}
-      \ }
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
 "# vim-coffee-script
 NeoBundleLazy 'kchmck/vim-coffee-script',{
-      \ 'autoload' : {'filetypes': ['coffee']}
-      \ }
+            \ 'autoload' : {'filetypes': ['coffee']}
+            \ }
 "# vim-typescript
 NeoBundleLazy 'leafgarland/typescript-vim',{
-      \ 'autoload' : {'filetypes': ['typescript']}
-      \ }
+            \ 'autoload' : {'filetypes': ['typescript']}
+            \ }
 "# jade
 NeoBundle 'digitaltoad/vim-jade'
 "# jasmine
 NeoBundle 'claco/jasmine.vim', {
-      \ 'autoload' : {'filetypes': ['javascript']}
-      \ }
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
 NeoBundleLazy 'dart-lang/dart-vim-plugin', {
-      \ 'autoload' : {'filetypes': ['javascript']}
-      \ }
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
 
 "#-----------------------#
 "# haxe                  #
 "#-----------------------#
 "# vaxe
 NeoBundleLazy 'jdonaldson/vaxe', {
-      \ 'autoload' : {'filetypes': ['haxe']}
-      \ }
+            \ 'autoload' : {'filetypes': ['haxe']}
+            \ }
 
 "#-----------------------#
 "# beamvm                #
 "#-----------------------#
 NeoBundleLazy 'elixir-lang/vim-elixir', {
-      \ 'autoload' : {'filetypes': ['elixir']}
-      \ }
+            \ 'autoload' : {'filetypes': ['elixir']}
+            \ }
 
 NeoBundleLazy 'jimenezrick/vimerl', {
-      \ 'autoload' : {'filetypes': ['erlang']}
-      \ }
+            \ 'autoload' : {'filetypes': ['erlang']}
+            \ }
 
 "#-----------------------#
 "# ruby                  #
@@ -934,30 +932,30 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 
 "# vim-ruby
 NeoBundle 'vim-ruby/vim-ruby', 'vim7.4', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-      \ }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# unite-ruby-require
 NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-      \ }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# neco-ruby-keyword-args
 NeoBundleLazy 'rhysd/neco-ruby-keyword-args', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-      \ }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# textobj-ruby
 NeoBundleLazy 'rhysd/vim-textobj-ruby', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-      \ }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# vim-rspec
 NeoBundleLazy 'skwp/vim-rspec', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-      \ }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# rspec-syntax
 NeoBundle 'Keithbsmiley/rspec.vim'
 "# matchit
 NeoBundleLazy 'ruby-matchit', {
-      \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-      \ }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# vim-rails
 NeoBundle 'tpope/vim-rails', 'v5.0'
 "# vim-ref-ri
@@ -970,8 +968,8 @@ NeoBundle 'tpope/vim-bundler'
 "#-----------------------#
 "# jedi
 NeoBundleLazy 'davidhalter/jedi-vim', {
-      \ 'autoload': { 'filetypes': ['python'] }
-      \ }
+            \ 'autoload': { 'filetypes': ['python'] }
+            \ }
 "# ansible
 NeoBundle 'chase/vim-ansible-yaml'
 
@@ -980,18 +978,18 @@ NeoBundle 'chase/vim-ansible-yaml'
 "#-----------------------#
 "# vim-less
 NeoBundleLazy 'groenewege/vim-less', {
-      \ 'autoload' : {'filetypes': ['less']}
-      \ }
+            \ 'autoload' : {'filetypes': ['less']}
+            \ }
 "# emmet.vim
 NeoBundleLazy 'mattn/emmet-vim', {
-      \ 'autoload' : {'filetypes': ['eruby','html','tt','haml']}
-      \ }
+            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml']}
+            \ }
 "# nginx.vim
 NeoBundle 'nginx.vim'
 "# httpstatus
 NeoBundleLazy 'mattn/httpstatus-vim', {
-      \ 'autoload' : { 'commands' : ['HttpStatus'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['HttpStatus'] }
+            \ }
 "# tmux.vim
 NeoBundle 'zaiste/tmux.vim'
 "# monit
@@ -1002,9 +1000,9 @@ NeoBundle 'taichouchou2/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 "# sass
 if executable('sass')
-  NeoBundle 'AtsushiM/sass-compile.vim'
+    NeoBundle 'AtsushiM/sass-compile.vim'
 else
-  NeoBundleFetch 'AtsushiM/sass-compile.vim'
+    NeoBundleFetch 'AtsushiM/sass-compile.vim'
 endif
 "# haml
 NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes':['haml']}}
@@ -1023,10 +1021,10 @@ NeoBundle 'yanktmp.vim'
 "# external service      #
 "#-----------------------#
 if has('mac')
-  "# vim-itunes
-  NeoBundle "ryutorion/vim-itunes"
+    "# vim-itunes
+    NeoBundle "ryutorion/vim-itunes"
 else
-  NeoBundleFetch "ryutorion/vim-itunes"
+    NeoBundleFetch "ryutorion/vim-itunes"
 endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
@@ -1036,12 +1034,12 @@ NeoBundle 'mattn/webapi-vim'
 "#-------------------#
 "# vim-guicolorscheme
 NeoBundleLazy 'thinca/vim-guicolorscheme', {
-      \ 'autoload' : { 'commands' : ['GuiColorScheme'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['GuiColorScheme'] }
+            \ }
 "# CSApprox
 NeoBundleLazy 'vim-scripts/CSApprox', {
-      \ 'autoload' : { 'commands' : ['CSApprox', 'CSApproxSnapshot'] }
-      \ }
+            \ 'autoload' : { 'commands' : ['CSApprox', 'CSApproxSnapshot'] }
+            \ }
 "# solarized
 NeoBundle 'altercation/vim-colors-solarized'
 "# jellybeans
@@ -1100,32 +1098,32 @@ nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
 nnoremap <Plug>(mykey)e :VimFiler ./<CR>
 
 augroup vimfiler_setting
-  autocmd!
-  autocmd FileType vimfiler nmap <buffer> <Space> <Plug>(mykey)
-  autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
-  autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
-  autocmd FileType vimfiler nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
-  autocmd FileType vimfiler call s:my_vimfiler_settings()
+    autocmd!
+    autocmd FileType vimfiler nmap <buffer> <Space> <Plug>(mykey)
+    autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
+    autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
+    autocmd FileType vimfiler nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+    autocmd FileType vimfiler call s:my_vimfiler_settings()
 augroup END
 
 "nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
 function! s:my_vimfiler_settings()
-  nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
-  nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
-  nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
+    nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
+    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
+    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
 endfunction
 
 let s:my_action = { 'is_selectable' : 1 }
 function! s:my_action.func(candidates)
-  wincmd p
-  exec 'split '. a:candidates[0].action__path
+    wincmd p
+    exec 'split '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_split', s:my_action)
 
 let s:my_action = { 'is_selectable' : 1 }
 function! s:my_action.func(candidates)
-  wincmd p
-  exec 'vsplit '. a:candidates[0].action__path
+    wincmd p
+    exec 'vsplit '. a:candidates[0].action__path
 endfunction
 call unite#custom_action('file', 'my_vsplit', s:my_action)
 
@@ -1207,88 +1205,88 @@ let g:acp_enableAtStartup = 0
 autocmd FileType python setlocal omnifunc=jedi#completions
 
 if g:meet_neocomplete_requirements
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-  let g:neocomplete#force_overwrite_completefunc = 1
-  let g:neocomplete#skip_auto_completion_time = '0.3'
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    let g:neocomplete#force_overwrite_completefunc = 1
+    let g:neocomplete#skip_auto_completion_time = '0.3'
 
-  "# Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default'    : '',
-        \ 'c'          : $HOME.'/.vim/dict/c.dict',
-        \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
-        \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
-        \ 'php'        : $HOME.'/.vim/dict/php.dict',
-        \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-        \ 'java'       : $HOME.'/.vim/dict/java.dict',
-        \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-        \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
-        \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
-        \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
-        \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
-        \ 'vimshell'   : $HOME.'/.vimshell_hist',
-        \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-        \ }
-  " Enable heavy omni completion.
-  if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
-  endif
-  let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+    "# Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+                \ 'default'    : '',
+                \ 'c'          : $HOME.'/.vim/dict/c.dict',
+                \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
+                \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
+                \ 'php'        : $HOME.'/.vim/dict/php.dict',
+                \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
+                \ 'java'       : $HOME.'/.vim/dict/java.dict',
+                \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
+                \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
+                \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
+                \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
+                \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
+                \ 'vimshell'   : $HOME.'/.vimshell_hist',
+                \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
+                \ }
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_force_omni_patterns')
+        let g:neocomplcache_force_omni_patterns = {}
+    endif
+    let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
-  "# Define keyword.
-  if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-  endif
+    "# Define keyword.
+    if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+    endif
 
-  let g:jedi#completions_enabled = 0
-  let g:jedi#auto_vim_configuration = 0
-  let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
+    let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 else
-  " 今までの neocomplcache の設定
-  let g:neocomplcache_enable_at_startup = 1
-  "# Use camel case completion.
-  let g:neocomplcache_enable_camel_case_completion = 1
-  "# Use underbar completion.
-  let g:neocomplcache_enable_underbar_completion = 1
-  "# Set minimum syntax keyword length.
-  let g:neocomplcache_min_syntax_length = 3
-  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+    " 今までの neocomplcache の設定
+    let g:neocomplcache_enable_at_startup = 1
+    "# Use camel case completion.
+    let g:neocomplcache_enable_camel_case_completion = 1
+    "# Use underbar completion.
+    let g:neocomplcache_enable_underbar_completion = 1
+    "# Set minimum syntax keyword length.
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-  let g:neocomplcache_force_overwrite_completefunc = 1
-  let g:neocomplcache_skip_auto_completion_time = '0.3'
+    let g:neocomplcache_force_overwrite_completefunc = 1
+    let g:neocomplcache_skip_auto_completion_time = '0.3'
 
-  "# Define dictionary.
-  let g:neocomplcache_dictionary_filetype_lists = {
-        \ 'default'    : '',
-        \ 'c'          : $HOME.'/.vim/dict/c.dict',
-        \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
-        \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
-        \ 'php'        : $HOME.'/.vim/dict/php.dict',
-        \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-        \ 'java'       : $HOME.'/.vim/dict/java.dict',
-        \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-        \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
-        \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
-        \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
-        \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
-        \ 'vimshell'   : $HOME.'/.vimshell_hist',
-        \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-        \ }
-  " Enable heavy omni completion.
-  if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
-  endif
-  let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+    "# Define dictionary.
+    let g:neocomplcache_dictionary_filetype_lists = {
+                \ 'default'    : '',
+                \ 'c'          : $HOME.'/.vim/dict/c.dict',
+                \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
+                \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
+                \ 'php'        : $HOME.'/.vim/dict/php.dict',
+                \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
+                \ 'java'       : $HOME.'/.vim/dict/java.dict',
+                \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
+                \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
+                \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
+                \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
+                \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
+                \ 'vimshell'   : $HOME.'/.vimshell_hist',
+                \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
+                \ }
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_force_omni_patterns')
+        let g:neocomplcache_force_omni_patterns = {}
+    endif
+    let g:neocomplcache_force_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
-  "# Define keyword.
-  if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-  endif
+    "# Define keyword.
+    if !exists('g:neocomplcache_keyword_patterns')
+        let g:neocomplcache_keyword_patterns = {}
+    endif
 
-  let g:jedi#completions_enabled = 0
-  let g:jedi#auto_vim_configuration = 0
-  let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
+    let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 endif
 
 "}}}
@@ -1306,8 +1304,8 @@ let g:airline_theme=has('gui_running') ? 'lucius' : 'base16'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
-  inoremap <silent> <ESC> <ESC>
-  inoremap <silent> <C-[> <ESC>
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
 endif
 
 "}}}
@@ -1322,20 +1320,20 @@ command! -nargs=?  Manpage call ref#open('man', '<args>')
 command! -nargs=?  Perldoc call ref#open('perldoc', '<args>')
 command! -nargs=?  Perlfunc call OpenPerlfunc('<args>')
 function! OpenPerlfunc(func_str)
-  execute "Ref perldoc -f " . a:func_str
+    execute "Ref perldoc -f " . a:func_str
 endfunction
 let g:ref_perldoc_auto_append_f=1
 " ref-pydoc
 command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
 
 function! AlterRef()
-  AlterCommand  perld[oc] Ref perldoc
-  AlterCommand  perlf[unc] Ref perldoc -f
-  AlterCommand  man[page] Manpage
+    AlterCommand  perld[oc] Ref perldoc
+    AlterCommand  perlf[unc] Ref perldoc -f
+    AlterCommand  man[page] Manpage
 endfunction
 augroup ref_group
-  autocmd!
-  autocmd VimEnter * call AlterRef()
+    autocmd!
+    autocmd VimEnter * call AlterRef()
 augroup END
 "}}}
 "### MultipulSearch.vim {{{
@@ -1345,46 +1343,46 @@ vnoremap ? :Search<Space>
 "# 検索ハイライト消去
 nnoremap <silent> <C-c><C-c> :<C-u>call SearchHighlightOff()<CR>
 function! SearchHighlightOff ()
-  if exists(":SearchReset")
-    SearchReset
-  endif
+    if exists(":SearchReset")
+        SearchReset
+    endif
 endfunction
 "}}}
 "### iTunes{{{
 if has('mac')
-  nnoremap <Plug>(mykey)0 :ITunes<Space>
-  command! -nargs=1
-        \ -complete=customlist,CompletionITunes
-        \ ViTunes :call <SID>ITunes('<args>')
+    nnoremap <Plug>(mykey)0 :ITunes<Space>
+    command! -nargs=1
+                \ -complete=customlist,CompletionITunes
+                \ ViTunes :call <SID>ITunes('<args>')
 
-  function! s:ITunes(action)
-    if a:action ==# 'list'
-      Unite it_track
-    else
-      execute 'call itunes#' . a:action . '()'
-    endif
-  endfunction
+    function! s:ITunes(action)
+        if a:action ==# 'list'
+            Unite it_track
+        else
+            execute 'call itunes#' . a:action . '()'
+        endif
+    endfunction
 
-  function! CompletionITunes(ArgLead, CmdLine, CusorPos)
-    let l:cmd = split(a:CmdLine)
-    let l:len_cmd = len(l:cmd)
-    if l:len_cmd <= 2
-      let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
-      return filter(
-            \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'],
-            \ l:filter_cmd
-            \ )
-    endif
-  endfunction
+    function! CompletionITunes(ArgLead, CmdLine, CusorPos)
+        let l:cmd = split(a:CmdLine)
+        let l:len_cmd = len(l:cmd)
+        if l:len_cmd <= 2
+            let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
+            return filter(
+                        \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'],
+                        \ l:filter_cmd
+                        \ )
+        endif
+    endfunction
 
-  function! AlterITunes()
-    AlterCommand  vit[unes] ViTunes
-  endfunction
+    function! AlterITunes()
+        AlterCommand  vit[unes] ViTunes
+    endfunction
 
-  augroup itunes_group
-    autocmd!
-    autocmd VimEnter * call AlterITunes()
-  augroup END
+    augroup itunes_group
+        autocmd!
+        autocmd VimEnter * call AlterITunes()
+    augroup END
 endif
 "}}}
 "### QuickRun {{{
@@ -1392,45 +1390,45 @@ nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
 
 function! s:alter_quickrun()
-  AlterCommand  qui[ckrun] QuickRun
+    AlterCommand  qui[ckrun] QuickRun
 endfunction
 augroup quickrun_group
-  autocmd!
-  autocmd VimEnter * call s:alter_quickrun()
+    autocmd!
+    autocmd VimEnter * call s:alter_quickrun()
 augroup END
 
 for [key, com] in items({
-      \   '<Leader>x' : '>message',
-      \   '<Leader>p' : '-runner shell',
-      \   '<Leader>w' : '>buffer',
-      \   '<Leader>q' : '>>buffer',
-      \ })
-  execute 'nnoremap <silent>' . key . ':QuickRun' . com . '-mode n<CR>'
-  execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
+            \   '<Leader>x' : '>message',
+            \   '<Leader>p' : '-runner shell',
+            \   '<Leader>w' : '>buffer',
+            \   '<Leader>q' : '>>buffer',
+            \ })
+    execute 'nnoremap <silent>' . key . ':QuickRun' . com . '-mode n<CR>'
+    execute 'vnoremap <silent>' . key . ':QuickRun' . com . '-mode v<CR>'
 
 endfor
 let g:quickrun_config = {}
 let g:quickrun_config['coffee'] = {
-      \       "command" : 'coffee',
-      \       'exec'    : ['%c -cbp %s']
-      \   }
+            \       "command" : 'coffee',
+            \       'exec'    : ['%c -cbp %s']
+            \   }
 let g:quickrun_config['typescript'] = {
-      \       "command" : 'tsc',
-      \       'exec'    : ['%c --exec %s']
-      \   }
+            \       "command" : 'tsc',
+            \       'exec'    : ['%c --exec %s']
+            \   }
 
 if executable('processing-java')
-  let g:quickrun_config['processing'] = {
-        \     'command': 'processing-java',
-        \     'exec': ['%c --run --force --sketch=$PWD --output=$PWD/build'],
-        \   }
+    let g:quickrun_config['processing'] = {
+                \     'command': 'processing-java',
+                \     'exec': ['%c --run --force --sketch=$PWD --output=$PWD/build'],
+                \   }
 endif
 
 if executable('html2haml')
-  let g:quickrun_config = {
-        \     'html' : { "type" : "html/haml" },
-        \     'html/haml' : { "command" : "html2haml" },
-        \   }
+    let g:quickrun_config = {
+                \     'html' : { "type" : "html/haml" },
+                \     'html/haml' : { "command" : "html2haml" },
+                \   }
 endif
 "}}}
 "### Watchdogs {{{
@@ -1438,20 +1436,20 @@ endif
 let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enable = 0
 let g:watchdogs_check_CursorHold_enables = {
-      \ 'scala' : 0,
-      \ 'd' : 0
-      \ }
+            \ 'scala' : 0,
+            \ 'd' : 0
+            \ }
 
 let g:watchdogs_check_BufWritePost_enables = {
-      \	"scala" : 0,
-      \ 'd' : 0
-      \}
+            \	"scala" : 0,
+            \ 'd' : 0
+            \}
 
 let g:quickrun_config["watchdogs_checker/_"] = {
-      \       "hook/close_quickfix/enable_exit" : 1,
-      \		"runner/vimproc/updatetime" : 10,
-      \       'outputter/quickfix/open_cmd' : '',
-      \ }
+            \       "hook/close_quickfix/enable_exit" : 1,
+            \		"runner/vimproc/updatetime" : 10,
+            \       'outputter/quickfix/open_cmd' : '',
+            \ }
 
 call watchdogs#setup(g:quickrun_config)
 
@@ -1461,27 +1459,27 @@ call watchdogs#setup(g:quickrun_config)
 nnoremap <Plug>(mykey)s :TempolaryBuffer sh<CR>
 command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
 function! s:scratchbuffer_filetype(filetype)
-  split
-  Scratch
-  execute 'set filetype=' . a:filetype
+    split
+    Scratch
+    execute 'set filetype=' . a:filetype
 endfunction
 function! s:alter_scratch()
-  AlterCommand  tem[polarybuffer] TempolaryBuffer
+    AlterCommand  tem[polarybuffer] TempolaryBuffer
 endfunction
 augroup scratch_setting
-  autocmd!
-  autocmd VimEnter * call s:alter_scratch()
+    autocmd!
+    autocmd VimEnter * call s:alter_scratch()
 augroup END
 
 "}}}
 "### Chalice {{{
 
 function! s:alter_chalice()
-  AlterCommand  cha[lice] Chalice
+    AlterCommand  cha[lice] Chalice
 endfunction
 augroup chalice_group
-  autocmd!
-  autocmd VimEnter * call s:alter_chalice()
+    autocmd!
+    autocmd VimEnter * call s:alter_chalice()
 augroup END
 
 "}}}
@@ -1489,17 +1487,17 @@ augroup END
 
 command! -nargs=? W :call s:sudo_write('<args>')
 function! s:sudo_write(arg)
-  if a:arg ==# ''
-    write sudo:%
-  else
-    execute 'write sudo:' . a:arg
-  endif
+    if a:arg ==# ''
+        write sudo:%
+    else
+        execute 'write sudo:' . a:arg
+    endif
 endfunction
 
 "}}}
 "### Singleton.vim {{{
 if has('clientserver')
-  call singleton#enable()
+    call singleton#enable()
 endif
 "}}}
 "### Sass {{{
@@ -1510,8 +1508,8 @@ let g:sass_compile_file = ['scss', 'sass']
 let g:sass_started_dirs = []
 
 augroup sass_group
-  autocmd!
-  autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+    autocmd!
+    autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
 augroup END
 "}}}
 "### NERDTree {{{
@@ -1523,29 +1521,29 @@ let g:my_nerdtree_status=0
 
 
 augroup my_nerdtree_setting
-  autocmd!
-  autocmd FileType nerdtree nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
+    autocmd!
+    autocmd FileType nerdtree nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
 augroup END
 
 function! s:MY_NERDTreeRefresh()
-  NERDTreeFocus
-  normal R
-  wincmd l
-  let g:my_nerdtree_status = 1
+    NERDTreeFocus
+    normal R
+    wincmd l
+    let g:my_nerdtree_status = 1
 endfunction
 
 function! s:MY_NERDTreeToggle()
-  :NERDTreeToggle
-  if g:my_nerdtree_status == 0
-    wincmd l
-  endif
-  let g:my_nerdtree_status =
-        \ g:my_nerdtree_status ==# 1 ? 0 : 1
+    :NERDTreeToggle
+    if g:my_nerdtree_status == 0
+        wincmd l
+    endif
+    let g:my_nerdtree_status =
+                \ g:my_nerdtree_status ==# 1 ? 0 : 1
 endfunction
 
 let g:NERDTreeHijackNetrw=0
 if !has('gui_running')
-  let g:NERDTreeWinSize=35
+    let g:NERDTreeWinSize=35
 endif
 "}}}
 "### Emmet {{{
@@ -1556,8 +1554,8 @@ let g:user_emmet_expandword_key='<C-Y><C-Y>'
 "### YankRing{{{
 let g:yankring_history_dir=$HOME . '/.vim-yankring'
 if !filewritable(expand(g:yankring_history_dir))
-  let s:tmp=system('mkdir -p ' . g:yankring_history_dir)
-  echo "create directory:  " . g:yankring_history_dir
+    let s:tmp=system('mkdir -p ' . g:yankring_history_dir)
+    echo "create directory:  " . g:yankring_history_dir
 endif
 "}}}
 "### jellybeans {{{
@@ -1582,97 +1580,97 @@ let g:jedi#documentation_command = "pydoc"
 "[ ####------- Programming Support Settings ----#### ] {{{
 "### C++ support "{{{
 augroup cpp_ftplugin
-  autocmd!
-  if executable('clang-format')
-    autocmd FileType c,cpp nnoremap <buffer> <C-\> :<C-u>call <SID>IndentFormat('%!clang-format')<CR>
-    autocmd FileType c,cpp vnoremap <buffer> <C-\> :!clang-format<CR>
-  endif
+    autocmd!
+    if executable('clang-format')
+        autocmd FileType c,cpp nnoremap <buffer> <C-\> :<C-u>call <SID>IndentFormat('%!clang-format')<CR>
+        autocmd FileType c,cpp vnoremap <buffer> <C-\> :!clang-format<CR>
+    endif
 augroup END
 "}}}
 "### Perl support "{{{
 "# perldoc:  module source code open
 command! -nargs=1  Perlread :call OpenPerlModuleCode('<args>')
 function! OpenPerlModuleCode(module) range
-  let l:module_name=a:module
-  if a:module ==# '<visual>'
-    let l:module_name=s:get_visual_selected()
-  endif
-  let l:module_path =
-        \ system('perl -MClass::Inspector -e '
-        \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"')
-  if l:module_path !=# ''
-    execute 'edit ' . l:module_path
-  else
-    echohl Error | echo 'No modulefile found.' | echohl None
-  endif
+    let l:module_name=a:module
+    if a:module ==# '<visual>'
+        let l:module_name=s:get_visual_selected()
+    endif
+    let l:module_path =
+                \ system('perl -MClass::Inspector -e '
+                \ . '"print Class::Inspector->resolved_filename(q{' . l:module_name . '})"')
+    if l:module_path !=# ''
+        execute 'edit ' . l:module_path
+    else
+        echohl Error | echo 'No modulefile found.' | echohl None
+    endif
 endfunction
 function! AlterFileTypePerl()
-  AlterCommand  perlre[ad] Perlread
+    AlterCommand  perlre[ad] Perlread
 endfunction
 augroup perl_ftplugin
-  autocmd!
-  autocmd FileType perl :compiler perl
-  if executable('perltidy')
-    autocmd FileType perl nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('%! perltidy')<CR>
-    autocmd FileType perl vnoremap <buffer> <C-\> :!perltidy<CR>
-  endif
-  autocmd FileType perl nnoremap <buffer> <F4> :w !perl -c<CR>
-  autocmd FileType perl nnoremap <buffer> <F5> :w !perl -c %<CR>
-  autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
-  autocmd FileType perl nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
-  autocmd FileType perl vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
-  autocmd FileType perl,ref-perldoc nnoremap <buffer> <Plug>(mykey)3 :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
-  autocmd FileType perl,ref-perldoc vnoremap <buffer> <Plug>(mykey)3 :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
-  autocmd FileType perl,ref-perldoc nnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
-  autocmd FileType perl,ref-perldoc vnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
-  autocmd VimEnter * call AlterFileTypePerl()
+    autocmd!
+    autocmd FileType perl :compiler perl
+    if executable('perltidy')
+        autocmd FileType perl nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('%! perltidy')<CR>
+        autocmd FileType perl vnoremap <buffer> <C-\> :!perltidy<CR>
+    endif
+    autocmd FileType perl nnoremap <buffer> <F4> :w !perl -c<CR>
+    autocmd FileType perl nnoremap <buffer> <F5> :w !perl -c %<CR>
+    autocmd FileType perl,ref-perldoc setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%
+    autocmd FileType perl nnoremap <buffer> K :<C-u>call ref#open('perldoc', expand('<cword>'))<CR>
+    autocmd FileType perl vnoremap <buffer> K :<C-u>call ref#jump('visual', 'perldoc')<CR>
+    autocmd FileType perl,ref-perldoc nnoremap <buffer> <Plug>(mykey)3 :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
+    autocmd FileType perl,ref-perldoc vnoremap <buffer> <Plug>(mykey)3 :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
+    autocmd FileType perl,ref-perldoc nnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
+    autocmd FileType perl,ref-perldoc vnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
+    autocmd VimEnter * call AlterFileTypePerl()
 augroup END
 "}}}
 "### Ruby support "{{{
 
 command! -nargs=1  RubyGemRead :call <SID>open_rubygem_code('<args>')
 function! s:open_rubygem_code(module) range
-  let l:module_name=a:module
-  if a:module ==# '<visual>'
-    let l:module_name=s:get_visual_selected()
-  endif
+    let l:module_name=a:module
+    if a:module ==# '<visual>'
+        let l:module_name=s:get_visual_selected()
+    endif
 
-  try
-    execute 'edit ' . system('bundle exec gem which ' . l:module_name )
-  catch
     try
-      execute 'edit ' . system('gem which ' . l:module_name )
+        execute 'edit ' . system('bundle exec gem which ' . l:module_name )
     catch
-      echohl Error | echo 'No gemfile found.' | echohl None
+        try
+            execute 'edit ' . system('gem which ' . l:module_name )
+        catch
+            echohl Error | echo 'No gemfile found.' | echohl None
+        endtry
     endtry
-  endtry
 
 endfunction
 function! AlterFileTypeRuby()
-  AlterCommand  ri Ref ri
-  if executable('refe')
-    AlterCommand  refe Ref refe
-  endif
+    AlterCommand  ri Ref ri
+    if executable('refe')
+        AlterCommand  refe Ref refe
+    endif
 endfunction
 
 let g:ref_ruby_cmd= executable('refe') ? 'refe' : 'ri'
 
 augroup ruby_ftplugin
-  autocmd!
-  autocmd FileType ruby setlocal nocindent
-  autocmd FileType ruby :compiler ruby
-  autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby -c<CR>
-  autocmd FileType ruby nnoremap <buffer> <F5> :!ruby -c %<CR>
-  autocmd FileType ruby,ref-ri setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,?,-
-  autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open(g:ref_ruby_cmd, expand('<cword>'))<CR>
-  autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', g:ref_ruby_cmd)<CR>
-  autocmd FileType ruby,ref-ri nnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
-  autocmd FileType ruby,ref-ri vnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
-  autocmd FileType ruby,ref-ri nnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
-  autocmd FileType ruby,ref-ri vnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
-  autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
-  autocmd FileType ruby setlocal autoindent
-  autocmd VimEnter * call AlterFileTypeRuby()
+    autocmd!
+    autocmd FileType ruby setlocal nocindent
+    autocmd FileType ruby :compiler ruby
+    autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby -c<CR>
+    autocmd FileType ruby nnoremap <buffer> <F5> :!ruby -c %<CR>
+    autocmd FileType ruby,ref-ri setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,?,-
+    autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open(g:ref_ruby_cmd, expand('<cword>'))<CR>
+    autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', g:ref_ruby_cmd)<CR>
+    autocmd FileType ruby,ref-ri nnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
+    autocmd FileType ruby,ref-ri vnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
+    autocmd FileType ruby,ref-ri nnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
+    autocmd FileType ruby,ref-ri vnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
+    autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
+    autocmd FileType ruby setlocal autoindent
+    autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
 command! -nargs=0 Irb call <SID>start_repl('irb')
@@ -1685,129 +1683,139 @@ command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console
 "### Python support{{{
 
 augroup python_ftplugin
-  autocmd!
-  autocmd FileType python setlocal tabstop=2 shiftwidth=2 expandtab
-  autocmd FileType python setlocal autoindent
-  autocmd FileType python setlocal smartindent
-  autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
-  autocmd FileType python setlocal commentstring=#%s
+    autocmd!
+    autocmd FileType python setlocal tabstop=2 shiftwidth=2 expandtab
+    autocmd FileType python setlocal autoindent
+    autocmd FileType python setlocal smartindent
+    autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
+    autocmd FileType python setlocal commentstring=#%s
 augroup END
 
 "}}}
 "### Golang support {{{
+
+let g:gocode_path="$GOPATH/src/github.com/nsf/gocode/vim"
+if filereadable(expand(g:gocode_path))
+    execute "set rtp^=".g:gocode_path
+endif
+set path+=$GOPATH/src/**
+let g:gofmt_command = 'goimports'
+
 augroup go_ftplugin
-  autocmd!
-  autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
-  autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
-  autocmd BufWritePre *.go Fmt
+    autocmd!
+    autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
+    autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
+    autocmd FileType go autocmd BufWritePre <buffer> Fmt
+    au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
+    au FileType go compiler go
 augroup END
 "}}}
 "### Shell support{{{
 augroup shell_ftplugin
-  autocmd FileType sh,bash,zsh,csh,tcsh,fish nnoremap <buffer> K :<C-u>call ref#open('man', expand('<cword>'))<CR>
-  autocmd FileType sh,bash,zsh,csh,tcsh,fish vnoremap <buffer> K :<C-u>call ref#jump('visual', 'man')<CR>
+    autocmd FileType sh,bash,zsh,csh,tcsh,fish nnoremap <buffer> K :<C-u>call ref#open('man', expand('<cword>'))<CR>
+    autocmd FileType sh,bash,zsh,csh,tcsh,fish vnoremap <buffer> K :<C-u>call ref#jump('visual', 'man')<CR>
 augroup END
 "}}}
 "### SQL support{{{
 
 augroup sql_ftplugin
-  autocmd!
-  autocmd FileType sql nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('SQLUFormatter')<CR>
-  autocmd FileType sql vnoremap <buffer> <C-\> :SQLUFormatter<CR>
+    autocmd!
+    autocmd FileType sql nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('SQLUFormatter')<CR>
+    autocmd FileType sql vnoremap <buffer> <C-\> :SQLUFormatter<CR>
 augroup END
 
 " }}}
 "### Lisp support{{{
 let g:gauche_repl_cmd = 0
 function! s:GaucheREPL(file)
-  let filename = a:file
-  execute g:gauche_repl_cmd . filename
+    let filename = a:file
+    execute g:gauche_repl_cmd . filename
 endfunction
 
 augroup lisp_ftplugin
-  autocmd!
-  autocmd FileType lisp    :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clisp -i %<CR>
-  autocmd FileType scheme  :let g:gauche_repl_cmd = (executable('rlwrap') ? '!rlwrap -pCyan ' : '!') . 'gosh -i -l '
-  autocmd FileType scheme  :nnoremap <buffer> <Plug>(mykey)m :<C-u>call <SID>GaucheREPL(expand("%:p"))<CR>
-  autocmd FileType clojure :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clj -i %<CR>
-  autocmd FileType lisp,scheme :setlocal lisp
-  autocmd FileType lisp,scheme :setlocal nocindent
+    autocmd!
+    autocmd FileType lisp    :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clisp -i %<CR>
+    autocmd FileType scheme  :let g:gauche_repl_cmd = (executable('rlwrap') ? '!rlwrap -pCyan ' : '!') . 'gosh -i -l '
+    autocmd FileType scheme  :nnoremap <buffer> <Plug>(mykey)m :<C-u>call <SID>GaucheREPL(expand("%:p"))<CR>
+    autocmd FileType clojure :nnoremap <buffer> <Plug>(mykey)m :<C-u>!clj -i %<CR>
+    autocmd FileType lisp,scheme :setlocal lisp
+    autocmd FileType lisp,scheme :setlocal nocindent
 augroup END
 " }}}
 "### Scala support{{{
 "# sbt
 function! s:start_sbt()
-  if exists('g:sbt_project_dirname')
-    execute 'cd ' . g:sbt_project_dirname
-  endif
-  execute "VimShellInteractive --split='split | wincmd j | resize 20 | setlocal noequalalways' sbt"
-  stopinsert
-  let t:sbt_bufname = bufname('%')
-  if !has_key(t:, 'sbt_cmds')
-    let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
-  endif
-  wincmd k
+    if exists('g:sbt_project_dirname')
+        execute 'cd ' . g:sbt_project_dirname
+    endif
+    execute "VimShellInteractive --split='split | wincmd j | resize 20 | setlocal noequalalways' sbt"
+    stopinsert
+    let t:sbt_bufname = bufname('%')
+    if !has_key(t:, 'sbt_cmds')
+        let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
+    endif
+    wincmd k
 endfunction
 
 command! -nargs=0 SBT call <SID>start_sbt()
 
 function! s:sbt_compile()
-  let cmds = get(t:, 'sbt_cmds', 'run')
+    let cmds = get(t:, 'sbt_cmds', 'run')
 
-  let sbt_bufname = get(t:, 'sbt_bufname')
-  if sbt_bufname !=# ''
-    call vimshell#interactive#set_send_buffer(sbt_bufname)
-    call vimshell#interactive#send(cmds)
-  else
-    echoerr 'try SBT'
-  endif
+    let sbt_bufname = get(t:, 'sbt_bufname')
+    if sbt_bufname !=# ''
+        call vimshell#interactive#set_send_buffer(sbt_bufname)
+        call vimshell#interactive#send(cmds)
+    else
+        echoerr 'try SBT'
+    endif
 endfunction
 
 function! s:sbt_run(command)
-  let sbt_bufname = get(t:, 'sbt_bufname')
-  if sbt_bufname !=# ''
-    call vimshell#interactive#set_send_buffer(sbt_bufname)
-    call vimshell#interactive#send(a:command)
-  else
-    echoerr 'try SBT'
-  endif
+    let sbt_bufname = get(t:, 'sbt_bufname')
+    if sbt_bufname !=# ''
+        call vimshell#interactive#set_send_buffer(sbt_bufname)
+        call vimshell#interactive#send(a:command)
+    else
+        echoerr 'try SBT'
+    endif
 endfunction
 
 function! s:sbt_controll()
-  nnoremap <buffer> <Plug>(mykey)m :<C-u>write<Cr>:call <SID>sbt_compile()<Cr>
-  nnoremap <buffer> <Plug>(mykey)r :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
+    nnoremap <buffer> <Plug>(mykey)m :<C-u>write<Cr>:call <SID>sbt_compile()<Cr>
+    nnoremap <buffer> <Plug>(mykey)r :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
 endfunction
 
 function! s:set_compiler_sbt()
-  setlocal errorformat=%E[error]\ %f:%l:\ %m,%C[error]\ %p^,%-C%.%#,%Z,
-        \%W[warn]\ %f:%l:\ %m,%C[warn]\ %p^,%-C%.%#,%Z,
-        \%-G%.%#
-  setlocal makeprg=sbt-no-color\ compile
-  setlocal errorfile=target/error
+    setlocal errorformat=%E[error]\ %f:%l:\ %m,%C[error]\ %p^,%-C%.%#,%Z,
+                \%W[warn]\ %f:%l:\ %m,%C[warn]\ %p^,%-C%.%#,%Z,
+                \%-G%.%#
+    setlocal makeprg=sbt-no-color\ compile
+    setlocal errorfile=target/error
 endfunction
 
 augroup scala_setting
-  autocmd!
-  autocmd FileType scala setlocal nocindent
-  autocmd FileType scala call <SID>set_compiler_sbt()
-  autocmd FileType scala call <SID>sbt_controll()
-  autocmd FileType scala nnoremap <buffer> <Plug>(mykey)r :<C-u>SBT<CR>
-  autocmd FileType scala nnoremap <buffer> <Leader>s :<C-u>SBT<CR>
+    autocmd!
+    autocmd FileType scala setlocal nocindent
+    autocmd FileType scala call <SID>set_compiler_sbt()
+    autocmd FileType scala call <SID>sbt_controll()
+    autocmd FileType scala nnoremap <buffer> <Plug>(mykey)r :<C-u>SBT<CR>
+    autocmd FileType scala nnoremap <buffer> <Leader>s :<C-u>SBT<CR>
 augroup END
 "}}}
 "### JavaScript support {{{
 
 if !exists('g:neocomplcache_omni_functions')
-  let g:neocomplcache_omni_functions = {}
+    let g:neocomplcache_omni_functions = {}
 endif
 
 let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
 let g:node_usejscomplete = 1
 
 augroup javascript_plugin
-  autocmd!
-  autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
-  autocmd FileType javascript setlocal autoindent
+    autocmd!
+    autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
+    autocmd FileType javascript setlocal autoindent
 augroup END
 
 command! -nargs=0 NodeREPL   call <SID>start_repl('node --interactive')
@@ -1815,14 +1823,14 @@ command! -nargs=0 NodeREPL   call <SID>start_repl('node --interactive')
 "}}}
 "### TypeScript support {{{
 augroup typescript_ftplugin
-  autocmd!
-  autocmd BufWritePost typescript :make
+    autocmd!
+    autocmd BufWritePost typescript :make
 augroup END
 "}}}
 "### YAML file {{{
 augroup yaml_ftplugin
-  autocmd!
-  autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
+    autocmd!
+    autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
 augroup END
 "}}}
 "### FileType(Language) assistance "{{{
@@ -1833,18 +1841,18 @@ set completeopt=menu,preview
 
 "ファイルタイプ別辞書ファイル
 augroup filetype_dict
-  autocmd!
-  autocmd FileType c,cpp,perl setlocal cindent
-  autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
-  autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  autocmd FileType c setlocal omnifunc=ccomplete#Complete
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType scheme let is_gauche=1
+    autocmd!
+    autocmd FileType c,cpp,perl setlocal cindent
+    autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
+    autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c setlocal omnifunc=ccomplete#Complete
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType scheme let is_gauche=1
 augroup END
 
 "CF用コメントハイライト有効
@@ -1875,86 +1883,86 @@ let g:current_color_mode=g:default_color_mode
 
 " setup color by background
 function! SetupColorScheme ()
-  if has('gui_running')
-    execute 'colorscheme ' .
-          \ ( (g:default_color_mode ==# 'A') ?
-          \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-  else
-    execute 'colorscheme ' .
-          \ ( (g:default_color_mode ==# 'A') ?
-          \ g:cui_colorscheme_a : g:cui_colorscheme_b)
-  endif
+    if has('gui_running')
+        execute 'colorscheme ' .
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+    else
+        execute 'colorscheme ' .
+                    \ ( (g:default_color_mode ==# 'A') ?
+                    \ g:cui_colorscheme_a : g:cui_colorscheme_b)
+    endif
 endfunction
 
 "# change colorscheme & background
 function! s:ChangeBackground()
-  if g:current_color_mode ==# 'A'
-    execute 'colorscheme ' .
-          \ (has('gui_running') ?
-          \ g:gui_colorscheme_b : g:cui_colorscheme_b)
-    let g:current_color_mode='B'
-  else
-    execute 'colorscheme ' .
-          \ (has('gui_running') ?
-          \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-    let g:current_color_mode='A'
-  endif
-  syntax on
+    if g:current_color_mode ==# 'A'
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
+        let g:current_color_mode='B'
+    else
+        execute 'colorscheme ' .
+                    \ (has('gui_running') ?
+                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
+        let g:current_color_mode='A'
+    endif
+    syntax on
 endfunction
 
 function! MyColor()
-  "# ポップアップメニューの色変更
-  highlight Pmenu
-        \ ctermbg=DarkGray
-        \ ctermfg=White
+    "# ポップアップメニューの色変更
+    highlight Pmenu
+                \ ctermbg=DarkGray
+                \ ctermfg=White
 
-  highlight PmenuSel
-        \ ctermbg=White
-        \ ctermfg=Black
+    highlight PmenuSel
+                \ ctermbg=White
+                \ ctermfg=Black
 
-  "# Foldingの色変更
-  highlight Folded
-        \ gui=bold
-        \ term=standout
-        \ ctermbg=Black
-        \ ctermfg=LightGray
-        \ guibg=Grey30
-        \ guifg=Grey80
+    "# Foldingの色変更
+    highlight Folded
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey30
+                \ guifg=Grey80
 
-  highlight FoldColumn
-        \ gui=bold
-        \ term=standout
-        \ ctermbg=Black
-        \ ctermfg=LightGray
-        \ guibg=Grey
-        \ guifg=DarkBlue
+    highlight FoldColumn
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey
+                \ guifg=DarkBlue
 
-  highlight Normal ctermbg=NONE
+    highlight Normal ctermbg=NONE
 
-  highlight WildMenu
-        \ term=bold
-        \ ctermfg=217
-        \ ctermbg=16
-        \ guifg=#f0a0c0
-        \ guibg=#302028
-  highlight StatusLine
-        \ term=bold
-        \ ctermfg=16
-        \ ctermbg=252
-        \ guifg=#000000
-        \ guibg=#dddddd
+    highlight WildMenu
+                \ term=bold
+                \ ctermfg=217
+                \ ctermbg=16
+                \ guifg=#f0a0c0
+                \ guibg=#302028
+    highlight StatusLine
+                \ term=bold
+                \ ctermfg=16
+                \ ctermbg=252
+                \ guifg=#000000
+                \ guibg=#dddddd
 
-  "# 検索結果のカラースキーム変更
-  highlight Search ctermbg=Gray
-"  highlight rubyModule ctermfg=82 guifg=#5fff00
-"  highlight rubyClass  ctermfg=82 guifg=#5fff00
+    "# 検索結果のカラースキーム変更
+    highlight Search ctermbg=Gray
+    "  highlight rubyModule ctermfg=82 guifg=#5fff00
+    "  highlight rubyClass  ctermfg=82 guifg=#5fff00
 endfunction
 
 augroup color_set
-  autocmd!
-  if !has('gui_running')
-    autocmd ColorScheme * call MyColor()
-  endif
+    autocmd!
+    if !has('gui_running')
+        autocmd ColorScheme * call MyColor()
+    endif
 augroup END
 
 "# initialize colorcheme
@@ -1966,68 +1974,68 @@ nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
 "}}}
 "[ ####------- FileType Settings ---------------#### ]"{{{
 augroup detect_filetype
-  autocmd!
-  " javascript genus
-  autocmd BufNewFile,BufRead,BufWritePost *.bowerrc* set filetype=javascript
-  autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.js,*SpecHelper.js set filetype=jasmine.javascript syntax=jasmine.javascript
-  autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
-  autocmd BufRead,BufNewFile,BufWritePost *.dart set filetype=dart
-  autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
-  autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
-  " html genus
-  autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
-  " perl genus
-  autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
-  autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
-  " perl genus
-  autocmd BufNewFile,BufRead,BufWritePost *.py,*.py3.[0-9],*.py3,*.py2,*.py2.[0-9] set filetype=python
-  " xcode genus
-  autocmd BufNewFile,BufRead,BufWritePost *.m  set filetype=objective-c
-  autocmd BufNewFile,BufRead,BufWritePost *.mm set filetype=cpp.objective-c
-  autocmd BufNewFile,BufRead,BufWritePost *.swift set filetype=swift
-  " shell genus
-  autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
-  autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
-  autocmd BufNewFile,BufRead,BufWritePost */patches/* set filetype=diff
-  autocmd BufNewFile,BufRead,BufWritePost *tmux*conf* set filetype=tmux
-  autocmd BufNewFile,BufRead,BufWritePost *envrc* set filetype=bash
-  " graphics genus
-  autocmd BufNewFile,BufRead,BufWritePost *.pde set filetype=processing
-  autocmd BufNewFile,BufRead,BufWritePost *.as set filetype=actionscript
-  autocmd BufNewFile,BufRead,BufWritePost *.hx set filetype=haxe
-  autocmd BufNewFile,BufRead,BufWritePost *.mxml set filetype=mxml
-  " jvm genus
-  autocmd BufNewFile,BufRead,BufWritePost .vrapperrc set filetype=vim
-  autocmd BufNewFile,BufRead,BufWritePost *.scala set filetype=scala
-  autocmd BufNewFile,BufRead,BufWritePost *.sbt set filetype=sbt
-  autocmd BufNewFile,BufRead,BufWritePost *.gradle set filetype=groovy
-  autocmd BufNewFile,BufRead,BufWritePost *.pig set filetype=pig syntax=pig
-  " ruby genus
-  autocmd BufNewFile,BufRead,BufWritePost [Gg]emfile set filetype=ruby
-  autocmd BufNewFile,BufRead,BufWritePost gemspec set filetype=ruby
-  autocmd BufNewFile,BufRead,BufWritePost *.ru set filetype=ruby
-  autocmd BufNewFile,BufRead,BufWritePost *.unicorn set filetype=ruby
-  autocmd BufNewFile,BufRead,BufWritePost *.cap set filetype=ruby
-  autocmd BufNewFile,BufRead,BufWritePost *.god,*.eye set filetype=ruby
-  autocmd BufNewFile,BufRead,BufWritePost *_spec.rb set filetype=ruby.rspec
-  autocmd BufNewFile,BufRead,BufWritePost *[Pp]rocfile* set syntax=yaml
-  " lisp genus
-  autocmd FileType lisp set syntax=lisp
-  autocmd BufNewFile,BufRead,BufWritePost *.gosh set filetype=scheme
-  autocmd FileType scheme set syntax=scheme
-  " beamvm
-  autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
-  autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
-  " dlang
-  autocmd BufNewFile,BufRead,BufWritePost *.d setf d
-  " mysql
-  autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
+    autocmd!
+    " javascript genus
+    autocmd BufNewFile,BufRead,BufWritePost *.bowerrc* set filetype=javascript
+    autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.js,*SpecHelper.js set filetype=jasmine.javascript syntax=jasmine.javascript
+    autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
+    autocmd BufRead,BufNewFile,BufWritePost *.dart set filetype=dart
+    autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
+    autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
+    " html genus
+    autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
+    " perl genus
+    autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
+    autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
+    " perl genus
+    autocmd BufNewFile,BufRead,BufWritePost *.py,*.py3.[0-9],*.py3,*.py2,*.py2.[0-9] set filetype=python
+    " xcode genus
+    autocmd BufNewFile,BufRead,BufWritePost *.m  set filetype=objective-c
+    autocmd BufNewFile,BufRead,BufWritePost *.mm set filetype=cpp.objective-c
+    autocmd BufNewFile,BufRead,BufWritePost *.swift set filetype=swift
+    " shell genus
+    autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
+    autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
+    autocmd BufNewFile,BufRead,BufWritePost */patches/* set filetype=diff
+    autocmd BufNewFile,BufRead,BufWritePost *tmux*conf* set filetype=tmux
+    autocmd BufNewFile,BufRead,BufWritePost *envrc* set filetype=bash
+    " graphics genus
+    autocmd BufNewFile,BufRead,BufWritePost *.pde set filetype=processing
+    autocmd BufNewFile,BufRead,BufWritePost *.as set filetype=actionscript
+    autocmd BufNewFile,BufRead,BufWritePost *.hx set filetype=haxe
+    autocmd BufNewFile,BufRead,BufWritePost *.mxml set filetype=mxml
+    " jvm genus
+    autocmd BufNewFile,BufRead,BufWritePost .vrapperrc set filetype=vim
+    autocmd BufNewFile,BufRead,BufWritePost *.scala set filetype=scala
+    autocmd BufNewFile,BufRead,BufWritePost *.sbt set filetype=sbt
+    autocmd BufNewFile,BufRead,BufWritePost *.gradle set filetype=groovy
+    autocmd BufNewFile,BufRead,BufWritePost *.pig set filetype=pig syntax=pig
+    " ruby genus
+    autocmd BufNewFile,BufRead,BufWritePost [Gg]emfile set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost gemspec set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.ru set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.unicorn set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.cap set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.god,*.eye set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *_spec.rb set filetype=ruby.rspec
+    autocmd BufNewFile,BufRead,BufWritePost *[Pp]rocfile* set syntax=yaml
+    " lisp genus
+    autocmd FileType lisp set syntax=lisp
+    autocmd BufNewFile,BufRead,BufWritePost *.gosh set filetype=scheme
+    autocmd FileType scheme set syntax=scheme
+    " beamvm
+    autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
+    autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
+    " dlang
+    autocmd BufNewFile,BufRead,BufWritePost *.d setf d
+    " mysql
+    autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
 let g:local_vimrc = '$HOME/.vimrc.local'
 if filereadable(expand(g:local_vimrc))
-  execute 'source ' . g:local_vimrc
+    execute 'source ' . g:local_vimrc
 endif
 " }}}
 "[ ####------- NeoBundleCheck ------------------#### ] {{{
