@@ -1683,7 +1683,7 @@ augroup END
 "}}}
 "### Golang support {{{
 
-let g:gocode_path="$GOPATH/src/github.com/nsf/gocode/vim"
+let g:gocode_path="$HOME/.gopath/src/github.com/nsf/gocode/vim"
 if filereadable(expand(g:gocode_path))
     execute "set rtp^=".g:gocode_path
 endif
