@@ -20,13 +20,13 @@ if [ ! -e ${current}/vim/memo ];then
     mkdir -p ${current}/vim/memo
   fi
 fi
-mkdir -p ${current}/vim/bundle/automatic/
+mkdir -p ${current}/vim/bundle/
 mkdir -p  ~/.vimundo
 
 libs=('neobundle.vim' 'vimproc' 'unite.vim');
 for x in ${libs[@]}; do
-  if [ ! -d ${current}/vim/bundle/automatic/${x} ];then
-    git clone git://github.com/Shougo/${x} ${current}/vim/bundle/automatic/${x}
+  if [ ! -d ${current}/vim/bundle/${x} ];then
+    git clone git://github.com/Shougo/${x} ${current}/vim/bundle/${x}
   fi
 done;
 
@@ -34,7 +34,7 @@ mkdir -p ${HOME}/.vim-backup && chmod 766 ${HOME}/.vim-backup
 mkdir -p ${HOME}/.vim-yankring
 
 vimproc_build() {
-  cd ${current}/vim/bundle/automatic/vimproc
+  cd ${current}/vim/bundle/vimproc
 
   local kernelname=$(uname -s)
   local makefile_name=''

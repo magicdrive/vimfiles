@@ -14,7 +14,7 @@ end
 
 desc 'clean bundled vim plugins.'
 task :dist_clean do
-  Process::wait(spawn('rm -fr ./vim/bundle/automatic/*'))
+  Process::wait(spawn('rm -fr ./vim/bundle/*'))
 end
 
 desc 'clean install.'
