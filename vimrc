@@ -1161,56 +1161,6 @@ map <silent> <Plug>(mykey)p :call YanktmpPaste_p()<CR>
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
 "}}}
-"### NeoComplete {{{
-
-set infercase
-let g:acp_enableAtStartup = 0
-autocmd FileType python setlocal omnifunc=jedi#completions
-
-let g:neocomplete#use_vimproc = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplete#force_overwrite_completefunc = 1
-let g:neocomplete#skip_auto_completion_time = ''
-let g:neocomplete#enable_auto_close_preview = 1
-
-"# Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-            \ 'default'    : '',
-            \ 'c'          : $HOME.'/.vim/dict/c.dict',
-            \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
-            \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
-            \ 'php'        : $HOME.'/.vim/dict/php.dict',
-            \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-            \ 'java'       : $HOME.'/.vim/dict/java.dict',
-            \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-            \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
-            \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
-            \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
-            \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
-            \ 'vimshell'   : $HOME.'/.vimshell_hist',
-            \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-            \ }
-" Enable heavy omni completion.
-
-"# Define keyword.
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-endif
-
-"# python
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-
-"# ruby
-let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-"# golang
-let g:neocomplete#force_omni_input_patterns.go = '\h\w*\.\?'
-
-"}}}
 "### Airline {{{
 
 let g:airline_left_sep = '⮀'
@@ -1756,22 +1706,26 @@ augroup END
 "}}}
 "### FileType(Language) assistance "{{{
 
-"辞書ファイルを使用する設定に変更
+"# dictionary files
 set complete+=k
 set completeopt=menu,preview
-
-"ファイルタイプ別辞書ファイル
 augroup filetype_dict
     autocmd!
     autocmd FileType c,cpp,perl setlocal cindent
-    autocmd FileType ruby :setlocal dictionary=~/.vim/plugin/ruby.vim
+    autocmd FileType ruby :setlocal dictionary+=~/.vim/plugin/ruby.vim
     autocmd FileType perl :setlocal dictionary+=~/.vim/dict/perl_function.dict
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FileType c setlocal omnifunc=ccomplete#Complete
+    autocmd FileType vimshell :setlocal dictionary+=~/.vimshell_hist
+
+    for e in [ 'cpp', 'lua', 'php', 'perl', 'java', 'scala', 'ocaml', 'vim', 'clisp', 'scheme', 'vimshell', 'javascript' ]
+        execute 'autocmd FileType ' + e + ':setlocal dictionary+=~/.vim/dict/'+ e + '.dict'
+    endfor
+
+    autocmd FileType python     setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType html       setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType css        setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType xml        setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType php        setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c          setlocal omnifunc=ccomplete#Complete
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType scheme let is_gauche=1
 augroup END
