@@ -56,8 +56,9 @@ set scrolljump=15
 set listchars=eol:$,tab:>\
 
 "# completion
-inoremap <C-j> <C-n>
+inoremap <C-j> <C-x><C-n>
 inoremap <C-k> <C-x><C-o>
+inoremap <C-l> <C-x><C-k>
 
 "# backspaceキーの動作
 noremap  <C-?> <C-h>
@@ -620,12 +621,6 @@ call neobundle#begin( expand('~/.vim/bundle') )
 NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# sonic-template
 NeoBundle 'mattn/sonictemplate-vim'
-
-""# neocomplete or neocomplcache
-"NeoBundleLazy 'Shougo/neocomplete.vim', 'ver.1.1', {
-"            \ 'autoload' : { 'insert' : 1, }
-"            \ }
-
 "# vimshell
 NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
@@ -1160,56 +1155,6 @@ map <silent> <Plug>(mykey)p :call YanktmpPaste_p()<CR>
 "### Align.vim {{{
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
-"}}}
-""""""### NeoComplete {{{
-"""""
-"""""let g:acp_enableAtStartup = 0
-"""""autocmd FileType python setlocal omnifunc=jedi#completions
-"""""
-"""""let g:neocomplete#use_vimproc = 1
-"""""let g:neocomplete#enable_at_startup = 1
-"""""let g:neocomplete#sources#syntax#min_keyword_length = 3
-"""""let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-"""""let g:neocomplete#force_overwrite_completefunc = 1
-"""""let g:neocomplete#skip_auto_completion_time = ''
-"""""let g:neocomplete#enable_auto_close_preview = 1
-"""""let g:neocomplete#disable_auto_complete = 1
-"""""
-""""""# Define dictionary.
-"""""let g:neocomplete#sources#dictionary#dictionaries = {
-"""""            \ 'default'    : '',
-"""""            \ 'c'          : $HOME.'/.vim/dict/c.dict',
-"""""            \ 'cpp'        : $HOME.'/.vim/dict/cpp.dict',
-"""""            \ 'lua'        : $HOME.'/.vim/dict/lua.dict',
-"""""            \ 'php'        : $HOME.'/.vim/dict/php.dict',
-"""""            \ 'perl'       : $HOME.'/.vim/dict/perl.dict',
-"""""            \ 'java'       : $HOME.'/.vim/dict/java.dict',
-"""""            \ 'scala'      : $HOME.'/.vim/dict/scala.dict',
-"""""            \ 'ocaml'      : $HOME.'/.vim/dict/ocaml.dict',
-"""""            \ 'vim'        : $HOME.'/.vim/dict/vim.dict',
-"""""            \ 'clisp'      : $HOME.'/.vim/dict/clisp.dict',
-"""""            \ 'scheme'     : $HOME.'/.vim/dict/scheme.dict',
-"""""            \ 'vimshell'   : $HOME.'/.vimshell_hist',
-"""""            \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-"""""            \ }
-"""""" Enable heavy omni completion.
-"""""
-""""""# Define keyword.
-"""""if !exists('g:neocomplete#force_omni_input_patterns')
-"""""    let g:neocomplete#force_omni_input_patterns = {}
-"""""endif
-"""""
-""""""# python
-"""""let g:jedi#completions_enabled = 0
-"""""let g:jedi#auto_vim_configuration = 0
-"""""let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-"""""
-""""""# ruby
-"""""let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"""""
-""""""# golang
-"""""let g:neocomplete#force_omni_input_patterns.go = '\h\w*\.\?'
-"""""
 "}}}
 "### Airline {{{
 
@@ -1760,6 +1705,10 @@ augroup END
 set complete+=k
 set completeopt=menuone
 set infercase
+
+for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs')
+  exec "imap " . k . " " . k . "<C-X><C-N><C-P>"
+endfor
 
 "# filetype dictionary files
 augroup filetype_dict
