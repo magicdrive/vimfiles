@@ -1194,11 +1194,12 @@ let g:acp_enableAtStartup = 0
 autocmd FileType python setlocal omnifunc=jedi#completions
 
 if g:meet_neocomplete_requirements
+    let g:neocomplete#use_vimproc = 1
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
     let g:neocomplete#force_overwrite_completefunc = 1
-    let g:neocomplete#skip_auto_completion_time = '0.3'
+    let g:neocomplete#skip_auto_completion_time = '2.0'
 
     "# Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -1231,6 +1232,12 @@ if g:meet_neocomplete_requirements
     let g:jedi#completions_enabled = 0
     let g:jedi#auto_vim_configuration = 0
     let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
+    if !exists('g:neocomplcache_omni_patterns')
+        let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
+
 else
     " 今までの neocomplcache の設定
     let g:neocomplcache_enable_at_startup = 1
@@ -1276,6 +1283,11 @@ else
     let g:jedi#completions_enabled = 0
     let g:jedi#auto_vim_configuration = 0
     let g:neocomplcache_force_omni_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
+    if !exists('g:neocomplcache_omni_patterns')
+        let g:neocomplcache_omni_patterns = {}
+    endif
+    let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
 endif
 
 "}}}
@@ -1692,9 +1704,9 @@ let g:gofmt_command = 'goimports'
 
 augroup go_ftplugin
     autocmd!
-    autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
-    autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
-    autocmd FileType go autocmd BufWritePre <buffer> Fmt
+  "  autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
+  "  autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
+  "  autocmd FileType go autocmd BufWritePre <buffer> Fmt
     au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4 completeopt=menu,preview
     au FileType go compiler go
 augroup END
