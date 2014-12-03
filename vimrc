@@ -1039,42 +1039,10 @@ nnoremap <silent> <Plug>(mykeylite)r :<C-u>Unite ref/
 nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
 
 "}}}
-"### VimFiler {{{
-nnoremap <Plug>(mykey)e :VimFiler ./<CR>
-
-augroup vimfiler_setting
-    autocmd!
-    autocmd FileType vimfiler nmap <buffer> <Space> <Plug>(mykey)
-    autocmd FileType vimfiler nnoremap <buffer> m <Plug>(vimfiler_toggle_mark_current_line)
-    autocmd FileType vimfiler nnoremap <buffer> M <Plug>(vimfiler_toggle_mark_current_line_up)
-    autocmd FileType vimfiler nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
-    autocmd FileType vimfiler call s:my_vimfiler_settings()
-augroup END
-
-"nnoremap <silent> <Plug>(mykeylite)a :VimFiler -buffer-name=explorer -split -winwidth=45 -toggle -no-quit<Cr>
-function! s:my_vimfiler_settings()
-    nmap     <buffer><expr><Cr> vimfiler#smart_cursor_map("\<Plug>(vimfiler_expand_tree)", "\<Plug>(vimfiler_edit_file)")
-    nnoremap <buffer>s          :call vimfiler#mappings#do_action('my_split')<Cr>
-    nnoremap <buffer>v          :call vimfiler#mappings#do_action('my_vsplit')<Cr>
-endfunction
-
-let s:my_action = { 'is_selectable' : 1 }
-function! s:my_action.func(candidates)
-    wincmd p
-    exec 'split '. a:candidates[0].action__path
-endfunction
-call unite#custom_action('file', 'my_split', s:my_action)
-
-let s:my_action = { 'is_selectable' : 1 }
-function! s:my_action.func(candidates)
-    wincmd p
-    exec 'vsplit '. a:candidates[0].action__path
-endfunction
-call unite#custom_action('file', 'my_vsplit', s:my_action)
-
-let g:loaded_netrwPlugin = 1
-let g:vimfiler_as_default_explorer=1
-let g:vimfiler_force_overwrite_statusline = 0
+"### AutoComplPop {{{
+let g:acp_behaviorKeywordCommand = "\<C-x>\<C-n>"
+let g:acp_mappingDriven = 1
+let g:acp_behaviorKeywordLength = 1
 "}}}
 "### VimShell {{{2
 
@@ -1201,43 +1169,6 @@ function! SearchHighlightOff ()
     endif
 endfunction
 "}}}
-"### iTunes{{{
-if has('mac')
-    nnoremap <Plug>(mykey)0 :ITunes<Space>
-    command! -nargs=1
-                \ -complete=customlist,CompletionITunes
-                \ ViTunes :call <SID>ITunes('<args>')
-
-    function! s:ITunes(action)
-        if a:action ==# 'list'
-            Unite it_track
-        else
-            execute 'call itunes#' . a:action . '()'
-        endif
-    endfunction
-
-    function! CompletionITunes(ArgLead, CmdLine, CusorPos)
-        let l:cmd = split(a:CmdLine)
-        let l:len_cmd = len(l:cmd)
-        if l:len_cmd <= 2
-            let l:filter_cmd = printf('v:val =~ "^%s"', a:ArgLead)
-            return filter(
-                        \ ['play', 'stop', 'next', 'prev', 'repeat', 'loop', 'list'],
-                        \ l:filter_cmd
-                        \ )
-        endif
-    endfunction
-
-    function! AlterITunes()
-        AlterCommand  vit[unes] ViTunes
-    endfunction
-
-    augroup itunes_group
-        autocmd!
-        autocmd VimEnter * call AlterITunes()
-    augroup END
-endif
-"}}}
 "### QuickRun {{{
 nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
@@ -1322,17 +1253,6 @@ endfunction
 augroup scratch_setting
     autocmd!
     autocmd VimEnter * call s:alter_scratch()
-augroup END
-
-"}}}
-"### Chalice {{{
-
-function! s:alter_chalice()
-    AlterCommand  cha[lice] Chalice
-endfunction
-augroup chalice_group
-    autocmd!
-    autocmd VimEnter * call s:alter_chalice()
 augroup END
 
 "}}}
