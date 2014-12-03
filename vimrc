@@ -55,10 +55,6 @@ set scrolljump=15
 "# tabを表示
 set listchars=eol:$,tab:>\
 
-"# completion
-inoremap <C-j> <C-x><C-n>
-inoremap <C-k> <C-x><C-o>
-inoremap <C-l> <C-x><C-k>
 
 "# backspaceキーの動作
 noremap  <C-?> <C-h>
@@ -349,6 +345,22 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 set incsearch
 
 "}}}
+"### complation {{{
+set complete+=k
+set completeopt=menuone
+set infercase
+
+"# keybind
+inoremap <C-j> <C-x><C-n>
+inoremap <C-k> <C-x><C-o>
+inoremap <C-l> <C-x><C-k>
+inoremap <C-_> <C-x><C-f>
+
+for key in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs')
+  exec printf("inoremap %s %s<C-x><C-n><C-p>", key, key)
+endfor
+inoremap ./ ./<C-x><C-f><C-p>
+" }}}
 "### Emacs like keybind "{{{
 
 "# カーソルキーで行末／行頭の移動可能に設定
@@ -626,10 +638,6 @@ NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
             \ }
 
-"# vim-autocomplpop
-NeoBundleLazy 'vim-scripts/AutoComplPop', {
-            \ 'autoload' : { 'insert' : 1, }
-            \ }
 
 "# vim-singleton
 if has('clientserver')
@@ -1039,11 +1047,6 @@ nnoremap <silent> <Plug>(mykeylite)r :<C-u>Unite ref/
 nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
 
 "}}}
-"### AutoComplPop {{{
-let g:acp_behaviorKeywordCommand = "\<C-x>\<C-n>"
-let g:acp_mappingDriven = 1
-let g:acp_behaviorKeywordLength = 1
-"}}}
 "### VimShell {{{2
 
 let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
@@ -1173,14 +1176,6 @@ endfunction
 nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
 
-function! s:alter_quickrun()
-    AlterCommand  qui[ckrun] QuickRun
-endfunction
-augroup quickrun_group
-    autocmd!
-    autocmd VimEnter * call s:alter_quickrun()
-augroup END
-
 for [key, com] in items({
             \   '<Leader>x' : '>message',
             \   '<Leader>p' : '-runner shell',
@@ -1247,13 +1242,6 @@ function! s:scratchbuffer_filetype(filetype)
     Scratch
     execute 'set filetype=' . a:filetype
 endfunction
-function! s:alter_scratch()
-    AlterCommand  tem[polarybuffer] TempolaryBuffer
-endfunction
-augroup scratch_setting
-    autocmd!
-    autocmd VimEnter * call s:alter_scratch()
-augroup END
 
 "}}}
 "### sudo.vim {{{
@@ -1419,12 +1407,6 @@ function! s:open_rubygem_code(module) range
     endtry
 
 endfunction
-function! AlterFileTypeRuby()
-    AlterCommand  ri Ref ri
-    if executable('refe')
-        AlterCommand  refe Ref refe
-    endif
-endfunction
 
 let g:ref_ruby_cmd= executable('refe') ? 'refe' : 'ri'
 
@@ -1443,7 +1425,6 @@ augroup ruby_ftplugin
     autocmd FileType ruby,ref-ri vnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
     autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
     autocmd FileType ruby setlocal autoindent
-    autocmd VimEnter * call AlterFileTypeRuby()
 augroup END
 
 command! -nargs=0 Irb call <SID>start_repl('irb')
@@ -1609,13 +1590,7 @@ augroup END
 "### FileType(Language) assistance "{{{
 
 "辞書ファイルを使用する設定に変更
-set complete+=k
-set completeopt=menuone
-set infercase
 
-"#for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs')
-"#  exec "imap " . k . " " . k . "<C-X><C-N><C-P>"
-"#endfor
 
 "# filetype dictionary files
 augroup filetype_dict
