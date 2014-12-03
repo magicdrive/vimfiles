@@ -626,6 +626,11 @@ NeoBundleLazy 'Shougo/vimshell', {
             \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
             \ }
 
+"# vim-autocomplpop
+NeoBundleLazy 'vim-scripts/AutoComplPop', {
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
+
 "# vim-singleton
 if has('clientserver')
     NeoBundle 'thinca/vim-singleton'
@@ -638,13 +643,6 @@ NeoBundle 'Shougo/vimproc', 'ver.7.0', {
             \     'mac'     : 'make -f make_mac.mak',
             \     'unix'    : 'make -f make_unix.mak',
             \    },
-            \ }
-"# vimfiler
-NeoBundleLazy 'Shougo/vimfiler', {
-            \   'autoload' : {
-            \       'commands' : [ "VimFilerTab", "VimFiler", "VimFilerExplorer", "VimFilerCurrent" ],
-            \       'explorer' : 1 ,
-            \   }
             \ }
 "# NERDTree
 NeoBundleLazy 'scrooloose/nerdtree', {
@@ -667,10 +665,6 @@ NeoBundleLazy 'taichouchou2/vim-endwise', {
             \ }
 "# smartinput
 NeoBundleLazy 'kana/vim-smartinput', {
-            \ 'autoload' : { 'insert' : 1, }
-            \ }
-"# neco-look
-NeoBundleLazy "ujihisa/neco-look", {
             \ 'autoload' : { 'insert' : 1, }
             \ }
 "# niceblock
@@ -726,7 +720,6 @@ NeoBundle 'dgryski/vim-godef'
 NeoBundleLazy 'Shougo/unite.vim', 'ver.6.0', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
-NeoBundle 'Shougo/neomru.vim'
 
 "# unite-rails
 NeoBundleLazy 'basyura/unite-rails', {
@@ -978,12 +971,6 @@ NeoBundle 'yanktmp.vim'
 "#-----------------------#
 "# external service      #
 "#-----------------------#
-if has('mac')
-    "# vim-itunes
-    NeoBundle "ryutorion/vim-itunes"
-else
-    NeoBundleFetch "ryutorion/vim-itunes"
-endif
 "# webapi
 NeoBundle 'mattn/webapi-vim'
 
@@ -1706,9 +1693,9 @@ set complete+=k
 set completeopt=menuone
 set infercase
 
-for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs')
-  exec "imap " . k . " " . k . "<C-X><C-N><C-P>"
-endfor
+"#for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs')
+"#  exec "imap " . k . " " . k . "<C-X><C-N><C-P>"
+"#endfor
 
 "# filetype dictionary files
 augroup filetype_dict
