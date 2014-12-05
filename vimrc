@@ -715,10 +715,9 @@ NeoBundle 'YankRing.vim'
 "# golang                           #
 "#----------------------------------#
 NeoBundle 'vim-jp/vim-go-extra'
-NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'zimbatm/direnv.vim'
 NeoBundle 'google/vim-ft-go'
-NeoBundle 'dgryski/vim-godef'
+NeoBundle 'ekalinin/Dockerfile.vim'
 
 
 "#----------------------------------#
