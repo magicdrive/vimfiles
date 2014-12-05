@@ -14,7 +14,6 @@ map  , <Plug>(mykeylite)
 
 "# vi互換のoff
 set nocompatible
-"#set regexpengine=1
 
 "# timeout
 set to
@@ -151,6 +150,9 @@ set wildmode=longest,full
 
 "# コマンドラインの履歴の保存数
 set history=256
+
+"# netrw
+let g:netrw_liststyle=3
 
 "# tagjump stack preview
 nnoremap <Leader>t <C-t>
@@ -1279,7 +1281,6 @@ nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
 nnoremap <silent> <Plug>(mykey)i :call <SID>MY_NERDTreeRefresh()<CR>
 let g:my_nerdtree_status=0
 
-
 augroup my_nerdtree_setting
     autocmd!
     autocmd FileType nerdtree nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
@@ -1303,7 +1304,7 @@ endfunction
 
 let g:NERDTreeHijackNetrw=0
 if !has('gui_running')
-    let g:NERDTreeWinSize=35
+    let g:NERDTreeWinSize=(&columns / 5)
 endif
 "}}}
 "### Emmet {{{

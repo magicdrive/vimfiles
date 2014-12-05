@@ -22,6 +22,7 @@ function! WindowSupervise()
         autocmd BufRead * call s:save_window()
         autocmd VimResized * call s:save_window()
         function! s:save_window()
+            let g:NERDTreeWinSize=(&columns / 5)
             let options = [
                         \ 'set columns=' . &columns,
                         \ 'set lines=' . &lines,
