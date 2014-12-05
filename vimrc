@@ -656,7 +656,10 @@ NeoBundle 'Shougo/vimproc', 'ver.7.0', {
             \ }
 "# NERDTree
 NeoBundleLazy 'scrooloose/nerdtree', {
-            \   'autoload' : { 'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ] }
+            \   'autoload' : {
+            \       'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ], 
+            \       'explorer' : 1,
+            \   }
             \ }
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
@@ -1302,7 +1305,7 @@ function! s:MY_NERDTreeToggle()
                 \ g:my_nerdtree_status ==# 1 ? 0 : 1
 endfunction
 
-let g:NERDTreeHijackNetrw=0
+let g:NERDTreeHijackNetrw=1
 if !has('gui_running')
     let g:NERDTreeWinSize=(&columns / 5)
 endif
