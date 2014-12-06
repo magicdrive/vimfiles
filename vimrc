@@ -282,7 +282,7 @@ endif
 "### ListChar "{{{
 
 "# Listcharのトグル
-nnoremap <silent> <Plug>(mykey)c :<C-u>call <SID>ToggleListChar()<CR>
+nnoremap <silent> <Plug>(mykeylite)c :<C-u>call <SID>ToggleListChar()<CR>
 command! -nargs=0 ListCharToggle :call <SID>ToggleListChar()
 
 function! s:ToggleListChar()
@@ -359,7 +359,7 @@ inoremap <C-l> <C-x><C-k>
 inoremap <C-_> <C-x><C-f>
 
 for key in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs')
-  exec printf("inoremap %s %s<C-x><C-n><C-p>", key, key)
+    exec printf("inoremap %s %s<C-x><C-n><C-p>", key, key)
 endfor
 inoremap ./ ./<C-x><C-f><C-p>
 " }}}
@@ -518,7 +518,6 @@ function! s:ToggleMatsubiSpaceHighLight()
     let g:matsubi_space_state=g:matsubi_space_state ? 0 : 1
     call MatsubiSpace()
 endfunction
-nnoremap <Plug>(mykeylite)c :call <SID>ToggleMatsubiSpaceHighLight()<CR>
 
 if has('syntax')
     augroup MatsubiSpace
@@ -1002,12 +1001,8 @@ NeoBundleLazy 'vim-scripts/CSApprox', {
 NeoBundle 'altercation/vim-colors-solarized'
 "# jellybeans
 NeoBundle 'magicdrive/jellybeans.vim'
-"# wombat
-NeoBundle 'vim-scripts/Wombat'
 "# molokai
 NeoBundle 'tomasr/molokai'
-"# Zenburn
-NeoBundle 'Zenburn'
 "# railscasts
 NeoBundle 'dhruvasagar/vim-railscasts-theme'
 "# hybrid
@@ -1129,7 +1124,7 @@ let g:airline#extensions#branch#symbol = '⭠ '
 let g:airline#extensions#readonly#symbol = '⭤'
 let g:airline_linecolumn_prefix = '⭡ '
 
-let g:airline_theme=has('gui_running') ? 'lucius' : 'base16'
+let g:airline_theme=has('gui_running') ? 'lucius' : 'dark'
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1650,6 +1645,7 @@ let g:current_color_mode=g:default_color_mode
 
 " setup color by background
 function! SetupColorScheme ()
+    syntax reset
     if has('gui_running')
         execute 'colorscheme ' .
                     \ ( (g:default_color_mode ==# 'A') ?
@@ -1663,6 +1659,7 @@ endfunction
 
 "# change colorscheme & background
 function! s:ChangeBackground()
+    syntax reset
     if g:current_color_mode ==# 'A'
         execute 'colorscheme ' .
                     \ (has('gui_running') ?
@@ -1721,8 +1718,10 @@ function! MyColor()
 
     "# 検索結果のカラースキーム変更
     highlight Search ctermbg=Gray
-    "  highlight rubyModule ctermfg=82 guifg=#5fff00
-    "  highlight rubyClass  ctermfg=82 guifg=#5fff00
+    if g:colors_name == "molokai"
+        highlight rubyModule ctermfg=82 guifg=#5fff00
+        highlight rubyClass  ctermfg=82 guifg=#5fff00
+    endif
 endfunction
 
 augroup color_set
@@ -1736,7 +1735,7 @@ augroup END
 call SetupColorScheme()
 
 "# switching colrschme & background
-nnoremap <silent> <Leader>b :<C-u> call <SID>ChangeBackground()<CR>
+nnoremap <silent> <Plug>(mykey)c :<C-u> call <SID>ChangeBackground()<CR>
 
 "}}}
 "[ ####------- FileType Settings ---------------#### ]"{{{
