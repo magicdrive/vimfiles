@@ -721,8 +721,9 @@ NeoBundle 'YankRing.vim'
 "#----------------------------------#
 NeoBundle 'vim-jp/vim-go-extra'
 NeoBundle 'zimbatm/direnv.vim'
-NeoBundle 'google/vim-ft-go'
+"#NeoBundle 'google/vim-ft-go'
 NeoBundle 'ekalinin/Dockerfile.vim'
+NeoBundle 'fatih/vim-go'
 
 
 "#----------------------------------#
@@ -1457,6 +1458,10 @@ if filereadable(expand(g:gocode_path))
 endif
 set path+=$GOPATH/src/**
 let g:gofmt_command = 'goimports'
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_fmt_autosave = 0
 
 augroup go_ftplugin
     autocmd!
