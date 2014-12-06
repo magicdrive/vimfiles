@@ -683,8 +683,6 @@ NeoBundleLazy 'kana/vim-smartinput', {
 NeoBundleLazy 'kana/vim-niceblock', {
             \ 'autoload' : { 'insert' : 1, }
             \ }
-"# altercmd
-NeoBundle 'tyru/vim-altercmd'
 "# surround.vim
 NeoBundle 'surround.vim'
 "# vimsualstar
@@ -719,10 +717,9 @@ NeoBundle 'YankRing.vim'
 "# golang                           #
 "#----------------------------------#
 NeoBundle 'vim-jp/vim-go-extra'
-NeoBundle 'zimbatm/direnv.vim'
-"#NeoBundle 'google/vim-ft-go'
-NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'fatih/vim-go'
+NeoBundle 'zimbatm/direnv.vim'
+NeoBundle 'ekalinin/Dockerfile.vim'
 
 
 "#----------------------------------#
@@ -733,10 +730,6 @@ NeoBundleLazy 'Shougo/unite.vim', 'ver.6.0', {
             \ 'autoload' : { 'commands' : ['Unite'] }
             \ }
 
-"# unite-rails
-NeoBundleLazy 'basyura/unite-rails', {
-            \ 'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] }
-            \ }
 "# unite-outline
 NeoBundle 'h1mesuke/unite-outline'
 
@@ -892,7 +885,6 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 "#-----------------------#
 "# ruby                  #
 "#-----------------------#
-
 "# vim-ruby
 NeoBundle 'vim-ruby/vim-ruby', 'vim7.4', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
@@ -997,18 +989,12 @@ NeoBundleLazy 'thinca/vim-guicolorscheme', {
 NeoBundleLazy 'vim-scripts/CSApprox', {
             \ 'autoload' : { 'commands' : ['CSApprox', 'CSApproxSnapshot'] }
             \ }
-"# solarized
-NeoBundle 'altercation/vim-colors-solarized'
 "# jellybeans
 NeoBundle 'magicdrive/jellybeans.vim'
 "# molokai
 NeoBundle 'tomasr/molokai'
-"# railscasts
-NeoBundle 'dhruvasagar/vim-railscasts-theme'
 "# hybrid
 NeoBundle 'w0ng/vim-hybrid'
-"# twilight
-NeoBundle 'vim-scripts/twilight'
 "# pyte
 NeoBundle 'vim-scripts/pyte'
 "# chlordane
@@ -1055,14 +1041,6 @@ let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
 
 "# VimShellを新規Windowで立ち上げる
 command! Vshell call s:Shell()
-function! s:alter_vimshell()
-    AlterCommand  vsh[ell] Vshell
-endfunction
-augroup vimshell_setting
-    autocmd!
-    "# shell buffer clear
-    autocmd VimEnter * call s:alter_vimshell()
-augroup END
 
 nnoremap <silent> <Plug>(mykey)< :<C-u> call <SID>Shell()<CR>
 function! s:Shell()
@@ -1150,15 +1128,6 @@ let g:ref_perldoc_auto_append_f=1
 " ref-pydoc
 command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
 
-function! AlterRef()
-    AlterCommand  perld[oc] Ref perldoc
-    AlterCommand  perlf[unc] Ref perldoc -f
-    AlterCommand  man[page] Manpage
-endfunction
-augroup ref_group
-    autocmd!
-    autocmd VimEnter * call AlterRef()
-augroup END
 "}}}
 "### MultipulSearch.vim {{{
 "# 検索の置き換え
@@ -1364,9 +1333,6 @@ function! OpenPerlModuleCode(module) range
         echohl Error | echo 'No modulefile found.' | echohl None
     endif
 endfunction
-function! AlterFileTypePerl()
-    AlterCommand  perlre[ad] Perlread
-endfunction
 augroup perl_ftplugin
     autocmd!
     autocmd FileType perl :compiler perl
@@ -1383,7 +1349,6 @@ augroup perl_ftplugin
     autocmd FileType perl,ref-perldoc vnoremap <buffer> <Plug>(mykey)3 :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
     autocmd FileType perl,ref-perldoc nnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( expand('<cword>') )<CR>
     autocmd FileType perl,ref-perldoc vnoremap <buffer> <F3> :<C-u>call OpenPerlModuleCode( '<visual>' )<CR>
-    autocmd VimEnter * call AlterFileTypePerl()
 augroup END
 "}}}
 "### Ruby support "{{{
