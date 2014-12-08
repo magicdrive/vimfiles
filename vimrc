@@ -1270,10 +1270,8 @@ function! s:MY_NERDTreeToggle()
                 \ g:my_nerdtree_status ==# 1 ? 0 : 1
 endfunction
 
-let g:NERDTreeHijackNetrw=1
-if !has('gui_running')
-    let g:NERDTreeWinSize=(&columns / 5)
-endif
+let g:NERDTreeHijackNetrw=0
+let g:NERDTreeWinSize=(&columns / 5)
 "}}}
 "### Emmet {{{
 "#let g:user_emmet_mode='i'
@@ -1602,8 +1600,8 @@ let g:gui_colorscheme_b='github'
 
 "# CLI
 "let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='molokai'
-let g:cui_colorscheme_b='jellybeans'
+let g:cui_colorscheme_a='jellybeans'
+let g:cui_colorscheme_b='hybrid'
 
 let g:current_color_mode=g:default_color_mode
 
