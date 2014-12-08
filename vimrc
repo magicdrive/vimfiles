@@ -614,7 +614,7 @@ function! s:hl_cword()
     let b:highlight_cursor_word = word
 endfunction
 
-let g:meet_neocomplete_requirements = has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
+"let g:meet_neocomplete_requirements = has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
 
 "}}}
 " }}}
@@ -1425,10 +1425,9 @@ let g:go_fmt_autosave = 0
 
 augroup go_ftplugin
     autocmd!
-    "  autocmd FileType go nnoremap <buffer> <C-\> <C-u>:call <SID>IndentFormat('Fmt')<CR>
-    "  autocmd FileType go vnoremap <buffer> <C-\> :Fmt<CR>
-    "  autocmd FileType go autocmd BufWritePre <buffer> Fmt
-    au BufNewFile,BufRead *.go set sw=4 noexpandtab ts=4
+	au FileType go highlight! link goSelf Function
+	au FileType go syntax keyword goSelf self
+    au BufNewFile,BufRead,BufWritePost *.go set sw=4 noexpandtab ts=4
     au FileType go compiler go
 augroup END
 "}}}
