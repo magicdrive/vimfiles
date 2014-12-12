@@ -889,14 +889,6 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 NeoBundle 'vim-ruby/vim-ruby', 'vim7.4', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
-"# unite-ruby-require
-NeoBundleLazy 'rhysd/unite-ruby-require.vim', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# neco-ruby-keyword-args
-NeoBundleLazy 'rhysd/neco-ruby-keyword-args', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
 "# textobj-ruby
 NeoBundleLazy 'rhysd/vim-textobj-ruby', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
@@ -907,14 +899,8 @@ NeoBundleLazy 'skwp/vim-rspec', {
             \ }
 "# rspec-syntax
 NeoBundle 'Keithbsmiley/rspec.vim'
-"# matchit
-NeoBundleLazy 'ruby-matchit', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
 "# vim-rails
 NeoBundle 'tpope/vim-rails', 'v5.0'
-"# vim-ref-ri
-NeoBundle 'taka84u9/vim-ref-ri'
 "# vim-bundler
 NeoBundle 'tpope/vim-bundler'
 
@@ -1351,6 +1337,7 @@ augroup END
 "}}}
 "### Ruby support "{{{
 
+let g:rubycomplete_rails = 1
 command! -nargs=1  RubyGemRead :call <SID>open_rubygem_code('<args>')
 function! s:open_rubygem_code(module) range
     let l:module_name=a:module
