@@ -153,6 +153,9 @@ set history=256
 
 "# netrw
 let g:netrw_liststyle=3
+let g:netrw_hide=1
+let g:netrw_altv=1
+let g:netrw_alto=1
 
 "# tagjump stack preview
 nnoremap <Leader>t <C-t>
@@ -900,7 +903,7 @@ NeoBundleLazy 'skwp/vim-rspec', {
 "# rspec-syntax
 NeoBundle 'Keithbsmiley/rspec.vim'
 "# vim-rails
-NeoBundle 'tpope/vim-rails', 'v5.0'
+NeoBundle 'tpope/vim-rails', 'v5.1'
 "# vim-bundler
 NeoBundle 'tpope/vim-bundler'
 
