@@ -362,7 +362,7 @@ inoremap <C-l> <C-x><C-k>
 inoremap <C-_> <C-x><C-f>
 
 for key in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs')
-    exec printf("inoremap %s %s<C-x><C-n><C-p>", key, key)
+    exec printf("inoremap %s %s<C-n><C-p>", key, key)
 endfor
 inoremap ./ ./<C-x><C-f><C-p>
 " }}}
