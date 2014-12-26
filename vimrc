@@ -166,7 +166,7 @@ nnoremap <Leader>t <C-t>
 nnoremap <silent> <Up> :bnext<CR>
 nnoremap <silent> <Down> :bprevious<CR>
 
-cnoreabbrev w!! w !sudo tee > /dev/null %<CR>
+command! SudoWrite :w !sudo tee > /dev/null %
 
 "}}}
 "### VimScript "{{{
