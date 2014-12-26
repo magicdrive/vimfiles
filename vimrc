@@ -73,6 +73,8 @@ set ttyfast
 "# yank
 nnoremap Y y$
 
+set display=lastline
+
 "# filetype
 nnoremap <Plug>(mykey)/ :<C-u>set filetype=
 
@@ -163,6 +165,8 @@ nnoremap <Leader>t <C-t>
 "# buffer next/preview
 nnoremap <silent> <Up> :bnext<CR>
 nnoremap <silent> <Down> :bprevious<CR>
+
+cnoreabbrev w!! w !sudo tee > /dev/null %<CR>
 
 "}}}
 "### VimScript "{{{
@@ -354,6 +358,7 @@ set incsearch
 set complete+=k
 set completeopt=menuone
 set infercase
+set pumheight=10
 
 "# keybind
 inoremap <C-j> <C-x><C-n>
@@ -659,7 +664,7 @@ NeoBundle 'Shougo/vimproc', 'ver.7.0', {
 "# NERDTree
 NeoBundleLazy 'scrooloose/nerdtree', {
             \   'autoload' : {
-            \       'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ], 
+            \       'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ],
             \       'explorer' : 1,
             \   }
             \ }
@@ -698,8 +703,6 @@ NeoBundle 'bling/vim-airline'
 NeoBundleLazy 'glidenote/memolist.vim', {
             \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
             \ }
-"# sudo.vim
-NeoBundle 'sudo.vim'
 "# sql-util
 NeoBundle 'SQLUtilities'
 "# vim-ref
