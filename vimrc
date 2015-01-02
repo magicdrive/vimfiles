@@ -865,9 +865,6 @@ NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'claco/jasmine.vim', {
             \ 'autoload' : {'filetypes': ['javascript']}
             \ }
-NeoBundleLazy 'dart-lang/dart-vim-plugin', {
-            \ 'autoload' : {'filetypes': ['javascript']}
-            \ }
 
 "#-----------------------#
 "# haxe                  #
