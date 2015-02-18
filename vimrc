@@ -1083,13 +1083,17 @@ let g:DrChipTopLvlMenu=''
 "}}}
 "### Airline {{{
 
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" old vim-powerline symbols
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
-let g:airline#extensions#branch#symbol = '⭠ '
-let g:airline#extensions#readonly#symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡ '
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
 
 let g:airline_theme=has('gui_running') ? 'lucius' : 'dark'
 
@@ -1413,8 +1417,8 @@ let g:go_fmt_autosave = 0
 
 augroup go_ftplugin
     autocmd!
-	au FileType go highlight! link goSelf Function
-	au FileType go syntax keyword goSelf self
+    au FileType go highlight! link goSelf Function
+    au FileType go syntax keyword goSelf self
     au BufNewFile,BufRead,BufWritePost *.go set sw=4 noexpandtab ts=4
     au FileType go compiler go
 augroup END
