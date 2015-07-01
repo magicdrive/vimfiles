@@ -391,6 +391,15 @@ noremap! <C-e> <End>
 nnoremap + <C-a>
 nnoremap - <C-x>
 
+if v:version > 704 || v:version == 704 && has('patch754')
+    vnoremap <C-a> <C-a>gv
+    vnoremap <C-x> <C-x>gv
+    vnoremap + <C-a>gv
+    vnoremap - <C-x>gv
+    vnoremap g+ g<C-a>gv
+    vnoremap g- g<C-x>gv
+endif
+
 "}}}
 "### Indent "{{{
 
