@@ -15,6 +15,10 @@ map  , <Plug>(mykeylite)
 "# vi互換のoff
 set nocompatible
 
+if v:version > 704 || v:version == 704 && has('patch785')
+    set nofixeol
+endif
+
 "# timeout
 set to
 set tm=500
