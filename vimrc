@@ -656,13 +656,6 @@ NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# sonic-template
 NeoBundle 'mattn/sonictemplate-vim'
 
-
-"# vim-singleton
-if has('clientserver')
-    NeoBundle 'thinca/vim-singleton'
-else
-    NeoBundleFetch 'thinca/vim-singleton'
-endif
 "# vimproc
 NeoBundle 'Shougo/vimproc', 'ver.7.0', {
             \ 'build' : {
@@ -713,7 +706,10 @@ NeoBundleLazy 'glidenote/memolist.vim', {
             \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
             \ }
 "# sql-util
-NeoBundle 'SQLUtilities'
+NeoBundleLazy 'SQLUtilities', {
+            \ 'filetypes' : ['sql'],
+            \ 'commands' : ['SQLUFormatter']
+            \ }
 "# vim-ref
 NeoBundleLazy 'thinca/vim-ref', {
             \ 'autoload' : {
@@ -726,7 +722,6 @@ NeoBundleLazy 'thinca/vim-ref', {
 NeoBundle 'troydm/easybuffer.vim'
 "# yankring
 NeoBundle 'YankRing.vim'
-
 
 "#----------------------------------#
 "# golang                           #
@@ -853,7 +848,7 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 "# ruby                  #
 "#-----------------------#
 "# vim-ruby
-NeoBundle 'vim-ruby/vim-ruby', 'vim7.4', {
+NeoBundleLazy 'vim-ruby/vim-ruby', 'vim7.4', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# textobj-ruby
@@ -890,10 +885,12 @@ NeoBundleLazy 'groenewege/vim-less', {
             \ }
 "# emmet.vim
 NeoBundleLazy 'mattn/emmet-vim', {
-            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml']}
+            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml','slim','jade']}
             \ }
 "# nginx.vim
-NeoBundle 'nginx.vim'
+NeoBundleLazy 'nginx.vim', {
+            \ 'autoload' : {'filetypes': ['nginx']}
+            \}
 "# httpstatus
 NeoBundleLazy 'mattn/httpstatus-vim', {
             \ 'autoload' : { 'commands' : ['HttpStatus'] }
@@ -920,8 +917,6 @@ NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
 "#-----------------------#
 "# util-tool             #
 "#-----------------------#
-"# lcoalrc
-NeoBundle 'thinca/vim-localrc'
 "# yanktmp
 NeoBundle 'yanktmp.vim'
 
@@ -1022,18 +1017,6 @@ let g:ref_perldoc_auto_append_f=1
 command! -nargs=?  Pydoc call ref#open('pydoc', '<args>')
 
 "}}}
-"### MultipulSearch.vim {{{
-"# 検索の置き換え
-nnoremap ? :Search<Space>
-vnoremap ? :Search<Space>
-"# 検索ハイライト消去
-nnoremap <silent> <C-c><C-c> :<C-u>call SearchHighlightOff()<CR>
-function! SearchHighlightOff ()
-    if exists(":SearchReset")
-        SearchReset
-    endif
-endfunction
-"}}}
 "### QuickRun {{{
 nnoremap <silent> <Plug>(mykey)r :<C-u>QuickRun<CR>
 vnoremap <silent> <Plug>(mykey)r :QuickRun<CR>
@@ -1073,7 +1056,6 @@ if executable('html2haml')
 endif
 "}}}
 "### Watchdogs {{{
-
 let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enable = 0
 let g:watchdogs_check_CursorHold_enables = {
@@ -1093,7 +1075,6 @@ let g:quickrun_config["watchdogs_checker/_"] = {
             \ }
 
 call watchdogs#setup(g:quickrun_config)
-
 "}}}
 "### sudo.vim {{{
 
@@ -1106,11 +1087,6 @@ function! s:sudo_write(arg)
     endif
 endfunction
 
-"}}}
-"### Singleton.vim {{{
-if has('clientserver')
-    call singleton#enable()
-endif
 "}}}
 "### Sass {{{
 let g:sass_compile_auto = 1
@@ -1131,11 +1107,6 @@ nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
 nnoremap <silent> <Plug>(mykey)i :call <SID>MY_NERDTreeRefresh()<CR>
 let g:my_nerdtree_status=0
 
-augroup my_nerdtree_setting
-    autocmd!
-    autocmd FileType nerdtree nnoremap <buffer> ? /^\s*\(\|-\\|\|+\\|+\\|-\) \zs
-augroup END
-
 function! s:MY_NERDTreeRefresh()
     NERDTreeFocus
     normal R
@@ -1152,7 +1123,7 @@ function! s:MY_NERDTreeToggle()
                 \ g:my_nerdtree_status ==# 1 ? 0 : 1
 endfunction
 
-let g:NERDTreeHijackNetrw=0
+let g:NERDTreeHijackNetrw=1
 let g:NERDTreeWinSize=(&columns / 5)
 "}}}
 "### Emmet {{{
@@ -1399,7 +1370,6 @@ let html_wrong_comments=1
 "}}}
 " }}}
 "[ ####------- Colorscheme Settings ------------#### ] "{{{
-
 "# xterm-256color
 set t_Co=256
 
@@ -1512,7 +1482,6 @@ call SetupColorScheme()
 
 "# switching colrschme & background
 nnoremap <silent> <Plug>(mykey)c :<C-u> call <SID>ChangeBackground()<CR>
-
 "}}}
 "[ ####------- FileType Settings ---------------#### ]"{{{
 augroup detect_filetype
