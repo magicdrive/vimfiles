@@ -741,42 +741,16 @@ NeoBundle 'zimbatm/direnv.vim'
 NeoBundle 'ekalinin/Dockerfile.vim'
 
 
-"#----------------------------------#
-"# unite.vim & unite source plug-in #
-"#----------------------------------#
-"# unite.vim
-NeoBundleLazy 'Shougo/unite.vim', 'ver.6.0', {
-            \ 'autoload' : { 'commands' : ['Unite'] }
-            \ }
-
-"# unite-outline
-NeoBundle 'h1mesuke/unite-outline'
-
-
 "#---------------------------#
 "# programing suport plug-in #
 "#---------------------------#
-"# scratch.vim
-NeoBundleLazy 'scratch.vim', {
-            \ 'autoload' : { 'commands' : ['Scratch'] }
-            \ }
 "# emacs-commandline
 NeoBundle 'houtsnip/vim-emacscommandline'
-"# MultipleSearch
-NeoBundleLazy 'MultipleSearch', {
-            \ 'autoload' : { 'commands' : ['Search', 'SearchBuffers'] }
-            \ }
 "# align.vim
 NeoBundleLazy 'Align', {
             \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
             \ }
 
-"#-------#
-"# dlang #
-"#-------#
-NeoBundleLazy 'JesseKPhillips/d.vim', {
-            \ 'autoload' : {'filetypes': ['d']}
-            \ }
 
 "#-----------------------#
 "# xcode                 #
@@ -827,10 +801,6 @@ NeoBundle 'thinca/vim-ft-clojure'
 NeoBundle 'sophacles/vim-processing'
 "# pig
 NeoBundle 'pig.vim'
-"# sbt
-NeoBundleLazy 'derekwyatt/vim-sbt', {
-            \ "autoload" : {"filetypes": ['sbt']}
-            \}
 
 "#-----------------------#
 "# perl                  #
@@ -856,14 +826,6 @@ NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundleLazy 'mattn/jscomplete-vim', {
             \ 'autoload' : {'filetypes': ['javascript']}
             \ }
-"# vim-nodejs-complete
-NeoBundleLazy 'myhere/vim-nodejs-complete', {
-            \ 'autoload' : {'filetypes': ['javascript']}
-            \ }
-"# yui complete
-NeoBundleLazy 'Javascript-OmniCompletion-with-YUI-and-j', {
-            \ 'autoload' : {'filetypes': ['javascript']}
-            \ }
 "# vim-coffee-script
 NeoBundleLazy 'kchmck/vim-coffee-script',{
             \ 'autoload' : {'filetypes': ['coffee']}
@@ -879,13 +841,6 @@ NeoBundle 'claco/jasmine.vim', {
             \ 'autoload' : {'filetypes': ['javascript']}
             \ }
 
-"#-----------------------#
-"# haxe                  #
-"#-----------------------#
-"# vaxe
-NeoBundleLazy 'jdonaldson/vaxe', {
-            \ 'autoload' : {'filetypes': ['haxe']}
-            \ }
 
 "#-----------------------#
 "# beamvm                #
@@ -1007,34 +962,6 @@ filetype plugin on
 filetype indent on
 "}}}
 "[ ####------- Vim Plugins Settings ------------#### ] {{{
-"### Unite.vim {{{
-
-nnoremap <Plug>(mykey)u :<C-u>Unite<Space>
-
-"# filehistory limit
-let g:unite_source_file_mru_limit=10000
-
-"#---------------------------#
-"# buffers+unite             #
-"#---------------------------#
-nnoremap <silent> <Plug>(mykey)B  :<C-u>Unite -no-split buffer<CR>
-nnoremap <silent> <Plug>(mykey)h  :<C-u>Unite -no-split file_mru<CR>
-nnoremap <silent> <Plug>(mykey)F  :<C-u>Unite -no-split -start-insert buffer file_mru<CR>
-nnoremap <silent> <Plug>(mykey)I  :<C-u>Unite -no-split -buffer-name=files file<CR>
-nnoremap <silent> <Plug>(mykey)d  :<C-u>UniteWithBufferDir -no-split file<CR>
-
-"#---------------------------#
-"# ref+unite                 #
-"#---------------------------#
-" perldoc
-nnoremap <silent> <Plug>(mykeylite)r :<C-u>Unite ref/
-
-"#---------------------------#
-"# unitesource:unite-outline #
-"#---------------------------#
-nnoremap <silent> <Plug>(mykey)o :<C-u>Unite outline<CR>
-
-"}}}
 "### VimShell {{{2
 
 let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
@@ -1206,17 +1133,6 @@ let g:quickrun_config["watchdogs_checker/_"] = {
             \ }
 
 call watchdogs#setup(g:quickrun_config)
-
-"}}}
-"### Scratch {{{
-
-nnoremap <Plug>(mykey)s :TempolaryBuffer sh<CR>
-command! -nargs=1 TempolaryBuffer call s:scratchbuffer_filetype('<args>')
-function! s:scratchbuffer_filetype(filetype)
-    split
-    Scratch
-    execute 'set filetype=' . a:filetype
-endfunction
 
 "}}}
 "### sudo.vim {{{
