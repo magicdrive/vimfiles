@@ -655,10 +655,6 @@ call neobundle#begin( expand('~/.vim/bundle') )
 NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# sonic-template
 NeoBundle 'mattn/sonictemplate-vim'
-"# vimshell
-NeoBundleLazy 'Shougo/vimshell', {
-            \   'autoload' : { 'commands' : [ 'VimShell', "VimShellPop", "VimShellInteractive" ] }
-            \ }
 
 
 "# vim-singleton
@@ -962,42 +958,6 @@ filetype plugin on
 filetype indent on
 "}}}
 "[ ####------- Vim Plugins Settings ------------#### ] {{{
-"### VimShell {{{2
-
-let g:vimshell_prompt='[' . $USER . '@vimshell] $ '
-let g:vimshell_user_prompt='getcwd()'
-let g:vimshell_vimshrc_path = expand("$HOME/.vim/misc/vimshellrc")
-
-"# VimShellを新規Windowで立ち上げる
-command! Vshell call s:Shell()
-
-nnoremap <silent> <Plug>(mykey)< :<C-u> call <SID>Shell()<CR>
-function! s:Shell()
-    echo 'vimshell start'
-    VimShell
-    setlocal number
-endfunction
-
-nnoremap <silent> <Plug>(mykey), :<C-u> call ShellSplit()<CR>
-function! ShellSplit()
-    vsplit
-    call s:Shell()
-endfunction
-
-nnoremap <silent> <Plug>(mykey)l :VimShellPop<CR>
-
-" iexe REPL
-function! s:start_repl(repl_command)
-    let l:command_name=a:repl_command
-    if exists('g:project_dirname')
-        execute 'cd ' . g:project_dirname
-    endif
-    execute "VimShellInteractive --split='split | wincmd j | resize 15 | setlocal noequalalways' " . l:command_name
-    stopinsert
-    wincmd k
-endfunction
-
-"}}}2
 "### MemoList.vim {{{
 
 let g:memolist_memo_suffix="txt"
@@ -1311,13 +1271,6 @@ augroup ruby_ftplugin
     autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
     autocmd FileType ruby setlocal autoindent
 augroup END
-
-command! -nargs=0 Irb call <SID>start_repl('irb')
-command! -nargs=0 IrbWithBundler call <SID>start_repl('bundle exec irb')
-command! -nargs=0 Pry call <SID>start_repl('pry --no-color')
-command! -nargs=0 PryWithBundler call <SID>start_repl('bundle exec pry --no-color')
-command! -nargs=0 RailsConsole   call <SID>start_repl('bundle exec rails console')
-
 "}}}
 "### Python support{{{
 
@@ -1385,49 +1338,6 @@ augroup lisp_ftplugin
 augroup END
 " }}}
 "### Scala support{{{
-"# sbt
-function! s:start_sbt()
-    if exists('g:sbt_project_dirname')
-        execute 'cd ' . g:sbt_project_dirname
-    endif
-    execute "VimShellInteractive --split='split | wincmd j | resize 20 | setlocal noequalalways' sbt"
-    stopinsert
-    let t:sbt_bufname = bufname('%')
-    if !has_key(t:, 'sbt_cmds')
-        let t:sbt_cmds = [input('t:sbt_cmds[0] = ')]
-    endif
-    wincmd k
-endfunction
-
-command! -nargs=0 SBT call <SID>start_sbt()
-
-function! s:sbt_compile()
-    let cmds = get(t:, 'sbt_cmds', 'run')
-
-    let sbt_bufname = get(t:, 'sbt_bufname')
-    if sbt_bufname !=# ''
-        call vimshell#interactive#set_send_buffer(sbt_bufname)
-        call vimshell#interactive#send(cmds)
-    else
-        echoerr 'try SBT'
-    endif
-endfunction
-
-function! s:sbt_run(command)
-    let sbt_bufname = get(t:, 'sbt_bufname')
-    if sbt_bufname !=# ''
-        call vimshell#interactive#set_send_buffer(sbt_bufname)
-        call vimshell#interactive#send(a:command)
-    else
-        echoerr 'try SBT'
-    endif
-endfunction
-
-function! s:sbt_controll()
-    nnoremap <buffer> <Plug>(mykey)m :<C-u>write<Cr>:call <SID>sbt_compile()<Cr>
-    nnoremap <buffer> <Plug>(mykey)r :<C-u>write<Cr>:call <SID>sbt_run()<Cr>
-endfunction
-
 function! s:set_compiler_sbt()
     setlocal errorformat=%E[error]\ %f:%l:\ %m,%C[error]\ %p^,%-C%.%#,%Z,
                 \%W[warn]\ %f:%l:\ %m,%C[warn]\ %p^,%-C%.%#,%Z,
@@ -1440,28 +1350,14 @@ augroup scala_setting
     autocmd!
     autocmd FileType scala setlocal nocindent
     autocmd FileType scala call <SID>set_compiler_sbt()
-    autocmd FileType scala call <SID>sbt_controll()
-    autocmd FileType scala nnoremap <buffer> <Plug>(mykey)r :<C-u>SBT<CR>
-    autocmd FileType scala nnoremap <buffer> <Leader>s :<C-u>SBT<CR>
 augroup END
 "}}}
 "### JavaScript support {{{
-
-if !exists('g:neocomplcache_omni_functions')
-    let g:neocomplcache_omni_functions = {}
-endif
-
-let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
-let g:node_usejscomplete = 1
-
 augroup javascript_plugin
     autocmd!
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
     autocmd FileType javascript setlocal autoindent
 augroup END
-
-command! -nargs=0 NodeREPL   call <SID>start_repl('node --interactive')
-
 "}}}
 "### TypeScript support {{{
 augroup typescript_ftplugin
@@ -1476,10 +1372,6 @@ augroup yaml_ftplugin
 augroup END
 "}}}
 "### FileType(Language) assistance "{{{
-
-"辞書ファイルを使用する設定に変更
-
-
 "# filetype dictionary files
 augroup filetype_dict
     autocmd!
@@ -1501,7 +1393,6 @@ augroup filetype_dict
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType scheme let is_gauche=1
 augroup END
-
 "CF用コメントハイライト有効
 let html_wrong_comments=1
 
@@ -1630,7 +1521,6 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *.bowerrc* set filetype=javascript
     autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.js,*SpecHelper.js set filetype=jasmine.javascript syntax=jasmine.javascript
     autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
-    autocmd BufRead,BufNewFile,BufWritePost *.dart set filetype=dart
     autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
     autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
     " html genus
@@ -1646,15 +1536,17 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *.swift set filetype=swift
     " shell genus
     autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
+    autocmd BufNewFile,BufRead,BufWritePost nginx.conf set filetype=nginx
+    autocmd BufNewFile,BufRead,BufWritePost *.nginx.conf set filetype=nginx
     autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
+    autocmd BufNewFile,BufRead,BufWritePost apache.conf set filetype=apache
+    autocmd BufNewFile,BufRead,BufWritePost *.apache.conf set filetype=apache
     autocmd BufNewFile,BufRead,BufWritePost */patches/* set filetype=diff
     autocmd BufNewFile,BufRead,BufWritePost *tmux*conf* set filetype=tmux
     autocmd BufNewFile,BufRead,BufWritePost *envrc* set filetype=bash
     " graphics genus
     autocmd BufNewFile,BufRead,BufWritePost *.pde set filetype=processing
     autocmd BufNewFile,BufRead,BufWritePost *.as set filetype=actionscript
-    autocmd BufNewFile,BufRead,BufWritePost *.hx set filetype=haxe
-    autocmd BufNewFile,BufRead,BufWritePost *.mxml set filetype=mxml
     " jvm genus
     autocmd BufNewFile,BufRead,BufWritePost .vrapperrc set filetype=vim
     autocmd BufNewFile,BufRead,BufWritePost *.scala set filetype=scala
@@ -1677,8 +1569,6 @@ augroup detect_filetype
     " beamvm
     autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
     autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
-    " dlang
-    autocmd BufNewFile,BufRead,BufWritePost *.d setf d
     " mysql
     autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
 augroup END
