@@ -1526,6 +1526,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *.cap set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *.god,*.eye set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *_spec.rb set filetype=ruby.rspec
+    autocmd BufNewFile,BufRead,BufWritePost *_text.rb set filetype=ruby.rspec
     autocmd BufNewFile,BufRead,BufWritePost *[Pp]rocfile* set syntax=yaml
     " lisp genus
     autocmd FileType lisp set syntax=lisp
