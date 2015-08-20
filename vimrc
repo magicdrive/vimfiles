@@ -858,11 +858,17 @@ NeoBundleLazy 'skwp/vim-rspec', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
 "# rspec-syntax
-NeoBundle 'Keithbsmiley/rspec.vim'
+NeoBundleLazy 'Keithbsmiley/rspec.vim', {
+            \ 'autoload': { 'filetypes': ['ruby', 'rspec'] }
+            \ }
 "# vim-rails
-NeoBundle 'tpope/vim-rails', 'v5.1'
+NeoBundleLazy 'tpope/vim-rails', 'v5.1', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 "# vim-bundler
-NeoBundle 'tpope/vim-bundler'
+NeoBundleLazy 'tpope/vim-bundler', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ }
 
 "#-----------------------#
 "# python                #
