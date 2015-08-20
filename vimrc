@@ -157,12 +157,6 @@ set wildmode=longest,full
 "# コマンドラインの履歴の保存数
 set history=256
 
-"# netrw
-let g:netrw_liststyle=3
-let g:netrw_hide=1
-let g:netrw_altv=1
-let g:netrw_alto=1
-
 "# tagjump stack preview
 nnoremap <Leader>t <C-t>
 
@@ -374,6 +368,8 @@ for key in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-$@",'\zs
     exec printf("inoremap %s %s<Left><Right><C-x><C-n><C-p>", key, key)
 endfor
 inoremap ./ ./<C-x><C-f><C-p>
+inoremap / /<C-x><C-f><C-p>
+inoremap ~/ ~/<C-x><C-f><C-p>
 " }}}
 "### Emacs like keybind "{{{
 
@@ -693,6 +689,8 @@ NeoBundleLazy 'kana/vim-smartinput', {
 NeoBundleLazy 'kana/vim-niceblock', {
             \ 'autoload' : { 'insert' : 1, }
             \ }
+"# AnsiEsc
+NeoBundle 'vim-scripts/AnsiEsc.vim'
 "# surround.vim
 NeoBundle 'surround.vim'
 "# vimsualstar
@@ -951,6 +949,8 @@ NeoBundle 'vim-scripts/chlordane.vim'
 call neobundle#end()
 filetype plugin on
 filetype indent on
+
+NeoBundleCheck
 "}}}
 "[ ####------- Vim Plugins Settings ------------#### ] {{{
 "### MemoList.vim {{{
@@ -1075,18 +1075,6 @@ let g:quickrun_config["watchdogs_checker/_"] = {
             \ }
 
 call watchdogs#setup(g:quickrun_config)
-"}}}
-"### sudo.vim {{{
-
-command! -nargs=? W :call s:sudo_write('<args>')
-function! s:sudo_write(arg)
-    if a:arg ==# ''
-        write sudo:%
-    else
-        execute 'write sudo:' . a:arg
-    endif
-endfunction
-
 "}}}
 "### Sass {{{
 let g:sass_compile_auto = 1
@@ -1523,8 +1511,10 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *.gradle set filetype=groovy
     autocmd BufNewFile,BufRead,BufWritePost *.pig set filetype=pig syntax=pig
     " ruby genus
+    autocmd BufNewFile,BufRead,BufWritePost [Rr]akefile set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost [Gg]emfile set filetype=ruby
-    autocmd BufNewFile,BufRead,BufWritePost gemspec set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.gemspec set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.rake set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *.ru set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *.unicorn set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *.cap set filetype=ruby
@@ -1543,12 +1533,15 @@ augroup detect_filetype
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
-let g:local_vimrc = '$HOME/.vimrc.local'
-if filereadable(expand(g:local_vimrc))
-    execute 'source ' . g:local_vimrc
+let g:user_local_vimrc = $HOME . '/.vimrc.local'
+if filereadable(expand(g:user_local_vimrc))
+    execute 'source ' . g:user_local_vimrc
+endif
+if expand($PWD) != expand($HOME)
+    let g:local_vimrc = $PWD . '/.vimrc.local'
+    if filereadable(expand(g:local_vimrc))
+        execute 'source ' . g:local_vimrc
+    endif
 endif
 " }}}
-"[ ####------- NeoBundleCheck ------------------#### ] {{{
-NeoBundleCheck
-"}}}
 "# __END__
