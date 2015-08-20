@@ -89,7 +89,6 @@ autocmd GUIEnter * call MyGUISettingLazy()
 
 "}}}
 "[ ####------- MacVim Settings -----------------#### ]{{{
-
 function! MyGUIMacVimSetting()
 
     execute 'colorscheme ' .
@@ -99,19 +98,26 @@ function! MyGUIMacVimSetting()
         autocmd!
     augroup END
 
-    set transparency=0
+    if has("mac")
+        set transparency=0
+    endif
     set imdisable
     set antialias
     set guifont=Source\ Code\ Pro\ for\ Powerline:h14
     set nobackup
 
 endfunction
-
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{1
-let g:local_gvimrc = '$HOME/.gvimrc.local'
-if filereadable(expand(g:local_gvimrc))
-    execute 'source ' . g:local_gvimrc
+let g:user_local_gvimrc = $HOME . '/.gvimrc.local'
+if filereadable(expand(g:user_local_gvimrc))
+    execute 'source ' . g:user_local_gvimrc
+endif
+if expand($PWD) !=# expand($HOME)
+    let g:local_gvimrc = $PWD . '/.gvimrc.local'
+    if filereadable(expand(g:local_gvimrc))
+        execute 'source ' . g:local_gvimrc
+    endif
 endif
 " }}}1
 "#__END__

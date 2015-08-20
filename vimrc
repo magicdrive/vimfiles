@@ -1537,7 +1537,7 @@ let g:user_local_vimrc = $HOME . '/.vimrc.local'
 if filereadable(expand(g:user_local_vimrc))
     execute 'source ' . g:user_local_vimrc
 endif
-if expand($PWD) != expand($HOME)
+if expand($PWD) !=# expand($HOME)
     let g:local_vimrc = $PWD . '/.vimrc.local'
     if filereadable(expand(g:local_vimrc))
         execute 'source ' . g:local_vimrc
