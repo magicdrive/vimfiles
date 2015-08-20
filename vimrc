@@ -845,17 +845,17 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 "#-----------------------#
 "# ruby                  #
 "#-----------------------#
+"# vim-rails
+NeoBundle 'tpope/vim-rails', 'v5.2'
+
 "# rspec-syntax
 NeoBundleLazy 'Keithbsmiley/rspec.vim', {
             \ 'autoload': { 'filetypes': ['ruby', 'rspec'] }
             \ }
-"# vim-rails
-NeoBundleLazy 'tpope/vim-rails', 'v5.1', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
+
 "# vim-bundler
 NeoBundleLazy 'tpope/vim-bundler', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim', 'rspec'] }
             \ }
 
 "#-----------------------#
@@ -1507,6 +1507,7 @@ augroup detect_filetype
     " ruby genus
     autocmd BufNewFile,BufRead,BufWritePost [Rr]akefile set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost [Gg]emfile set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost [Gg]uardfile set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *.gemspec set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *.rake set filetype=ruby
     autocmd BufNewFile,BufRead,BufWritePost *.ru set filetype=ruby
