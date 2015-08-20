@@ -849,14 +849,6 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 NeoBundleLazy 'vim-ruby/vim-ruby', 'vim7.4', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
             \ }
-"# textobj-ruby
-NeoBundleLazy 'rhysd/vim-textobj-ruby', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
-"# vim-rspec
-NeoBundleLazy 'skwp/vim-rspec', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim'] }
-            \ }
 "# rspec-syntax
 NeoBundleLazy 'Keithbsmiley/rspec.vim', {
             \ 'autoload': { 'filetypes': ['ruby', 'rspec'] }
