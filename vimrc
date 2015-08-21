@@ -726,7 +726,6 @@ NeoBundle 'YankRing.vim'
 "#----------------------------------#
 NeoBundle 'vim-jp/vim-go-extra'
 NeoBundle 'fatih/vim-go'
-NeoBundle 'zimbatm/direnv.vim'
 NeoBundle 'ekalinin/Dockerfile.vim'
 
 
@@ -756,10 +755,6 @@ NeoBundleLazy 'toyamarinyon/vim-swift', {
 "#-----------------------#
 "# lisp                  #
 "#-----------------------#
-"# slimv
-NeoBundleFetch 'magicdrive/slimv', {
-            \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
-            \ }
 "# niji
 NeoBundleLazy 'amdt/vim-niji', {
             \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
@@ -784,24 +779,26 @@ NeoBundleLazy 'groovy.vim', {
 NeoBundleLazy 'magicdrive/vim-scala', {
             \ "autoload" : {"filetypes": ['scala']}
             \}
-"# clojure
-NeoBundle 'thinca/vim-ft-clojure'
 "# vim-processing
-NeoBundle 'sophacles/vim-processing'
+NeoBundleLazy 'sophacles/vim-processing', {
+            \ "autoload" : {"filetypes": ['processing']}
+            \}
 "# pig
-NeoBundle 'pig.vim'
+NeoBundleLazy 'pig.vim', {
+            \ "autoload" : {"filetypes": ['pig']}
+            \}
 
 "#-----------------------#
 "# perl                  #
 "#-----------------------#
 "# perl-mauke
-NeoBundle 'perl-mauke.vim',  {
+NeoBundleLazy 'perl-mauke.vim',  {
             \ 'autoload' : {'filetypes': ['perl']}
             \ }
-NeoBundle 'vim-perl/vim-perl', {
+NeoBundleLazy 'vim-perl/vim-perl', {
             \ 'autoload' : {'filetypes': ['perl']}
             \ }
-NeoBundle 'c9s/perlomni.vim', {
+NeoBundleLazy 'c9s/perlomni.vim', {
             \ 'autoload' : {'filetypes': ['perl']}
             \ }
 
@@ -823,13 +820,10 @@ NeoBundleLazy 'kchmck/vim-coffee-script',{
 NeoBundleLazy 'leafgarland/typescript-vim',{
             \ 'autoload' : {'filetypes': ['typescript']}
             \ }
-"# jade
-NeoBundle 'digitaltoad/vim-jade'
 "# jasmine
 NeoBundle 'claco/jasmine.vim', {
             \ 'autoload' : {'filetypes': ['javascript']}
             \ }
-
 
 "#-----------------------#
 "# beamvm                #
@@ -866,7 +860,9 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
             \ 'autoload': { 'filetypes': ['python'] }
             \ }
 "# ansible
-NeoBundle 'chase/vim-ansible-yaml'
+NeoBundleLazy 'chase/vim-ansible-yaml', {
+            \ 'autoload': { 'filetypes': ['yaml'] }
+            \ }
 
 "#-----------------------#
 "# html-coding           #
@@ -883,18 +879,22 @@ NeoBundleLazy 'mattn/emmet-vim', {
 NeoBundleLazy 'nginx.vim', {
             \ 'autoload' : {'filetypes': ['nginx']}
             \}
-"# httpstatus
-NeoBundleLazy 'mattn/httpstatus-vim', {
-            \ 'autoload' : { 'commands' : ['HttpStatus'] }
-            \ }
 "# tmux.vim
-NeoBundle 'zaiste/tmux.vim'
+NeoBundleLazy 'zaiste/tmux.vim', {
+            \ 'autoload' : {'filetypes': ['tmux']}
+            \}
 "# monit
-NeoBundle 'tmatilai/vim-monit'
+NeoBundleLazy 'tmatilai/vim-monit', {
+            \ 'autoload' : {'filetypes': ['monit']}
+            \}
 "# html5.vim
-NeoBundle 'taichouchou2/html5.vim'
+NeoBundleLazy 'taichouchou2/html5.vim', {
+            \ 'autoload' : {'filetypes': ['html']}
+            \}
 "# css3vim
-NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+            \ 'autoload' : {'filetypes': ['css']}
+            \}
 "# sass
 if executable('sass')
     NeoBundle 'AtsushiM/sass-compile.vim'
@@ -937,8 +937,6 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'w0ng/vim-hybrid'
 "# pyte
 NeoBundle 'vim-scripts/pyte'
-"# chlordane
-NeoBundle 'vim-scripts/chlordane.vim'
 
 call neobundle#end()
 filetype plugin on
@@ -985,6 +983,9 @@ let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
 
 let g:airline_theme=has('gui_running') ? 'lucius' : 'dark'
+
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline_extensions = []
 
 "# ESCの遅延防止
 if has('unix') && !has('gui_running')
@@ -1185,42 +1186,15 @@ augroup perl_ftplugin
 augroup END
 "}}}
 "### Ruby support "{{{
-
-let g:rubycomplete_rails = 1
-command! -nargs=1  RubyGemRead :call <SID>open_rubygem_code('<args>')
-function! s:open_rubygem_code(module) range
-    let l:module_name=a:module
-    if a:module ==# '<visual>'
-        let l:module_name=s:get_visual_selected()
-    endif
-
-    try
-        execute 'edit ' . system('bundle exec gem which ' . l:module_name )
-    catch
-        try
-            execute 'edit ' . system('gem which ' . l:module_name )
-        catch
-            echohl Error | echo 'No gemfile found.' | echohl None
-        endtry
-    endtry
-
-endfunction
-
 let g:ref_ruby_cmd= executable('refe') ? 'refe' : 'ri'
 
 augroup ruby_ftplugin
     autocmd!
     autocmd FileType ruby setlocal nocindent
     autocmd FileType ruby :compiler ruby
-    autocmd FileType ruby nnoremap <buffer> <F4> :w :!ruby -c<CR>
-    autocmd FileType ruby nnoremap <buffer> <F5> :!ruby -c %<CR>
     autocmd FileType ruby,ref-ri setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,?,-
     autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open(g:ref_ruby_cmd, expand('<cword>'))<CR>
     autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', g:ref_ruby_cmd)<CR>
-    autocmd FileType ruby,ref-ri nnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
-    autocmd FileType ruby,ref-ri vnoremap <buffer> <Plug>(mykey)3 :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
-    autocmd FileType ruby,ref-ri nnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( expand('<cword>') )<CR>
-    autocmd FileType ruby,ref-ri vnoremap <buffer> <F3> :<C-u>call <SID>open_rubygem_code( '<visual>' )<CR>
     autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
     autocmd FileType ruby setlocal autoindent
 augroup END
