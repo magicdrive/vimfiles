@@ -59,8 +59,8 @@ function! MyGUISetting ()
     augroup focus_transparency
         autocmd!
         if has('mac')
-            autocmd FocusGained * set transparency=0
-            autocmd FocusLost * set transparency=50
+            autocmd FocusGained * set transparency=25
+            autocmd FocusLost * set transparency=0
         endif
     augroup END
 endfunction
@@ -99,7 +99,7 @@ function! MyGUIMacVimSetting()
     augroup END
 
     if has("mac")
-        set transparency=0
+        set transparency=25
     endif
     set imdisable
     set antialias

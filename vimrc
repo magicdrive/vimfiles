@@ -1187,6 +1187,7 @@ augroup END
 "}}}
 "### Ruby support "{{{
 let g:ref_ruby_cmd= executable('refe') ? 'refe' : 'ri'
+let g:no_ruby_ftplugin=1
 
 augroup ruby_ftplugin
     autocmd!
