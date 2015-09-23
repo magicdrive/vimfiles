@@ -652,6 +652,7 @@ NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# sonic-template
 NeoBundle 'mattn/sonictemplate-vim'
 
+
 "# vimproc
 NeoBundle 'Shougo/vimproc', 'ver.7.0', {
             \ 'build' : {
@@ -756,7 +757,7 @@ NeoBundleLazy 'toyamarinyon/vim-swift', {
 "# lisp                  #
 "#-----------------------#
 "# niji
-NeoBundleLazy 'amdt/vim-niji', {
+NeoBundleLazy 'losingkeys/vim-niji', {
             \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
             \ }
 
@@ -787,21 +788,6 @@ NeoBundleLazy 'sophacles/vim-processing', {
 NeoBundleLazy 'pig.vim', {
             \ "autoload" : {"filetypes": ['pig']}
             \}
-
-"#-----------------------#
-"# perl                  #
-"#-----------------------#
-"# perl-mauke
-NeoBundleLazy 'perl-mauke.vim',  {
-            \ 'autoload' : {'filetypes': ['perl']}
-            \ }
-NeoBundleLazy 'vim-perl/vim-perl', {
-            \ 'autoload' : {'filetypes': ['perl']}
-            \ }
-NeoBundleLazy 'c9s/perlomni.vim', {
-            \ 'autoload' : {'filetypes': ['perl']}
-            \ }
-
 
 "#-----------------------#
 "# javascript            #
@@ -839,9 +825,6 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 "#-----------------------#
 "# ruby                  #
 "#-----------------------#
-"# vim-rails
-NeoBundle 'tpope/vim-rails', 'v5.2'
-
 "# rspec-syntax
 NeoBundleLazy 'Keithbsmiley/rspec.vim', {
             \ 'autoload': { 'filetypes': ['ruby', 'rspec'] }
@@ -896,11 +879,7 @@ NeoBundleLazy 'hail2u/vim-css3-syntax', {
             \ 'autoload' : {'filetypes': ['css']}
             \}
 "# sass
-if executable('sass')
-    NeoBundle 'AtsushiM/sass-compile.vim'
-else
-    NeoBundleFetch 'AtsushiM/sass-compile.vim'
-endif
+NeoBundle 'cakebaker/scss-syntax.vim'
 "# haml
 NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes':['haml']}}
 "# slim
@@ -912,23 +891,6 @@ NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
 "# yanktmp
 NeoBundle 'yanktmp.vim'
 
-"#-----------------------#
-"# external service      #
-"#-----------------------#
-"# webapi
-NeoBundle 'mattn/webapi-vim'
-
-"#-------------------#
-"# Colorschemes      #
-"#-------------------#
-"# vim-guicolorscheme
-NeoBundleLazy 'thinca/vim-guicolorscheme', {
-            \ 'autoload' : { 'commands' : ['GuiColorScheme'] }
-            \ }
-"# CSApprox
-NeoBundleLazy 'vim-scripts/CSApprox', {
-            \ 'autoload' : { 'commands' : ['CSApprox', 'CSApproxSnapshot'] }
-            \ }
 "# jellybeans
 NeoBundle 'magicdrive/jellybeans.vim'
 "# molokai
@@ -942,7 +904,6 @@ call neobundle#end()
 filetype plugin on
 filetype indent on
 
-NeoBundleCheck
 "}}}
 "[ ####------- Vim Plugins Settings ------------#### ] {{{
 "### MemoList.vim {{{
@@ -1055,12 +1016,10 @@ let g:watchdogs_check_BufWritePost_enable = 1
 let g:watchdogs_check_CursorHold_enable = 0
 let g:watchdogs_check_CursorHold_enables = {
             \ 'scala' : 0,
-            \ 'd' : 0
             \ }
 
 let g:watchdogs_check_BufWritePost_enables = {
             \	"scala" : 0,
-            \ 'd' : 0
             \}
 
 let g:quickrun_config["watchdogs_checker/_"] = {
@@ -1333,49 +1292,12 @@ set t_Co=256
 "# Colorscheme
 syntax enable
 
-let g:default_color_mode=has('unix') ? 'A' : 'B'
-
-"# GUI
-let g:gui_colorscheme_a='molokai'
-let g:gui_colorscheme_b='github'
-
-"# CLI
-"let g:cui_colorscheme_dark= has('unix') ?  'darkdefault' : 'default'
-let g:cui_colorscheme_a='jellybeans'
-let g:cui_colorscheme_b='hybrid'
-
-let g:current_color_mode=g:default_color_mode
-
-" setup color by background
-function! SetupColorScheme ()
-    syntax reset
-    if has('gui_running')
-        execute 'colorscheme ' .
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-    else
-        execute 'colorscheme ' .
-                    \ ( (g:default_color_mode ==# 'A') ?
-                    \ g:cui_colorscheme_a : g:cui_colorscheme_b)
-    endif
-endfunction
-
-"# change colorscheme & background
-function! s:ChangeBackground()
-    syntax reset
-    if g:current_color_mode ==# 'A'
-        execute 'colorscheme ' .
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_b : g:cui_colorscheme_b)
-        let g:current_color_mode='B'
-    else
-        execute 'colorscheme ' .
-                    \ (has('gui_running') ?
-                    \ g:gui_colorscheme_a : g:cui_colorscheme_a)
-        let g:current_color_mode='A'
-    endif
-    syntax on
-endfunction
+let g:my_colorscheme= has('gui_running') ?  'molokai' : 'jellybeans'
+try
+    exec "colorscheme" . " " . g:my_colorscheme
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+endtry
 
 function! MyColor()
     "# ポップアップメニューの色変更
@@ -1433,9 +1355,6 @@ augroup color_set
         autocmd ColorScheme * call MyColor()
     endif
 augroup END
-
-"# initialize colorcheme
-call SetupColorScheme()
 
 "# switching colrschme & background
 nnoremap <silent> <Plug>(mykey)c :<C-u> call <SID>ChangeBackground()<CR>
@@ -1514,5 +1433,8 @@ if expand($PWD) !=# expand($HOME)
         execute 'source ' . g:local_vimrc
     endif
 endif
+" }}}
+"[ ####------- NeoBundleCheck ------------------#### ] {{{
+NeoBundleCheck
 " }}}
 "# __END__
