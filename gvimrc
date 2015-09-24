@@ -66,7 +66,6 @@ function! MyGUISetting ()
 endfunction
 
 function! MyGUISettingLazy()
-    call SetupColorScheme()
     if has('multi_byte_ime')
 
         highlight Cursor
@@ -91,12 +90,12 @@ autocmd GUIEnter * call MyGUISettingLazy()
 "[ ####------- MacVim Settings -----------------#### ]{{{
 function! MyGUIMacVimSetting()
 
-    execute 'colorscheme ' .
-                \ ( (g:default_color_mode ==# 'A') ?
-                \ g:gui_colorscheme_a : g:gui_colorscheme_b)
-    augroup color_set
-        autocmd!
-    augroup END
+    let g:my_colorscheme= has('gui_running') ?  'molokai' : 'jellybeans'
+    try
+        exec "colorscheme" . " " . g:my_colorscheme
+    catch /^Vim\%((\a\+)\)\=:E185/
+        colorscheme default
+    endtry
 
     if has("mac")
         set transparency=25
