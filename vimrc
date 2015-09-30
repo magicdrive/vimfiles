@@ -794,10 +794,6 @@ NeoBundleLazy 'pig.vim', {
 "#-----------------------#
 "# javascript-syntax
 NeoBundle 'jelera/vim-javascript-syntax'
-"# jscomplete
-NeoBundleLazy 'mattn/jscomplete-vim', {
-            \ 'autoload' : {'filetypes': ['javascript']}
-            \ }
 "# vim-coffee-script
 NeoBundleLazy 'kchmck/vim-coffee-script',{
             \ 'autoload' : {'filetypes': ['coffee']}
@@ -825,11 +821,6 @@ NeoBundleLazy 'jimenezrick/vimerl', {
 "#-----------------------#
 "# ruby                  #
 "#-----------------------#
-"# rspec-syntax
-NeoBundleLazy 'Keithbsmiley/rspec.vim', {
-            \ 'autoload': { 'filetypes': ['ruby', 'rspec'] }
-            \ }
-
 "# vim-bundler
 NeoBundleLazy 'tpope/vim-bundler', {
             \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim', 'rspec'] }
