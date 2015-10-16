@@ -23,7 +23,7 @@ fi
 mkdir -p ${current}/vim/bundle/
 mkdir -p  ~/.vimundo
 
-libs=('neobundle.vim' 'vimproc' 'unite.vim');
+libs=('neobundle.vim' 'vimproc');
 for x in ${libs[@]}; do
   if [ ! -d ${current}/vim/bundle/${x} ];then
     git clone git://github.com/Shougo/${x} ${current}/vim/bundle/${x}
@@ -62,7 +62,7 @@ done;
 
 vimproc_build
 
-yes | vim -c qa!
+cp -a "${current}/bin/tovim" ~/local/bin/
 
 echo;echo;echo "setup complete!"
 
