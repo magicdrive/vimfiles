@@ -853,14 +853,6 @@ NeoBundleLazy 'mattn/emmet-vim', {
 NeoBundleLazy 'nginx.vim', {
             \ 'autoload' : {'filetypes': ['nginx']}
             \}
-"# tmux.vim
-NeoBundleLazy 'zaiste/tmux.vim', {
-            \ 'autoload' : {'filetypes': ['tmux']}
-            \}
-"# monit
-NeoBundleLazy 'tmatilai/vim-monit', {
-            \ 'autoload' : {'filetypes': ['monit']}
-            \}
 "# html5.vim
 NeoBundleLazy 'taichouchou2/html5.vim', {
             \ 'autoload' : {'filetypes': ['html']}
