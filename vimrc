@@ -890,9 +890,6 @@ filetype plugin on
 filetype indent on
 
 "}}}
-"[ ####------- NeoBundleCheck ------------------#### ] {{{
-NeoBundleCheck
-" }}}
 "[ ####------- Vim Plugins Settings ------------#### ] {{{
 "### MemoList.vim {{{
 
@@ -1421,5 +1418,8 @@ if expand($PWD) !=# expand($HOME)
         execute 'source ' . g:local_vimrc
     endif
 endif
+" }}}
+"[ ####------- NeoBundleCheck ------------------#### ] {{{
+NeoBundleCheck
 " }}}
 "# __END__
