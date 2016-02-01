@@ -699,7 +699,9 @@ NeoBundle 'thinca/vim-visualstar'
 "# foldCC
 NeoBundle 'magicdrive/foldCC'
 "# ariline
-NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline'
+"# ariline-themes
+NeoBundle 'vim-airline/vim-airline-themes'
 "# memolist
 NeoBundleLazy 'glidenote/memolist.vim', {
             \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
