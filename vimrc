@@ -1173,7 +1173,7 @@ augroup go_ftplugin
     autocmd!
     autocmd FileType go highlight! link goSelf Function
     autocmd FileType go syntax keyword goSelf self
-    autocmd FileType go nnoremap <buffer> <C-\> :GoFmt<CR>
+    autocmd FileType go nnoremap <buffer> <C-\> :GoImports<CR>
     autocmd FileType go :highlight goErr cterm=bold ctermfg=214
     autocmd FileType go :match goErr /\<err\>/
     autocmd BufNewFile,BufRead,BufWritePost *.go set sw=4 noexpandtab ts=4
