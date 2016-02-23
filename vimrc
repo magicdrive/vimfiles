@@ -1171,10 +1171,13 @@ let g:go_fmt_autosave = 0
 
 augroup go_ftplugin
     autocmd!
-    au FileType go highlight! link goSelf Function
-    au FileType go syntax keyword goSelf self
-    au BufNewFile,BufRead,BufWritePost *.go set sw=4 noexpandtab ts=4
-    au FileType go compiler go
+    autocmd FileType go highlight! link goSelf Function
+    autocmd FileType go syntax keyword goSelf self
+    autocmd FileType go nnoremap <buffer> <C-\> :GoFmt<CR>
+    autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+    autocmd FileType go :match goErr /\<err\>/
+    autocmd BufNewFile,BufRead,BufWritePost *.go set sw=4 noexpandtab ts=4
+    autocmd FileType go compiler go
 augroup END
 "}}}
 "### Shell support{{{
