@@ -1169,14 +1169,18 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_autosave = 0
 
+function! GolangFTP()
+    syn keyword goErr err
+    highlight goErr cterm=bold ctermfg=214
+    syn keyword goSelf self
+    highlight goSelf ctermfg=167
+    set sw=4 noexpandtab ts=4
+endfunction
+
 augroup go_ftplugin
     autocmd!
     autocmd FileType go nnoremap <buffer> <C-\> :GoImports<CR>
-    autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-    autocmd FileType go :2match goErr /\<err\>/
-    autocmd FileType go :highlight goSelf ctermfg=167
-    autocmd FileType go :match goSelf /\<self\>/
-    autocmd BufNewFile,BufRead,BufWritePost *.go set sw=4 noexpandtab ts=4
+    autocmd BufNewFile,BufRead,BufWritePost,BufEnter,BufLeave *.go call GolangFTP()
     autocmd FileType go compiler go
 augroup END
 "}}}
