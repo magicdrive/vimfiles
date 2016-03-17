@@ -669,12 +669,6 @@ NeoBundleLazy 'scrooloose/nerdtree', {
             \ }
 "# quickrun
 NeoBundle 'thinca/vim-quickrun'
-"# vim-watchdogs
-NeoBundle 'osyo-manga/vim-watchdogs'
-"# vim-hier
-NeoBundle 'jceb/vim-hier'
-"# shabadou.vim
-NeoBundle 'osyo-manga/shabadou.vim'
 "# quickfixstatus
 NeoBundle 'dannyob/quickfixstatus'
 
@@ -710,14 +704,6 @@ NeoBundleLazy 'glidenote/memolist.vim', {
 NeoBundleLazy 'SQLUtilities', {
             \ 'filetypes' : ['sql'],
             \ 'commands' : ['SQLUFormatter']
-            \ }
-"# vim-ref
-NeoBundleLazy 'thinca/vim-ref', {
-            \ 'autoload' : {
-            \       'filetypes' : ['perl', 'python', 'ruby', 'sh', 'bash', 'zsh', 'vim'],
-            \       'commands' : ['Ref'],
-            \       'function' : ['ref#open']
-            \    },
             \ }
 "# easybuffer
 NeoBundle 'troydm/easybuffer.vim'
@@ -995,25 +981,6 @@ if executable('html2haml')
                 \     'html/haml' : { "command" : "html2haml" },
                 \   }
 endif
-"}}}
-"### Watchdogs {{{
-let g:watchdogs_check_BufWritePost_enable = 1
-let g:watchdogs_check_CursorHold_enable = 0
-let g:watchdogs_check_CursorHold_enables = {
-            \ 'scala' : 0,
-            \ }
-
-let g:watchdogs_check_BufWritePost_enables = {
-            \	"scala" : 0,
-            \}
-
-let g:quickrun_config["watchdogs_checker/_"] = {
-            \       "hook/close_quickfix/enable_exit" : 1,
-            \		"runner/vimproc/updatetime" : 10,
-            \       'outputter/quickfix/open_cmd' : '',
-            \ }
-
-call watchdogs#setup(g:quickrun_config)
 "}}}
 "### Sass {{{
 let g:sass_compile_auto = 1
