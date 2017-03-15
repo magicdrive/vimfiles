@@ -1383,6 +1383,9 @@ augroup detect_filetype
     " beamvm
     autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
     autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
+    " sql
+    autocmd BufNewFile,BufRead,BufWritePost *.presto set syntax=sql
+    autocmd BufNewFile,BufRead,BufWritePost *.hive set syntax=sql
     " mysql
     autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
 augroup END
