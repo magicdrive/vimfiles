@@ -862,6 +862,7 @@ NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
 "# yanktmp
 NeoBundle 'yanktmp.vim'
 
+NeoBundle 'plasticboy/vim-markdown'
 "# jellybeans
 NeoBundle 'magicdrive/jellybeans.vim'
 "# molokai
@@ -877,6 +878,12 @@ filetype indent on
 
 "}}}
 "[ ####------- Vim Plugins Settings ------------#### ] {{{
+"### vim-markdown {{{
+
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+
+"}}}
 "### MemoList.vim {{{
 
 let g:memolist_memo_suffix="txt"
