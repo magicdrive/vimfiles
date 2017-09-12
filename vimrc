@@ -838,7 +838,7 @@ NeoBundleLazy 'mattn/emmet-vim', {
             \ 'autoload' : {'filetypes': ['eruby','html','tt','haml','slim','jade']}
             \ }
 "# nginx.vim
-NeoBundleLazy 'nginx.vim', {
+NeoBundle 'nginx.vim', {
             \ 'autoload' : {'filetypes': ['nginx']}
             \}
 "# html5.vim
