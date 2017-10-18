@@ -1342,6 +1342,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
     " html genus
     autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
+    autocmd BufRead,BufNewFile,BufWritePost *.vue set filetype=html
     " perl genus
     autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
     autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
