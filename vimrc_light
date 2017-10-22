@@ -1,0 +1,645 @@
+"#---------------#
+"# Basic Setting #
+"#---------------#
+
+set nocompatible
+
+"# mapkeyprefix
+map  <Space> <Plug>(mykey)
+map  , <Plug>(mykeylite)
+" insert mode cursor
+imap OA <Up>
+imap OB <Down>
+imap OC <Right>
+imap OD <Left>
+
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+
+nnoremap ZZ <Nop>
+nnoremap ZQ <Nop>
+
+nnoremap <Space>. :e ~/.vimrc<CR>
+nnoremap <Space>e :e .<CR>
+
+" highlight Full width space
+function! FullWidthSpace()
+    highlight FullWidthSpace
+                \ cterm=underline
+                \ ctermfg=darkgrey
+                \ gui=underline
+                \ guifg=darkgrey
+endfunction
+
+if has('syntax')
+    augroup FullWidthSpace
+        autocmd!
+        autocmd ColorScheme * call FullWidthSpace()
+        autocmd VimEnter,WinEnter * match FullWidthSpace /　/
+    augroup END
+    call FullWidthSpace()
+endif
+
+let g:matsubi_space_state = 1
+function! EndSpace()
+    if g:matsubi_space_state
+        highlight EndSpace ctermbg=199 guibg=Cyan
+    else
+        highlight EndSpace ctermbg=NONE guibg=NONE
+    endif
+endfunction
+
+function! s:ToggleEndSpaceHighLight()
+    let g:matsubi_space_state=g:matsubi_space_state ? 0 : 1
+    call EndSpace()
+endfunction
+nnoremap <Plug>(mykeylite)c :call <SID>ToggleEndSpaceHighLight()<CR>
+
+if has('syntax')
+    augroup EndSpace
+        autocmd!
+        autocmd ColorScheme * call EndSpace()
+        autocmd VimEnter,WinEnter * match EndSpace /\s\+$/
+    augroup END
+    call FullWidthSpace()
+endif
+colorscheme default
+
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+syntax on
+
+set hidden
+set wrap
+
+set scrolljump=15
+
+set ttyfast
+
+filetype plugin indent on
+filetype plugin on
+
+noremap  <C-@> <ESC>
+noremap! <C-@> <ESC>
+cnoremap <C-@> <C-c>
+
+set statusline=%F%m%r%h%w\
+            \[FORMAT=%{'['.(&fenc!=''?&fenc:'?').'::'.&ff.']'}]\
+            \[TYPE=%Y]\
+            \[ASCII=\%03.3b]\
+            \[HEX=\%02.2B]\
+            \[POS=%04l,%04v][%p%%]\
+            \[LEN=%L]
+
+highlight StatusLine ctermfg=White ctermbg=DarkBlue cterm=none
+autocmd InsertLeave * :highlight StatusLine ctermfg=White ctermbg=DarkBlue
+autocmd InsertEnter * :highlight StatusLine ctermfg=White ctermbg=DarkRed
+
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
+
+nnoremap <C-h> :help<Space>
+
+"### complation
+set complete+=k
+set completeopt=menuone
+set infercase
+
+"# keybind
+inoremap <C-j> <C-x><C-n>
+inoremap <C-k> <C-x><C-o>
+inoremap <C-l> <C-x><C-k>
+inoremap <C-_> <C-x><C-f>
+
+inoremap ./ ./<C-x><C-f><C-p>
+
+
+set showmode
+set title
+set laststatus=2
+
+:au BufEnter * execute ":lcd " . expand("%:p:h")
+
+set number
+set showmatch
+set showcmd
+
+"# show ruler
+set ruler
+
+set virtualedit=block
+
+set backspace=indent,eol,start
+
+set ambiwidth=double
+
+set wildmenu
+set wildmode=list,full
+
+set history=256
+
+command! NumberToggle call <SID>ToggleNumber()
+
+function! s:ToggleNumber()
+    if &number == '1'
+        echo "line number enable"
+    else
+        echo "line number disable"
+    endif
+    set number!
+endfunction
+
+
+set ignorecase
+set smartcase
+
+set hlsearch
+
+nnoremap <ESC><ESC> :nohl<CR>
+nnoremap <C-@><C-@> :nohl<CR>
+nnoremap <C-c><C-c> :nohl<CR>
+
+set incsearch
+
+set whichwrap=b,s,[,],<,>
+
+set autoindent
+set smartindent
+set smarttab
+set cindent
+
+"netrw
+let g:netrw_liststyle=3
+
+let g:tab_size=2
+set expandtab
+execute 'set tabstop='     . g:tab_size
+execute 'set softtabstop=' . g:tab_size
+execute 'set shiftwidth='  . g:tab_size
+
+inoremap {<CR> {<CR>}<LEFT><CR><UP><TAB>
+
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+
+command! SudoWrite :w !sudo tee > /dev/null %
+
+nnoremap <Space>w :<ESC>:new<CR>
+nnoremap <Space>v :<ESC>:vnew<CR>
+
+nnoremap <C-w><C-w> <C-w>_
+nnoremap <C-w>w <C-w>_
+
+nnoremap <C-\> <C-w>=
+
+nnoremap <C-j> <C-w>j<C-w>_
+nnoremap <C-k> <C-w>k<C-w>_
+
+nnoremap <C-w><C-j> <C-w>j
+nnoremap <C-w><C-k> <C-w>k
+nnoremap <C-w><C-h> <C-w>h
+nnoremap <C-w><C-l> <C-w>l
+
+
+
+let g:neobundle_default_git_protocol = 'https'
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+endif
+call neobundle#begin( expand('~/.vim/bundle') )
+
+"#---------------------------#
+"# regular use               #
+"#---------------------------#
+"# neobundle
+NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
+"# sonic-template
+NeoBundle 'mattn/sonictemplate-vim'
+
+"# NERDTree
+NeoBundleLazy 'scrooloose/nerdtree', {
+            \   'autoload' : {
+            \       'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ],
+            \       'explorer' : 1,
+            \   }
+            \ }
+
+"# vim-endwise
+NeoBundleLazy 'taichouchou2/vim-endwise', {
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
+"# smartinput
+NeoBundleLazy 'kana/vim-smartinput', {
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
+"# niceblock
+NeoBundleLazy 'kana/vim-niceblock', {
+            \ 'autoload' : { 'insert' : 1, }
+            \ }
+"#----------------------------------#
+"# golang                           #
+"#----------------------------------#
+NeoBundle 'vim-jp/vim-go-extra'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'ekalinin/Dockerfile.vim'
+
+
+"#---------------------------#
+"# programing suport plug-in #
+"#---------------------------#
+"# emacs-commandline
+NeoBundle 'houtsnip/vim-emacscommandline'
+"# align.vim
+NeoBundleLazy 'Align', {
+            \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
+            \ }
+
+
+"#-----------------------#
+"# xcode                 #
+"#-----------------------#
+"# cocoa.vim
+NeoBundleLazy 'cocoa.vim', {
+            \ 'autoload' : {'filetypes': ['objective-c']}
+            \ }
+"# swift
+NeoBundleLazy 'toyamarinyon/vim-swift', {
+            \ 'autoload' : {'filetypes': ['swift']}
+            \ }
+
+"#-----------------------#
+"# lisp                  #
+"#-----------------------#
+"# niji
+NeoBundleLazy 'losingkeys/vim-niji', {
+            \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
+            \ }
+
+"#-----------------------#
+"# ocaml                 #
+"#-----------------------#
+"# ocamlspot
+NeoBundleLazy 'cohama/the-ocamlspot.vim', {
+            \ "autoload" : {"filetypes": ['ocaml']}
+            \ }
+
+"#-----------------------#
+"# jvm                   #
+"#-----------------------#
+"# groovy.vim
+NeoBundleLazy 'groovy.vim', {
+            \ "autoload" : {"filetypes": ['groovy']}
+            \ }
+"# vim-scala
+NeoBundleLazy 'magicdrive/vim-scala', {
+            \ "autoload" : {"filetypes": ['scala']}
+            \}
+"# vim-processing
+NeoBundleLazy 'sophacles/vim-processing', {
+            \ "autoload" : {"filetypes": ['processing']}
+            \}
+"# pig
+NeoBundleLazy 'pig.vim', {
+            \ "autoload" : {"filetypes": ['pig']}
+            \}
+
+"#-----------------------#
+"# javascript            #
+"#-----------------------#
+"# javascript-syntax
+NeoBundle 'jelera/vim-javascript-syntax'
+"# vim-coffee-script
+NeoBundleLazy 'kchmck/vim-coffee-script',{
+            \ 'autoload' : {'filetypes': ['coffee']}
+            \ }
+"# vim-typescript
+NeoBundleLazy 'leafgarland/typescript-vim',{
+            \ 'autoload' : {'filetypes': ['typescript']}
+            \ }
+"# jasmine
+NeoBundle 'claco/jasmine.vim', {
+            \ 'autoload' : {'filetypes': ['javascript']}
+            \ }
+
+"#-----------------------#
+"# beamvm                #
+"#-----------------------#
+NeoBundleLazy 'elixir-lang/vim-elixir', {
+            \ 'autoload' : {'filetypes': ['elixir']}
+            \ }
+
+NeoBundleLazy 'jimenezrick/vimerl', {
+            \ 'autoload' : {'filetypes': ['erlang']}
+            \ }
+
+"#-----------------------#
+"# ruby                  #
+"#-----------------------#
+"# vim-bundler
+NeoBundleLazy 'tpope/vim-bundler', {
+            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim', 'rspec'] }
+            \ }
+
+"#-----------------------#
+"# python                #
+"#-----------------------#
+"# jedi
+NeoBundleLazy 'davidhalter/jedi-vim', {
+            \ 'autoload': { 'filetypes': ['python'] }
+            \ }
+"# ansible
+NeoBundleLazy 'chase/vim-ansible-yaml', {
+            \ 'autoload': { 'filetypes': ['yaml'] }
+            \ }
+
+"#-----------------------#
+"# html-coding           #
+"#-----------------------#
+"# vim-less
+NeoBundleLazy 'groenewege/vim-less', {
+            \ 'autoload' : {'filetypes': ['less']}
+            \ }
+"# emmet.vim
+NeoBundleLazy 'mattn/emmet-vim', {
+            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml','slim','jade']}
+            \ }
+"# nginx.vim
+NeoBundle 'nginx.vim', {
+            \ 'autoload' : {'filetypes': ['nginx']}
+            \}
+"# html5.vim
+NeoBundleLazy 'taichouchou2/html5.vim', {
+            \ 'autoload' : {'filetypes': ['html']}
+            \}
+"# css3vim
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+            \ 'autoload' : {'filetypes': ['css']}
+            \}
+"# sass
+NeoBundle 'cakebaker/scss-syntax.vim'
+"# haml
+NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes':['haml']}}
+"# slim
+NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
+
+"#-----------------------#
+"# util-tool             #
+"#-----------------------#
+"# yanktmp
+NeoBundle 'yanktmp.vim'
+
+NeoBundle 'plasticboy/vim-markdown'
+"# jellybeans
+NeoBundle 'magicdrive/jellybeans.vim'
+"# molokai
+NeoBundle 'tomasr/molokai'
+"# hybrid
+NeoBundle 'w0ng/vim-hybrid'
+"# pyte
+NeoBundle 'vim-scripts/pyte'
+
+"# surround.vim
+NeoBundle 'surround.vim'
+"# vimsualstar
+NeoBundle 'thinca/vim-visualstar'
+"# foldCC
+NeoBundle 'magicdrive/foldCC'
+"# ariline
+NeoBundle 'vim-airline/vim-airline'
+"# ariline-themes
+NeoBundle 'vim-airline/vim-airline-themes'
+
+call neobundle#end()
+filetype plugin on
+filetype indent on
+"[ ####------- FileType Settings ---------------#### ]"{{{
+augroup detect_filetype
+    autocmd!
+    " javascript genus
+    autocmd BufNewFile,BufRead,BufWritePost *.bowerrc* set filetype=javascript
+    autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.js,*SpecHelper.js set filetype=jasmine.javascript syntax=jasmine.javascript
+    autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
+    autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
+    autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
+    " html genus
+    autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
+    autocmd BufRead,BufNewFile,BufWritePost *.vue set filetype=html
+    " perl genus
+    autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
+    autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
+    " perl genus
+    autocmd BufNewFile,BufRead,BufWritePost *.py,*.py3.[0-9],*.py3,*.py2,*.py2.[0-9] set filetype=python
+    " xcode genus
+    autocmd BufNewFile,BufRead,BufWritePost *.m  set filetype=objective-c
+    autocmd BufNewFile,BufRead,BufWritePost *.mm set filetype=cpp.objective-c
+    autocmd BufNewFile,BufRead,BufWritePost *.swift set filetype=swift
+    " shell genus
+    autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
+    autocmd BufNewFile,BufRead,BufWritePost nginx.conf set filetype=nginx
+    autocmd BufNewFile,BufRead,BufWritePost *.nginx.conf set filetype=nginx
+    autocmd BufNewFile,BufRead,BufWritePost */apache/conf/* set filetype=apache
+    autocmd BufNewFile,BufRead,BufWritePost apache.conf set filetype=apache
+    autocmd BufNewFile,BufRead,BufWritePost *.apache.conf set filetype=apache
+    autocmd BufNewFile,BufRead,BufWritePost */patches/* set filetype=diff
+    autocmd BufNewFile,BufRead,BufWritePost *tmux*conf* set filetype=tmux
+    autocmd BufNewFile,BufRead,BufWritePost *envrc* set filetype=bash
+    " graphics genus
+    autocmd BufNewFile,BufRead,BufWritePost *.pde set filetype=processing
+    autocmd BufNewFile,BufRead,BufWritePost *.as set filetype=actionscript
+    " jvm genus
+    autocmd BufNewFile,BufRead,BufWritePost .vrapperrc set filetype=vim
+    autocmd BufNewFile,BufRead,BufWritePost *.scala set filetype=scala
+    autocmd BufNewFile,BufRead,BufWritePost *.sbt set filetype=sbt
+    autocmd BufNewFile,BufRead,BufWritePost *.gradle set filetype=groovy
+    autocmd BufNewFile,BufRead,BufWritePost *.pig set filetype=pig syntax=pig
+    " ruby genus
+    autocmd BufNewFile,BufRead,BufWritePost [Rr]akefile set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost [Gg]emfile set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost [Gg]uardfile set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.gemspec set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.rake set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.ru set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.unicorn set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.cap set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *.god,*.eye set filetype=ruby
+    autocmd BufNewFile,BufRead,BufWritePost *_spec.rb set filetype=ruby.rspec
+    autocmd BufNewFile,BufRead,BufWritePost *_text.rb set filetype=ruby.rspec
+    autocmd BufNewFile,BufRead,BufWritePost *[Pp]rocfile* set syntax=yaml
+    " lisp genus
+    autocmd FileType lisp set syntax=lisp
+    autocmd BufNewFile,BufRead,BufWritePost *.gosh set filetype=scheme
+    autocmd FileType scheme set syntax=scheme
+    " beamvm
+    autocmd BufRead,BufNewFile,BufWritePost *.ex,*.exs set filetype=elixir
+    autocmd BufRead,BufNewFile,BufWritePost *.erl set filetype=erlang
+    " sql
+    autocmd BufNewFile,BufRead,BufWritePost *.presto set syntax=sql
+    autocmd BufNewFile,BufRead,BufWritePost *.hive set syntax=sql
+    " mysql
+    autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
+augroup END
+"}}}
+"[ ####------- NeoBundleCheck ------------------#### ] {{{
+NeoBundleCheck
+" }}}
+"### Align.vim {{{
+let g:Align_xstrlen=3
+let g:DrChipTopLvlMenu=''
+"}}}
+"### Airline {{{
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" old vim-powerline symbols
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
+
+let g:airline_theme=has('gui_running') ? 'lucius' : 'dark'
+
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline_extensions = []
+
+"# ESCの遅延防止
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
+
+"}}}
+"### jellybeans {{{
+let g:jellybeans_use_lowcolor_black=0
+let g:jellybeans_background_color=''
+let g:jellybeans_background_color_256=''
+"}}}
+"### NERDTree {{{
+
+"# NERDTreeToggle wrapper
+nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
+nnoremap <silent> <Plug>(mykey)i :call <SID>MY_NERDTreeRefresh()<CR>
+let g:my_nerdtree_status=0
+
+function! s:MY_NERDTreeRefresh()
+    NERDTreeFocus
+    normal R
+    wincmd l
+    let g:my_nerdtree_status = 1
+endfunction
+
+function! s:MY_NERDTreeToggle()
+    :NERDTreeToggle
+    if g:my_nerdtree_status == 0
+        wincmd l
+    endif
+    let g:my_nerdtree_status =
+                \ g:my_nerdtree_status ==# 1 ? 0 : 1
+endfunction
+
+let g:NERDTreeHijackNetrw=1
+let g:NERDTreeWinSize=(&columns / 5)
+"}}}
+"[ ####------- Colorscheme Settings ------------#### ] "{{{
+"# xterm-256color
+set t_Co=256
+
+"# Colorscheme
+syntax enable
+
+let g:my_colorscheme= has('gui_running') ?  'molokai' : 'jellybeans'
+try
+    exec "colorscheme" . " " . g:my_colorscheme
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+endtry
+
+function! MyColor()
+    "# ポップアップメニューの色変更
+    highlight Pmenu
+                \ ctermbg=DarkGray
+                \ ctermfg=White
+
+    highlight PmenuSel
+                \ ctermbg=White
+                \ ctermfg=Black
+
+    "# Foldingの色変更
+    highlight Folded
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey30
+                \ guifg=Grey80
+
+    highlight FoldColumn
+                \ gui=bold
+                \ term=standout
+                \ ctermbg=Black
+                \ ctermfg=LightGray
+                \ guibg=Grey
+                \ guifg=DarkBlue
+
+    highlight Normal ctermbg=NONE
+
+    highlight WildMenu
+                \ term=bold
+                \ ctermfg=217
+                \ ctermbg=16
+                \ guifg=#f0a0c0
+                \ guibg=#302028
+    highlight StatusLine
+                \ term=bold
+                \ ctermfg=16
+                \ ctermbg=252
+                \ guifg=#000000
+                \ guibg=#dddddd
+
+    "# 検索結果のカラースキーム変更
+    highlight Search ctermbg=Gray
+    if g:colors_name == "molokai"
+        highlight rubyModule ctermfg=129 guifg=#af00ff
+        highlight rubyClass  ctermfg=129 guifg=#af00ff
+    endif
+endfunction
+
+augroup color_set
+    autocmd!
+    if !has('gui_running')
+        autocmd ColorScheme * call MyColor()
+    endif
+augroup END
+
+"# switching colrschme & background
+nnoremap <silent> <Plug>(mykey)c :<C-u> call <SID>ChangeBackground()<CR>
+"}}}
+"[ ####------- NeoBundleCheck ------------------#### ] {{{
+NeoBundleCheck
+"### Ruby support "{{{
+let g:ref_ruby_cmd= executable('refe') ? 'refe' : 'ri'
+let g:no_ruby_ftplugin=1
+
+augroup ruby_ftplugin
+    autocmd!
+    autocmd FileType ruby setlocal nocindent
+    autocmd FileType ruby :compiler ruby
+    autocmd FileType ruby,ref-ri setlocal iskeyword+=a-z,A-Z,48-57,_,:,$,@,%,?,-
+    autocmd FileType ruby nnoremap <buffer> K :<C-u>call ref#open(g:ref_ruby_cmd, expand('<cword>'))<CR>
+    autocmd FileType ruby vnoremap <buffer> K :<C-u>call ref#jump('visual', g:ref_ruby_cmd)<CR>
+    autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab
+    autocmd FileType ruby setlocal autoindent
+augroup END
+"}}}
+" }}}
+"__END__
+
