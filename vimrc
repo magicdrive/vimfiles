@@ -725,7 +725,6 @@ NeoBundleLazy 'Align', {
             \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
             \ }
 
-
 "#-----------------------#
 "# xcode                 #
 "#-----------------------#
@@ -752,6 +751,14 @@ NeoBundleLazy 'losingkeys/vim-niji', {
 "# ocamlspot
 NeoBundleLazy 'cohama/the-ocamlspot.vim', {
             \ "autoload" : {"filetypes": ['ocaml']}
+            \ }
+
+"#-----------------------#
+"# rust                  #
+"#-----------------------#
+"# rust
+NeoBundleLazy 'rust-lang/rust.vim', {
+            \ "autoload" : {"filetypes": ['rust']}
             \ }
 
 "#-----------------------#
@@ -1337,6 +1344,9 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *[Ss]pec.coffee,*SpecHelper.coffee set filetype=jasmine.coffee syntax=jasmine.coffee
     autocmd BufRead,BufNewFile,BufWritePost *.coffee set filetype=coffee
     autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
+    " rust
+    autocmd BufRead,BufNewFile,BufWritePost *.rs set filetype=rust
+    autocmd BufRead,BufNewFile,BufWritePost *.toml set filetype=dosini
     " html genus
     autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
     autocmd BufRead,BufNewFile,BufWritePost *.vue set filetype=html
