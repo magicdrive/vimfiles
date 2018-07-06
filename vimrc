@@ -829,6 +829,18 @@ NeoBundleLazy 'davidhalter/jedi-vim', {
 NeoBundleLazy 'chase/vim-ansible-yaml', {
             \ 'autoload': { 'filetypes': ['yaml'] }
             \ }
+"#-----------------------#
+"# infra                 #
+"#-----------------------#
+
+"# nginx.vim
+NeoBundle 'nginx.vim', {
+            \ 'autoload' : {'filetypes': ['nginx']}
+            \}
+
+"# terraform
+NeoBundle 'hashivim/vim-terraform'
+
 
 "#-----------------------#
 "# html-coding           #
@@ -841,10 +853,6 @@ NeoBundleLazy 'groenewege/vim-less', {
 NeoBundleLazy 'mattn/emmet-vim', {
             \ 'autoload' : {'filetypes': ['eruby','html','tt','haml','slim','jade']}
             \ }
-"# nginx.vim
-NeoBundle 'nginx.vim', {
-            \ 'autoload' : {'filetypes': ['nginx']}
-            \}
 "# html5.vim
 NeoBundleLazy 'taichouchou2/html5.vim', {
             \ 'autoload' : {'filetypes': ['html']}
