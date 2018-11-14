@@ -649,14 +649,6 @@ NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# sonic-template
 NeoBundle 'mattn/sonictemplate-vim'
 
-
-"# vimproc
-NeoBundle 'Shougo/vimproc', 'ver.7.0', {
-            \ 'build' : {
-            \     'mac'     : 'make -f make_mac.mak',
-            \     'unix'    : 'make -f make_unix.mak',
-            \    },
-            \ }
 "# NERDTree
 NeoBundleLazy 'scrooloose/nerdtree', {
             \   'autoload' : {
