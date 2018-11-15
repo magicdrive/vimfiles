@@ -1368,7 +1368,7 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *.apache.conf set filetype=apache
     autocmd BufNewFile,BufRead,BufWritePost */patches/* set filetype=diff
     autocmd BufNewFile,BufRead,BufWritePost *tmux*conf* set filetype=tmux
-    autocmd BufNewFile,BufRead,BufWritePost *envrc* set filetype=bash
+    autocmd BufNewFile,BufRead,BufWritePost *envrc* set filetype=sh
     " graphics genus
     autocmd BufNewFile,BufRead,BufWritePost *.pde set filetype=processing
     autocmd BufNewFile,BufRead,BufWritePost *.as set filetype=actionscript
@@ -1403,6 +1403,8 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *.hive set syntax=sql
     " mysql
     autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
+    " markdown
+    autocmd BufNewFile,BufRead,BufWritePost *.md set syntax=markdown
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
