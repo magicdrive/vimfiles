@@ -817,6 +817,12 @@ NeoBundleLazy 'tpope/vim-bundler', {
 NeoBundleLazy 'davidhalter/jedi-vim', {
             \ 'autoload': { 'filetypes': ['python'] }
             \ }
+
+"# python-mode
+NeoBundle 'klen/python-mode', {
+            \ 'autoload': { 'filetypes': ['python'] }
+            \ }
+
 "# ansible
 NeoBundleLazy 'chase/vim-ansible-yaml', {
             \ 'autoload': { 'filetypes': ['yaml'] }
@@ -1060,6 +1066,11 @@ let g:sonictemplate_vim_template_dir = '~/.vim/misc/template/'
 command! -nargs=0 JediRename :call jedi#rename()
 let g:jedi#rename_command = ""
 let g:jedi#documentation_command = "pydoc"
+
+
+"}}}
+"### Python-mode {{{
+let g:pymode_folding = 0
 "}}}
 " }}}
 "[ ####------- Programming Support Settings ----#### ] {{{
