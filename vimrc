@@ -752,6 +752,10 @@ NeoBundleLazy 'cohama/the-ocamlspot.vim', {
 NeoBundleLazy 'rust-lang/rust.vim', {
             \ "autoload" : {"filetypes": ['rust']}
             \ }
+"# racer
+NeoBundleLazy 'racer-rust/vim-racer', {
+            \ "autoload" : {"filetypes": ['rust']}
+            \ }
 
 "#-----------------------#
 "# jvm                   #
@@ -916,6 +920,9 @@ map <silent> <Plug>(mykey)p :call YanktmpPaste_p()<CR>
 "### Align.vim {{{
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
+"}}}
+"### vim-racer {{{
+let g:racer_cmd = expand('~/.cargo/bin/racer')
 "}}}
 "### Airline {{{
 
@@ -1162,7 +1169,10 @@ function! g:GolangFTP()
     syntax keyword goErr err
     highlight goErr cterm=bold ctermfg=214
     syntax keyword goSelf self
-    highlight goSelf ctermfg=167
+    highlight goSelf cterm=bold ctermfg=167
+    syntax match goKey /\w\{1,}:/
+    highlight goKey cterm=bold ctermfg=105
+
     set sw=4 noexpandtab ts=4
 endfunction
 
@@ -1175,7 +1185,7 @@ endfunction
 augroup go_ftplugin
     autocmd!
     autocmd FileType go nnoremap <silent> <buffer> <C-\> :call GoImportsOverlay()<CR>
-    autocmd BufNewFile,BufRead,BufWritePost,BufEnter,BufLeave *.go call GolangFTP()
+    autocmd BufAdd,BufNewFile,BufRead,BufWritePost,BufEnter,BufLeave *.go call GolangFTP()
     autocmd FileType go compiler go
 augroup END
 "}}}
