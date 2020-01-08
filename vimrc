@@ -632,261 +632,225 @@ endfunction
 
 "}}}
 " }}}
-"[ ####------- NeoBundle Settings --------------#### ] {{{
+"[ ####------- Plug Settings --------------#### ] {{{
 filetype off
 
 let g:neobundle_default_git_protocol = 'https'
+call plug#begin(expand('~/.vim/bundle'))
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-call neobundle#begin( expand('~/.vim/bundle') )
 
 "#---------------------------#
 "# regular use               #
 "#---------------------------#
-"# neobundle
-NeoBundle 'Shougo/neobundle.vim', 'ver.2.1'
 "# sonic-template
-NeoBundle 'mattn/sonictemplate-vim'
+Plug 'mattn/sonictemplate-vim'
 
 "# NERDTree
-NeoBundleLazy 'scrooloose/nerdtree', {
-            \   'autoload' : {
-            \       'commands' : [ "NERDTree", "NERDTreeToggle", "NERDTreeCWD" ],
-            \       'explorer' : 1,
-            \   }
-            \ }
+Plug 'scrooloose/nerdtree'
+
 "# quickrun
-NeoBundle 'thinca/vim-quickrun'
+Plug 'thinca/vim-quickrun'
 "# quickfixstatus
-NeoBundle 'dannyob/quickfixstatus'
+Plug 'dannyob/quickfixstatus'
 
 "# vim-endwise
-NeoBundleLazy 'taichouchou2/vim-endwise', {
-            \ 'autoload' : { 'insert' : 1, }
-            \ }
+Plug 'taichouchou2/vim-endwise'
+
 "# smartinput
-NeoBundleLazy 'kana/vim-smartinput', {
-            \ 'autoload' : { 'insert' : 1, }
-            \ }
+Plug 'kana/vim-smartinput'
+
 "# niceblock
-NeoBundleLazy 'kana/vim-niceblock', {
-            \ 'autoload' : { 'insert' : 1, }
-            \ }
+Plug 'kana/vim-niceblock'
+
 "# AnsiEsc
-NeoBundle 'vim-scripts/AnsiEsc.vim'
+Plug 'vim-scripts/AnsiEsc.vim'
 "# surround.vim
-NeoBundle 'surround.vim'
+Plug 'vim-scripts/surround.vim'
 "# vimsualstar
-NeoBundle 'thinca/vim-visualstar'
+Plug 'thinca/vim-visualstar'
 "# foldCC
-NeoBundle 'magicdrive/foldCC'
+Plug 'magicdrive/foldCC'
 "# ariline
-NeoBundle 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 "# ariline-themes
-NeoBundle 'vim-airline/vim-airline-themes'
-"# memolist
-NeoBundleLazy 'glidenote/memolist.vim', {
-            \ 'autoload' : { 'commands' : ['MemoNew','MemoList', 'MemoGrep'] }
-            \ }
+Plug 'vim-airline/vim-airline-themes'
+"
 "# sql-util
-NeoBundleLazy 'SQLUtilities', {
-            \ 'filetypes' : ['sql'],
-            \ 'commands' : ['SQLUFormatter']
+Plug 'vim-scripts/SQLUtilities', {
+            \ 'for' : 'sql',
+            \ 'on'  : 'SQLUFormatter'
             \ }
 "# easybuffer
-NeoBundle 'troydm/easybuffer.vim'
+Plug 'troydm/easybuffer.vim'
 "# yankring
-NeoBundle 'YankRing.vim'
+Plug 'vim-scripts/YankRing.vim'
 
 "#----------------------------------#
 "# golang                           #
 "#----------------------------------#
-NeoBundle 'vim-jp/vim-go-extra'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'ekalinin/Dockerfile.vim'
+Plug 'vim-jp/vim-go-extra'
+Plug 'fatih/vim-go'
+Plug 'ekalinin/Dockerfile.vim'
 
 
 "#---------------------------#
 "# programing suport plug-in #
 "#---------------------------#
 "# emacs-commandline
-NeoBundle 'houtsnip/vim-emacscommandline'
+Plug 'houtsnip/vim-emacscommandline'
 "# align.vim
-NeoBundleLazy 'Align', {
-            \ 'autoload' : { 'commands' : ['Align', 'AlignCtrl', 'AlignMapsClean', 'AlignPop', 'AlignPush', 'AlignReplaceQuotedSpaces'] }
-            \ }
+Plug 'vim-scripts/Align'
 
 "#-----------------------#
 "# xcode                 #
 "#-----------------------#
 "# cocoa.vim
-NeoBundleLazy 'cocoa.vim', {
-            \ 'autoload' : {'filetypes': ['objective-c']}
+Plug 'vim-scripts/cocoa.vim', {
+            \ 'for': 'objective-c'
             \ }
 "# swift
-NeoBundleLazy 'toyamarinyon/vim-swift', {
-            \ 'autoload' : {'filetypes': ['swift']}
+Plug 'toyamarinyon/vim-swift', {
+            \ 'for': 'swift'
             \ }
 
 "#-----------------------#
 "# lisp                  #
 "#-----------------------#
 "# niji
-NeoBundleLazy 'losingkeys/vim-niji', {
-            \ 'autoload' : {'filetypes': ['clojure','lisp','scheme']}
-            \ }
+Plug 'losingkeys/vim-niji'
 
 "#-----------------------#
 "# ocaml                 #
 "#-----------------------#
 "# ocamlspot
-NeoBundleLazy 'cohama/the-ocamlspot.vim', {
-            \ "autoload" : {"filetypes": ['ocaml']}
-            \ }
+Plug 'cohama/the-ocamlspot.vim'
 
 "#-----------------------#
 "# rust                  #
 "#-----------------------#
 "# rust
-NeoBundleLazy 'rust-lang/rust.vim', {
-            \ "autoload" : {"filetypes": ['rust']}
-            \ }
+Plug 'rust-lang/rust.vim'
+
 "# racer
-NeoBundleLazy 'racer-rust/vim-racer', {
-            \ "autoload" : {"filetypes": ['rust']}
-            \ }
+Plug 'racer-rust/vim-racer'
 
 "#-----------------------#
 "# jvm                   #
 "#-----------------------#
 "# groovy.vim
-NeoBundleLazy 'groovy.vim', {
-            \ "autoload" : {"filetypes": ['groovy']}
-            \ }
+Plug 'vim-scripts/groovy.vim'
 "# vim-scala
-NeoBundleLazy 'magicdrive/vim-scala', {
-            \ "autoload" : {"filetypes": ['scala']}
-            \}
+Plug 'magicdrive/vim-scala'
 "# vim-processing
-NeoBundleLazy 'sophacles/vim-processing', {
-            \ "autoload" : {"filetypes": ['processing']}
-            \}
+Plug 'sophacles/vim-processing'
+
 "# pig
-NeoBundleLazy 'pig.vim', {
-            \ "autoload" : {"filetypes": ['pig']}
-            \}
+Plug 'vim-scripts/pig.vim'
 
 "#-----------------------#
 "# javascript            #
 "#-----------------------#
 "# javascript-syntax
-NeoBundle 'jelera/vim-javascript-syntax'
+Plug 'jelera/vim-javascript-syntax'
 "# vim-coffee-script
-NeoBundleLazy 'kchmck/vim-coffee-script',{
-            \ 'autoload' : {'filetypes': ['coffee']}
+Plug 'kchmck/vim-coffee-script',{
+            \ 'for' : 'coffee'
             \ }
 "# vim-typescript
-NeoBundleLazy 'leafgarland/typescript-vim',{
-            \ 'autoload' : {'filetypes': ['typescript']}
+Plug 'leafgarland/typescript-vim',{
+            \ 'for' : 'typescript'
             \ }
 "# jasmine
-NeoBundle 'claco/jasmine.vim', {
-            \ 'autoload' : {'filetypes': ['javascript']}
+Plug 'claco/jasmine.vim', {
+            \ 'for' : 'javascript'
             \ }
 
 "#-----------------------#
 "# beamvm                #
 "#-----------------------#
-NeoBundleLazy 'elixir-lang/vim-elixir', {
-            \ 'autoload' : {'filetypes': ['elixir']}
+Plug 'elixir-lang/vim-elixir', {
+            \ 'for' : 'elixir'
             \ }
 
-NeoBundleLazy 'jimenezrick/vimerl', {
-            \ 'autoload' : {'filetypes': ['erlang']}
+Plug 'jimenezrick/vimerl', {
+            \ 'for' : 'erlang'
             \ }
 
 "#-----------------------#
 "# ruby                  #
 "#-----------------------#
 "# vim-bundler
-NeoBundleLazy 'tpope/vim-bundler', {
-            \ 'autoload': { 'filetypes': ['ruby', 'eruby', 'haml', 'slim', 'rspec'] }
-            \ }
+Plug 'tpope/vim-bundler'
 
 "#-----------------------#
 "# python                #
 "#-----------------------#
 "# jedi
-NeoBundleLazy 'davidhalter/jedi-vim', {
-            \ 'autoload': { 'filetypes': ['python'] }
+Plug 'davidhalter/jedi-vim', {
+            \ 'for': 'python'
             \ }
 
 "# python-mode
-NeoBundle 'klen/python-mode', {
-            \ 'autoload': { 'filetypes': ['python'] }
+Plug 'klen/python-mode', {
+            \ 'for': 'python'
             \ }
 
 "# ansible
-NeoBundleLazy 'chase/vim-ansible-yaml', {
-            \ 'autoload': { 'filetypes': ['yaml'] }
+Plug 'chase/vim-ansible-yaml', {
+            \ 'for': 'yaml'
             \ }
 "#-----------------------#
 "# infra                 #
 "#-----------------------#
 
 "# nginx.vim
-NeoBundle 'nginx.vim', {
-            \ 'autoload' : {'filetypes': ['nginx']}
+Plug 'vim-scripts/nginx.vim', {
+            \ 'for': 'nginx'
             \}
 
 "# terraform
-NeoBundle 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform'
 
 
 "#-----------------------#
 "# html-coding           #
 "#-----------------------#
 "# vim-less
-NeoBundleLazy 'groenewege/vim-less', {
-            \ 'autoload' : {'filetypes': ['less']}
-            \ }
+Plug 'groenewege/vim-less'
+
 "# emmet.vim
-NeoBundleLazy 'mattn/emmet-vim', {
-            \ 'autoload' : {'filetypes': ['eruby','html','tt','haml','slim','jade']}
-            \ }
-"# html5.vim
-NeoBundleLazy 'taichouchou2/html5.vim', {
-            \ 'autoload' : {'filetypes': ['html']}
-            \}
+Plug 'mattn/emmet-vim'
+
 "# css3vim
-NeoBundleLazy 'hail2u/vim-css3-syntax', {
-            \ 'autoload' : {'filetypes': ['css']}
+Plug 'hail2u/vim-css3-syntax', {
+            \ 'for': 'css'
             \}
 "# sass
-NeoBundle 'cakebaker/scss-syntax.vim'
+Plug 'cakebaker/scss-syntax.vim'
 "# haml
-NeoBundleLazy 'tpope/vim-haml', {'autoload': {'filetypes':['haml']}}
+Plug 'tpope/vim-haml', {'for':'haml'}
 "# slim
-NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes':['slim']}}
+Plug 'slim-template/vim-slim', {'for':'slim'}
 
 "#-----------------------#
 "# util-tool             #
 "#-----------------------#
 "# yanktmp
-NeoBundle 'yanktmp.vim'
+Plug 'vim-scripts/yanktmp.vim'
 
-NeoBundle 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown'
 "# jellybeans
-NeoBundle 'magicdrive/jellybeans.vim'
+Plug 'magicdrive/jellybeans.vim'
 "# molokai
-NeoBundle 'tomasr/molokai'
+Plug 'tomasr/molokai'
 "# hybrid
-NeoBundle 'w0ng/vim-hybrid'
+Plug 'w0ng/vim-hybrid'
 "# pyte
-NeoBundle 'vim-scripts/pyte'
+Plug 'vim-scripts/pyte'
 
-call neobundle#end()
+call plug#end()
 filetype plugin on
 filetype indent on
 
@@ -1439,8 +1403,5 @@ if expand($PWD) !=# expand($HOME)
         execute 'source ' . g:local_vimrc
     endif
 endif
-" }}}
-"[ ####------- NeoBundleCheck ------------------#### ] {{{
-NeoBundleCheck
 " }}}
 "# __END__
