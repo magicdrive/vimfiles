@@ -632,7 +632,7 @@ endfunction
 
 "}}}
 " }}}
-"[ ####------- Plug Settings --------------#### ] {{{
+"[ ####------- Plug Settings -------------------#### ] {{{
 filetype off
 
 let g:neobundle_default_git_protocol = 'https'
@@ -850,6 +850,23 @@ Plug 'w0ng/vim-hybrid'
 "# pyte
 Plug 'vim-scripts/pyte'
 
+
+
+
+"#-----------------------#
+"# vim-lsp               #
+"#-----------------------#
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-lsp-icons'
+
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+
 call plug#end()
 filetype plugin on
 filetype indent on
@@ -1043,6 +1060,31 @@ let g:jedi#documentation_command = "pydoc"
 "### Python-mode {{{
 let g:pymode_folding = 0
 "}}}
+"### LSP {{{
+if empty(globpath(&rtp, 'autoload/lsp.vim'))
+  finish
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> <f2> <plug>(lsp-rename)
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
 " }}}
 "[ ####------- Programming Support Settings ----#### ] {{{
 "### C++ support "{{{
