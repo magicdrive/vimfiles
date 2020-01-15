@@ -34,7 +34,6 @@ for x in ${files[@]}; do
   ln -sfn ${current}/${x} ${HOME}/.${x}
 done;
 
-vimproc_build
 
 cp -a "${current}/bin/tovim" ~/local/bin/
 
