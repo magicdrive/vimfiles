@@ -37,6 +37,6 @@ done;
 
 cp -a "${current}/bin/tovim" ~/local/bin/
 
-echo;echo;echo "setup complete!"
+echo;echo;echo "vimrc install complete!"
 
 exit 0;
