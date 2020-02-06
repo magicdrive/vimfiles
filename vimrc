@@ -4,7 +4,7 @@
 "# \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/
 "#  \ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
 "#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
-"#                for vim8.1
+"#                for vim8.2
 "[ ####------- Vim Basic Settings --------------#### ] {{{
 "### Vim Options "{{{
 
@@ -690,6 +690,11 @@ Plug 'vim-scripts/SQLUtilities', {
 Plug 'troydm/easybuffer.vim'
 "# yankring
 Plug 'vim-scripts/YankRing.vim'
+
+""# fzf
+Plug 'junegunn/fzf'
+", { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 "#----------------------------------#
 "# golang                           #
