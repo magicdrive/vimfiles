@@ -858,6 +858,10 @@ Plug 'tomasr/molokai'
 Plug 'w0ng/vim-hybrid'
 "# pyte
 Plug 'vim-scripts/pyte'
+"# iceberg
+Plug 'cocopon/iceberg.vim'
+"# gruvbox
+Plug 'morhetz/gruvbox'
 
 
 
@@ -928,7 +932,7 @@ let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
 
-let g:airline_theme=has('gui_running') ? 'lucius' : 'dark'
+let g:airline_theme=has('gui_running') ? 'lucius' : 'distinguished'
 
 let g:airline#extensions#disable_rtp_load = 1
 let g:airline_extensions = []
@@ -1054,6 +1058,10 @@ let g:jellybeans_background_color_256=''
 "### molokai {{{
 let g:molokai_original=1
 let g:rehash256=1
+"}}}
+"### gruvbox {{{
+let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_contrast_light="hard"
 "}}}
 "### sonictemplate {{{
 nnoremap <Plug>(mykeylite)t :<C-u>Template<Space>
@@ -1305,7 +1313,7 @@ set t_Co=256
 "# Colorscheme
 syntax enable
 
-let g:my_colorscheme= has('gui_running') ?  'molokai' : 'jellybeans'
+let g:my_colorscheme= has('gui_running') ?  'molokai' : 'iceberg'
 try
     exec "colorscheme" . " " . g:my_colorscheme
 catch /^Vim\%((\a\+)\)\=:E185/
