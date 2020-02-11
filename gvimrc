@@ -90,7 +90,7 @@ autocmd GUIEnter * call MyGUISettingLazy()
 "[ ####------- MacVim Settings -----------------#### ]{{{
 function! MyGUIMacVimSetting()
 
-    let g:my_colorscheme= has('gui_running') ?  'molokai' : 'jellybeans'
+    let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'jellybeans'
     try
         exec "colorscheme" . " " . g:my_colorscheme
     catch /^Vim\%((\a\+)\)\=:E185/
