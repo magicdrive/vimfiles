@@ -1313,7 +1313,7 @@ set t_Co=256
 "# Colorscheme
 syntax enable
 
-let g:my_colorscheme= has('gui_running') ?  'molokai' : 'iceberg'
+let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'jellybeans'
 try
     exec "colorscheme" . " " . g:my_colorscheme
 catch /^Vim\%((\a\+)\)\=:E185/
