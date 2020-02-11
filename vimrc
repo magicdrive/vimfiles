@@ -1313,7 +1313,10 @@ set t_Co=256
 "# Colorscheme
 syntax enable
 
-let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'jellybeans'
+let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'iceberg'
+
+set background=dark
+
 try
     exec "colorscheme" . " " . g:my_colorscheme
 catch /^Vim\%((\a\+)\)\=:E185/
@@ -1321,6 +1324,12 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
 function! MyColor()
+    "# 背景
+    highlight Normal ctermbg=none
+    highlight LineNr ctermbg=none
+    highlight nonText ctermbg=none
+    highlight EndOfBuffer ctermbg=none
+
     "# ポップアップメニューの色変更
     highlight Pmenu
                 \ ctermbg=DarkGray
@@ -1376,6 +1385,8 @@ augroup color_set
         autocmd ColorScheme * call MyColor()
     endif
 augroup END
+
+call MyColor()
 
 "# switching colrschme & background
 nnoremap <silent> <Plug>(mykey)c :<C-u> call <SID>ChangeBackground()<CR>
