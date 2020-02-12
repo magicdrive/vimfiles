@@ -932,7 +932,7 @@ let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
 
-let g:airline_theme=has('gui_running') ? 'lucius' : 'distinguished'
+let g:airline_theme=has('gui_running') ? 'lucius' : 'iceberg'
 
 let g:airline#extensions#disable_rtp_load = 1
 let g:airline_extensions = []
