@@ -85,6 +85,7 @@ if has('gui_running')
     call MyGUISetting ()
 endif
 autocmd GUIEnter * call MyGUISettingLazy()
+autocmd BufEnter * :AirlineRefresh
 
 "}}}
 "[ ####------- MacVim Settings -----------------#### ]{{{
@@ -102,8 +103,8 @@ function! MyGUIMacVimSetting()
     endif
     set imdisable
     set antialias
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
     set nobackup
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h16
 
 endfunction
 "}}}
