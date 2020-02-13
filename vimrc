@@ -130,6 +130,12 @@ if g:dir_jump !=# 0
     autocmd BufEnter * :execute ":lcd " . expand("%:p:h")
 endif
 
+"# ESCの遅延防止
+if has('unix') && !has('gui_running')
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
+endif
+
 "# line number
 set number
 
@@ -923,25 +929,22 @@ let g:racer_cmd = expand('~/.cargo/bin/racer')
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-" old vim-powerline symbols
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
 
-let g:airline_theme=has('gui_running') ? 'lucius' : 'iceberg'
+if !has('gui_running')
+    " old vim-powerline symbols
+    let g:airline_left_sep = '⮀'
+    let g:airline_left_alt_sep = '⮁'
+    let g:airline_right_sep = '⮂'
+    let g:airline_right_alt_sep = '⮃'
+    let g:airline_symbols.branch = '⭠'
+    let g:airline_symbols.readonly = '⭤'
+    let g:airline_symbols.linenr = '⭡'
+endif
+
+let g:airline_theme=has('gui_running') ? 'gruvbox' : 'iceberg'
 
 let g:airline#extensions#disable_rtp_load = 1
 let g:airline_extensions = []
-
-"# ESCの遅延防止
-if has('unix') && !has('gui_running')
-    inoremap <silent> <ESC> <ESC>
-    inoremap <silent> <C-[> <ESC>
-endif
 
 "}}}
 "### EasyBuffer {{{
@@ -1386,7 +1389,9 @@ augroup color_set
     endif
 augroup END
 
-call MyColor()
+if !has('gui_running')
+    call MyColor()
+endif
 
 "# switching colrschme & background
 nnoremap <silent> <Plug>(mykey)c :<C-u> call <SID>ChangeBackground()<CR>
