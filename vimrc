@@ -697,10 +697,10 @@ Plug 'troydm/easybuffer.vim'
 "# yankring
 Plug 'vim-scripts/YankRing.vim'
 
-""# fzf
-Plug 'junegunn/fzf'
-", { 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
+"""# fzf
+"Plug 'junegunn/fzf'
+"", { 'do': './install --bin' }
+"Plug 'junegunn/fzf.vim'
 
 "#----------------------------------#
 "# golang                           #
