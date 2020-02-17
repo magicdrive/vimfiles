@@ -9,6 +9,8 @@
 
 "[ ####------- GVim Settings -------------------#### ]{{{
 
+set ambiwidth=double
+
 "# windowの大きさ監視
 function! WindowSupervise()
     let g:save_window_file = '$HOME/.vimwinpos'
