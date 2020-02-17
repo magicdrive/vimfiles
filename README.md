@@ -4,5 +4,5 @@
 ## Install
 
 #### shell
-    $ ./setup.sh
+    $ ./install.sh
 
