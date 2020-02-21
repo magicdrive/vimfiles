@@ -530,7 +530,7 @@ if has('syntax')
 endif
 
 let g:matsubi_space_state = 1
-function! MatsubiSpace()
+function! MatsubiSpaceHighlight()
     if g:matsubi_space_state
         highlight MatsubiSpace ctermbg=199 guibg=Cyan
     else
@@ -540,13 +540,14 @@ endfunction
 
 function! s:ToggleMatsubiSpaceHighLight()
     let g:matsubi_space_state=g:matsubi_space_state ? 0 : 1
-    call MatsubiSpace()
+    call MatsubiSpaceHighlight()
 endfunction
 
+call MatsubiSpaceHighlight()
 if has('syntax')
-    augroup MatsubiSpace
+    augroup MatsubiSpaceGroup
         autocmd!
-        autocmd ColorScheme * call MatsubiSpace()
+        autocmd ColorScheme * call MatsubiSpaceHighlight()
         autocmd VimEnter,WinEnter * match MatsubiSpace /\s\+$/
     augroup END
     call ZenkakuSpace()

@@ -37,6 +37,8 @@ done;
 
 cp -a "${current}/bin/tovim" ~/local/bin/
 
+vim +PlugInstall +qa
+
 echo;echo;echo "vimrc install complete!"
 
 exit 0;
