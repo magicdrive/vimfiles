@@ -659,7 +659,7 @@ endif
 Plug 'mattn/sonictemplate-vim'
 
 "# NERDTree
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 
 "# quickrun
 Plug 'thinca/vim-quickrun'
@@ -1195,6 +1195,13 @@ augroup python_ftplugin
     autocmd FileType python setlocal commentstring=#%s
 augroup END
 
+"}}}
+"### Rust support {{{
+augroup rust_ftplugin
+    autocmd!
+    autocmd FileType rust nnoremap <silent> <buffer> <C-\> :RustFmt<CR>
+    autocmd FileType rust compiler rustc
+augroup END
 "}}}
 "### Golang support {{{
 
