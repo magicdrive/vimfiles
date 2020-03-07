@@ -366,8 +366,8 @@ set infercase
 set pumheight=10
 
 "# keybind
-inoremap <C-j> <C-x><C-n>
-inoremap <C-k> <C-x><C-o>
+inoremap <C-j> <C-x><C-o>
+inoremap <C-k> <C-x><C-n>
 inoremap <C-l> <C-x><C-k>
 inoremap <C-_> <C-x><C-f>
 
