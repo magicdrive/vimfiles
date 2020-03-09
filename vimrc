@@ -940,9 +940,6 @@ map <silent> <Plug>(mykey)p :call YanktmpPaste_p()<CR>
 let g:Align_xstrlen=3
 let g:DrChipTopLvlMenu=''
 "}}}
-"### vim-racer {{{
-let g:racer_cmd = expand('~/.cargo/bin/racer')
-"}}}
 "### Airline {{{
 
 if !exists('g:airline_symbols')
@@ -1118,10 +1115,10 @@ command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
-let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_popup = 0
 let g:asyncomplete_auto_completeopt = 0
-let g:asyncomplete_popup_delay = 200
-let g:lsp_text_edit_enabled = 1
+let g:asyncomplete_popup_delay = 2000
+let g:lsp_text_edit_enabled = 0
 " }}}
 " }}}
 "[ ####------- Programming Support Settings ----#### ] {{{
