@@ -1447,6 +1447,8 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost *.mm set filetype=cpp.objective-c
     autocmd BufNewFile,BufRead,BufWritePost *.swift set filetype=swift
     " shell genus
+    autocmd BufNewFile,BufRead,BufWritePost **/fluentd/**/*.conf set filetype=fluentd
+    autocmd BufNewFile,BufRead,BufWritePost **/td-agent/**/*.conf set filetype=fluentd
     autocmd BufNewFile,BufRead,BufWritePost **/nginx/conf/*.conf set filetype=nginx
     autocmd BufNewFile,BufRead,BufWritePost nginx.conf set filetype=nginx
     autocmd BufNewFile,BufRead,BufWritePost *.nginx.conf set filetype=nginx
