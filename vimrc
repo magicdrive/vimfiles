@@ -1436,7 +1436,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile,BufWritePost *.toml set filetype=dosini
     " html genus
     autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
-    autocmd BufRead,BufNewFile,BufWritePost *.vue set filetype=html
+    autocmd BufRead,BufNewFile,BufWritePost *.vue set filetype=javascript.html
     " perl genus
     autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
     autocmd BufNewFile,BufRead,BufWritePost *.t,*.psgi set filetype=perl
