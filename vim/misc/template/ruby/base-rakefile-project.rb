@@ -1,7 +1,7 @@
 # coding: utf-8
 
 ProjectHome    = File.expand_path(File.dirname(__FILE__))
-ProjectName    = File.expand_path(File.dirname(__FILE__))
+ProjectName    = File.basename(File.expand_path(File.dirname(__FILE__)))
 DistinationDir = "#{ProjectHome}/target"
 SourceDir      = "#{ProjectHome}/src"
 LogDir         = "#{ProjectHome}/logs"
