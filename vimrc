@@ -1058,7 +1058,7 @@ function! s:MY_NERDTreeToggle()
 endfunction
 
 let g:NERDTreeHijackNetrw=1
-let g:NERDTreeWinSize=(&columns / 5)
+let g:NERDTreeWinSize=(&columns / 4)
 "}}}
 "### Emmet {{{
 "#let g:user_emmet_mode='i'
