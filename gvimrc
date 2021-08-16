@@ -93,8 +93,7 @@ autocmd BufEnter * :AirlineRefresh
 "[ ####------- MacVim Settings -----------------#### ]{{{
 function! MyGUIMacVimSetting()
 
-    "# let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'iceberg'
-    let g:my_colorscheme= has('gui_running') ?  'abyss' : 'abyss'
+    let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'iceberg'
     try
         exec "colorscheme" . " " . g:my_colorscheme
     catch /^Vim\%((\a\+)\)\=:E185/

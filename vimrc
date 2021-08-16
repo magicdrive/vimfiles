@@ -966,8 +966,7 @@ let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
 
-"# let g:airline_theme=has('gui_running') ? 'gruvbox' : 'iceberg'
-let g:airline_theme=has('gui_running') ? 'iceberg' : 'iceberg'
+let g:airline_theme=has('gui_running') ? 'gruvbox' : 'iceberg'
 
 let g:airline#extensions#disable_rtp_load = 1
 let g:airline_extensions = []
@@ -1365,8 +1364,7 @@ set termguicolors
 "# Colorscheme
 syntax enable
 
-"# let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'iceberg'
-let g:my_colorscheme= has('gui_running') ?  'abyss' : 'abyss'
+let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'iceberg'
 
 set background=dark
 
