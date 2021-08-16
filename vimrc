@@ -878,8 +878,12 @@ Plug 'slim-template/vim-slim', {'for':'slim'}
 "#-----------------------#
 "# yanktmp
 Plug 'vim-scripts/yanktmp.vim'
-
+"# vim-markdown
 Plug 'plasticboy/vim-markdown'
+
+"#-----------------------#
+"# colorscheme           #
+"#-----------------------#
 "# jellybeans
 Plug 'magicdrive/jellybeans.vim'
 "# molokai
@@ -892,6 +896,8 @@ Plug 'vim-scripts/pyte'
 Plug 'cocopon/iceberg.vim'
 "# gruvbox
 Plug 'morhetz/gruvbox'
+"# foo: hyper, abyss, hacker, phano
+Plug 'victorze/foo'
 
 
 
@@ -960,7 +966,8 @@ let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
 
-let g:airline_theme=has('gui_running') ? 'gruvbox' : 'iceberg'
+"# let g:airline_theme=has('gui_running') ? 'gruvbox' : 'iceberg'
+let g:airline_theme=has('gui_running') ? 'iceberg' : 'iceberg'
 
 let g:airline#extensions#disable_rtp_load = 1
 let g:airline_extensions = []
@@ -1353,11 +1360,13 @@ let html_wrong_comments=1
 "[ ####------- Colorscheme Settings ------------#### ] "{{{
 "# xterm-256color
 set t_Co=256
+set termguicolors
 
 "# Colorscheme
 syntax enable
 
-let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'iceberg'
+"# let g:my_colorscheme= has('gui_running') ?  'gruvbox' : 'iceberg'
+let g:my_colorscheme= has('gui_running') ?  'abyss' : 'abyss'
 
 set background=dark
 
