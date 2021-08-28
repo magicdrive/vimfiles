@@ -1253,6 +1253,7 @@ endfunction
 
 function GoImportsOverlay()
     :GoImports
+    :GoFmt
     call GolangFTP()
     echo ":GoImports"
 endfunction
