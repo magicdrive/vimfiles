@@ -715,7 +715,7 @@ Plug 'gisphm/vim-gitignore'
 "# golang                           #
 "#----------------------------------#
 Plug 'vim-jp/vim-go-extra'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'ekalinin/Dockerfile.vim'
 
 
@@ -756,6 +756,7 @@ Plug 'cohama/the-ocamlspot.vim'
 "#-----------------------#
 "# rust
 Plug 'rust-lang/rust.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-rls coc-json coc-tsserver'}
 
 "#-----------------------#
 "# jvm                   #
