@@ -646,11 +646,16 @@ endfunction
 "[ ####------- Plug Settings -------------------#### ] {{{
 filetype off
 
-let g:neobundle_default_git_protocol = 'https'
-call plug#begin(expand('~/.vim/bundle'))
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-endif
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/bundle')
+
+"#---------------------------#
+"# vim script                #
+"#---------------------------#
+"# syntax-vim-ex
+Plug 'vim-jp/syntax-vim-ex'
 
 "#---------------------------#
 "# regular use               #
@@ -910,7 +915,7 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.3' }
-Plug 'mattn/vim-lsp-settings', { 'do': ':LspInstallServer'}
+Plug 'mattn/vim-lsp-settings', { 'do': ':LspInstallServer efm-langserver'}
 Plug 'mattn/vim-lsp-icons'
 
 Plug 'hrsh7th/vim-vsnip'

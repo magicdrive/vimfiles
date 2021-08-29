@@ -1,5 +1,7 @@
 vim/autoload/plug.vim.old
 vim/bundle
+vim/pack/my/opt/*
+!vim/pack/my/opt/.keep
 vim/memo
 vim/eclim/
 vim/chalice/
