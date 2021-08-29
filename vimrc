@@ -910,7 +910,7 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.3' }
-Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-lsp-settings', { 'do': ':LspInstallServer'}
 Plug 'mattn/vim-lsp-icons'
 
 Plug 'hrsh7th/vim-vsnip'
