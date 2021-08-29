@@ -23,12 +23,21 @@
                 }
             }
         },
-        "languageserver": {
-            "efm": {
-                "command": "efm-langserver",
-                "args": [],
-                "filetypes": ["vim", "eruby", "markdown"]
-            }
+        "efm": {
+            "command": "efm-langserver",
+            "args": [],
+            "filetypes": ["vim", "eruby", "markdown", "yaml"]
+        },
+        "sorbet": {
+            "command": "sorbet",
+            "args": ["--lsp", "--enable-lsp-all", "--silence-dev-message", "."],
+            "rootPatterns": [
+                "WORKSPACE",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "filetypes": ["ruby"]
         }
     },
     "python.jediEnabled": false
