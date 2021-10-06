@@ -1,4 +1,5 @@
 #! /usr/bin/env rackup
+# frozen_string_literal: true
 
 class RackApp
   def call env

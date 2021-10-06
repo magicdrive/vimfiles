@@ -1213,7 +1213,7 @@ augroup END
 "### Rust support {{{
 augroup rust_ftplugin
     autocmd!
-    autocmd FileType rust nnoremap <silent> <buffer> <C-\> :RustFmt<CR>
+    autocmd FileType rust nnoremap <silent> <buffer> <C-\> :RustFmt<CR>:e!<CR>
     autocmd FileType rust compiler rustc
 augroup END
 "}}}
