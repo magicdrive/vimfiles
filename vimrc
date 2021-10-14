@@ -762,6 +762,7 @@ Plug 'cohama/the-ocamlspot.vim'
 "# rust
 Plug 'rust-lang/rust.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-rls coc-json coc-tsserver'}
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 
 "#-----------------------#
 "# jvm                   #
@@ -1462,7 +1463,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile,BufWritePost *.ts set filetype=typescript
     " rust
     autocmd BufRead,BufNewFile,BufWritePost *.rs set filetype=rust
-    autocmd BufRead,BufNewFile,BufWritePost *.toml set filetype=dosini
+    autocmd BufRead,BufNewFile,BufWritePost *.toml set filetype=toml
     " html genus
     autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
     autocmd BufRead,BufNewFile,BufWritePost *.vue set filetype=javascript.html
