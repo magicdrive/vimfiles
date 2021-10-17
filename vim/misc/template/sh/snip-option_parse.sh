@@ -32,3 +32,7 @@ while getopts "$optspec" optchar; do
             ;;
     esac
 done
+
+shift $((OPTIND - 1))
+
+TERMINUS=$@
