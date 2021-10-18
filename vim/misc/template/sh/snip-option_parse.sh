@@ -13,9 +13,8 @@ while getopts "$optspec" optchar; do
                     echo "Parsing option: '--${opt}', value: '${val}'" >&2
                     ;;
                 *)
-                    if [ "$OPTERR" = 1 ] && [ "${optspec:0:1}" != ":" ]; then
-                        echo "Unknown option --${OPTARG}" >&2
-                    fi
+                    echo "Unknown option --${OPTARG}" >&2
+                    exit 1
                     ;;
             esac;;
         h)
@@ -28,6 +27,7 @@ while getopts "$optspec" optchar; do
         *)
             if [ "$OPTERR" != 1 ] || [ "${optspec:0:1}" = ":" ]; then
                 echo "Non-option argument: '-${OPTARG}'" >&2
+                exit 1
             fi
             ;;
     esac
@@ -36,3 +36,4 @@ done
 shift $((OPTIND - 1))
 
 TERMINUS=$@
+
