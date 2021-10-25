@@ -720,7 +720,7 @@ Plug 'gisphm/vim-gitignore'
 "# golang                           #
 "#----------------------------------#
 Plug 'vim-jp/vim-go-extra'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', {  'tag': 'v1.25', 'do': ':GoInstallBinaries' }
 Plug 'ekalinin/Dockerfile.vim'
 
 
@@ -915,7 +915,7 @@ Plug 'victorze/foo'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.3' }
+Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
 Plug 'mattn/vim-lsp-settings', { 'do': ':LspInstallServer efm-langserver'}
 Plug 'mattn/vim-lsp-icons'
 
