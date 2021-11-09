@@ -1251,7 +1251,9 @@ let g:go_highlight_generate_tags = 1
 "let g:go_highlight_variable_declarations = 1
 
 function! g:GolangFTP()
-    syn match goErr "err[0-9]*"
+    syn match goErr "err[^a-z\)\]]"
+    highlight goErr cterm=bold ctermfg=214
+    syn match goErr "err[0-9]\{1,}"
     highlight goErr cterm=bold ctermfg=214
     syntax match goKey /\w\{1,}:/
     highlight goKey cterm=bold ctermfg=105
