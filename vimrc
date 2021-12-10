@@ -90,10 +90,10 @@ nnoremap <Plug>(mykey)/ :<C-u>set filetype=
 filetype indent on
 filetype plugin on
 
-nnoremap <Plug>(mykey); :<C-u>!
-nnoremap <Plug>(mykey): :<C-u>r!
-vnoremap <Plug>(mykey); :!
-vnoremap <Plug>(mykeylite): :r!
+"nnoremap <Plug>(mykey); :<C-u>!
+"nnoremap <Plug>(mykey): :<C-u>r!
+"vnoremap <Plug>(mykey); :!
+"vnoremap <Plug>(mykeylite): :r!
 
 "# <ESC>のマッピング
 noremap  <silent> <C-@> <ESC>
@@ -199,7 +199,7 @@ function! s:get_visual_selected()
 endfunction
 
 "# vimrcの編集
-nnoremap <Plug>(mykey). :VimrcEdit<CR>
+"nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
 "}}}
 "### encoding & fileencoding "{{{
@@ -1051,7 +1051,7 @@ augroup END
 
 "# NERDTreeToggle wrapper
 nnoremap <silent> <Plug>(mykey)n :call <SID>MY_NERDTreeToggle()<CR>
-nnoremap <silent> <Plug>(mykey)i :call <SID>MY_NERDTreeRefresh()<CR>
+"nnoremap <silent> <Plug>(mykey)i :call <SID>MY_NERDTreeRefresh()<CR>
 let g:my_nerdtree_status=0
 
 function! s:MY_NERDTreeRefresh()
@@ -1132,6 +1132,12 @@ augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 " then restart lsp server
 command! -nargs=0 L :execute 'LspStopServer'
+
+
+noremap <silent> <Plug>(mykey)l :LspDefinition<CR>
+noremap <silent> <Plug>(mykey)p :LspHover<CR>
+noremap <silent> <Plug>(mykey)m :LspReferences<CR>
+noremap <silent> <Plug>(mykey)i :LspImplementation<CR>
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
