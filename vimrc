@@ -880,6 +880,14 @@ Plug 'tpope/vim-haml', {'for':'haml'}
 "# slim
 Plug 'slim-template/vim-slim', {'for':'slim'}
 
+
+"#-----------------------#
+"# mcfunction            #
+"#-----------------------#
+"# vim-mcfunction
+Plug 'rubixninja314/vim-mcfunction'
+
+
 "#-----------------------#
 "# util-tool             #
 "#-----------------------#
