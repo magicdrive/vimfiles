@@ -4,7 +4,7 @@
 "# \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/
 "#  \ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
 "#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
-"#                for vim8.2
+"#                for vim9.0
 "[ ####------- Vim Basic Settings --------------#### ] {{{
 "### Vim Options "{{{
 
@@ -650,6 +650,14 @@ filetype off
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/bundle')
+
+"#---------------------------#
+"# github copilot            #
+"#---------------------------#
+"# copilot.vim
+if v:version > 900 || v:version == 900 && has('patch185')
+    Plug 'github/copilot.vim'
+endif
 
 "#---------------------------#
 "# vim script                #
