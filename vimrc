@@ -728,7 +728,7 @@ Plug 'gisphm/vim-gitignore'
 "# golang                           #
 "#----------------------------------#
 Plug 'vim-jp/vim-go-extra'
-Plug 'fatih/vim-go', {  'tag': 'v1.25', 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', {  'tag': 'v1.28', 'do': ':GoInstallBinaries' }
 Plug 'ekalinin/Dockerfile.vim'
 
 
