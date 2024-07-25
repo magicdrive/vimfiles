@@ -1400,7 +1400,7 @@ set termguicolors
 "# Colorscheme
 syntax enable
 
-let g:my_colorscheme= has('gui_running') ?  'iceberg' : 'iceberg'
+let g:my_colorscheme= has('gui_running') ?  'iceberg' : 'jellybeans'
 
 set background=dark
 
