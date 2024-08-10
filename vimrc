@@ -20,7 +20,11 @@ if v:version > 704 || v:version == 704 && has('patch785')
 endif
 
 if v:version > 802 || v:version == 802 && has('patch205')
-    command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
+    command! PopTerminal call popup_create(
+                \ term_start([&shell], #{ hidden: 1, term_finish: 'close'}),
+                \ #{ border: [], minwidth: float2nr(winwidth(0)*0.90), minheight: &lines/2 }
+                \ )
+    command! Terminal :terminal ++curwin
 endif
 
 "# timeout
