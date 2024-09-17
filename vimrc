@@ -1281,6 +1281,12 @@ function! g:GolangFTP()
     highlight goErr cterm=bold ctermfg=214
     syn match goErrors "errors"
     highlight goErrors cterm=bold ctermfg=168
+    syn match goErrors "commonerrors"
+    highlight goErrors cterm=bold ctermfg=168
+    syn match goErrors "common_errors"
+    highlight goErrors cterm=bold ctermfg=168
+    syn match goErrors "cerrors"
+    highlight goErrors cterm=bold ctermfg=168
     syn match goErrN "err[0-9]\{1,}"
     highlight goErrN cterm=bold ctermfg=220
     syntax match goKey /\w\{1,}:/
