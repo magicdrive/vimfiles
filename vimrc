@@ -64,7 +64,8 @@ set wrap
 set scrolljump=15
 
 "# tabを表示
-set listchars=eol:$,tab:>\
+set list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+
 
 
 "# backspaceキーの動作
