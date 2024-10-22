@@ -63,10 +63,6 @@ set wrap
 "# scroll時の最小行数値
 set scrolljump=15
 
-"# tabを表示
-set list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-
-
 
 "# backspaceキーの動作
 noremap  <C-?> <C-h>
@@ -141,9 +137,6 @@ if has('unix') && !has('gui_running')
     inoremap <silent> <C-[> <ESC>
 endif
 
-"# line number
-set number
-
 "# 括弧入力時に対応する括弧を表示
 set showmatch
 
@@ -203,8 +196,6 @@ function! s:get_visual_selected()
     return selected
 endfunction
 
-"# vimrcの編集
-"nnoremap <Plug>(mykey). :VimrcEdit<CR>
 
 "}}}
 "### encoding & fileencoding "{{{
@@ -257,7 +248,47 @@ let vimrc_set_encoding = 1
 " 改行コードの自動認識
 set fileformats=unix,mac,dos
 "}}}
+"### ListChar "{{{
+
+"# tabを表示
+set list listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set nolist
+
+"# ListCharのトグル
+nnoremap <silent> <Plug>(mykey)f :<C-u>call <SID>ToggleListChar()<CR>
+command! -nargs=0 ListCharToggle :call <SID>PasteNumber()
+
+function! s:ToggleListChar()
+    if &list ==# '1'
+        echohl Error | echo "disable listchars" | echohl None
+    else
+        echohl DiffChange | echo "enable listchars" | echohl None
+    endif
+    set list!
+endfunction
+
+"}}}
+"### PasteMode "{{{
+
+set nopaste
+
+"# Pasteのトグル
+nnoremap <silent> <Plug>(mykey)j :<C-u>call <SID>TogglePaste()<CR>
+command! -nargs=0 PasteToggle :call <SID>TogglePaste()
+
+function! s:TogglePaste()
+    if &paste ==# '1'
+        echohl Error | echo "disable paste" | echohl None
+    else
+        echohl DiffChange | echo "enable paste" | echohl None
+    endif
+    set paste!
+endfunction
+
+"}}}
 "### LineNumber "{{{
+
+set number
 
 "# LineNumberのトグル
 nnoremap <silent> <Plug>(mykeylite)n :<C-u>call <SID>ToggleNumber()<CR>
