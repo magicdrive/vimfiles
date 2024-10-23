@@ -1193,7 +1193,7 @@ noremap <silent> <Plug>(mykey)i :LspImplementation<CR>
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
-let g:asyncomplete_auto_popup = 0
+let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_auto_completeopt = 0
 let g:asyncomplete_popup_delay = 2000
 let g:lsp_text_edit_enabled = 0
@@ -1328,6 +1328,10 @@ function! g:GolangFTP()
     syn match goErrN "[a-zA-Z0-9]*Err[0-9]\{1,}"
     highlight goErrN cterm=bold ctermfg=220
     syn match goErrN "[a-zA-Z0-9]*Error[0-9]\{1,}"
+    highlight goErrN cterm=bold ctermfg=220
+    syn match goErrMessage "errorMessage[s]?"
+    highlight goErrN cterm=bold ctermfg=220
+    syn match goErrMessage "ErrorMessage[s]?"
     highlight goErrN cterm=bold ctermfg=220
     syntax match goKey /\w\{1,}:/
     highlight goKey cterm=bold ctermfg=105
