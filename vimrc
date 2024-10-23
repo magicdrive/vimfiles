@@ -1305,13 +1305,15 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_variable_declarations = 1
+"#let g:go_highlight_variable_assignments = 1
+"#let g:go_highlight_variable_declarations = 1
 
 function! g:GolangFTP()
     syn match goErr "err"
     syn match goErr "[a-zA-Z0-9]*Err"
     syn match goErr "[a-zA-Z0-9]*Error"
+    syn match goErr "Error[a-zA-Z0-9]*"
+    syn match goErr "Err[a-zA-Z0-9]*"
     syn match goErr "Errorf"
     highlight goErr cterm=bold ctermfg=214
     syn match goErrors "errors"
@@ -1345,7 +1347,8 @@ endfunction
 augroup go_ftplugin
     autocmd!
     autocmd FileType go nnoremap <silent> <buffer> <C-\> :call GoImportsOverlay()<CR>
-    autocmd BufAdd,BufNewFile,BufRead,BufWritePost,BufEnter,BufLeave *.go call GolangFTP()
+    autocmd BufAdd,BufNewFile,BufRead,BufWritePost,BufEnter,BufLeave *.go :call GolangFTP()
+    autocmd BufWritePost *.go :GoModReload
     autocmd FileType go compiler go
 augroup END
 "}}}
