@@ -1305,34 +1305,30 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
-"let g:go_highlight_variable_assignments = 1
-"let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_variable_declarations = 1
 
 function! g:GolangFTP()
     syn match goErr "err"
-    highlight goErr cterm=bold ctermfg=214
     syn match goErr "[a-zA-Z0-9]*Err"
-    highlight goErr cterm=bold ctermfg=214
     syn match goErr "[a-zA-Z0-9]*Error"
+    syn match goErr "Errorf"
     highlight goErr cterm=bold ctermfg=214
     syn match goErrors "errors"
-    highlight goErrors cterm=bold ctermfg=168
-    syn match goErrors "commonerrors"
-    highlight goErrors cterm=bold ctermfg=168
-    syn match goErrors "common_errors"
-    highlight goErrors cterm=bold ctermfg=168
-    syn match goErrors "cerrors"
+    syn match goErrors "commonerror[s]\{0,1}"
+    syn match goErrors "commonError[s]\{0,1}"
+    syn match goErrors "CommonError[s]\{0,1}"
+    syn match goErrors "common_error[s]\{0,1}"
+    syn match goErrors "cerror[s]\{0,1}"
     highlight goErrors cterm=bold ctermfg=168
     syn match goErrN "err[0-9]\{1,}"
-    highlight goErrN cterm=bold ctermfg=220
     syn match goErrN "[a-zA-Z0-9]*Err[0-9]\{1,}"
-    highlight goErrN cterm=bold ctermfg=220
     syn match goErrN "[a-zA-Z0-9]*Error[0-9]\{1,}"
     highlight goErrN cterm=bold ctermfg=220
-    syn match goErrMessage "errorMessage[s]?"
-    highlight goErrN cterm=bold ctermfg=220
-    syn match goErrMessage "ErrorMessage[s]?"
-    highlight goErrN cterm=bold ctermfg=220
+    syn match goErrMessage "errorMessage[s]\{0,1}"
+    syn match goErrMessage "ErrorMessage[s]\{0,1}"
+    syn match goErrMessage "error_message[s]\{0,1}"
+    highlight goErrMessage cterm=bold ctermfg=208
     syntax match goKey /\w\{1,}:/
     highlight goKey cterm=bold ctermfg=105
 
