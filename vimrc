@@ -1310,6 +1310,7 @@ let g:go_highlight_generate_tags = 1
 
 function! g:GolangFTP()
     syn match goErr "err"
+    syn match goErr "errno"
     syn match goErr "[a-zA-Z0-9]*Err"
     syn match goErr "[a-zA-Z0-9]*Error"
     syn match goErr "Error[a-zA-Z0-9]*"
