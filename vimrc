@@ -1005,6 +1005,7 @@ let g:memolist_vimfiler_option=""
 "### yannktmp.vim "{{{
 map <silent> <Plug>(mykey)y :call YanktmpYank()<CR>
 map <silent> <Plug>(mykey)p :call YanktmpPaste_p()<CR>
+map <silent> <Plug>(mykey)P :call YanktmpPaste_P()<CR>
 "}}}
 "### Align.vim {{{
 let g:Align_xstrlen=3
@@ -1187,7 +1188,7 @@ command! -nargs=0 L :execute 'LspStopServer'
 
 
 noremap <silent> <Plug>(mykey)l :LspDefinition<CR>
-noremap <silent> <Plug>(mykey)p :LspHover<CR>
+noremap <silent> <Plug>(mykey)h :LspHover<CR>
 noremap <silent> <Plug>(mykey)m :LspReferences<CR>
 noremap <silent> <Plug>(mykey)i :LspImplementation<CR>
 
