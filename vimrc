@@ -1339,6 +1339,11 @@ function! g:GolangFTP()
     set sw=4 noexpandtab ts=4
 endfunction
 
+if executable('goreg')
+	let g:go_fmt_experimental = 1
+	let g:go_fmt_command = "goreg"
+endif
+
 function GoImportsOverlay()
     :GoImports
     :GoFmt
