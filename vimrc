@@ -1310,32 +1310,6 @@ let g:go_highlight_generate_tags = 1
 "#let g:go_highlight_variable_declarations = 1
 
 function! g:GolangFTP()
-    syn match goErr "err"
-    syn match goErr "errno"
-    syn match goErr "[a-zA-Z0-9]*Err"
-    syn match goErr "[a-zA-Z0-9]*Error"
-    syn match goErr "Error[a-zA-Z0-9]*"
-    syn match goErr "Err[a-zA-Z0-9]*"
-    syn match goErr "Errorf"
-    highlight goErr cterm=bold ctermfg=214
-    syn match goErrors "errors"
-    syn match goErrors "commonerror[s]\{0,1}"
-    syn match goErrors "commonError[s]\{0,1}"
-    syn match goErrors "CommonError[s]\{0,1}"
-    syn match goErrors "common_error[s]\{0,1}"
-    syn match goErrors "cerror[s]\{0,1}"
-    highlight goErrors cterm=bold ctermfg=168
-    syn match goErrN "err[0-9]\{1,}"
-    syn match goErrN "[a-zA-Z0-9]*Err[0-9]\{1,}"
-    syn match goErrN "[a-zA-Z0-9]*Error[0-9]\{1,}"
-    highlight goErrN cterm=bold ctermfg=220
-    syn match goErrMessage "errorMessage[s]\{0,1}"
-    syn match goErrMessage "ErrorMessage[s]\{0,1}"
-    syn match goErrMessage "error_message[s]\{0,1}"
-    highlight goErrMessage cterm=bold ctermfg=208
-    syntax match goKey /\w\{1,}:/
-    highlight goKey cterm=bold ctermfg=105
-
     set sw=4 noexpandtab ts=4
 endfunction
 
