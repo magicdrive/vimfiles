@@ -1587,6 +1587,8 @@ augroup detect_filetype
     autocmd BufNewFile,BufRead,BufWritePost my.cnf set syntax=dosini
     " markdown
     autocmd BufNewFile,BufRead,BufWritePost *.md set syntax=markdown
+    " enmaignore
+    autocmd BufNewFile,BufRead,BufWritePost *.enmaignore set syntax=gitignore
 augroup END
 "}}}
 "[ ####------- Read Local Settings -------------#### ] {{{
