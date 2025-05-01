@@ -1528,6 +1528,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile,BufWritePost *.toml set filetype=toml
     " html genus
     autocmd BufRead,BufNewFile,BufWritePost *.html.template set filetype=html
+    autocmd BufRead,BufNewFile,BufWritePost *.html.hbs set filetype=html.handlebars
     autocmd BufRead,BufNewFile,BufWritePost *.vue set filetype=javascript.html
     " perl genus
     autocmd BufNewFile,BufRead,BufWritePost *.tt,*.cfm set filetype=html
