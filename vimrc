@@ -826,10 +826,8 @@ Plug 'vim-scripts/pig.vim'
 "#-----------------------#
 "# javascript-syntax
 Plug 'jelera/vim-javascript-syntax'
-"# vim-coffee-script
-Plug 'kchmck/vim-coffee-script',{
-            \ 'for' : 'coffee'
-            \ }
+"# ale
+Plug 'dense-analysis/ale'
 "# vim-typescript
 Plug 'leafgarland/typescript-vim',{
             \ 'for' : 'typescript'
@@ -1381,6 +1379,12 @@ augroup scala_setting
 augroup END
 "}}}
 "### JavaScript support {{{
+
+" Enable ESLint only for JavaScript.
+let b:ale_linters = ['eslint']
+" Equivalent to the above.
+let b:ale_linters = {'javascript': ['eslint']}
+
 augroup javascript_plugin
     autocmd!
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
