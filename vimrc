@@ -1378,23 +1378,23 @@ augroup scala_setting
     autocmd FileType scala call <SID>set_compiler_sbt()
 augroup END
 "}}}
-"### JavaScript support {{{
+"### JavaScript & TypeScript support {{{
 
-" Enable ESLint only for JavaScript.
-let b:ale_linters = ['eslint']
-" Equivalent to the above.
-let b:ale_linters = {'javascript': ['eslint']}
+let b:ale_linters = {'javascript': ['biome', 'eslint'], 'typescript': ['biome', 'eslint']}
+let g:ale_fix_on_save = 1
 
+augroup typescript_plugin
+    autocmd!
+    autocmd BufWritePost typescript :make
+    autocmd FileType typescript setlocal omnifunc+=nodejscomplete#CompleteJS
+    autocmd FileType typescript setlocal autoindent
+    autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
+augroup END
 augroup javascript_plugin
     autocmd!
     autocmd FileType javascript setlocal omnifunc+=nodejscomplete#CompleteJS
     autocmd FileType javascript setlocal autoindent
-augroup END
-"}}}
-"### TypeScript support {{{
-augroup typescript_ftplugin
-    autocmd!
-    autocmd BufWritePost typescript :make
+    autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
 augroup END
 "}}}
 "### YAML file {{{
