@@ -10,6 +10,8 @@ vim/doc/tags-ja
 vim/view
 vim/README.md
 
+vim-installer/vim*
+
 ### vim ###
 .*.s[a-w][a-z]
 *.un~
