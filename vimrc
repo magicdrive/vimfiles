@@ -71,10 +71,10 @@ inoremap <C-h> <BS>
 inoremap <C-d> <DEL>
 
 " insert mode cursor
-inoremap <Up>    <Up>
-inoremap <Down>  <Down>
-inoremap <Left>  <Left>
-inoremap <Right> <Right>
+imap OA <Up>
+imap OB <Down>
+imap OC <Right>
+imap OD <Left>
 
 "# 高速ターミナル接続
 set ttyfast
