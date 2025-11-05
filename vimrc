@@ -389,7 +389,7 @@ set smartcase
 set hlsearch
 
 "# 検索ハイライト消去
-nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <expr> <Esc> v:hlsearch ? ":nohlsearch\<CR>\<Esc>" : "\<Esc>"
 
 "# 検索時にインクリメンタルサーチを行う
 set incsearch
