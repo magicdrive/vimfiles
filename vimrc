@@ -310,7 +310,9 @@ if has('mouse')
     "# マウスモードの有効
     set mouse=
     "# terminalmutiprexa内でもマウスモード設定を反映
-    set ttymouse=xterm2
+    if !has('nvim')
+        set ttymouse=xterm2
+    endif
     "# toggle mouse mode
     nnoremap <silent> <Plug>(mykeylite)m :<C-u>call <SID>ToggleMouseMode()<CR>
     command! -nargs=0 MouseToggle :call <SID>ToggleMouseMode()
