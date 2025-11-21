@@ -34,6 +34,9 @@ for x in ${files[@]}; do
   ln -sfn ${current}/${x} ${HOME}/.${x}
 done;
 
+mkdir -p ${HOME}/.config/nvim/
+ln -sfn "${current}/init.vim" "${HOME}/.config/nvim/"
+
 
 cp -a "${current}/bin/tovim" ~/local/bin/
 
