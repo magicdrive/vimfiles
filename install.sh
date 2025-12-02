@@ -21,7 +21,8 @@ if [ ! -e ${current}/vim/memo ];then
   fi
 fi
 mkdir -p ${current}/vim/bundle/
-mkdir -p  ~/.vimundo
+mkdir -p ~/.vimundo
+mkdir -p ~/.local/state/nvim/undo
 
 
 mkdir -p ${HOME}/.vim-backup && chmod 766 ${HOME}/.vim-backup

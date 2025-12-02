@@ -362,8 +362,15 @@ else
 endif
 "# undo
 if has('persistent_undo')
-    set undodir=~/.vimundo
-    set undofile
+    if has('nvim')
+      " Neovim
+      set undofile
+      set undodir=~/.local/state/nvim/undo
+    else
+      " Vim
+      set undofile
+      set undodir=~/.vimundo
+    endif
 endif
 
 "}}}
