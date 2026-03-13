@@ -9,12 +9,60 @@
 
 "[ ####------- Globals -------------------------#### ]{{{
 set ambiwidth=double
+
+" fold を marker ベースで使うなら有効化
+" set foldmethod=marker
+" set foldlevelstart=20
+
 let g:save_window_file = expand('$HOME/.vimwinpos')
 let g:window_restored = 0
 let g:window_restore_in_progress = 0
 "}}}
 "[ ####------- Window Restore / Save -----------#### ]{{{
-function! s:restore_window() abort
+function! s:read_window_state() abort
+    let l:state = {
+                \ 'columns': '',
+                \ 'rows': '',
+                \ 'posx': '',
+                \ 'posy': '',
+                \ }
+
+    if !filereadable(g:save_window_file)
+        return l:state
+    endif
+
+    for l:line in readfile(g:save_window_file)
+        if l:line =~# '^set columns='
+            let l:state.columns = matchstr(l:line, '\d\+')
+        elseif l:line =~# '^set lines='
+            let l:state.rows = matchstr(l:line, '\d\+')
+        elseif l:line =~# '^winpos '
+            let l:m = matchlist(l:line, '^winpos\s\+\(\d\+\)\s\+\(\d\+\)$')
+            if len(l:m) >= 3
+                let l:state.posx = l:m[1]
+                let l:state.posy = l:m[2]
+            endif
+        endif
+    endfor
+
+    return l:state
+endfunction
+
+function! s:restore_window_position() abort
+    if !has('gui_running')
+        return
+    endif
+
+    let l:state = <SID>read_window_state()
+
+    if l:state.posx !=# '' && l:state.posy !=# ''
+        if str2nr(l:state.posx) >= 0 && str2nr(l:state.posy) >= 0
+            execute 'winpos ' . l:state.posx . ' ' . l:state.posy
+        endif
+    endif
+endfunction
+
+function! s:restore_window_size() abort
     if !has('gui_running')
         let g:window_restored = 1
         return
@@ -27,41 +75,18 @@ function! s:restore_window() abort
 
     let g:window_restore_in_progress = 1
 
-    let l:lines = readfile(g:save_window_file)
+    let l:state = <SID>read_window_state()
 
-    let l:columns = ''
-    let l:rows    = ''
-    let l:posx    = ''
-    let l:posy    = ''
-
-    for l:line in l:lines
-        if l:line =~# '^set columns='
-            let l:columns = matchstr(l:line, '\d\+')
-        elseif l:line =~# '^set lines='
-            let l:rows = matchstr(l:line, '\d\+')
-        elseif l:line =~# '^winpos '
-            let l:m = matchlist(l:line, '^winpos\s\+\(\d\+\)\s\+\(\d\+\)$')
-            if len(l:m) >= 3
-                let l:posx = l:m[1]
-                let l:posy = l:m[2]
-            endif
-        endif
-    endfor
-
-    if l:posx !=# '' && l:posy !=# ''
-        execute 'winpos ' . l:posx . ' ' . l:posy
+    if l:state.columns !=# '' && str2nr(l:state.columns) >= 80
+        execute 'set columns=' . l:state.columns
     endif
 
-    if l:columns !=# '' && str2nr(l:columns) >= 80
-        execute 'set columns=' . l:columns
+    if l:state.rows !=# '' && str2nr(l:state.rows) >= 20
+        execute 'set lines=' . l:state.rows
     endif
 
-    if l:rows !=# '' && str2nr(l:rows) >= 20
-        execute 'set lines=' . l:rows
-    endif
-
-    if l:columns !=# '' && str2nr(l:columns) >= 80
-        let g:NERDTreeWinSize = max([20, str2nr(l:columns) / 5])
+    if l:state.columns !=# '' && str2nr(l:state.columns) >= 80
+        let g:NERDTreeWinSize = max([20, str2nr(l:state.columns) / 5])
     endif
 
     let g:window_restore_in_progress = 0
@@ -86,6 +111,7 @@ function! s:save_window() abort
     let l:posx    = getwinposx()
     let l:posy    = getwinposy()
 
+    " 起動途中や異常値は保存しない
     if l:columns < 80 || l:rows < 20
         return
     endif
@@ -106,30 +132,33 @@ endfunction
 function! s:setup_window_supervise() abort
     augroup SaveWindow
         autocmd!
-        " 安定性優先: 終了時だけ保存
+        " 安定性優先: 終了時のみ保存
         autocmd VimLeavePre * call <SID>save_window()
-        autocmd OptionSet guifont call <SID>save_window()
     augroup END
 endfunction
 "}}}
 "[ ####------- GUI Common Settings -------------#### ]{{{
 function! MyGUISetting() abort
     if has('vim_starting')
+        " インサートモード以外では IME off 寄り
         set iminsert=0
     endif
 
     set number
     set nowrap
 
+    " yank と clipboard を同期
     if has('clipboard')
         set clipboard+=unnamed
     endif
 
+    " menu / scrollbar
     set guioptions-=t
     set guioptions-=r
     set guioptions-=l
     set guioptions-=b
 
+    " fullscreen option
     set fuoptions=maxvert,maxhorz
 
     augroup FocusTransparency
@@ -174,8 +203,11 @@ function! MyGUISettingLazy() abort
 
     call <SID>setup_window_supervise()
 
-    " 安定性優先で少し遅らせて復元
-    call timer_start(75, { -> <SID>restore_window() })
+    " 位置はすぐ戻す
+    call <SID>restore_window_position()
+
+    " サイズは少し待って戻す
+    call timer_start(75, { -> <SID>restore_window_size() })
 endfunction
 "}}}
 "[ ####------- Startup Hooks -------------------#### ]{{{
