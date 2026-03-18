@@ -814,7 +814,10 @@ Plug 'cohama/the-ocamlspot.vim'
 "#-----------------------#
 "# rust
 Plug 'rust-lang/rust.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-rls coc-json coc-tsserver'}
+
+if !has('nvim')
+    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-rls coc-json coc-tsserver'}
+endif
 Plug 'cespare/vim-toml', { 'branch': 'main' }
 
 "#-----------------------#
