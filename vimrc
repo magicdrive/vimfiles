@@ -1291,10 +1291,25 @@ augroup END
 "}}}
 "### Golang support {{{
 
-let g:gocode_path="$HOME/.gopath/src/github.com/nsf/gocode/vim"
-if filereadable(expand(g:gocode_path))
-    execute "set rtp^=".g:gocode_path
-endif
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_document_code_action_enabled = 1
+let g:lsp_document_formatting_enabled = 1
+let g:lsp_preview_keep_focus = 1
+
+augroup go_lsp_actions
+  autocmd!
+  autocmd FileType go setlocal signcolumn=yes
+  autocmd FileType go setlocal completeopt=menuone,noinsert,noselect
+  autocmd FileType go nnoremap <buffer> gd <plug>(lsp-definition)
+  autocmd FileType go nnoremap <buffer> gr <plug>(lsp-references)
+  autocmd FileType go nnoremap <buffer> K  <plug>(lsp-hover)
+  autocmd FileType go nnoremap <buffer> <leader>rn <plug>(lsp-rename)
+  autocmd FileType go nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
+augroup END
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 set path+=$GOPATH/src/**
 
