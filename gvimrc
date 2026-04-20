@@ -187,7 +187,7 @@ function! MyGUIMacVimSetting() abort
     set imdisable
     set antialias
     set nobackup
-    set guifont=SourceCodePro\ Nerd\ Font\ Mono:h16
+    set guifont=SauceCodeProNF:h16
 endfunction
 "}}}
 "[ ####------- Lazy GUI Setup ------------------#### ]{{{
