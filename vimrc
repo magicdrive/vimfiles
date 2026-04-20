@@ -4,7 +4,7 @@
 "# \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/
 "#  \ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
 "#   \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
-"#       for vim9.1 nvim0.11 / MacVim
+"#       for vim9.2 nvim0.12 / MacVim / Neovide
 "[ ####------- Vim Basic Settings --------------#### ] {{{
 "### Vim Options "{{{
 
@@ -1028,13 +1028,13 @@ if !exists('g:airline_symbols')
 endif
 
 " old vim-powerline symbols
-let g:airline_left_sep = '⮀'
+let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 let g:airline_theme=has('gui_running') ? 'iceberg' : 'iceberg'
 

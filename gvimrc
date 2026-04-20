@@ -5,7 +5,7 @@
 "#   \ \ \/, \ \ \_/ |\ \ \/\ \/\ \/\ \ \ \//\ \__/
 "#    \ \____/\ \___/  \ \_\ \_\ \_\ \_\ \_\\ \____\
 "#     \/___/  \/__/    \/_/\/_/\/_/\/_/\/_/ \/____/
-"#              for vim9.1 nvim0.11 / MacVim
+"#       for vim9.2 nvim0.12 / MacVim / Neovide
 
 "[ ####------- Globals -------------------------#### ]{{{
 set ambiwidth=double
@@ -187,7 +187,7 @@ function! MyGUIMacVimSetting() abort
     set imdisable
     set antialias
     set nobackup
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h16
+"    set guifont=SourceCodePro\ Nerd\ Font\ Mono:h16
 endfunction
 "}}}
 "[ ####------- Lazy GUI Setup ------------------#### ]{{{
