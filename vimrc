@@ -1305,11 +1305,11 @@ augroup go_lsp_actions
   autocmd FileType go nnoremap <buffer> K  <plug>(lsp-hover)
   autocmd FileType go nnoremap <buffer> <leader>rn <plug>(lsp-rename)
   autocmd FileType go nnoremap <buffer> <leader>ca <plug>(lsp-code-action)
+  autocmd FileType go inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  autocmd FileType go inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  autocmd FileType go inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 augroup END
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 set path+=$GOPATH/src/**
 
